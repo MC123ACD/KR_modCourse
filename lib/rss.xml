@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[王国保卫战修改教程]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>王国保卫战修改教程</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Mon, 23 Jun 2025 08:18:07 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Mon, 23 Jun 2025 08:18:00 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[1.1 模板]]></title><description><![CDATA[ 
+ <br>all/entity_db（以下简称 E） 返回的表内的 components 以及 entities 表内的表，称为模板<br>E 的基本内容：<br>E = {
+	components = {}
+	entities = {}
+	
+	-- 以及各种函数
+}
+<br>如你所见 components 与 entities 表默认是空的，所以后面会通过 all/components 与 all/templates ，还有 kr/game_templates 模块将新模板增加进去（参考 E:load）<br><br>game_templates 创建表时会读取 balance/balance 的各种值（五代特有）<br><br>game_templates 等模块是怎样将新表增加进去的：<br>我们可以通过 E.entities.模板名 = xxx 来向表 entities 增加一些表<br>也可使用等价的函数（实现方法相同）<br>
+E:register_t(模板名, 续承模板)（以下简称 RT） 来增加<br>续承模板可以理解为 E.entities.模板名 = table.deepclone(续承模板)（深拷贝）<br>Info
+RT 会返回一个新增的表的索引
+例如 tt = RT("hero_gerald", "hero") ，此时 tt 变量就是 E.entities.hero_gerald<br>
+注意重新赋值的影响
+此外任何情况下都不建议用 E.entities.模板名，不想继承属性可以直接 RT(模板名)
+<br><br>综上所述我们可以使用 E.entities.英雄模板名 来直接索引英雄模板<br>也可使用等价的函数 E:get_template(英雄模板名) <br><br><br>基本所有 英雄 都会续承基础模板的 hero<br><br><br>一般来说各种正面或负面效果（减速、流血、中毒等）都是 mod<br>基本所有 mod 都会续承基础模板的 modifier<br><br>一般来说 持续造成 伤害、效果等的 都是 光环<br>基本所有 光环 都会续承基础模板的 aura]]></description><link>第 1 章、模板\1.1 模板.html</link><guid isPermaLink="false">第 1 章、模板/1.1 模板.md</guid><pubDate>Mon, 23 Jun 2025 05:39:21 GMT</pubDate></item><item><title><![CDATA[1.2 错误]]></title><description><![CDATA[ 
+ ]]></description><link>第 1 章、模板\1.2 错误.html</link><guid isPermaLink="false">第 1 章、模板/1.2 错误.md</guid><pubDate>Sun, 22 Jun 2025 00:25:56 GMT</pubDate></item><item><title><![CDATA[位运算]]></title><description><![CDATA[ 
+ <br>all/constants 内的所有变量我们称为常量<br>Info
+虽然写的是常量（无法修改），本质其实都是变量（可以修改）
+但是在任何情况都不应该、不建议修改常量
+<br><br>constants 内的常量最终基本都会转换为二进制进行位运算<br>二进制结果已换行处理，便于查看<br><br><br>只写常用的，详细请参考 all/constants <br><br><br>]]></description><link>第 1 章、模板\1.3 常量.html</link><guid isPermaLink="false">第 1 章、模板/1.3 常量.md</guid><pubDate>Mon, 23 Jun 2025 07:17:42 GMT</pubDate></item><item><title><![CDATA[1.4 函数]]></title><description><![CDATA[ 
+ ]]></description><link>第 1 章、模板\1.4 函数.html</link><guid isPermaLink="false">第 1 章、模板/1.4 函数.md</guid><pubDate>Sun, 22 Jun 2025 00:24:19 GMT</pubDate></item><item><title><![CDATA[1.5 存档]]></title><description><![CDATA[ 
+ ]]></description><link>第 1 章、模板\1.5 存档.html</link><guid isPermaLink="false">第 1 章、模板/1.5 存档.md</guid><pubDate>Mon, 23 Jun 2025 08:16:39 GMT</pubDate></item><item><title><![CDATA[注意事项]]></title><description><![CDATA[ 
+ <br><br>众所周知给一个变量赋值表，就是复制其引用（内存地址）<br><br><br>
+<br>
+使用方括号 "[ ]"<br>
+可以在方括号内填写变量，或者数字、字符串<br>
+table[1]、table["str"]、table[a]、
+
+<br>
+直接使用 "."<br>
+仅能索引字符串<br>
+table.str
+
+<br>Warning
+注意：table.str.x 
+如果 str 不存在，尝试索引 table.str.x 会报索引 nil 值异常。
+表内不存在的元素都是 nil ，nil 不是一个表所以不存在子元素，无法索引
+<br><br>你可能已经注意到调用函数和定义函数时的冒号了，其主要作用其实与点相同<br>以我们最熟悉的 RT 为例：<br>调用时：E:register_t(模板名, 续承模板)<br>
+等价于 E.register_t(E, 模板名, 续承模板)<br>也就是将冒号前的一个表隐式传递<br>定义时：function entity_db:register_t(name, base)<br>
+等价于 function entity_db.register_t(self, name, base)<br>也就是隐式定义一个形式参数 self<br>综上使用冒号与点的区别仅在于隐式传递与隐式定义 self]]></description><link>第 1 章、模板\注意事项.html</link><guid isPermaLink="false">第 1 章、模板/注意事项.md</guid><pubDate>Mon, 23 Jun 2025 08:05:06 GMT</pubDate></item><item><title><![CDATA[精灵]]></title><description><![CDATA[ 
+ <br>
+<br>sprite.pos：精灵的位置，以左上角为原点（0， 0）
+<br>sprite.draw_order：绘制顺序，可能用于覆盖Z值
+<br>sprite.ignore_start：是否忽略起始时间（立即开始）
+<br>animated：布尔值，是否启用动画
+<br>group&nbsp;&amp;&nbsp;prefix：精灵所属资源组和前缀名，用于定位动画资源
+<br>name：当前播放的动画名称（如 "idle",&nbsp;"attack"）
+<br>anchor：锚点
+<br>offset：位置偏移量
+<br>loop &amp;&nbsp;loop_forced：是否循环播放动画。loop_forced 可能强制覆盖动画本身的循环设置
+<br>flip_x：是否镜像翻转
+<br>r：旋转角度
+<br>scale：缩放比例
+<br>alpha：透明度（0 透明 ~&nbsp;255 不透明）和显隐状态
+<br>hidden： 是否隐藏精灵
+<br>z：渲染层级，控制绘制顺序
+<br>angles&nbsp;<br>- 用于方向性动画（如八方向角色移动）：
+    
+    angles = {0, 45, 90, ...}      -- 角度列表
+    angles_flip_horizontal = true  -- 水平翻转时角度是否自动适配
+    angles_custom = function(angle) ... end -- 自定义角度处理
+<br>
+<br>
+fps&nbsp;&amp;&nbsp;ts
+
+<br>帧率（nil用默认值）和时间戳（累计动画时间）。<br>
+
+
+
+<br>
+frame_idx&nbsp;&amp;&nbsp;frame_name
+
+<br>当前帧索引（从1开始）和帧名称（若使用帧名动画）。<br>
+
+
+
+<br>
+hide_after_runs
+
+<br>动画播放指定次数后自动隐藏（如爆炸动画播完消失）。<br>
+
+
+
+<br><br><br>
+<br>
+sort_y&nbsp;&amp;&nbsp;sort_y_offset
+
+<br>按Y轴排序精灵（模拟深度效果），sort_y_offset为排序偏移量。<br>
+
+
+
+<br>
+sync_idx&nbsp;&amp;&nbsp;sync_flag
+
+<br>同步多个精灵的动画（如让多个对象播放相同帧）。<br>
+
+
+
+<br>
+random_ts
+
+<br>随机起始时间，避免多个精灵动画同步播放。<br>
+
+
+
+<br>
+size_names&nbsp;&amp;&nbsp;size_scales
+
+<br>多尺寸精灵支持（如size_names = {"sm", "lg"},&nbsp;size_scales = {0.5, 1.5}）。<br>
+
+
+
+<br><br><br>
+<br>runs: 动画已循环次数。<br>
+
+<br>hidden_count: 隐藏计数器（用于延迟隐藏）。<br>
+
+<br>time_offset: 时间偏移（延迟启动动画）。<br>
+
+<br>ignore_start: 是否跳过初始帧。
+]]></description><link>第 2 章、动画\精灵.html</link><guid isPermaLink="false">第 2 章、动画/精灵.md</guid><pubDate>Thu, 19 Jun 2025 12:15:17 GMT</pubDate></item><item><title><![CDATA[免责声明]]></title><description><![CDATA[ 
+ <br><br>该文档仅限学习交流，禁止用于商业用途。<br>请购买正版游戏后再进行修改。若修改盗版出现任何问题，均与作者以及文档无关<br><br>本文档适用于 PC 版的一代、二代、三代、五代，请注意版本。<br>电脑小白不建议修改！]]></description><link>0. 前言（必看）.html</link><guid isPermaLink="false">0. 前言（必看）.md</guid><pubDate>Mon, 23 Jun 2025 02:56:32 GMT</pubDate></item><item><title><![CDATA[0.1 配置环境]]></title><description><![CDATA[ 
+ <br>开始之前先说一下游戏的引擎版本：<br>Lua_v5.1 + Love 2d_v10.2<br>（通过 print 版本信息得到）<br><br>开始修改前建议先观看两门教程。当然如果你有编程基础不看也行。<br>
+<br>
+<a data-tooltip-position="top" aria-label="https://www.bilibili.com/video/BV1vf4y1L7Rb/" rel="noopener nofollow" class="external-link" href="https://www.bilibili.com/video/BV1vf4y1L7Rb/" target="_blank">Lua教程-入门—哔哩哔哩</a>
+
+<br>
+<a data-tooltip-position="top" aria-label="https://www.bilibili.com/video/BV1WR4y1E7ud/" rel="noopener nofollow" class="external-link" href="https://www.bilibili.com/video/BV1WR4y1E7ud/" target="_blank">Lua教程-进阶—哔哩哔哩</a>
+
+<br><br>安装 VS Code：<br><a class="auto-card-link-card" href="https://code.visualstudio.com/"><div class="auto-card-link-main"><div class="auto-card-link-title"></div><div class="auto-card-link-description"></div><div class="auto-card-link-host"><span></span></div></div></a>Visual Studio Code - Code Editing. RedefinedVisual Studio Code redefines AI-powered coding with GitHub Copilot for building and debugging modern web and cloud applications. Visual Studio Code is free and available on your favorite platform - Linux, macOS, and Windows.code.visualstudio.com<img class="auto-card-link-thumbnail" src="https://code.visualstudio.com/opengraphimg/opengraph-home.png" draggable="false"><br><br>
+<br>点击扩展 → 搜索 Lua → 安装 1.7 M 下载量的。
+<br>搜索 Local Lua Debugger → 安装
+<br><br>如果嫌这个 Lua 扩展卡顿，可以安装上面的 Lua，缺点就是无中文翻译<br>
+<br><br>
+<br>
+下载资源里的 love 安装包 → 安装
+
+<br>
+按 win + r → 输入 sysdm.cpl<br>
+
+
+<br>
+点击高级 → 环境变量 → 编辑 path 系统变量
+
+<br><br>
+<br>
+增加 love 的安装路径（图片路径仅供参考，请填写你的安装目录）<br>
+
+
+<br>
+重启电脑 → 按 win + r 输入 cmd → 终端输入 love + 回车，验证是否出现窗口，如果出现窗口则安装成功<br>
+
+
+<br><br>
+<br>将要修改的游戏复制到一个文件夹内（可以自己创建） → 解压游戏<br>
+注意：路径不要有中文
+<br>推荐放在 D 盘<br><br>
+<br>将解压出来的文件与游戏本体放到一起，如图二所示
+<br><br>
+<br>将文件夹增加到 VScode 的工作区（打开文件夹）<br>
+
+<br><br>
+<br>点击运行和调试 → 创建 launch.json 文件 → 调试器选择 Local Lua Debugger
+<br><br>
+<br>用以下代码替换启动文件 → 保存
+<br>{
+	"version": "0.2.0",
+
+	"configurations": [
+		{
+			"type": "lua-local",
+			"request": "launch",
+			"name": "Debug",
+			"program": {
+				"command": "love"
+			},
+			"args": [
+				".",
+				"debug"
+			]
+		},
+		{
+			"type": "lua-local",
+			"request": "launch",
+			"name": "Release",
+			"program": {
+				"command": "love"
+			},
+			"args": [
+				"."
+			]
+		}
+	]
+}
+<br>
+<br>反编译 main → 向 main 增加一块代码 → 保存<br>
+增加到顶部：
+<br>if arg[2] == "debug" then
+	require("lldebugger").start()
+end
+<br>如图即可：<br>
+<br>反编译见 <a data-href="0.2 工具#反编译软件" href="0.2 工具.html#反编译软件" class="internal-link" target="_self" rel="noopener nofollow">0.2 工具 &gt; 反编译软件</a><br>注意：反编译后需要用 output 的文件替换掉 main（以后反编译不再赘叙）<br>
+<br>参考资料：<br><a class="auto-card-link-card" href="https://www.cnblogs.com/linxiaoxu/p/17653162.html"><div class="auto-card-link-main"><div class="auto-card-link-title"></div><div class="auto-card-link-description"></div><div class="auto-card-link-host"><span></span></div></div></a>[Love] VSCODE 调试 LOVE 引擎游戏 - 小能日记 - 博客园## VSCODE调试LOVE引擎游戏 ### **安装插件** ### **配置插件** 按 `CTRL + SHIFT + P`，打开`Preferences: Open User Settings (JSON)`，为settings.json添加如下代码 ```lua &amp;quot;Lua.ru<img class="auto-card-link-favicon" src="https://assets.cnblogs.com/favicon_v3_2.ico">www.cnblogs.com<br><br>
+<br>打开 version → 将 build 改为 true<br>
+
+<br><br>
+<br>
+打开运行与调试 → 选择模式：Debug 为调试模式（注调试模式会对性能造成较大影响）<br>
+Release 为正常模式（也就是禁用调试功能）<br>
+
+
+<br>
+打一些断点（因为现在是测试所以尽量别打到函数内）<br>
+
+
+<br>
+运行<br>
+注意：运行需要打开 steam（可关闭验证，不打算教防止盗版泛滥）<br>
+
+
+<br>
+一切正常下游戏会在断点处暂停，同时可以看到变量、堆栈<br>
+
+
+<br>完成后注意一下存档位置会在 C:\Users\你的用户名称\AppData\Roaming\LOVE 里面<br>壹、如果运行后卡住没反应：检查 conf → 关闭自带控制台（true 改 false）<br>
+<br>贰、如果在错误地方寻找 lua 文件可将 main 的 ppref 设为空字符串<br>
+<br><br><br>``<br><br>点击左上角金币图标，开启有 UI 的控制台（功能与快捷键相同）<br>
+<br><br><br><br>设置后可按 0 手动触发断点<br>
+断点触发后可以直接右键修改变量的值、以及在调试控制台执行代码（必须使用调试模式运行）<br>
+<br>找到 main 的 love.keypressed 函数（直接搜索就行）
+<br>函数内加块代码，同时增加断点
+<br>if key == "0" then
+	print("Break-point")
+end
+<br><br><br>注意：只有触发断点时监视才可用<br><br><br><br>
+<br>打开设置（左下角） 
+<br>点击文本编辑器 → 字体 → 输入 JetBrains Mono （请确保已安装，<a data-href="0. 文档使用说明（必看）#开始之前的设置" href="0. 文档使用说明（必看）#开始之前的设置" class="internal-link" target="_self" rel="noopener nofollow">0. 文档使用说明（必看） &gt; 开始之前的设置</a> 就有）
+<br>]]></description><link>0.1 配置环境.html</link><guid isPermaLink="false">0.1 配置环境.md</guid><pubDate>Mon, 23 Jun 2025 08:11:25 GMT</pubDate><enclosure url="https://code.visualstudio.com/opengraphimg/opengraph-home.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;https://code.visualstudio.com/opengraphimg/opengraph-home.png&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[AI]]></title><description><![CDATA[ 
+ <br><br>如有任何疑问，强烈建议先问一下 AI，然后再向他人寻求帮助。<br>先推荐一个 deep seek：<br><a class="auto-card-link-card" href="https://www.deepseek.com/"><div class="auto-card-link-main"><div class="auto-card-link-title"></div><div class="auto-card-link-description"></div><div class="auto-card-link-host"><span></span></div></div></a>DeepSeek | 深度求索深度求索（DeepSeek），成立于2023年，专注于研究世界领先的通用人工智能底层模型与技术，挑战人工智能前沿性难题。基于自研训练框架、自建智算集群和万卡算力等资源，深度求索团队仅用半年时间便已发布并开源多个百亿级参数大模型，如DeepSeek-LLM通用大语言模型、DeepSeek-Coder代码大模型，并在2024年1月率先开源国内首个MoE大模型（DeepSeek-MoE），各大模型在公开评测榜单及真实样本外的泛化效果均有超越同级别模型的出色表现。和 DeepSeek AI 对话，轻松接入 API。<img class="auto-card-link-favicon" src="https://www.deepseek.com/favicon.ico">www.deepseek.com<img class="auto-card-link-thumbnail" src="https://chat.deepseek.com/deepseek-chat.jpeg" draggable="false"><br>问 AI 最重要的是你想问的问题，需要先明确自己的遇到的问题。然后简单描述环境（或者直接复制上下文给 AI）<br>（不知道问题？建议把 lua 基础学会，了解一些名词）<br><br>
+<br>
+下载资源里的 luajit-decompiler → 解压
+
+<br>
+将需要反编译的 lua 文件拖入 exe（可以拖文件夹，可能会弹非常多的弹窗）<br>
+
+
+<br>
+在 output 文件夹即可找到反编译后的 lua 文件<br>
+
+
+<br>如果出现这个窗口则表示该文件不是 lua 文件，点击继续就行<br>
+]]></description><link>0.2 工具.html</link><guid isPermaLink="false">0.2 工具.md</guid><pubDate>Mon, 23 Jun 2025 08:11:07 GMT</pubDate><enclosure url="https://www.deepseek.com/favicon.ico" length="0" type="image/x-icon"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;https://www.deepseek.com/favicon.ico&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[一代]]></title><description><![CDATA[ 
+ <br><br><br>
+<br> 逐光者丶杰拉尔德<br>
+移动速度 2.2 → 2.6 ↑
+<br>一技能 激励：<br>
+魔抗加成 5 / 10 / 15 点 #<br>
+伤害加成 2 / 4 / 6 → 5 / 10 / 15 点 ↑<br>
+持续时间 6 秒 → 8 秒 ↑<br>二技能 盾反：<br>
+反伤 100 / 150 / 200 → 150 / 200 / 250 % ↑<br>
+<br> 迅风丶艾莉瑞雅<br>
+移动速度 3 → 3.5 ↑
+<br>拦截范围 45 → 25 码 ↓<br>远程 攻击范围 45-150 → 45-170 码 ↑<br>
+远程 攻击速度 0.6 → 0.5 秒/次 ↓<br>
+远程攻击 伤害 7-12 ~ 15-26 → 13-18 ~ 33-41 点物伤 ↑<br>一技能 多重射击：<br>
+冷却时间 4 → 3 秒 ↓<br>
+伤害类型 物伤 → 法伤 ↑<br>
+发射箭矢数量 3 / 4 / 5 → 8 / 12 / 16 支 ↑<br>二技能 野性呼唤：<br>
+复活时间20 → 8 秒 ↓<br>
+近战攻击 造成30 秒 中毒 效果 #<br>
+每秒造成 12点毒伤，共360 点<br>
+<br> 愤怒之锤丶马利克<br>
+移动速度 2 → 2.5 ↑
+<br>近战攻击 造成 0.75 秒 眩晕 效果 #<br>一技能 重锤强击：<br>
+冷却时间 7 → 3 秒 ↓<br>
+释放限制 需要敌人数量 3 → 1 个 ↓<br>
+造成 1 秒 眩晕 效果 #<br>二技能 粉碎之锤：<br>
+冷却时间 15 → 11 秒 ↓<br>
+伤害 10-30 / 20-40 / 30-50 → 20-40 / 40-60 / 60-80 点真伤 ↑<br>
+眩晕时间 2 → 4 秒 ↑<br>
+<br> 火枪手丶波林<br>
+移动速度 2 → 2.5 ↑
+<br>拦截范围 65 → 30 码 ↓<br>弹夹容量 3 → 8 发 ↑<br>
+远程 攻击速度 0.4 → 0.2秒/次 ↓<br>
+装弹时间 2 → 3 秒 ↑<br>
+远程 攻击范围 50-180 → 50-220 码 ↑<br>一技能 地雷：<br>
+冷却时间 6.6 → 3 秒 ↓<br>
+触发范围 13 → 35 码 ↑<br>
+地雷上限 5 → 30 枚 ↑<br>
+持续时间 50 → 150 秒 ↑<br>二技能 焦油炸弹：<br>
+持续时间 4 / 6 / 8 → 30 / 50 / 70 秒 ↑<br>
+减速效果 50 → 33 % ↓<br>
+<br> 灾厄魔导丶马格纳斯<br>
+传送 最小距离 100 → 45 码 ↓
+<br>拦截范围 45 → 10 码 ↓<br>远程 攻击范围 50-150 → 0-150 码 ↓<br>一技能 幻影：<br>
+持续时间 10 → 20 秒 ↑<br>二技能 奥术风暴：<br>
+风暴范围 40 → 60 码↑<br>
+<br> 炎魔之神丶伊格纳斯<br>
+移动速度 3 → 3.4
+<br>近战攻击 造成 2 秒 燃烧 效果 #<br>
+每秒 10 点真伤，共20 点<br>一技能 烈焰翻滚：<br>
+释放范围 130 → 170 码 ↑<br>
+造成 2 秒 燃烧 效果 #<br>
+每秒 10 点真伤，共20 点<br>二技能 烈焰冲击：<br>
+造成 2 秒 燃烧 效果<br>
+每秒 10 点真伤，共20 点<br>
+<br> 国王丶迪纳斯<br>
+使所有防御塔降价 10 块 #
+<br>拦截范围 45 → 30 码 ↓<br>一技能 皇家号令：<br>
+冷却时间 11.7 → 9 秒 ↓<br>
+攻击间隔降低 20 → 25 % ↑<br>
+范围加成 20 → 25 % ↑<br>二技能 投石弹幕：<br>
+弹幕数量 3 / 5 / 7 → 6 / 10 / 17 个 ↑<br>
+<br> 冬歌女王丶伊罗拉<br>
+拦截范围 45 → 30 码 ↓
+<br>近战攻击 造成 0.75 秒 冻结 效果 #<br>远程 攻击速度 1.1 → 1 秒/次 ↓<br>
+<br> 熊之咆哮丶英格瓦<br>
+近战攻击与侧斩造成范围伤害 #<br>
+范围 25 码，侧斩 40 码，侧斩需要敌人数量 3 个
+<br>一技能 先祖召唤：<br>
+召唤数量 1 / 2 / 3 → 2 / 3 / 4 个 ↑<br>
+持续时间 10 → 15 秒 ↑<br>二技能 巨熊形态：<br>
+变身阈值 60 → 25 % ↓<br>
+伤害类型 物伤 → 真伤 ↑<br>
+攻击次数 3 → 5 次 ↑<br>
+<br>钢锯机甲丶哈克萨瓦<br>
+移动速度 1.8 → 2.3 ↑
+<br>一技能 弹射锯片：<br>
+弹射次数 2 / 4 / 6 → 5 / 7 / 10 次 ↑<br>二技能 致命电钻：<br>
+冷却时间 36 / 31 / 26 → 30 / 26 / 22 秒 ↓<br>
+不会对血量小于 300 的单位释放致命电钻 #<br>
+<br> 鬼武士丶奥尼
+<br>一技能 千本刃：<br>
+冷却时间 16.3 → 11.6 秒 ↓<br>二技能 灭魂斩：<br>
+伤害 180 / 260 / 340 → 230 / 310 / 400 点真伤 ↑<br>
+秒杀概率 10 / 15 / 20 → 25 / 35 / 50 % ↑<br>
+只能秒杀 2000 血量以下的单位 #<br>
+不会对血量小于 150 的单位释放灭魂斩 #<br>
+<br> 雷神丶索尔<br>
+攻击速度 1.5 → 1 秒/次 ↓
+<br>一技能 连锁闪电：<br>
+连锁伤害 40 → 80 点真伤 ↑<br>二技能 雷暴：<br>
+伤害类型 法伤 → 真伤 ↑<br>
+眩晕时间 3 / 4 / 6 → 4 / 6 / 7.3 秒 ↑<br>
+<br> 大师丶天十<br>
+传送最小距离 100 → 45 码 ↓
+<br>二技能 钢铁时间：<br>
+移动速度 2.2 → 2.8 ↑<br><br>
+<br> 战士丶阿尔里奇<br>
+移动速度 2.2 → 2.6 ↑
+<br>三技能 强韧：<br>
+附带死亡骑士光环 #<br>五技能 沙漠勇士：<br>
+召唤范围 400 → 无限 码 ↑<br>
+持续时间 7 / 8 / 9 → 11 / 13 / 15 秒 ↑<br>
+<br> 刺客丶幻影<br>
+拦截范围 51.2 → 100 码 ↑<br>
+近战攻击 造成 2 秒 中毒 效果 #<br>
+每秒 18 点毒伤，共 36 点
+<br>远程攻击 造成 2 秒 中毒 效果 #<br>
+每秒 18 点毒伤，共 36 点<br>二技能 闪避：<br>
+闪避概率 20 / 40 / 60 → 40 / 60 / 80 % ↑<br>
+分身 持续时间 1 → 2 秒 ↑<br>
+分身 近战攻击 造成 2 秒 中毒 效果 #<br>
+每秒 18 点毒伤，共 36 点<br>三技能 敏捷：<br>
+移动速度加成 20 / 40 / 60 → 40 / 80 / 100 % ↑<br>四技能 影舞：<br>
+冷却时间 10 → 4 秒 ↑<br>五技能 致命打击：<br>
+秒杀概率 10 / 17 / 25 → 40 / 70 / 100 % ↑<br>
+<br> 海盗丶黑棘船长<br>
+移动速度 2.5 → 3 ↑<br>
+物理护甲 0~0 → 1~42 点 ↑<br>
+偷钱概率 30 → 100 % ↑<br>
+偷钱数量 5-10 → 4-6 块 ↓
+<br>二技能 赏金猎人：<br>
+作用范围 90 → 200 码 ↑<br>
+被影响的单位脚下会显示绿色光环 #<br>
+爆炸酒桶，克拉肯之怒，近战攻击 攻击敌人后使其赏金增加 1 / 1.5 / 2 块 #<br>
+不可叠加，但可与 赏金猎人 乘算<br>四技能 爆炸酒桶：<br>
+弹药数量 4 / 6 / 8 → 7 / 11 / 15 发 ↑<br>五技能 克拉肯之怒：<br>
+冷却时间 16 → 13 秒 ↓<br>
+<br> 兽王丶克罗南<br>
+物理护甲 0~0 → 0~35 点 ↑<br>
+近战攻击 造成 6 秒 流血 效果 #<br>
+属性同鞭挞
+<br>一技能 野猪守卫：<br>
+冷却时间 18 → 10 秒 ↓<br>
+近战 攻击速度 2 → 1 秒/次 ↑<br>
+近战 伤害 2~8 → 0~10 点物伤 ↑<br>
+近战攻击 造成 6 秒 流血 效果 #<br>
+属性同鞭挞<br>二技能 犀牛踩踏：<br>
+犀牛 移动距离 400 → 无限 码 ↑<br>
+眩晕概率 25 / 30 / 35 → 50 / 75 / 100 % ↑<br>三技能 猎鹰：<br>
+攻击范围 40-110 / 120 / 130 → 40-110 / 220 / 400 码 ↑<br>
+攻击 造成 6 秒 流血 效果 #<br>
+属性同鞭挞<br>四技能 鞭挞：<br>
+冷却时间 9.8 → 2 秒 ↓<br>
+<br> 巫毒法师丶女巫
+<br>三技能 骨舞：<br>
+头骨上限 3 / 4 / 5 → 4 / 5 / 6 个 ↑<br>四技能 恐惧光环：<br>
+作用范围 117.5 → 140 码 ↑<br>
+伤害 1 → 3 点真伤/秒 ↑<br>
+<br> 大法师丶纽维斯<br>
+传送 最小距离 100 → 75 码 ↓<br>
+传送 动画时长 1 → 0.75 倍 ↓
+<br>远程攻击 动画时长 1 → 0.75 倍 ↓<br>拦截范围 45 → 20 码 ↓<br>一技能 魔法导弹：<br>
+飞弹数量 3 / 5 / 7 → 6 / 10 / 14 发 ↑<br>二技能 连锁反应：<br>
+冷却时间 6 → 4 秒 ↓<br>三技能 奥术瓦解：<br>
+冷却时间 25 → 4 秒 ↓<br>
+攻击范围 100 → 190 码 ↑<br>
+秒杀血量限制 170 / 330 / 480 → 50 / 75 / 100 点 ↓<br>
+动画时长 1 → 0.75 倍 ↓<br>四技能 奥术范围：<br>
+远程攻击 范围加成 25 / 50 / 75 → 50 / 75 / 100 % ↑<br>五技能 奥术专注：<br>
+伤害加成 2 / 6 / 12 → 4 / 6 / 24 点 ↑<br>
+<br>女祭司丶德得尔<br>
+近战攻击 经验倍率 0.7 → 1.7 倍 ↑
+<br>远程攻击 经验倍率 0.7 → 1.5 倍 ↑<br>二技能 神圣祝福：<br>
+持续时间 6 / 10 / 14 → 10 / 20 / 30 秒 ↑<br>三技能 光明守护：<br>
+传送最小范围 100 → 无 ↓<br>
+<br> 石巨人丶格劳尔<br>
+脱战回血 17~30 → 44~70 点/次 ↑
+<br>拦截范围 70 → 85 码 ↑<br>一技能 巨石投掷：<br>
+释放范围 100-300 → 100-400 码 ↑<br>
+伤害 20-40 / 40-60 / 60-100 → 60-120 / 120-180 / 180-300 点物伤 ↑<br>二技能 地震：<br>
+锤地次数 4 / 6 / 8 → 6 / 8 / 10 次 ↑<br>三技能 磐石堡垒：<br>
+伤害加成 6 / 12 / 18 → 12 / 18 / 24 点 ↑<br>四技能 水晶之拳：<br>
+伤害 60 / 120 / 180 → 100 / 180 / 240 点真伤 ↑<br>
+秒杀概率 10 / 20 / 30 → 100 % ↑<br>五技能 铁石心肠：<br>
+增加血量 50 / 150 / 300 → 100 / 200 / 300 点 ↑<br>
+<br>太空猎手丶沙塔<br>
+复活时间 25 → 10 秒 ↓
+<br>一技能 能量镖刃：<br>
+镖刃数量 1 → 2 个 ↑<br>二技能 净化协议：<br>
+持续时间 1 / 2 / 3 → 2 / 4 / 6 秒 ↑<br>三技能 母星劫持：<br>
+劫持范围 33 → 66 码 ↑<br>五技能 最后倒计时：<br>
+伤害 100 / 160 / 220 → 150 / 240 / 330 点真伤 ↑<br>
+<br>火龙丶阿什比特<br>
+移动速度 3 → 3.3 ↑<br>
+远程 攻击范围 140 → 170 码 ↑<br>
+远程 攻击逻辑 随机 → 第一个
+<br>一技能 炽热龙息：<br>
+伤害 28 / 42 / 56 → 48 / 62 / 86 点真伤 ↑<br>二技能 魔龙盛宴：<br>
+秒杀概率 20 / 30 / 40 → 25 / 60 / 100 % ↑<br>三技能 火焰迷雾：<br>
+减速的同时造成 3 秒 燃烧 效果 #<br>
+每秒 2 / 6 / 10 点真伤，共 6 / 18 / 30 点<br>四技能 野火弹幕：<br>
+火球 伤害 30 → 65 点真伤 ↑<br>
+<br>战争大师丶巨蟹<br>
+物理护甲 17~35 → 17~65 点 ↑
+<br>一技能 铁钳子：<br>
+伤害加成 5 / 10 / 20 → 15 / 25 / 35 点 ↑<br>二技能 无懈可击：<br>
+触发概率 35 / 50 / 65 → 45 / 65 / 85 % ↑<br>三技能 弹簧钳：<br>
+攻击范围 110→ 210 码 ↑<br>
+可攻击 飞行 敌人 #<br>四技能 水炮：<br>
+冷却时间 10 → 6 秒 ↓<br>
+伤害类型 物伤 → 法伤 ↑<br>五技能 遁地：<br>
+触发最小距离 100 → 75 码 ↓<br>
+<br>僧侣丶库绍<br>
+血量 220~400 → 370~550 点 ↑<br>
+脱战回血 23~36 → 38~51 点/次 ↑<br>
+移动速度 3 → 3.7 ↑<br>
+近战攻击 造成 虚弱 效果 #<br>
+每次降低 8.5 % 伤害
+<br>二技能 龙形拳：<br>
+伤害 25-75 / 40-120 / 80-160 → 50-90 / 80-160 / 120-240 点真伤<br>
+作用范围 50 → 75 码 ↑<br>
+造成 虚弱 效果 #<br>
+每次降低 12.5 % 伤害<br>
+动画时长 1 → 0.75 倍 ↓<br>三技能 虎形拳：<br>
+冷却时间 8 → 3 秒 ↓<br>
+当目标伤害乘数小于 0.07 时秒杀目标（需要攻击大约30下） #<br>
+造成 虚弱 效果 #<br>
+每次降低 12.5 % 伤害<br>四技能 豹形拳：<br>
+冷却时间 10 → 15 秒 ↑<br>
+释放范围 100 → 175 码 ↑<br>
+攻击次数 3 / 5 / 7 → 6 / 9 / 12 次 ↑<br>
+造成 虚弱 效果 #<br>
+每次降低 8.5 % 伤害<br>
+动画时长 1 → 0.75 倍 ↓<br>五技能 鹤形拳：<br>
+动画时长 1 → 0.75 倍 ↓<br>
+<br>吸血鬼猎人丶但丁<br>
+物理护甲 0~0 → 5~40 点 ↑
+<br>一技能 圣枪洗礼：<br>
+冷却时间 15 → 10 秒 ↓<br>三技能 神圣手雷：<br>
+释放范围 50-150 → 0-300 码 ↑<br>
+持续时间 5 / 10 / 15 → 15 / 25 / 无限 秒 ↑<br>四技能 圣物之力：<br>
+冷却时间 20 → 15 秒 ↓<br>
+<br>
+骨龙丶波恩哈特<br>
+移动速度 3 → 3.3 ↑<br>
+远程 攻击范围 120 → 150 码 ↑
+
+<br>
+牛头人丶米诺陶<br>
+物理护甲 13~40 → 20~55 点 ↑<br>
+移动速度 3 → 3.5 ↑
+
+<br>拦截范围 70 → 85 码 ↑<br>一技能 野蛮冲撞：<br>
+突进距离 150-350 → 150-200 码 ↓<br>
+伤害 10-20 / 15-35 / 20-50 → 20-40 / 30-70 / 40-100 点物伤 ↑<br>二技能 血色战斧：<br>
+释放概率 10 → 40 % ↑<br>
+伤害倍数 2 / 3 / 4 → 1.25 / 1.5 / 2 倍 ↓<br>三技能 死亡迷宫：<br>
+释放限制 距离终点大于 100 → 400码 ↑<br>
+冷却时间 15 → 7 秒 ↓<br>五技能 末日旋转：<br>
+冷却时间 16 → 8 秒 ↓<br>
+<br>猴神丶赛塔姆<br>
+近战攻击 造成 破甲 效果 #<br>
+每次降低 2 点物理护甲
+<br>一技能 回旋打击：<br>
+冷却时间 20 → 12 秒 ↓<br>
+造成 破甲 效果 #<br>
+每次降低 2 点物理护甲<br>二技能 铁棒连击：<br>
+冷却时间 20 → 10 秒 ↓<br>
+造成 破甲 效果 #<br>
+每次降低 2 点物理护甲<br>三技能 封印猴掌：<br>
+眩晕时间 1 / 2 / 3 → 4 / 6 / 7 秒 ↑<br>四技能 神怒：<br>
+只有分身可以释放此技能 #<br>五技能 神性：<br>
+召唤一个 属性完全相同 的分身 #<br>
+冷却时间 55 秒，持续时间 40 / 50 / 60 秒<br><br>
+<br> 游侠丶艾莉丹<br>
+移动速度 2.5 → 3.3 ↑
+<br>拦截范围 67.5 → 30 码 ↓<br>
+远程 攻击速度 1 → 0.5 秒/次 ↑<br>一技能 凌空飞箭：<br>
+伤害 同远程攻击 → 10-14 点物伤 ↓<br>
+发射箭矢数量 3 / 6 / 9 → 11 / 15 / 18 支 ↑<br>二技能 箭靶：<br>
+增加伤害 1 / 2 / 3 → 1 / 1.25 / 1.5 点/层 ↓<br>
+叠加最大层数 3 → 10 / 15 / 25 层 ↑<br>
+叠加到 7 / 11 / 14 层时 远程攻击 变为 法伤 #<br>三技能 敏捷游侠：<br>
+动画时长 1 → 0.75 倍 ↓<br>五技能 万箭齐发：<br>
+冷却时间 40 → 25 秒 ↓<br>
+<br> 元素使者丶埃里汎<br>
+拦截范围 50 → 25 码 ↓
+<br>一技能 火球术：<br>
+造成 7.5 秒 燃烧 效果 #<br>
+每秒 5 点真伤，共 37.5 点<br>二技能 闪电箭：<br>
+冷却时间 20 → 15 秒 ↓<br>
+伤害 40-80 / 100-180 / 180-340 → 60-100 / 140-220 / 240-400 点真伤 ↑<br>三技能 冰封囚牢：<br>
+冰冻时间 2 / 4 / 6 → 4 / 6 / 8 秒 ↑<br>四技能 岩石盾：<br>
+冷却时间 20 → 4 秒 ↓<br>
+生成数量 3 → 1 个/次 ↓<br>
+上限 3 → 5 个 ↑<br>
+每个岩石对接触的敌人造成 7 / 8 / 9 点物伤 #<br>
+5个岩石每秒造成 33 点<br>五技能 元素风暴：<br>
+冷却时间 80 → 60 秒 ↓<br>
+持续时间 3 / 6 / 8 / 10 → 5 / 8 / 10 / 12 秒 ↑<br>
+<br> 精灵仙子丶卡莎
+<br>三技能 纤舞：<br>
+伤害 10-30 / 12-40 / 18-50 → 18-56 / 22-76 / 34-96 点真伤 ↑<br>四技能 仙境诅咒：<br>
+概率 20 → 20 / 25 / 35 % ↑<br>五技能 仙境尘埃：<br>
+冷却时间 25 → 18 秒 ↓<br>
+作用范围 160 / 180 / 200 / 220 → 120 / 140 / 160 / 180 码 ↓<br>
+<br> 异能魔刃丶雷格森<br>
+物理护甲 0 → 0~30 点 ↑
+<br>近战 伤害 6-9 ~ 12-18 → 11-19 ~ 20-30 点真伤 ↑<br>二技能 邪恶刀锋：<br>
+冷却时间 25 → 20 秒 ↓<br>
+持续时间 5 → 7.5 秒 ↑<br>三技能 邪恶重击：<br>
+冷却时间 12 → 9 秒 ↓<br>
+<br> 王子丶迪纳斯<br>
+提前召唤敌人获得金币 25 → 35 块 ↑
+<br>一技能 力量点心：<br>
+冷却时间 20 → 15 秒 ↓<br>
+释放限制 损失血量 100 → 200 点 ↑<br>二技能 声名显赫：<br>
+冷却时间 25 → 18 秒 ↓<br>
+作用范围 100 → 150 码 ↑<br>四技能 复仇者之盾：<br>
+冷却时间 18 → 12 秒 ↓<br>五技能 皇家卫队：<br>
+持续时间 25 → 40 秒 ↑<br>
+血量 200 → 500 点 ↑<br>
+回血 20 → 50 点/次 ↑<br>拦截范围 72.5 → 90 码 ↑<br>
+近战 伤害 4-12 → 10-18 点物伤 ↑<br>
+<br> 傀儡师丶瑞兹与大瑞格
+<br>一技能 变异法术：<br>
+冷却时间 25 → 14 秒 ↓<br>
+布偶 拦截范围 45 → 75 码 ↑<br>三技能 愤怒的侏儒：<br>
+冷却时间 17 → 8 秒 ↓<br>四技能 锤击时间：<br>
+冷却时间 35 → 30 秒 ↓<br>五技能 傀儡军团：<br>
+冷却时间 60 → 45 秒 ↓<br>
+作用范围 100 → 50 码 ↓<br>
+持续时间 10 → 15 秒 ↑<br>
+<br> 树精领主丶无畏树人
+<br>一技能 荆棘丛：<br>
+伤害 30-50 / 50-90 / 80-120 → 70-90 / 100-150 / 200-300 点物伤 ↑<br>二技能 橡树籽：<br>
+冷却时间 25 → 6 秒 ↓<br>
+血量 50 / 100 / 150 → 40 / 60 / 80 点 ↓<br>
+近战 伤害 2-4 / 4-8 / 6-12 → 2-2 / 4-6 / 6-8 点物伤 ↓<br>五技能 自然之怒：<br>
+荆棘丛 数量 6 / 9 / 12 / 15 → 12 / 16 / 20 / 23 个 ↑<br>
+<br> 黑暗法师丶维兹南<br>
+传送 最小距离 100 → 55 码 ↓
+<br>拦截范围 55 → 35 码 ↓<br>一技能 暗影噬魂：<br>
+秒杀3个血量总和不超过 250 / 500 / 750 → 500 / 900 / 1250 点的敌人 ↑<br>二技能 暗影囚笼：<br>
+禁锢 每秒 12 点真伤，持续 3 秒，共36 点 → 每秒 36 点真伤，持续 3 秒，共108 点 ↑<br>三技能 奥术新星：<br>
+冷却时间 18 → 14 秒 ↓<br>
+减速时间 2 → 4 秒 ↑<br>
+<br> 熊猫武僧丶鑫<br>
+物理护甲 25 → 0~40 点 ↑
+<br>近战 伤害 10-14 ~ 25-40 → 15-21 ~ 38-60 点物伤 ↑<br>一技能 突击：<br>
+冷却时间 15 → 11 秒 ↓<br>二技能 激励：<br>
+持续时间 3 / 5 / 7 → 7 / 10 / 13 秒 ↑<br>三技能 鸿茅药酒：<br>
+回血 每秒 15 / 24 / 24 点，持续 4 / 6 / 9 秒，共 60 / 120 / 190 点 →<br>
+每秒 27 / 48 / 48 点，持续 4 / 6 / 9 秒，共 108 / 192 / 432 点 ↑<br>四技能 熊猫坐飞机：<br>
+冷却时间 26 → 17 秒 ↓<br>
+伤害 30-55 / 55-100 / 80-140 → 80-120 / 120-200 / 230-300 点物伤 ↑<br>
+<br> 长生鸟丶火凤凰<br>
+血量 350 ~ 530 → 250 ~ 400 点 ↓
+<br>一技能 献祭：<br>
+冷却时间 45 秒<br>四技能 炽热之环：<br>
+冷却时间 30 → 18 秒 ↓<br>
+<br> 水晶人丶杜拉斯<br>
+物理护甲 0 → 0 ~ 36
+<br>五技能 水晶尖刺：<br>
+伤害 300 / 400 / 800 / 1200 → 800 / 1000 / 1200 / 1400 点真伤 ↑<br>
+<br> 妖咒之刃丶莉恩<br>
+近战攻击 轮流造成 绝望诅咒与削弱诅咒 效果 #<br>
+绝望诅咒持续 4 秒，减速 50 %，降低 30 % 伤害<br>
+削弱诅咒持续 3 秒，破甲 40 点
+<br>一技能 妖咒连斩：<br>
+冷却时间 16 → 14 秒 ↓<br>二技能 绝望诅咒：<br>
+持续时间 4 / 6 / 8 → 7 / 9 / 11 秒 ↑<br>三技能 削弱诅咒：<br>
+破甲 30 / 50 / 70 → 60 / 80 / 100 点<br>五技能 厄运爆破：<br>
+爆炸范围 75 → 133 码 ↑<br>
+<br> 狮人丶布鲁斯<br>
+物理护甲 5 ~ 50 → 0 点 ↓<br>
+脱战回血 18 ~ 30 → 0 点/次 ↓
+<br>二技能 狮王怒吼：<br>
+每次释放后损失 100 / 150 / 200 血量，然后恢复已损失血量的 10 / 20 / 30 % #<br>
+每次损失 400 / 350 / 250 血量降低 狮群 10 秒冷却 #<br>三技能 狮皮：<br>
+增加血量 30 / 60 / 90 → 60 / 120 / 180 点 ↑<br>
+增加每秒回血到 6 / 15 / 30 点 #<br>四技能 血色撕咬：<br>
+冷却时间 20 → 14 秒 ↓<br>五技能 狮群：<br>
+冷却时间 45 → 39 秒 ↓<br>
+可攻击 飞行 敌人 #<br>
+狮子 攻击范围 40 → 60 码 ↑<br>
+<br> 堕落天使丶莉莉斯<br>
+移动速度 3 → 3.4 ↑
+<br>远程攻击 动画时长 1 → 0.75 倍 ↓<br>二技能 噬魂：<br>
+释放 逻辑 最近 → 伤害最高，且不小于 15 点伤害的敌人 ↑<br>五技能 混乱天堂：<br>
+堕天使 数量 3 / 4 / 5 / 6 → 4 / 5 / 6 / 7 个 ↑<br>
+堕天使 攻击范围 125 → 225 码 ↑<br>
+堕天使 伤害 25 / 32 / 40 / 50 → 40 / 50 / 60 / 70 点真伤 ↑<br>
+堕天使 眩晕时间 1 → 3 秒 ↑<br>
+<br>
+ 发明家丶威尔伯<br>
+移动速度 1.8 → 2 ↑
+
+<br>
+ 龙族法师丶浮士德<br>
+移动速度 6 → 4.5 ↓
+
+<br>远程攻击 伤害 27-42 ~ 75-114 → 40-56 ~ 88-140 点真伤 ↑<br>
+（9-14 ~ 25-38  3 → 10-14 ~ 22-35  4）<br>二技能 传送符文：<br>
+传送后释放 封印符文 #<br>三技能 封印符文：<br>
+沉默同时造成 龙焰 效果 #<br>
+每秒 10 / 13 / 17 点真伤，持续时间同沉默，共 120 / 160 / 200 点<br>五技能 龙怒：<br>
+冷却时间 40 → 35 秒 ↓<br><br><br>移动速度 2.5 → 3.3 ↑<br>拦截范围 72 → 40 码 ↓<br>远程 速射 攻击速度 1 → 0.4 秒/次 ↓<br>
+远程 劲射 攻击速度 2 → 2.75 秒/次 ↑<br>
+远程 劲射 动画时长 1 → 2 倍 ↑<br>
+远程 劲射 伤害 10-14 ~ 24-36 → 65-88 ~ 74-100 点物伤 ↑<br>
+远程 劲射 攻击范围 150-200 → 150-240 码 ↑<br>一技能 穿膝利箭：<br>
+眩晕时间 1 → 1 / 2 / 3 秒 ↑<br>
+动画时长 1 → 0.9 倍 ↓<br>二技能 弹射箭矢：<br>
+冷却时间 20 → 20 / 17 / 14 秒 ↓<br>
+动画时长 1 → 0.85 倍 ↓<br>三技能 武艺绽放：<br>
+伤害 30 / 60 / 90  3 → 45 / 75 / 105  3点物伤，共 270 → 315 点 ↑<br>四技能 金蝉脱壳：<br>
+释放限制 血量低于 40 % → 无 ↑<br>
+<br> 黑暗中尉丶蕾琳<br>
+移动速度 1.7 → 2.1 ↑
+<br>一技能 坚不可摧：<br>
+持续时间 6 → 6 / 8 / 10 秒 ↑<br>二技能 闻风丧胆：<br>
+持续时间 6 → 6 / 7 / 9 秒 ↑<br>五技能 指挥号令：<br>
+冷却时间 60 → 60 / 55 / 50 / 40 秒 ↓<br>
+<br> 森林守卫丶尼鲁：<br>
+拦截范围 72 → 35 码 ↑
+<br>一技能 哨兵仙灵：<br>
+持续时间 6 → 8 / 11 / 14 秒 ↑<br>
+仙灵 攻击范围 150 → 180 码 ↑<br>二技能 翠绿迸发：<br>
+每 275 / 245 / 210 秒 增加 1 点生命，最多不超过21 点 #<br>五技能 根系守卫：<br>
+伤害 16-24 / 20-28 / 24-36 / 28-44 → 20-36 / 24-40 / 28-44 / 32-48 点真伤/秒 ， 共 64-96 / 100-140 / 144-216 / 189-308 → 80-144 / 120-200 / 168-264 / 224-336 点真伤 ↑<br>
+<br> 污堕杀手丶格里姆森<br>
+复活时间 30 → 9 秒 ↓<br>
+近战攻击 经验倍率 1.5 → 2.5 倍 ↑
+<br>一技能 贯心穿刺：<br>
+流血 伤害 8 → 24 点真伤/秒，共 32 → 96 点 ↑<br>二技能 原始野性：<br>
+释放限制 血量小于 30 → 60 % ↑<br>
+近战攻击 经验倍率 1 → 1.5 倍 ↑<br>
+持续时间 8 → 15 秒 ↑<br>三技能 致命尖刺：<br>
+释放限制 需要敌人数量 3 → 2 个 ↓<br>
+冷却时间 30 → 30 / 27.5 / 25 秒 ↓<br>五技能 死亡蔓延：<br>
+减速效果 50 → 80 % ↑<br>
+持续时间 3 → 5 秒 ↑<br>
+<br> 城防总管丶托雷斯<br>
+移动速度 1.8 → 2.3 ↑<br>
+血量 250 ~ 520 → 550 ~ 700 点 ↑
+<br>近战攻击 经验倍率 2.7 → 4 倍 ↑<br>二技能 午休时间：<br>
+回血量 80 / 120 / 200 → 250 / 300 / 375 点 ↑<br>四技能 防御塔楼：<br>
+释放范围 90 → 无限 码 ↑<br>
+持续时间 15 → 80 / 90 / 100 秒 ↑<br>
+塔楼 伤害 8-12 / 16-24 / 24-36 → 4-6 / 8-12 / 12-18 点物伤 ↓<br>五技能 破城钢球：<br>
+眩晕时间 2 → 2 / 3 / 4 / 5 秒 ↑<br>
+眩晕 160 码内的敌人 2 秒 #<br>
+<br> 攻城魔像丶战争巨头
+<br>一技能 震荡冲击：<br>
+眩晕时间 2 → 2 / 3 / 4 秒 ↑<br>二技能 瓦斯烟幕：<br>
+冷却时间 25 → 30 / 29 / 28 秒 ↑<br>
+释放限制 需要敌人数量 3 → 2 个 ↓<br>
+减速同时造成 4 秒 燃烧 效果 #<br>
+属性同战争奉献燃烧<br>
+可攻击飞行敌人 #<br>三技能 战争奉献：<br>
+作用范围 90 → 115 码 ↑<br>
+释放限制 需要敌人数量 3 → 2 个 ↓<br>
+燃烧 伤害 4 / 8 / 12 → 12 / 16 / 20 点真伤/秒，共 16 / 32 / 48 → 48 / 64 / 80 点 ↑ <br>四技能 钢铁勾拳：<br>
+释放限制 敌人血量小于 25 / 30 / 40 → 25 / 50 / 75 % ↑<br>五技能 轰鸣火车：<br>
+燃烧 伤害 4 → 8 / 12 / 16 / 24 点真伤/秒，共 16 → 32 / 48 / 64 / 96 点 ↑<br>
+<br> 虚空法师丶赛莉恩<br>
+传送 最小距离 200 码
+<br>拦截范围 72.5 码<br>一技能 星界镜像：<br>
+拦截范围 90 码<br>二技能 黑曜庇护：<br>
+冷却时间 18 秒<br>四技能 空间畸变：<br>
+持续时间 6 / 7 / 8 秒<br>
+<br>
+ 哥布林机甲丶奥纳格罗<br>
+移动速度 1.4
+
+<br>
+ 圣光使者丶卢米妮尔
+
+<br>
+ 银月猎手丶安雅
+
+<br>
+ 不灭晶龙丶科斯米尔
+
+<br>
+ 王牌驭手丶布卢登
+
+<br>
+ 巫妖骨龙丶波恩哈特
+
+<br>
+ 捣蛋女巫丶斯特蕾吉
+
+<br>
+ 自然之力丶希尔瓦拉
+
+<br>
+ 熔融狂怒丶喀拉托
+
+<br>
+ 万毒蛛后丶丝派蒂尔
+
+]]></description><link>英雄数据.html</link><guid isPermaLink="false">英雄数据.md</guid><pubDate>Sun, 22 Jun 2025 07:34:33 GMT</pubDate></item></channel></rss>
