@@ -1,0 +1,19 @@
+<html>
+<head>
+  <style>
+    .clickable-icon.collapse-tree-button {
+      border: none;
+      background: rgba(127,127,127,0);
+    }
+  
+    .clickable-icon.sidebar-collapse-icon {
+      height: 75% !important;
+    }
+  </style>
+  <script>
+    window.addEventListener("load", () =>
+      document.querySelectorAll(".sidebar-collapse-icon>svg").forEach(s => s.setAttribute("stroke-width", 2))
+    );
+  </script>
+</head>
+</html>
