@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[王国保卫战修改教程]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>王国保卫战修改教程</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Tue, 24 Jun 2025 06:21:57 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Tue, 24 Jun 2025 06:21:53 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[1.1 模板]]></title><description><![CDATA[ 
+ <br>all/entity_db（以下简称 E） 返回的表内的 components 以及 entities 表内的表，称为模板<br>E 的基本内容：<br>E = {
+	components = {}
+	entities = {}
+	
+	-- 以及各种函数
+}
+<br>如你所见 components 与 entities 表默认是空的，所以后面会通过 all/components 与 all/templates ，还有 kr/game_templates 模块将新模板增加进去（参考 E:load）<br><br>game_templates 创建表时会读取 balance/balance 的各种键值（五代特有）<br><br>game_templates 等模块是怎样将新表增加进去的：<br>我们可以通过 E.entities.模板名 = xxx 来向表 entities 增加一些模板<br>也可使用等价的函数（实现方法同上）<br>
+E:register_t(模板名, 续承模板)（以下简称 RT） 来增加<br>续承模板可以理解为 E.entities.模板名 = deepclone(续承模板)（深拷贝）<br>Info
+RT 会返回一个新增的表的索引
+例如 tt = RT("hero_gerald", "hero") ，此时 tt 变量就是 E.entities.hero_gerald<br>
+注意重新赋值的影响
+此外任何情况下都不建议用 E.entities.模板名，不想继承属性可以直接 RT(模板名)
+<br><br>我们查看防御塔、实体、英雄或敌人的基础模板发现只有一些等级相关的表，那么我们如何增加一些近战攻击，以及远程攻击的基础模板呢<br>我们不难想出 模板名.melee = deepclone(E.components[melee])<br>但是这种方法有些麻烦，我们可以使用函数 E:add_comps(模板名, 基础模板...)（以下简称 AC）来向指定模板增加 n 个基础模板<br>Warning
+注意：AC 只能增加 components 内的基础模板
+<br><br>综上所述我们可以使用 E.entities.模板名 来直接索引模板<br>也可使用等价的函数 E:get_template(模板名) <br>Warning
+注意：只能索引存在的键，要确定有哪些键可以在 components 搜索续承的基础模板（RT 第二个形式参数），或者增加的模板（AC）
+而不是看英雄模板创建时索引了哪些键
+<br><br>仅总结行为，详细有哪些键请自行参考 components<br><br><br><br>详细数据以及技能数据、各种模板名请查阅 @杨叔伟大无需多言 的文档：<br><a class="auto-card-link-card" href="https://www.bilibili.com/read/readlist/rl141527"><div class="auto-card-link-main"><div class="auto-card-link-title"></div><div class="auto-card-link-description"></div><div class="auto-card-link-host"><span></span></div></div></a>《王国保卫战》Kingdom Rush 中文百科全集《王国保卫战》百科系列，含有全代防御塔，英雄，敌人，天赋系统，关卡场景，关卡出怪列表等内容的详细数据及作者的解说。<img class="auto-card-link-favicon" src="https://www.bilibili.com/favicon.ico">www.bilibili.com<img class="auto-card-link-thumbnail" src="https://i1.hdslb.com/bfs/article/9f3790a8bc417f97ecf26770bb67d305248602469.jpg@234w_176h_1c.webp" draggable="false">]]></description><link>第-1-章、模板\1.1-模板.html</link><guid isPermaLink="false">第 1 章、模板/1.1 模板.md</guid><pubDate>Tue, 24 Jun 2025 06:15:24 GMT</pubDate><enclosure url="https://www.bilibili.com/favicon.ico" length="0" type="image/x-icon"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;https://www.bilibili.com/favicon.ico&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[1.2 错误]]></title><description><![CDATA[ 
+ ]]></description><link>第-1-章、模板\1.2-错误.html</link><guid isPermaLink="false">第 1 章、模板/1.2 错误.md</guid><pubDate>Sun, 22 Jun 2025 00:25:56 GMT</pubDate></item><item><title><![CDATA[位运算]]></title><description><![CDATA[ 
+ <br>all/constants 内的所有变量我们称为 “常量”（不是其他语言的常量，仅仅用于区分变量）<br>Warning
+虽然写的是常量（无法修改），本质其实都是变量（可以修改）
+但是在任何情况都不应该不建议修改常量
+<br><br>constants 内的常量最终基本都会转换为二进制进行位运算<br>二进制结果已换行处理，便于查看<br><br><br>只写常用的，详细请参考 all/constants <br><br><br>]]></description><link>第-1-章、模板\1.3-常量.html</link><guid isPermaLink="false">第 1 章、模板/1.3 常量.md</guid><pubDate>Tue, 24 Jun 2025 01:59:46 GMT</pubDate></item><item><title><![CDATA[1.4 函数]]></title><description><![CDATA[ 
+ ]]></description><link>第-1-章、模板\1.4-函数.html</link><guid isPermaLink="false">第 1 章、模板/1.4 函数.md</guid><pubDate>Sun, 22 Jun 2025 00:24:19 GMT</pubDate></item><item><title><![CDATA[1.5 存档]]></title><description><![CDATA[ 
+ ]]></description><link>第-1-章、模板\1.5-存档.html</link><guid isPermaLink="false">第 1 章、模板/1.5 存档.md</guid><pubDate>Mon, 23 Jun 2025 08:16:39 GMT</pubDate></item><item><title><![CDATA[注意事项]]></title><description><![CDATA[ 
+ <br><br>众所周知给一个变量赋值表，就是复制其引用（内存地址）<br><br><br>
+<br>
+使用方括号 "[ ]"<br>
+可以在方括号内填写变量，或者数字、字符串<br>
+table[1]、table["str"]、table[a]、
+
+<br>
+直接使用 "."<br>
+仅能索引字符串<br>
+table.str
+
+<br>Warning
+注意：table.str.x 
+如果 str 不存在，尝试索引 table.str.x 会报索引 nil 值异常。
+表内不存在的键都是 nil ，nil 不是一个表所以不存在子键，无法索引
+<br><br>你可能已经注意到调用函数和定义函数时的冒号了，其主要作用其实与点相同<br>以我们最熟悉的 RT 为例：<br>调用时：E:register_t(模板名, 续承模板)<br>
+等价于 E.register_t(E, 模板名, 续承模板)<br>也就是将冒号前的一个表隐式传递<br>定义时：function entity_db:register_t(name, base)<br>
+等价于 function entity_db.register_t(self, name, base)<br>也就是隐式定义一个形式参数 self<br>综上使用冒号与点的区别仅在于隐式传递与隐式定义 self]]></description><link>第-1-章、模板\注意事项.html</link><guid isPermaLink="false">第 1 章、模板/注意事项.md</guid><pubDate>Tue, 24 Jun 2025 02:08:53 GMT</pubDate></item><item><title><![CDATA[精灵]]></title><description><![CDATA[ 
+ <br>
+<br>sprite.pos：精灵的位置，以左上角为原点（0， 0）
+<br>sprite.draw_order：绘制顺序，可能用于覆盖Z值
+<br>sprite.ignore_start：是否忽略起始时间（立即开始）
+<br>animated：布尔值，是否启用动画
+<br>group&nbsp;&amp;&nbsp;prefix：精灵所属资源组和前缀名，用于定位动画资源
+<br>name：当前播放的动画名称（如 "idle",&nbsp;"attack"）
+<br>anchor：锚点
+<br>offset：位置偏移量
+<br>loop &amp;&nbsp;loop_forced：是否循环播放动画。loop_forced 可能强制覆盖动画本身的循环设置
+<br>flip_x：是否镜像翻转
+<br>r：旋转角度
+<br>scale：缩放比例
+<br>alpha：透明度（0 透明 ~&nbsp;255 不透明）和显隐状态
+<br>hidden： 是否隐藏精灵
+<br>z：渲染层级，控制绘制顺序
+<br>angles&nbsp;<br>- 用于方向性动画（如八方向角色移动）：
+    
+    angles = {0, 45, 90, ...}      -- 角度列表
+    angles_flip_horizontal = true  -- 水平翻转时角度是否自动适配
+    angles_custom = function(angle) ... end -- 自定义角度处理
+<br>
+<br>
+fps&nbsp;&amp;&nbsp;ts
+
+<br>帧率（nil用默认值）和时间戳（累计动画时间）。<br>
+
+
+
+<br>
+frame_idx&nbsp;&amp;&nbsp;frame_name
+
+<br>当前帧索引（从1开始）和帧名称（若使用帧名动画）。<br>
+
+
+
+<br>
+hide_after_runs
+
+<br>动画播放指定次数后自动隐藏（如爆炸动画播完消失）。<br>
+
+
+
+<br><br><br>
+<br>
+sort_y&nbsp;&amp;&nbsp;sort_y_offset
+
+<br>按Y轴排序精灵（模拟深度效果），sort_y_offset为排序偏移量。<br>
+
+
+
+<br>
+sync_idx&nbsp;&amp;&nbsp;sync_flag
+
+<br>同步多个精灵的动画（如让多个对象播放相同帧）。<br>
+
+
+
+<br>
+random_ts
+
+<br>随机起始时间，避免多个精灵动画同步播放。<br>
+
+
+
+<br>
+size_names&nbsp;&amp;&nbsp;size_scales
+
+<br>多尺寸精灵支持（如size_names = {"sm", "lg"},&nbsp;size_scales = {0.5, 1.5}）。<br>
+
+
+
+<br><br><br>
+<br>runs: 动画已循环次数。<br>
+
+<br>hidden_count: 隐藏计数器（用于延迟隐藏）。<br>
+
+<br>time_offset: 时间偏移（延迟启动动画）。<br>
+
+<br>ignore_start: 是否跳过初始帧。
+]]></description><link>第-2-章、动画\精灵.html</link><guid isPermaLink="false">第 2 章、动画/精灵.md</guid><pubDate>Thu, 19 Jun 2025 12:15:17 GMT</pubDate></item><item><title><![CDATA[0.1 配置环境]]></title><description><![CDATA[ 
+ <br>开始之前先说一下游戏的引擎版本：<br>Lua_v5.1 + Love 2d_v10.2<br>（通过 print 版本信息得到）<br><br>开始修改前建议先观看两门教程。当然如果你有编程基础不看也行。<br>
+<br>
+<a data-tooltip-position="top" aria-label="https://www.bilibili.com/video/BV1vf4y1L7Rb/" rel="noopener nofollow" class="external-link" href="https://www.bilibili.com/video/BV1vf4y1L7Rb/" target="_blank">Lua教程-入门—哔哩哔哩</a>
+
+<br>
+<a data-tooltip-position="top" aria-label="https://www.bilibili.com/video/BV1WR4y1E7ud/" rel="noopener nofollow" class="external-link" href="https://www.bilibili.com/video/BV1WR4y1E7ud/" target="_blank">Lua教程-进阶—哔哩哔哩</a>
+
+<br><br><br><a class="auto-card-link-card" href="https://code.visualstudio.com/"><div class="auto-card-link-main"><div class="auto-card-link-title"></div><div class="auto-card-link-description"></div><div class="auto-card-link-host"><span></span></div></div></a>Visual Studio Code - Code Editing. RedefinedVisual Studio Code redefines AI-powered coding with GitHub Copilot for building and debugging modern web and cloud applications. Visual Studio Code is free and available on your favorite platform - Linux, macOS, and Windows.code.visualstudio.com<img class="auto-card-link-thumbnail" src="https://code.visualstudio.com/opengraphimg/opengraph-home.png" draggable="false"><br><br>
+<br>点击扩展 → 搜索 Lua → 安装 1.7 M 下载量的。
+<br>搜索 Local Lua Debugger → 安装
+<br><br>如果嫌这个 Lua 扩展卡顿，可以安装上面的 Lua，缺点就是无中文翻译<br>
+<img alt="Pasted image 20250615164100.png" src="_save\pasted-image-20250615164100.png" style="width: 281px; max-width: 100%;"><br><br>
+<br>
+下载资源里的 love 安装包 → 安装
+
+<br>
+按 win + r → 输入 sysdm.cpl<br>
+<img alt="Pasted image 20250617205212.png" src="_save\pasted-image-20250617205212.png" style="width: 356px; max-width: 100%;">
+
+<br>
+点击高级 → 环境变量 → 编辑 path 系统变量
+
+<br><br>
+<br>
+增加 love 的安装路径（图片路径仅供参考，请填写你的安装目录）<br>
+<img alt="Pasted image 20250618091025.png" src="_save\pasted-image-20250618091025.png" style="width: 475px; max-width: 100%;">
+
+<br>
+重启电脑 → 按 win + r 输入 cmd → 终端输入 love + 回车，验证是否出现窗口，如果出现窗口则安装成功<br>
+<img alt="Pasted image 20250622125753.png" src="_save\pasted-image-20250622125753.png" style="width: 650px; max-width: 100%;">
+
+<br><br>
+<br>将要修改的游戏复制到一个文件夹内（可以自己创建） → 解压游戏<br>
+注意：路径不要有中文
+<br>推荐放在 D 盘<br><br>
+<br>将解压出来的文件与游戏本体放到一起，如图二所示
+<br><br>
+<br>将文件夹增加到 VScode 的工作区（打开文件夹）<br>
+<img alt="Pasted image 20250618125723.png" src="_save\pasted-image-20250618125723.png" style="width: 700px; max-width: 100%;">
+<br><br>
+<br>点击运行和调试 → 创建 launch.json 文件 → 调试器选择 Local Lua Debugger
+<br><br>
+<br>用以下代码替换启动文件 → 保存
+<br>{
+	"version": "0.2.0",
+
+	"configurations": [
+		{
+			"type": "lua-local",
+			"request": "launch",
+			"name": "Debug",
+			"program": {
+				"command": "love"
+			},
+			"args": [
+				".",
+				"debug"
+			]
+		},
+		{
+			"type": "lua-local",
+			"request": "launch",
+			"name": "Release",
+			"program": {
+				"command": "love"
+			},
+			"args": [
+				"."
+			]
+		}
+	]
+}
+<br>
+<br>反编译 main → 向 main 增加一块代码 → 保存<br>
+增加到顶部：
+<br>if arg[2] == "debug" then
+	require("lldebugger").start()
+end
+<br>如图即可：<br>
+<img alt="Pasted image 20250618143019.png" src="_save\pasted-image-20250618143019.png" style="width: 600px; max-width: 100%;"><br>反编译见 <a data-href="0.2 工具#反编译软件" href="0.2-工具.html#反编译软件" class="internal-link" target="_self" rel="noopener nofollow">0.2 工具 &gt; 反编译软件</a><br>注意：反编译后需要用 output 的文件替换掉 main（以后反编译不再赘叙）<br>
+<img alt="Pasted image 20250618134903.png" src="_save\pasted-image-20250618134903.png" style="width: 700px; max-width: 100%;"><br>参考资料：<br><a class="auto-card-link-card" href="https://www.cnblogs.com/linxiaoxu/p/17653162.html"><div class="auto-card-link-main"><div class="auto-card-link-title"></div><div class="auto-card-link-description"></div><div class="auto-card-link-host"><span></span></div></div></a>[Love] VSCODE 调试 LOVE 引擎游戏 - 小能日记 - 博客园## VSCODE调试LOVE引擎游戏 ### **安装插件** ### **配置插件** 按 `CTRL + SHIFT + P`，打开`Preferences: Open User Settings (JSON)`，为settings.json添加如下代码 ```lua &amp;quot;Lua.ru<img class="auto-card-link-favicon" src="https://assets.cnblogs.com/favicon_v3_2.ico">www.cnblogs.com<br><br>
+<br>打开 version → 将 build 改为 true<br>
+<img alt="Pasted image 20250618150508.png" src="_save\pasted-image-20250618150508.png" style="width: 650px; max-width: 100%;">
+<br><br>
+<br>
+打开运行与调试 → 选择模式：Debug 为调试模式（注调试模式会对性能造成较大影响）<br>
+Release 为正常模式（也就是禁用调试功能）<br>
+<img alt="Pasted image 20250618145003.png" src="_save\pasted-image-20250618145003.png" style="width: 357px; max-width: 100%;">
+
+<br>
+打一些断点（因为现在是测试所以尽量别打到函数内）<br>
+<img alt="Pasted image 20250618143505.png" src="_save\pasted-image-20250618143505.png" style="width: 625px; max-width: 100%;">
+
+<br>
+运行<br>
+注意：运行需要打开 steam（可关闭验证，不打算教防止盗版泛滥）<br>
+<img alt="Pasted image 20250618152216.png" src="_save\pasted-image-20250618152216.png" style="width: 500px; max-width: 100%;">
+
+<br>
+一切正常下游戏会在断点处暂停，同时可以看到变量、堆栈<br>
+<img alt="Pasted image 20250618143251.png" src="_save\pasted-image-20250618143251.png" style="width: 875px; max-width: 100%;">
+
+<br>完成后注意一下存档位置会在 C:\Users\你的用户名称\AppData\Roaming\LOVE 里面<br>Info
+壹、如果运行后卡住没反应：检查 conf → 关闭自带控制台（true 改 false）<br>
+<img alt="Pasted image 20250618142239.png" src="_save\pasted-image-20250618142239.png" style="width: 400px; max-width: 100%;">
+贰、如果在错误地方寻找 lua 文件可将 main 的 ppref 设为空字符串<br>
+<img alt="Pasted image 20250618161513.png" src="_save\pasted-image-20250618161513.png" style="width: 650px; max-width: 100%;">
+<br><br><br>``<br><br>点击左上角金币图标，开启有 UI 的控制台（功能与快捷键相同）<br>
+<img alt="Pasted image 20250620190901.png" src="_save\pasted-image-20250620190901.png" style="width: 625px; max-width: 100%;"><br><br><br><br>设置后可按 0 手动触发断点<br>
+断点触发后可以直接右键修改变量的值、以及在调试控制台执行代码（必须使用调试模式运行）<br>
+<br>找到 main 的 love.keypressed 函数（直接搜索就行）
+<br>函数内加块代码，同时增加断点
+<br>if key == "0" then
+	print("Break-point")
+end
+<br><img alt="Pasted image 20250620203617.png" src="_save\pasted-image-20250620203617.png" style="width: 625px; max-width: 100%;"><br><br>注意：只有触发断点时监视才可用<br><br><img alt="Pasted image 20250621105918.png" src="_save\pasted-image-20250621105918.png" style="width: 475px; max-width: 100%;"><br><br>
+<br>打开设置（左下角） 
+<br>点击文本编辑器 → 字体 → 输入 JetBrains Mono （请确保已安装）
+<br>]]></description><link>0.1-配置环境.html</link><guid isPermaLink="false">0.1 配置环境.md</guid><pubDate>Tue, 24 Jun 2025 06:20:43 GMT</pubDate><enclosure url="https://code.visualstudio.com/opengraphimg/opengraph-home.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;https://code.visualstudio.com/opengraphimg/opengraph-home.png&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[AI]]></title><description><![CDATA[ 
+ <br><br>如有任何疑问，强烈建议先问一下 AI，然后再向他人寻求帮助。<br>先推荐一个 deep seek：<br><a class="auto-card-link-card" href="https://www.deepseek.com/"><div class="auto-card-link-main"><div class="auto-card-link-title"></div><div class="auto-card-link-description"></div><div class="auto-card-link-host"><span></span></div></div></a>DeepSeek | 深度求索深度求索（DeepSeek），成立于2023年，专注于研究世界领先的通用人工智能底层模型与技术，挑战人工智能前沿性难题。基于自研训练框架、自建智算集群和万卡算力等资源，深度求索团队仅用半年时间便已发布并开源多个百亿级参数大模型，如DeepSeek-LLM通用大语言模型、DeepSeek-Coder代码大模型，并在2024年1月率先开源国内首个MoE大模型（DeepSeek-MoE），各大模型在公开评测榜单及真实样本外的泛化效果均有超越同级别模型的出色表现。和 DeepSeek AI 对话，轻松接入 API。<img class="auto-card-link-favicon" src="https://www.deepseek.com/favicon.ico">www.deepseek.com<img class="auto-card-link-thumbnail" src="https://chat.deepseek.com/deepseek-chat.jpeg" draggable="false"><br>问 AI 最重要的是你想问的问题，需要先明确自己的遇到的问题。然后简单描述环境（或者直接复制上下文给 AI）<br>（不知道问题？建议把 lua 基础学会，了解一些名词）<br><br>
+<br>
+下载资源里的 luajit-decompiler → 解压
+
+<br>
+将需要反编译的 lua 文件拖入 exe（可以拖文件夹，可能会弹非常多的弹窗）<br>
+<img alt="Pasted image 20250615210233.png" src="_save\pasted-image-20250615210233.png" style="width: 959px; max-width: 100%;">
+
+<br>
+在 output 文件夹即可找到反编译后的 lua 文件<br>
+<img alt="Pasted image 20250615210312.png" src="_save\pasted-image-20250615210312.png" style="width: 675px; max-width: 100%;">
+
+<br>如果出现这个窗口则表示该文件不是 lua 文件，点击继续就行<br>
+<img alt="Pasted image 20250616103143.png" src="_save\pasted-image-20250616103143.png" style="width: 368px; max-width: 100%;">]]></description><link>0.2-工具.html</link><guid isPermaLink="false">0.2 工具.md</guid><pubDate>Mon, 23 Jun 2025 08:11:07 GMT</pubDate><enclosure url="https://www.deepseek.com/favicon.ico" length="0" type="image/x-icon"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;https://www.deepseek.com/favicon.ico&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[缩写总结]]></title><description><![CDATA[ 
+ <br>]]></description><link>缩写总结.html</link><guid isPermaLink="false">缩写总结.md</guid><pubDate>Tue, 24 Jun 2025 05:54:29 GMT</pubDate></item><item><title><![CDATA[免责声明]]></title><description><![CDATA[ 
+ <br><br>该文档仅限学习交流，禁止用于商业用途。<br>请购买正版游戏后再进行修改。若修改盗版出现任何问题，均与作者以及文档无关<br><br>本文档适用于电脑版的一代、二代、三代、五代，请注意版本（安卓版部分可用）<br>电脑小白不建议修改！<br>本文档仓库地址 <a data-tooltip-position="top" aria-label="https://github.com/MC123ACD/KR_modCourse" rel="noopener nofollow" class="external-link" href="https://github.com/MC123ACD/KR_modCourse" target="_blank">MC123ACD/KR_modCourse - Github</a><br>由于本人正处于学习阶段，所以错误在所难免，欢迎提出意见，提 requests]]></description><link>index.html</link><guid isPermaLink="false">index.md</guid><pubDate>Tue, 24 Jun 2025 06:02:44 GMT</pubDate></item></channel></rss>
