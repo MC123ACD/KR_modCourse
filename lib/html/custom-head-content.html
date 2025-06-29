@@ -1,0 +1,28 @@
+<html>
+<head>
+  <style>
+    .clickable-icon.collapse-tree-button {
+      border: none;
+      background: rgba(127,127,127,0);
+    }
+
+    .markdown-rendered>.markdown-preview-section>div:last-child>:last-child,.markdown-rendered>.markdown-preview-section>div:not(.mod-ui):has(+ .mod-ui)>:last-child {
+      margin-bottom:revert !important;
+    }
+
+    :is(.markdown-preview-view,.markdown-rendered) p {
+      margin-block-end: initial;
+    };
+    
+    :is(.markdown-preview-view,.markdown-rendered) :is(ol,ul) {
+      margin-block-start: calc((var(--line-height-list) - 2) * 0em);
+      margin-block-end: calc((var(--line-height-list) - 2) * 0em);
+    }
+  </style>
+  <script>
+    window.addEventListener("load", () =>
+      document.querySelectorAll(".sidebar-collapse-icon>svg").forEach(s => s.setAttribute("stroke-width", 2))
+    );
+  </script>
+</head>
+</html>
