@@ -1,6 +1,7 @@
 <html>
 <head>
   <style>
+
     .clickable-icon.collapse-tree-button {
       border: none;
       background: rgba(127,127,127,0);
@@ -12,12 +13,11 @@
 
     :is(.markdown-preview-view,.markdown-rendered) p {
       margin-block-end: initial;
-    };
-
-    .markdown-rendered .list-collapse-indicator {
-      display: none !important;
     }
-    
+
+    .document-container>.markdown-preview-view>.markdown-preview-sizer {
+      max-width: 100% !important;
+    }
   </style>
   <script>
     window.addEventListener("load", () =>
