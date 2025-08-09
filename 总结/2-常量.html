@@ -1,0 +1,678 @@
+<!DOCTYPE html> <html lang="zh-cn"><head>
+<title>2 - 常量</title>
+<base href="..">
+<meta name="pathname" content="总结/2-常量.html">
+<meta name="description" content="王国保卫战修改教程 - 2 - 常量">
+<meta property="og:title" content="2 - 常量">
+<meta property="og:description" content="王国保卫战修改教程 - 2 - 常量">
+<meta property="og:type" content="website">
+<meta property="og:url" content="总结/2-常量.html">
+<meta property="og:image" content="undefined">
+<meta charset="UTF-8"><meta property="og:site_name" content="王国保卫战修改教程"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="preload" href="site-lib/styles/snippets.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/snippets.css"></noscript><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/other-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/other-plugins.css"></noscript><link rel="stylesheet" href="site-lib/styles/theme.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/supported-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/supported-plugins.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager mod-windows is-frameless is-hidden-frameless show-ribbon background-settings-workplace-theme-dark-in-the-sky background-image-settings-markdown-page-custom notebook-liked-markdown-page-grid-notebook-1 panel-page-bg-theme-light-custom panel-page-bg-theme-dark-plant hide-left-ribbon-retention-drawer toggle-divider-lines toggle-header-bottom-line bt-bubble-layout bt-bubble-layout-hide-borders remove-heading-indicator h1-toggle-underline toggle-left-aligned-content fancy-hr-no-icon custom-unordered-list custom-ordered-list list-no-border bt-connected-indent-hover folder-icons bt-toggle-colorful-folder folder-style-change-options-colorful-default folder-colorful-one table-width-auto table-style-two link-underline-internal enable-alternative-checkboxes default-loading-page loading-text-typing-style rainbow-tag translucent-setting-panel underline-tab-style canvas-card-text-middle admonition-bg-color-same toggle-calendar-shadow style-options-for-buttons-plugin dataview-list-style-pacman memos-banner-gradient thino-frosted-style thino-background-default quiet-outline-optimize code-theme-sublime is-focused"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event is-readable-line-width allow-fold-headings show-indentation-guide show-properties" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section"><div class="header"><h1 class="page-title heading" id="2_-_常量_0">2 - 常量</h1><div class="data-bar"></div></div><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-p"><p dir="auto">看二进制效率较低，所以直接写 1 所在的位数，例如 <code>1000</code> 则位数为 4</p></div><div class="el-p"><p dir="auto">仅总结常用的，其他自行见 <code>constants</code></p></div><div class="el-h2"><h2 data-heading="一、伤害类型" dir="auto" class="heading" id="一、伤害类型_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>一、伤害类型</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr"><center>说明</center></th>
+<th dir="ltr"><center>常量名称</center></th>
+<th dir="ltr"><center>二进制位数</center></th>
+<th dir="ltr"><center>十进制</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong>无伤害</strong></td>
+<td dir="ltr"><code>DAMAGE_NONE</code></td>
+<td dir="auto">0</td>
+<td dir="auto"><code>0</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>真伤</strong></td>
+<td dir="ltr"><code>DAMAGE_TRUE</code></td>
+<td dir="auto">1</td>
+<td dir="auto"><code>1</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>物伤</strong></td>
+<td dir="ltr"><code>DAMAGE_PHYSICAL</code></td>
+<td dir="auto">2</td>
+<td dir="auto"><code>2</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>法伤</strong></td>
+<td dir="ltr"><code>DAMAGE_MAGICAL</code></td>
+<td dir="auto">3</td>
+<td dir="auto"><code>4</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>炮伤，被击杀爆浆</strong></td>
+<td dir="ltr"><code>DAMAGE_EXPLOSION</code></td>
+<td dir="auto">4</td>
+<td dir="auto"><code>8</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>电伤</strong></td>
+<td dir="ltr"><code>DAMAGE_ELECTRICAL</code></td>
+<td dir="auto">5</td>
+<td dir="auto"><code>16</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>毒伤</strong></td>
+<td dir="ltr"><code>DAMAGE_POISON</code></td>
+<td dir="auto">6</td>
+<td dir="auto"><code>32</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>穿甲伤害（无视 75% 护甲）</strong></td>
+<td dir="ltr"><code>DAMAGE_DWAARP</code></td>
+<td dir="auto">7</td>
+<td dir="auto"><code>64</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>所有基础伤害</strong></td>
+<td dir="ltr"><code>DAMAGE_BASE_TYPES</code></td>
+<td dir="auto">7-1</td>
+<td dir="auto"><code>255</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>破甲</strong></td>
+<td dir="ltr"><code>DAMAGE_ARMOR</code></td>
+<td dir="auto">9</td>
+<td dir="auto"><code>256</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>降魔抗</strong></td>
+<td dir="ltr"><code>DAMAGE_MAGICAL_ARMOR</code></td>
+<td dir="auto">10</td>
+<td dir="auto"><code>512</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>秒杀</strong></td>
+<td dir="ltr"><code>DAMAGE_INSTAKILL</code></td>
+<td dir="auto">11</td>
+<td dir="auto"><code>1024</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>分解，被击杀变成灰</strong></td>
+<td dir="ltr"><code>DAMAGE_DISINTEGRATE</code></td>
+<td dir="auto">12</td>
+<td dir="auto"><code>2048</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>吞噬，无视亡语秒杀</strong></td>
+<td dir="ltr"><code>DAMAGE_EAT</code></td>
+<td dir="auto">13</td>
+<td dir="auto"><code>4096</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>寄生</strong></td>
+<td dir="ltr"><code>DAMAGE_HOST</code></td>
+<td dir="auto">14</td>
+<td dir="auto"><code>8192</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>Boss 分解</strong></td>
+<td dir="ltr"><code>DAMAGE_DISINTEGRATE_BOSS</code></td>
+<td dir="auto">15</td>
+<td dir="auto"><code>16384</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>效果伤害</strong></td>
+<td dir="ltr"><code>DAMAGE_MODIFIER</code></td>
+<td dir="auto">16</td>
+<td dir="auto"><code>32768</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>所有伤害类型</strong></td>
+<td dir="ltr"><code>DAMAGE_ALL_TYPES</code></td>
+<td dir="auto">24-1</td>
+<td dir="auto"><code>16777215</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="伤害标签" dir="auto" class="heading" id="伤害标签_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>伤害标签</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr"><strong><center>说明</center></strong></th>
+<th dir="ltr"><center>常量名称</center></th>
+<th dir="ltr"><center>二进制位数</center></th>
+<th dir="ltr"><center>十进制</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong>伤害不致死（留 1 血）</strong></td>
+<td dir="ltr"><code>DAMAGE_NO_KILL</code></td>
+<td dir="auto">24</td>
+<td dir="auto"><code>8388608</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>伤害不触发召唤</strong></td>
+<td dir="ltr"><code>DAMAGE_NO_SPAWNS</code></td>
+<td dir="auto">25</td>
+<td dir="auto"><code>16777216</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>伤害无法闪避</strong></td>
+<td dir="ltr"><code>DAMAGE_NO_DODGE</code></td>
+<td dir="auto">26</td>
+<td dir="auto"><code>33554432</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>伤害不触发吸血</strong></td>
+<td dir="ltr"><code>DAMAGE_NO_LIFESTEAL</code></td>
+<td dir="auto">27</td>
+<td dir="auto"><code>67108864</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>伤害不触发护盾格挡</strong></td>
+<td dir="ltr"><code>DAMAGE_NO_SHIELD_HIT</code></td>
+<td dir="auto">28</td>
+<td dir="auto"><code>134217728</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>伤害仅触发一次护盾格挡</strong></td>
+<td dir="ltr"><code>DAMAGE_ONE_SHIELD_HIT</code></td>
+<td dir="auto">29</td>
+<td dir="auto"><code>268435456</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>伤害无视护盾</strong></td>
+<td dir="ltr"><code>DAMAGE_IGNORE_SHIELD</code></td>
+<td dir="auto">30</td>
+<td dir="auto"><code>536870912</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>击杀不爆浆</strong></td>
+<td dir="ltr"><code>DAMAGE_FX_NOT_EXPLODE</code></td>
+<td dir="auto">31</td>
+<td dir="auto"><code>1073741824</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>击杀爆浆</strong></td>
+<td dir="ltr"><code>DAMAGE_FX_EXPLODE</code></td>
+<td dir="auto">32</td>
+<td dir="auto"><code>2147483648</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>所有标签</strong></td>
+<td dir="ltr"><code>DAMAGE_ALL_FLAGS</code></td>
+<td dir="auto">32-25</td>
+<td dir="auto"><code>4278190080</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>所有</strong></td>
+<td dir="ltr"><code>DAMAGE_ALL</code></td>
+<td dir="auto">32-1</td>
+<td dir="auto"><code>4294967295</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="二、标签" dir="auto" class="heading" id="二、标签_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>二、标签</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr"><center><strong>标签</strong></center></th>
+<th dir="ltr"><center>常量名称</center></th>
+<th dir="ltr"><center>二进制位数</center></th>
+<th dir="ltr"><center>十进制</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong>无</strong></td>
+<td dir="ltr"><code>F_NONE</code></td>
+<td dir="auto">0</td>
+<td dir="auto"><code>0</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>近战攻击</strong></td>
+<td dir="ltr"><code>F_BLOCK</code></td>
+<td dir="auto">1</td>
+<td dir="auto"><code>1</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>远程攻击</strong></td>
+<td dir="ltr"><code>F_RANGED</code></td>
+<td dir="auto">2</td>
+<td dir="auto"><code>2</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>效果</strong></td>
+<td dir="ltr"><code>F_MOD</code></td>
+<td dir="auto">3</td>
+<td dir="auto"><code>4</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>范围攻击</strong></td>
+<td dir="ltr"><code>F_AREA</code></td>
+<td dir="auto">4</td>
+<td dir="auto"><code>8</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>英雄</strong></td>
+<td dir="ltr"><code>F_HERO</code></td>
+<td dir="auto">5</td>
+<td dir="auto"><code>16</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>Boss</strong></td>
+<td dir="ltr"><code>F_BOSS</code></td>
+<td dir="auto">6</td>
+<td dir="auto"><code>32</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>迷你 Boss</strong></td>
+<td dir="ltr"><code>F_MINIBOSS</code></td>
+<td dir="auto">7</td>
+<td dir="auto"><code>64</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>飞行</strong></td>
+<td dir="ltr"><code>F_FLYING</code></td>
+<td dir="auto">8</td>
+<td dir="auto"><code>128</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>悬崖</strong></td>
+<td dir="ltr"><code>F_CLIFF</code></td>
+<td dir="auto">9</td>
+<td dir="auto"><code>256</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>水</strong></td>
+<td dir="ltr"><code>F_WATER</code></td>
+<td dir="auto">10</td>
+<td dir="auto"><code>512</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>友方</strong></td>
+<td dir="ltr"><code>F_FRIEND</code></td>
+<td dir="auto">11</td>
+<td dir="auto"><code>1024</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>敌方</strong></td>
+<td dir="ltr"><code>F_ENEMY</code></td>
+<td dir="auto">12</td>
+<td dir="auto"><code>2048</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>特殊技能</strong></td>
+<td dir="ltr"><code>F_CUSTOM</code></td>
+<td dir="auto">13</td>
+<td dir="auto"><code>4096</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>致命</strong></td>
+<td dir="ltr"><code>F_LETHAL</code></td>
+<td dir="auto">14</td>
+<td dir="auto"><code>8192</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>岩浆 / 燃烧</strong></td>
+<td dir="ltr"><code>F_LAVA / F_BURN</code></td>
+<td dir="auto">15</td>
+<td dir="auto"><code>16384</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>同类相食</strong></td>
+<td dir="ltr"><code>F_CANNIBALIZE</code></td>
+<td dir="auto">16</td>
+<td dir="auto"><code>32768</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>流血</strong></td>
+<td dir="ltr"><code>F_BLOOD</code></td>
+<td dir="auto">17</td>
+<td dir="auto"><code>65536</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>钻头 / 蜘蛛毒</strong></td>
+<td dir="ltr"><code>F_DRILL / F_DRIDER_POISON</code></td>
+<td dir="auto">18</td>
+<td dir="auto"><code>131072</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>被蛤蟆吃 / 5 代分解</strong></td>
+<td dir="ltr"><code>F_EATING / F_DISINTEGRATEDKR5</code></td>
+<td dir="auto">19</td>
+<td dir="auto"><code>262144</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>秒杀</strong></td>
+<td dir="ltr"><code>F_INSTAKILL</code></td>
+<td dir="auto">20</td>
+<td dir="auto"><code>524288</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>中毒</strong></td>
+<td dir="ltr"><code>F_POISON</code></td>
+<td dir="auto">21</td>
+<td dir="auto"><code>1048576</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>变形</strong></td>
+<td dir="ltr"><code>F_POLYMORPH</code></td>
+<td dir="auto">22</td>
+<td dir="auto"><code>2097152</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>眩晕</strong></td>
+<td dir="ltr"><code>F_STUN</code></td>
+<td dir="auto">23</td>
+<td dir="auto"><code>4194304</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>传送</strong></td>
+<td dir="ltr"><code>F_TELEPORT</code></td>
+<td dir="auto">24</td>
+<td dir="auto"><code>8388608</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>荆棘 / 龙卷风 / 布偶化 / 噩梦</strong></td>
+<td dir="ltr"><code>F_THORN / F_TWISTER / F_RAGGIFY / F_NIGHTMARE</code></td>
+<td dir="auto">25</td>
+<td dir="auto"><code>16777216</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>骷髅</strong></td>
+<td dir="ltr"><code>F_SKELETON</code></td>
+<td dir="auto">26</td>
+<td dir="auto"><code>33554432</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>网</strong></td>
+<td dir="ltr"><code>F_NET</code></td>
+<td dir="auto">27</td>
+<td dir="auto"><code>67108864</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>分解</strong></td>
+<td dir="ltr"><code>F_DISINTEGRATED</code></td>
+<td dir="auto">28</td>
+<td dir="auto"><code>134217728</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>冻结</strong></td>
+<td dir="ltr"><code>F_FREEZE</code></td>
+<td dir="auto">29</td>
+<td dir="auto"><code>268435456</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>僵尸 / 骷髅</strong></td>
+<td dir="ltr"><code>F_ZOMBIE / F_SERVANT</code></td>
+<td dir="auto">30</td>
+<td dir="auto"><code>536870912</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>狼人 / 黑暗精灵</strong></td>
+<td dir="ltr"><code>F_LYCAN / F_DARK_ELF</code></td>
+<td dir="auto">31</td>
+<td dir="auto"><code>1073741824</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>施法者</strong></td>
+<td dir="ltr"><code>F_SPELLCASTER</code></td>
+<td dir="auto">32</td>
+<td dir="auto"><code>2147483648</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>所有</strong></td>
+<td dir="ltr"><code>F_ALL</code></td>
+<td dir="auto">32-1</td>
+<td dir="auto"><code>4294967295</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="三、效果类型" dir="auto" class="heading" id="三、效果类型_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>三、效果类型</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr"><center><strong>效果</strong></center></th>
+<th dir="ltr"><center>变量名称</center></th>
+<th dir="ltr"><center>对应字符串</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong>流血</strong></td>
+<td dir="ltr"><code>MOD_TYPE_BLEED</code></td>
+<td dir="ltr"><code>"bleed"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>加速</strong></td>
+<td dir="ltr"><code>MOD_TYPE_FAST</code></td>
+<td dir="ltr"><code>"fast"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>冻结</strong></td>
+<td dir="ltr"><code>MOD_TYPE_FREEZE</code></td>
+<td dir="ltr"><code>"freeze"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>中毒</strong></td>
+<td dir="ltr"><code>MOD_TYPE_POISON</code></td>
+<td dir="ltr"><code>"poison"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>变形</strong></td>
+<td dir="ltr"><code>MOD_TYPE_POLYMORPH</code></td>
+<td dir="ltr"><code>"polymorph"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>狂暴</strong></td>
+<td dir="ltr"><code>MOD_TYPE_RAGE</code></td>
+<td dir="ltr"><code>"rage"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>减速</strong></td>
+<td dir="ltr"><code>MOD_TYPE_SLOW</code></td>
+<td dir="ltr"><code>"slow"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>赏金变化</strong></td>
+<td dir="ltr"><code>MOD_TYPE_GOLD</code></td>
+<td dir="ltr"><code>"gold"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>眩晕</strong></td>
+<td dir="ltr"><code>MOD_TYPE_STUN</code></td>
+<td dir="ltr"><code>"stun"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>传送</strong></td>
+<td dir="ltr"><code>MOD_TYPE_TELEPORT</code></td>
+<td dir="ltr"><code>"teleport"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>虚空（高冷或五代虚空法师的大招）</strong></td>
+<td dir="ltr"><code>MOD_TYPE_TIMELAPSE</code></td>
+<td dir="ltr"><code>"timelapse"</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="四、关卡模式" dir="auto" class="heading" id="四、关卡模式_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>四、关卡模式</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th align="center" dir="ltr">模式</th>
+<th dir="ltr">常量名称</th>
+<th dir="ltr"><center>二进制位数</center></th>
+<th align="right" dir="ltr"><center>十进制</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" dir="ltr"><strong>战役</strong></td>
+<td dir="ltr"><code>GAME_MODE_CAMPAIGN</code></td>
+<td dir="auto">1</td>
+<td align="right" dir="auto"><code>1</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>英雄</strong></td>
+<td dir="ltr"><code>GAME_MODE_HEROIC</code></td>
+<td dir="auto">2</td>
+<td align="right" dir="auto"><code>2</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>钢铁</strong></td>
+<td dir="ltr"><code>GAME_MODE_IRON</code></td>
+<td dir="auto">2-1</td>
+<td align="right" dir="auto"><code>3</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>无尽</strong></td>
+<td dir="ltr"><code>GAME_MODE_ENDLESS</code></td>
+<td dir="auto">3</td>
+<td align="right" dir="auto"><code>4</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="五、网格类型" dir="auto" class="heading" id="五、网格类型_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>五、网格类型</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th align="left" dir="ltr"><center><strong>类型</strong></center></th>
+<th align="left" dir="ltr"><center>常量名称</center></th>
+<th dir="ltr"><center>二进制位数</center></th>
+<th align="right" dir="ltr"><center>十进制</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" dir="ltr"><strong>路径</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_LAND</code></td>
+<td dir="auto">1</td>
+<td align="right" dir="auto"><code>1</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>水</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_WATER</code></td>
+<td dir="auto">2</td>
+<td align="right" dir="auto"><code>2</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>悬崖 / 可释放技能</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_CLIFF</code> / <code>TERRAIN_PROPS_COUNT</code></td>
+<td dir="auto">3</td>
+<td align="right" dir="auto"><code>4</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>隐蔽路径</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_TYPES_MASK</code></td>
+<td dir="auto">8-1</td>
+<td align="right" dir="auto"><code>255</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>无法行走</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_NOWALK</code></td>
+<td dir="auto">9</td>
+<td align="right" dir="auto"><code>256</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>浅滩</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_SHALLOW</code></td>
+<td dir="auto">10</td>
+<td align="right" dir="auto"><code>512</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>精灵</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_FAERIE</code></td>
+<td dir="auto">11</td>
+<td align="right" dir="auto"><code>1024</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>冰面</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_ICE</code></td>
+<td dir="auto">12</td>
+<td align="right" dir="auto"><code>2048</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>隐蔽可释放技能</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_PROPS_MASK</code></td>
+<td dir="auto">16-9</td>
+<td align="right" dir="auto"><code>65280</code></td>
+</tr>
+<tr>
+<td align="left" dir="ltr"><strong>所有类型</strong></td>
+<td align="left" dir="ltr"><code>TERRAIN_ALL_MASK</code></td>
+<td dir="auto">16-1</td>
+<td align="right" dir="auto"><code>65535</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="六、图层" dir="auto" class="heading" id="六、图层_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>六、图层</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr"><center>描述</center></th>
+<th dir="ltr"><center>常量名</center></th>
+<th align="right" dir="ltr"><center>十进制</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">底层背景</td>
+<td dir="ltr"><code>Z_BACKGROUND</code></td>
+<td align="right" dir="auto"><code>1000</code></td>
+</tr>
+<tr>
+<td dir="ltr">中层背景</td>
+<td dir="ltr"><code>Z_BACKGROUND_BETWEEN</code></td>
+<td align="right" dir="auto"><code>1100</code></td>
+</tr>
+<tr>
+<td dir="ltr">上层背景</td>
+<td dir="ltr"><code>Z_BACKGROUND_COVERS</code></td>
+<td align="right" dir="auto"><code>1200</code></td>
+</tr>
+<tr>
+<td dir="ltr">防御塔</td>
+<td dir="ltr"><code>Z_TOWER_BASES</code></td>
+<td align="right" dir="auto"><code>1300</code></td>
+</tr>
+<tr>
+<td dir="ltr">贴图</td>
+<td dir="ltr"><code>Z_DECALS</code></td>
+<td align="right" dir="auto"><code>1400</code></td>
+</tr>
+<tr>
+<td dir="ltr">gui 贴图</td>
+<td dir="ltr"><code>Z_GUI_DECALS</code></td>
+<td align="right" dir="auto"><code>2000</code></td>
+</tr>
+<tr>
+<td dir="ltr">实体</td>
+<td dir="ltr"><code>Z_OBJECTS</code></td>
+<td align="right" dir="auto"><code>3000</code></td>
+</tr>
+<tr>
+<td dir="ltr">上层实体</td>
+<td dir="ltr"><code>Z_OBJECTS_COVERS</code></td>
+<td align="right" dir="auto"><code>3100</code></td>
+</tr>
+<tr>
+<td dir="ltr">飞行英雄</td>
+<td dir="ltr"><code>Z_FLYING_HEROES</code></td>
+<td align="right" dir="auto"><code>3150</code></td>
+</tr>
+<tr>
+<td dir="ltr">子弹特效</td>
+<td dir="ltr"><code>Z_BULLET_PARTICLES</code></td>
+<td align="right" dir="auto"><code>3200</code></td>
+</tr>
+<tr>
+<td dir="ltr">特效</td>
+<td dir="ltr"><code>Z_EFFECTS</code></td>
+<td align="right" dir="auto"><code>3300</code></td>
+</tr>
+<tr>
+<td dir="ltr">子弹实体</td>
+<td dir="ltr"><code>Z_BULLETS</code></td>
+<td align="right" dir="auto"><code>3400</code></td>
+</tr>
+<tr>
+<td dir="ltr">天空实体</td>
+<td dir="ltr"><code>Z_OBJECTS_SKY</code></td>
+<td align="right" dir="auto"><code>3500</code></td>
+</tr>
+<tr>
+<td dir="ltr">屏幕</td>
+<td dir="ltr"><code>Z_SCREEN_FIXED</code></td>
+<td align="right" dir="auto"><code>3900</code></td>
+</tr>
+<tr>
+<td dir="ltr">gui</td>
+<td dir="ltr"><code>Z_GUI</code></td>
+<td align="right" dir="auto"><code>4000</code></td>
+</tr>
+</tbody>
+</table></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="总结/2-常量.html#2_-_常量_0" data-path="#2_-_常量_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="2 - 常量">2 - 常量</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="总结/2-常量.html#一、伤害类型_0" data-path="#一、伤害类型_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="一、伤害类型">一、伤害类型</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="总结/2-常量.html#伤害标签_0" data-path="#伤害标签_0"><div class="tree-item-inner heading-link" heading-name="伤害标签">伤害标签</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="总结/2-常量.html#二、标签_0" data-path="#二、标签_0"><div class="tree-item-inner heading-link" heading-name="二、标签">二、标签</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="总结/2-常量.html#三、效果类型_0" data-path="#三、效果类型_0"><div class="tree-item-inner heading-link" heading-name="三、效果类型">三、效果类型</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="总结/2-常量.html#四、关卡模式_0" data-path="#四、关卡模式_0"><div class="tree-item-inner heading-link" heading-name="四、关卡模式">四、关卡模式</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="总结/2-常量.html#五、网格类型_0" data-path="#五、网格类型_0"><div class="tree-item-inner heading-link" heading-name="五、网格类型">五、网格类型</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="总结/2-常量.html#六、图层_0" data-path="#六、图层_0"><div class="tree-item-inner heading-link" heading-name="六、图层">六、图层</div></a><div class="tree-item-children"></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>
