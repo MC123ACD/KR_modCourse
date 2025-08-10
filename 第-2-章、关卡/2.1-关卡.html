@@ -20,7 +20,7 @@
 <li data-line="2" dir="auto"><span class="list-bullet"></span><code>max_upgrade_level</code> 防御塔最大等级</li>
 <li data-line="3" dir="auto"><span class="list-bullet"></span><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span><code>entities_list</code> 进入关卡创建的实体
 <ul class="has-list-bullet">
-<li data-line="4" dir="auto"><span class="list-bullet"></span><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>实体 1
+<li data-line="4" dir="auto"><span class="list-bullet"></span><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>实体 1：
 <ul class="has-list-bullet">
 <li data-line="5" dir="auto"><span class="list-bullet"></span><code>template</code> 创建的实体</li>
 <li data-line="6" dir="auto"><span class="list-bullet"></span><code>pos</code> 创建位置</li>
@@ -30,7 +30,7 @@
 <li data-line="8" dir="auto"><span class="list-bullet"></span>实体 2...</li>
 </ul>
 </li>
-<li data-line="9" dir="auto"><span class="list-bullet"></span><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span><code>level_mode_overrides</code> 不同模式的差异
+<li data-line="9" dir="auto"><span class="list-bullet"></span><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span><code>level_mode_overrides</code> 不同模式的差异：
 <ul class="has-list-bullet">
 <li data-line="10" dir="auto"><span class="list-bullet"></span>战役模式</li>
 <li data-line="11" dir="auto"><span class="list-bullet"></span>英雄模式</li>
@@ -93,7 +93,7 @@
 </ol>
 </li>
 </ol></div><div class="el-h3"><h3 data-heading="[二] 调用 `screen_map:init` 函数初始化" dir="auto" class="heading" id="[二]_调用_`screen_mapinit`_函数初始化_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>[二] 调用 <code>screen_map:init</code> 函数初始化</h3></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>若存档中有 <code>last_victory</code> 键且存档没有对应关卡模式的通关数据（存档的 <code>levels</code> 键）则根据关卡模式进行：
+<li data-line="0" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span><strong>若存档中有 <code>last_victory</code> 键且存档没有对应关卡模式的通关数据（存档的 <code>levels</code> 键）则根据关卡模式进行：</strong>
 <ol>
 <li data-line="1" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span><strong>战役：调用 <code>U.find_next_level_in_ranges</code> 函数将 <code>ud.new_level</code> 赋值为下一个关卡的索引：</strong>
 <ol>
