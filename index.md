@@ -16,6 +16,8 @@
 > 1. [Lua教程-入门—哔哩哔哩](https://www.bilibili.com/video/BV1vf4y1L7Rb/)
 > 2. [Lua教程-进阶—哔哩哔哩](https://www.bilibili.com/video/BV1WR4y1E7ud/)
 
+注：本教程主要以总结为目的，所以教程都是重要知识点，其他修改方法类比一下即可
+
 # 免责声明
 **<font color="#ff0000">该文档仅限学习交流，禁止用于商业用途</font>**
 

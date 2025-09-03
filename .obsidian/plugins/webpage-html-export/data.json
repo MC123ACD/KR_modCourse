@@ -10,15 +10,17 @@
     "postProcess": true,
     "displayProgress": true,
     "inlineHTML": false,
-    "exportPath": "D:\\KR\\王国保卫战修改教程\\王国保卫战修改教程",
+    "exportPath": "D:\\Onedrive\\王国保卫战修改教程\\HTML",
     "filesToExport": [
       "第 1 章、基础",
       "第 2 章、关卡",
+      "第 3 章、动画",
+      "第 4 章、界面",
       "总结",
       "0.1 - 配置环境.md",
-      "0.2 - 工具.md",
       "发布与安装改版.md",
-      "index.md"
+      "index.md",
+      "README.md"
     ],
     "useFallbackRenderer": false,
     "addBodyClasses": true,
