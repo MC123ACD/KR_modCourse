@@ -13,13 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "总结/1 - 模板.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "1 - 模板"
+              "title": "README"
             }
           }
         ]
@@ -70,8 +70,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "b3a58f8c143e4ce0",
@@ -87,13 +86,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "总结/1 - 模板.md",
+                "file": "README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "1 - 模板 的大纲"
+              "title": "README 的大纲"
             }
           },
           {
@@ -136,16 +135,17 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ada1704951e09b08",
+  "active": "2767fdd43fddcda0",
   "lastOpenFiles": [
-    "第 1 章、基础/1.2 - 错误.md",
-    "总结/1 - 模板.md",
-    "第 1 章、基础/1.1 - 模板.md",
     "index.md",
+    "总结/2 - 常量.md",
+    "README.md",
+    "总结/1 - 模板.md",
+    "第 1 章、基础/1.2 - 错误.md",
+    "第 1 章、基础/1.1 - 模板.md",
     "第 1 章、基础/1 - 修改教程/1 - 模板.md",
     "第 1 章、基础/1 - 修改教程/2 - 函数.md",
     "骨龙版相关/规范.md",
-    "README.md",
     "骨龙版相关",
     "第 2 章、关卡/2.1 - 关卡.md",
     "第 1 章、基础/注意事项.md",
@@ -162,7 +162,6 @@
     "第 2 章、关卡/2.2 - 波次.md",
     "第 1 章、基础/1.4 - 函数.md",
     "总结/3 - 函数.md",
-    "总结/2 - 常量.md",
     "第 2 章、关卡/2 - 修改教程/AI 提示词.md",
     "第 2 章、关卡/2 - 修改教程/1 - 关卡.md",
     "site-lib/media/Pasted image 20250828164839.png",
