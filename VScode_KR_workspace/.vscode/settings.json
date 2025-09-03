@@ -1,0 +1,37 @@
+{
+    "Lua.runtime.version": "LuaJIT",
+    "editor.defaultFormatter": "sumneko.lua",
+    "Lua.workspace.checkThirdParty": true,
+    "Lua.runtime.special": {
+        "love.filesystem.load": "loadfile"
+    },
+    "Lua.workspace.library": [
+        "${3rd}/love2d/library",
+        "${3rd}/lfs/library"
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global",
+        "need-check-nil",
+        "duplicate-index",
+        "inject-field",
+        "param-type-mismatch",
+        "duplicate-set-field",
+        "cast-local-type",
+        "undefined-global",
+        "undefined-field",
+        "trailing-space"
+    ],
+    "editor.formatOnPaste": true,
+    "Lua.workspace.ignoreDir": [
+        ".vscode",
+        "./src/all-desktop/assets",
+        "./src/kr[0-9]-desktop/assets",
+        "./src/kr[0-9]/data",
+    ],
+    "Lua.diagnostics.workspaceEvent": "None",
+    "Lua.diagnostics.workspaceDelay": -1,
+    "editor.fontSize": 19,
+    "Lua.diagnostics.globals": [
+        "lfs"
+    ],
+}
