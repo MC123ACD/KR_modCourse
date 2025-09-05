@@ -24,7 +24,8 @@
                 "command": "love"
             },
             "args": [
-                "./src"
+                "./src",
+                "release"
             ],
             "scriptRoots": [
                 "./src"
