@@ -10,7 +10,7 @@ local km = require("klua.macros")
 local signal = require("hump.signal")
 local V = require("hump.vector-light")
 local E = require("entity_db")
-local A = require("klove.animation_db")
+local A = require("animation_db")
 local U = require("utils")
 local RU = require("render_utils")
 local I = require("klove.image_db")
@@ -20,8 +20,7 @@ local P = require("path_db")
 local SU = require("screen_utils")
 local GR = require("grid_db")
 local LU = require("level_utils")
-local simulation = require("klove.simulation")
-local EXO = require("exoskeleton")
+local simulation = require("simulation")
 
 if DEBUG then
 	package.loaded.game_editor_gui = nil
@@ -56,17 +55,16 @@ function editor:init(screen_w, screen_h, done_callback)
 	self.screen_w = screen_w
 	self.screen_h = screen_h
 	self.done_callback = done_callback
-	-- self.game_scale = self.ref_h / TEXTURE_SIZE_ALIAS[self.args.texture_size]
+	--self.game_scale = self.ref_h / TEXTURE_SIZE_ALIAS[self.args.texture_size]
 	self.game_scale = self.ref_h / TEXTURE_SIZE_ALIAS["ipad"]
 	self.game_scale = self.game_scale / (tsf and tsf.game_editor or 1)
-	self.game_ref_origin = V.v((screen_w - self.ref_w * self.game_scale) / 2, (screen_h - self.ref_h * self.game_scale) / 2)
+	self.game_ref_origin = V.v((screen_w - self.ref_w * self.game_scale) * 0.5, (screen_h - self.ref_h * self.game_scale) * 0.5)
 
 	RU.init()
 
 	self.store = {}
 
-	local systems = require("systems")
-	simulation:init(self.store, systems, self.simulation_systems, TICK_LENGTH)
+	simulation:init(self.store, self.simulation_systems)
 
 	self.simulation = simulation
 	self.undo_stack = {}
@@ -76,6 +74,7 @@ function editor:init(screen_w, screen_h, done_callback)
 
 	self.gui = game_editor_gui
 	self.paths_visible = false
+    -- self.paths_visible = true
 	self.grid_visible = false
 	self.nav_visible = false
 	self.tool_pointer = {
@@ -131,6 +130,8 @@ function editor:wheelmoved(dx, dy)
 end
 
 function editor:draw()
+	local frame_draw_params = RU.frame_draw_params
+	local draw_frames_range = RU.draw_frames_range
 	local rox, roy = self.game_ref_origin.x, self.game_ref_origin.y
 	local gs = self.game_scale
 	local last_idx
@@ -206,13 +207,13 @@ function editor:draw()
 					G.setColor(color_width)
 
 					if i == 1 then
-						local n1x, n1y = V.mul(w1 / 2, V.rotate(km.pi_2, V.normalize(p2x - p1x, p2y - p1y)))
+						local n1x, n1y = V.mul(w1 * 0.5, V.rotate(km.pi_2, V.normalize(p2x - p1x, p2y - p1y)))
 
 						G.line(p1x, p1y, p1x + n1x, p1y + n1y)
 						G.line(p1x, p1y, p1x - n1x, p1y - n1y)
 					end
 
-					local n4x, n4y = V.mul(w4 / 2, V.rotate(km.pi_2, V.normalize(p4x - p3x, p4y - p3y)))
+					local n4x, n4y = V.mul(w4 * 0.5, V.rotate(km.pi_2, V.normalize(p4x - p3x, p4y - p3y)))
 
 					G.line(p4x, p4y, p4x + n4x, p4y + n4y)
 					G.line(p4x, p4y, p4x + -n4x, p4y - n4y)
@@ -220,8 +221,8 @@ function editor:draw()
 					G.setColor(color_handle)
 					G.line(p1x, p1y, p2x, p2y)
 					G.line(p3x, p3y, p4x, p4y)
-					G.circle("fill", p2x, p2y, node_w / 2, 8)
-					G.circle("fill", p3x, p3y, node_w / 2, 8)
+					G.circle("fill", p2x, p2y, node_w * 0.5, 8)
+					G.circle("fill", p3x, p3y, node_w * 0.5, 8)
 				end
 			end
 
@@ -243,7 +244,7 @@ function editor:draw()
 				end
 
 				if self.path_selected == pi then
-					G.rectangle("fill", p4x - node_w / 2, p4y - node_w / 2, node_w, node_w)
+					G.rectangle("fill", p4x - node_w * 0.5, p4y - node_w * 0.5, node_w, node_w)
 				end
 			end
 
@@ -330,8 +331,8 @@ function editor:draw()
 					G.setColor(0, 0, 200, 200)
 				end
 
-				G.rectangle("fill", e.pos.x - 1, e.pos.y - 4, 2, 8)
-				G.rectangle("fill", e.pos.x - 4, e.pos.y - 1, 8, 2)
+				G.rectangle("fill", e.pos.x - 2, e.pos.y - 8, 4, 16)
+				G.rectangle("fill", e.pos.x - 8, e.pos.y - 2, 16, 4)
 
 				if self.entities_selected and table.contains(self.entities_selected, e.id) and e.render and e.render.frames and e.render.frames[1] then
 					local f = e.render.frames[1]
@@ -497,7 +498,7 @@ function editor:draw()
 	G.translate(rox, roy)
 	G.scale(gs, gs)
 
-	last_idx = RU.draw_frames_range(self.store.render_frames, 1, Z_GUI - 1)
+	last_idx = draw_frames_range(self.store.render_frames, 1, Z_GUI - 1)
 
 	G.pop()
 
@@ -541,7 +542,7 @@ function editor:draw()
 
 			local bx, by = self.tool_pointer.x, self.tool_pointer.y
 			local bsize = self.tool_pointer.size
-			local bw = bsize / 2 * GR.cell_size
+			local bw = bsize * 0.5 * GR.cell_size
 
 			G.setColor(255, 255, 255, 200)
 			G.setLineWidth(1)
@@ -606,8 +607,7 @@ function editor:level_load(idx, mode)
 	self.undo_active = false
 	self.store = {}
 
-	local systems = require("systems")
-	simulation:init(self.store, systems, self.simulation_systems, TICK_LENGTH)
+	simulation:init(self.store, self.simulation_systems)
 
 	self.simulation = simulation
 
@@ -622,9 +622,8 @@ function editor:level_load(idx, mode)
 	s.level_difficulty = DIFFICULTY_EASY
 	s.level = LU.load_level(s, s.level_name, true)
 
-	director:load_texture_groups(s.level.data.required_textures, director.params.texture_size, self.ref_res, false, "game_editor")
+	director:load_texture_groups(s.level.required_textures, director.params.texture_size, self.ref_res, false, "game_editor")
 	LU.insert_entities(self.store, s.level.data.entities_list, true)
-	EXO:load(s.level.data.required_exoskeletons)
 
 	self.entities_dirty = true
 
@@ -745,7 +744,7 @@ function editor:undo_push_entity(from_drag, eid, ...)
 	}
 	local props = {}
 
-	for i = 1, #args / 2 do
+	for i = 1, #args * 0.5 do
 		props[args[2 * i - 1]] = args[2 * i]
 	end
 
@@ -1005,7 +1004,7 @@ function editor:remove_path(pi)
 end
 
 function editor:create_path()
-	local x, y = REF_W / 2, REF_H / 2
+	local x, y = REF_W * 0.5, REF_H * 0.5
 	local d = 50
 	local nodes = {
 		V.v(x, y),

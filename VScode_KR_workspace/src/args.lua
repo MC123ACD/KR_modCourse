@@ -1,5 +1,6 @@
 if arg[2] == "debug" then
-    require("lldebugger").start()
+    LLDEBUGGER = require("lldebugger")
+    LLDEBUGGER.start()
 end
 
 require("main_globals")
@@ -8,17 +9,20 @@ local features = require("features")
 if KR_GAME ~= "kr5" then
     features.platform_services = nil -- 关闭验证
 else
-    local PS = require("platform_services_steam")
+    local success, err = pcall(require, "platform_services_steam")
+    if success then
+        local PS = require("platform_services_steam")
 
-    local o = PS.get_dlcs
-    PS.get_dlcs = function(self, owned)
-        local t = o(self, owned)
+        local o = PS.get_dlcs
+        PS.get_dlcs = function(self, owned)
+            local t = o(self, owned)
 
-        for _, dlc in pairs(PS.dlcs) do
-            table.insert(t, dlc.id)
+            for _, dlc in pairs(PS.dlcs) do
+                table.insert(t, dlc.id)
+            end
+
+            return t
         end
-
-        return t
     end
 end
 
@@ -27,8 +31,10 @@ local l_kp = love.keypressed
 function love.keypressed(key, scancode, isrepeat)
     l_kp(key, scancode, isrepeat)
     if key == "0" then
-        print("Break-point")    --断点打这里
-	end
+        if LLDEBUGGER then
+            LLDEBUGGER.start()
+        end
+    end
 end
 
 -- 启动参数

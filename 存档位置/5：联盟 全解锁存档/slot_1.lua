@@ -1,4 +1,11 @@
 local obj1 = {
+	["achievement_counters"] = {
+		["MIGHTY_I"] = 48;
+		["MIGHTY_II"] = 48;
+		["MIGHTY_III"] = 48;
+		["UNENDING_RICHES"] = 784;
+		["WAR_MASONRY"] = 9;
+	};
 	["achievements"] = {
 		["AGE_OF_HEROES"] = true;
 		["ALL_THE_SMALL_THINGS"] = true;
@@ -20,6 +27,7 @@ local obj1 = {
 		["DARK_RUTHLESSNESS"] = true;
 		["DISTURBING_THE_PEACE"] = true;
 		["DLC1_WIN_BOSS"] = true;
+		["DLC2_WIN_BOSS_REDBOY"] = true;
 		["DOMO_ARIGATO"] = true;
 		["FACTORY_STRIKE"] = true;
 		["FIELD_TRIP_RUINER"] = true;
@@ -135,7 +143,7 @@ local obj1 = {
 					["rain"] = 3;
 					["ultimate"] = 4;
 				};
-				["xp"] = 115300;
+				["xp"] = 0;
 			};
 			["hero_dragon_gem"] = {
 				["skills"] = {
@@ -145,7 +153,7 @@ local obj1 = {
 					["stun"] = 3;
 					["ultimate"] = 4;
 				};
-				["xp"] = 115300;
+				["xp"] = 118507;
 			};
 			["hero_hunter"] = {
 				["skills"] = {
@@ -175,7 +183,7 @@ local obj1 = {
 					["shield"] = 3;
 					["ultimate"] = 4;
 				};
-				["xp"] = 115300;
+				["xp"] = 5300;
 			};
 			["hero_mecha"] = {
 				["skills"] = {
@@ -215,7 +223,7 @@ local obj1 = {
 					["ultimate"] = 4;
 					["uppercut"] = 3;
 				};
-				["xp"] = 115300;
+				["xp"] = 1300;
 			};
 			["hero_space_elf"] = {
 				["skills"] = {
@@ -267,9 +275,19 @@ local obj1 = {
 				};
 				["xp"] = 115300;
 			};
+			["hero_wukong"] = {
+				["skills"] = {
+					["giant_staff"] = 3;
+					["hair_clones"] = 3;
+					["pole_ranged"] = 3;
+					["ultimate"] = 3;
+					["zhu_apprentice"] = 3;
+				};
+				["xp"] = 123083;
+			};
 		};
 		["team"] = {
-			[1] = "hero_lumenir";
+			[1] = "hero_wukong";
 			[2] = "hero_dragon_gem";
 		};
 	};
@@ -471,6 +489,36 @@ local obj1 = {
 			[3] = 4;
 			["stars"] = 3;
 		};
+		[31] = {
+			[1] = 4;
+			[2] = 4;
+			[3] = 4;
+			["stars"] = 3;
+		};
+		[32] = {
+			[1] = 4;
+			[2] = 4;
+			[3] = 4;
+			["stars"] = 3;
+		};
+		[33] = {
+			[1] = 4;
+			[2] = 4;
+			[3] = 4;
+			["stars"] = 3;
+		};
+		[34] = {
+			[1] = 4;
+			[2] = 4;
+			[3] = 4;
+			["stars"] = 3;
+		};
+		[35] = {
+			[1] = 4,
+			[2] = 4,
+			[3] = 4,
+			["stars"] = 3,
+		};
 	};
 	["seen"] = {
 		["POWER_REINFORCEMENT"] = true;
@@ -496,6 +544,7 @@ local obj1 = {
 		["boss_machinist"] = true;
 		["boss_navira"] = true;
 		["boss_pig"] = true;
+		["boss_redboy_teen"] = true;
 		["boss_spider_queen"] = true;
 		["controller_basic_clone_darksteel_guardian"] = true;
 		["dark_elf"] = true;
@@ -509,13 +558,18 @@ local obj1 = {
 		["enemy_amalgam"] = true;
 		["enemy_animated_armor"] = true;
 		["enemy_armored_nightmare"] = true;
+		["enemy_ash_spirit"] = true;
 		["enemy_ballooning_spider"] = true;
 		["enemy_ballooning_spider_flyer"] = true;
 		["enemy_bane_wolf"] = true;
 		["enemy_bear_vanguard"] = true;
 		["enemy_bear_woodcutter"] = true;
+		["enemy_big_terracota"] = true;
+		["enemy_blaze_raider"] = true;
 		["enemy_blinker"] = true;
 		["enemy_brute_welder"] = true;
+		["enemy_burning_treant"] = true;
+		["enemy_citizen_4"] = true;
 		["enemy_common_clone"] = true;
 		["enemy_corrupted_elf"] = true;
 		["enemy_corrupted_stalker"] = true;
@@ -542,10 +596,14 @@ local obj1 = {
 		["enemy_dreadeye_viper"] = true;
 		["enemy_dust_cryptid"] = true;
 		["enemy_evolving_scourge"] = true;
+		["enemy_fire_fox"] = true;
+		["enemy_fire_phoenix"] = true;
+		["enemy_flame_guard"] = true;
 		["enemy_glarebrood_crystal"] = true;
 		["enemy_glareling"] = true;
 		["enemy_glarenwarden"] = true;
 		["enemy_hardened_horror"] = true;
+		["enemy_hellfire_warlock"] = true;
 		["enemy_hog_invader"] = true;
 		["enemy_hyena5"] = true;
 		["enemy_killertile"] = true;
@@ -555,6 +613,7 @@ local obj1 = {
 		["enemy_machinist"] = true;
 		["enemy_mad_tinkerer"] = true;
 		["enemy_mindless_husk"] = true;
+		["enemy_nine_tailed_fox"] = true;
 		["enemy_noxious_horror"] = true;
 		["enemy_overseer_hit_point"] = true;
 		["enemy_pumpkin_witch"] = true;
@@ -576,8 +635,10 @@ local obj1 = {
 		["enemy_spiderling"] = true;
 		["enemy_spiderling_from_crystal"] = true;
 		["enemy_stage_11_cult_leader_illusion"] = true;
+		["enemy_storm_elemental"] = true;
 		["enemy_surveillance_sentry"] = true;
 		["enemy_surveyor_harpy"] = true;
+		["enemy_terracota"] = true;
 		["enemy_tower_ray_sheep"] = true;
 		["enemy_tower_ray_sheep_flying"] = true;
 		["enemy_turtle_shaman"] = true;
@@ -587,6 +648,9 @@ local obj1 = {
 		["enemy_unblinded_priest"] = true;
 		["enemy_unblinded_shackler"] = true;
 		["enemy_vile_spawner"] = true;
+		["enemy_water_sorceress"] = true;
+		["enemy_water_spirit"] = true;
+		["enemy_wuxian"] = true;
 		["flag_16"] = true;
 		["flag_23"] = true;
 		["flag_24"] = true;
@@ -612,8 +676,10 @@ local obj1 = {
 		["hero_venom"] = true;
 		["hero_vesper"] = true;
 		["hero_witch"] = true;
+		["hero_wukong"] = true;
 		["necromancer"] = true;
 		["paladin_covenant"] = true;
+		["pandas"] = true;
 		["ray"] = true;
 		["rocket_gunners"] = true;
 		["royal_archers"] = true;
@@ -647,6 +713,7 @@ local obj1 = {
 		["tower_build_hermit_toad"] = true;
 		["tower_build_necromancer"] = true;
 		["tower_build_paladin_covenant"] = true;
+		["tower_build_pandas"] = true;
 		["tower_build_ray"] = true;
 		["tower_build_rocket_gunners"] = true;
 		["tower_build_royal_archers"] = true;
@@ -677,6 +744,8 @@ local obj1 = {
 		["tower_hermit_toad_lvl3"] = true;
 		["tower_hermit_toad_lvl4"] = true;
 		["tower_holder"] = true;
+		["tower_holder_blocked_elemental_fire"] = true;
+		["tower_holder_blocked_elemental_wood"] = true;
 		["tower_holder_blocked_sea_of_trees"] = true;
 		["tower_holder_blocked_sea_of_trees_2"] = true;
 		["tower_holder_blocked_terrain_2"] = true;
@@ -684,7 +753,11 @@ local obj1 = {
 		["tower_holder_blocked_terrain_4"] = true;
 		["tower_holder_blocked_terrain_6"] = true;
 		["tower_holder_blocked_terrain_6_2"] = true;
+		["tower_holder_elemental_fire"] = true;
+		["tower_holder_elemental_wood"] = true;
 		["tower_holder_sea_of_trees"] = true;
+		["tower_holder_sea_of_trees_10"] = true;
+		["tower_holder_sea_of_trees_12"] = true;
 		["tower_holder_sea_of_trees_2"] = true;
 		["tower_holder_sea_of_trees_3"] = true;
 		["tower_holder_sea_of_trees_4"] = true;
@@ -701,6 +774,10 @@ local obj1 = {
 		["tower_paladin_covenant_lvl2"] = true;
 		["tower_paladin_covenant_lvl3"] = true;
 		["tower_paladin_covenant_lvl4"] = true;
+		["tower_pandas_lvl1"] = true;
+		["tower_pandas_lvl2"] = true;
+		["tower_pandas_lvl3"] = true;
+		["tower_pandas_lvl4"] = true;
 		["tower_ray_lvl1"] = true;
 		["tower_ray_lvl2"] = true;
 		["tower_ray_lvl3"] = true;
@@ -736,7 +813,7 @@ local obj1 = {
 	};
 	["towers"] = {
 		["selected"] = {
-			[1] = "royal_archers";
+			[1] = "pandas";
 			[2] = "paladin_covenant";
 			[3] = "arcane_wizard";
 			[4] = "tricannon";
@@ -768,6 +845,8 @@ local obj1 = {
 			["necromancer"] = {
 			};
 			["paladin_covenant"] = {
+			};
+			["pandas"] = {
 			};
 			["ray"] = {
 			};
@@ -822,6 +901,6 @@ local obj1 = {
 			[8] = 6;
 		};
 	};
-	["version_string"] = "kr5-desktop-5.00.18";
+	["version_string"] = "kr5-desktop-6.00.114";
 }
 return obj1
