@@ -3,6 +3,8 @@ mc123acd.github.io/KR_modCourse
 
 HTML文件在另一个分支，主分支用来放 Markdown 源文件
 
+第三个分支为整合包
+
 # 如何编辑 ：
 1. 使用 Git 克隆本仓库的 MD 源文件的分支
 
