@@ -11,10 +11,15 @@
             "id": "2767fdd43fddcda0",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "总结/1 - 模板/1.5 - 五代模板.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "1.5 - 五代模板"
             }
           }
         ]
@@ -36,7 +41,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "底",
+                "query": "附件",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +70,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 292.5011098384857
+    "width": 285.5011098384857
   },
   "right": {
     "id": "b3a58f8c143e4ce0",
@@ -81,12 +86,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "总结/1 - 模板/1.5 - 五代模板.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "1.5 - 五代模板 的大纲"
             }
           },
           {
@@ -131,18 +137,18 @@
   },
   "active": "ada1704951e09b08",
   "lastOpenFiles": [
+    "总结/1 - 模板/1.1 - 一代模板.md",
     "总结/1 - 模板/1.5 - 五代模板.md",
+    "0.1 - 配置环境.md",
     "第 4 章、界面/README.md",
     "总结/1 - 模板/1.4 - 四代模板.md",
     "总结/1 - 模板/1.3 - 三代模板.md",
     "总结/1 - 模板/1.2 - 二代模板.md",
-    "总结/1 - 模板/1.1 - 一代模板.md",
     "总结/1 - 模板/1.0 - 综合.md",
     "总结/2 - 常量.md",
     "总结/1 - 模板",
     "骨龙版相关/规范.md",
     "Pasted image 20250926101829.png",
-    "0.1 - 配置环境.md",
     "index.md",
     "第 2 章、关卡/2.3 - 路径.md",
     "第 2 章、关卡/2.1 - 关卡.md",
