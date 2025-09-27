@@ -1,92 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[王国保卫战修改教程]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>site-lib/media/favicon.png</url><title>王国保卫战修改教程</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Tue, 02 Sep 2025 07:09:04 GMT</lastBuildDate><atom:link href="site-lib/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Tue, 02 Sep 2025 07:08:50 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[1 - 关卡]]></title><description><![CDATA[根据结构修改即可，详见 <a data-href="2.2 - 波次#波次数据表结构" href="第-2-章、关卡/2.2-波次.html#波次数据表结构" class="internal-link" target="_self" rel="noopener nofollow">2.2 - 波次 &gt; 波次数据表结构</a> 没有加载对应怪的资源将会导致怪物透明在关卡数据的 required_textures 键增加对应资源即可required_textures = { "go_enemies...", ...
-}
-图像资源基本都在 _assets/kr-desktop/images/fullhd 内，前缀含义：注：有些实体的资源在关卡资源内<br><img alt="Pasted image 20250828164236.png" src="site-lib/media/pasted-image-20250828164236.png" target="_self" style="width: 750px; max-width: 100%;">
-由于出怪的表不易于查看修改，推荐使用附件的波次生成脚本修改
-所有出怪组都是并发的，可以使用出怪组延迟控制
-出怪组一般用于多个怪物组合进攻与进攻不同路径
-交替出怪用于两个怪物轮流进攻
-每个组的怪物只有前一个出完才会出下一个
-修改完毕保存：<br>
-<img alt="Pasted image 20250828164839.png" src="site-lib/media/pasted-image-20250828164839.png" target="_self" style="width: 550px; max-width: 100%;">
-数字改成你修改的关卡编号，然后直接替换波次数据即可在 level_data 的 entities_list 增加一个实体，在这个实体更新函数写召唤逻辑即可-- 模板
-tt = RT("s_spawner_entities")
-AC(tt, "main_script", "editor")
-tt.main_script.update = scripts.s_spawner_entities.update
-tt.ts = 0 tt.entity = "enemy_halloween_zombie"	-- 召唤实体
-tt.spawn_margin = { ["start"] = 30,	-- 距离起点边距 ["end"] = 60	-- 距离终点边距
-}
-tt.spawn_cooldown = 3	-- 召唤间隔
-tt.spawn_count = 1	-- 召唤数量
-tt.spawn_wave = 1	-- 开始召唤的波次
-tt.spawn_path = { pi = {	-- 生成的路径 1, 2, 5 }, spi = {	-- 生成的子路径 1, 2, 3 }
-}
-tt.ani = "raise"	-- 召唤后实体的动画，需要有相应动画，`idle` 为凭空出现
-tt.enemy_gold = 0.5	-- 召唤的敌人赏金乘数 -- 函数
-scripts.s_spawner_entities = {}
-function scripts.s_spawner_entities.update(this, store) local pi, spi, ni local p_pi, p_spi = this.spawn_path["pi"], this.spawn_path["spi"] local margin = this.spawn_margin while true do if this.interrupt then break end -- 计算召唤间隔 if store.wave_group_number &gt;= this.spawn_wave and this.spawn_cooldown &lt; store.tick_ts - this.ts then this.ts = store.tick_ts for i = 1, this.spawn_count do -- 取随机路径上随机节点 pi, spi = p_pi[math.random(p_pi[1], #p_pi)], p_spi[math.random(p_spi[1], #p_spi)] ni = math.random(P:get_start_node(pi) + margin["start"], P:get_end_node(pi) - margin["end"]) pos = P:node_pos(pi, spi, ni) -- 召唤实体 local e = E:create_entity(this.entity) e.pos, e.nav_path.pi, e.nav_path.spi, e.nav_path.ni = pos, pi, spi, ni e.render.sprites[1].name = this.ani e.enemy.gold = e.enemy.gold * this.enemy_gold queue_insert(store, e) end end coroutine.yield() end queue_remove(store, this)
-end -- 关卡数据
-entities_list = { { template = "s_spawner_entities",	-- 关卡开始时召唤 pos = {	-- 位置随便填 x = 0, y = 0 } }, ...
-} 绘图<br>
-可以使用 AI 进行绘图 <a data-tooltip-position="top" aria-label="https://tieba.baidu.com/p/9780582087?" rel="noopener nofollow" class="external-link is-unresolved" href="https://tieba.baidu.com/p/9780582087?" target="_self">AI 链接</a> 将背景图片放入 _assets/kr-desktop/images/fullhd 内，并改名为 go_stagex_bg-1，x 为关卡编号，在保证不会与已有关卡冲突的条件下可以随便填一个
-图片分辨率推荐 1920x1080<br>
-<img alt="Pasted image 20250809164512.png" src="site-lib/media/pasted-image-20250809164512.png" target="_self" style="width: 425px; max-width: 100%;"> 然后创建对应的数据文件 go_stagex_bg.lua，x 同上，并复制以下模板 return { stagex = {	-- x 同上 a_name = "go_stagex_bg-1.png",-- x 同上 size = { 1920, 1080 }, trim = { 0, 0, 0, 0 }, a_size = { 1920, 1080 }, f_quad = { 0, 0, 1920, 1080 }, alias = {} }
-}
-在 _assets/kr1-desktop/images/fullhd/screen_map 最后面增加一个表即可：stage_thumbs_000x = {	-- x 同上，若 x 为 1 则是 0001，大于等于 10 则需要在前面加 “00” 如：0010 a_name = "go_stagex_bg-1.png", size = { 1920, 1080 }, trim = { 0, 0, 0, 0 }, a_size = { 342, 246 }, f_quad = { 0, 0, 342, 246 }, alias = {}
-}
-会按长宽比拉伸图片，可以自己重新裁剪一个图片然后使用裁剪后的图片<br>
-<img alt="Pasted image 20250809094636.png" src="site-lib/media/pasted-image-20250809094636.png" target="_self" style="width: 425px; max-width: 100%;">在 kr\data\levels 创建 levelx_data.lua 文件，x 同上，并复制以下模板，参数可以按照自己的想法填return { entities_list = { { template = "decal_background",	-- 背景贴图，背景本质也是实体 pos = { x = 512, y = 384 }, ["render.sprites[1].name"] = "stage27", ["render.sprites[1].z"] = 1000 }, { template = "decal_background",	-- 防守点旗帜，可选 pos = { x = -43.46875, y = 326.34375 }, ["render.sprites[1].name"] = "blue_flag", ["render.sprites[1].z"] = 1400 }, { template = "decal_background", pos = { x = -43.46875, y = 526.03125 }, ["render.sprites[1].name"] = "blue_flag", ["render.sprites[1].z"] = 1400 }, { template = "decal_defend_point",	-- 防守点，必加，否则进入将会报错 ["editor.exit_id"] = 1, pos = { x = -44.875, y = 402.28125 } }, { template = "editor_wave_flag",	-- 释放波次贴图，必加，否则无法释放波次 ["editor.len"] = 240, ["editor.path_id"] = 1, ["editor.r"] = 0, pos = { x = 1156.0625, y = 399.46875 } }, }, invalid_path_ranges = {}, level_mode_overrides = { { locked_towers = {}, max_upgrade_level = 5 }, { locked_towers = {}, max_upgrade_level = 5 }, { locked_towers = {}, max_upgrade_level = 5 } }, level_terrain_type = 1, locked_hero = false, max_upgrade_level = 5, nav_mesh = {}, required_sounds = {},	-- 音效资源 required_textures = { "go_enemies_grass",	-- 一些敌人资源 "go_stagex_bg",	-- 加载对应关卡背景资源，x 同上 "go_stages_blackburn"	-- 借用里面的防守点旗帜资源 }
-} 将 GS.last_level 数字加 1 在 GS.level_ranges 最后面增加一个关卡序号表，表内填增加的关卡序号 {x}，可以增加 list 键改为无序解锁
-GS.level_ranges 表决定关卡解锁顺序，注：所有支线第一关在主线通关后会全部解锁 示例：GS.level_ranges = { { 1, 12	-- 1-12 关为主线 }, -- 主线通关后解锁第 13、14、17 关支线 { 13 }, { 14, 16	-- 第 14 关通关后解锁第 15 关，第 15 关通关后解锁第 16 关，以此类推 }, { 17, 22,	-- 第 16 关通关后仅解锁第 22 关 list = true }, ...
-} 在 kr-desktop\data\map_data.level_data 最后面增加一个表：
-{ upgrades = { heroe = true,	-- 规则：有英雄 level = 5	-- 规则：防御塔等级 }, iron = {	-- 钢铁规则：禁用的塔 "archers",	-- 箭塔 "barracks"	-- 兵营 "mages",	-- 法师 "artillery",	-- 炮塔 }
-}
-map_data.level_data 表的键的下标索引决定对应的关卡的模式选择界面显示的规则<br>
-<img alt="Pasted image 20250809094524.png" src="site-lib/media/pasted-image-20250809094524.png" target="_self" style="width: 190px; max-width: 100%;">
-在 kr-desktop/data/map_points.flags 最后面增加一个入口位置表
-{ number = "x",	-- 关卡编号 pos = { x = 1173,	-- 位置 y = 102 }
-}
-map_points.flags 表的键的下标索引决定对应关卡的入口的坐标位置将 args 启动参数的关卡编辑器取消注释，将 custom 键修改为刚刚创建的关卡编号
-运行游戏即可进入关卡编辑器点击小加号选中，拖动即可移动位置，注：需要点击 entities 选项<br>
-<img alt="Pasted image 20250807181638.png" src="site-lib/media/pasted-image-20250807181638.png" target="_self" style="width: 900px; max-width: 100%;">
-防守点规定了英雄出生位置搜索并选择样式，然后插入塔位即可
-修改位置的方法还是拖动，注：会同时插入名为 editor_rally_point 的默认集结点<br>
-<img alt="Pasted image 20250807183501.png" src="site-lib/media/pasted-image-20250807183501.png" target="_self">
-注：若进入关卡发现塔位贴图消失就是忘记选择样式了点击 paths 选项然后创建路径，自行设定路径即可<br>
-<img alt="Pasted image 20250807182230.png" src="site-lib/media/pasted-image-20250807182230.png" target="_self">
-注：较大的节点为起点，推荐将起点与终点设在关卡背景外
-最下面 subdivide 可以增加额外节点点击 grid 选项，选择网格类型然后画满背景即可<br>
-<img alt="Pasted image 20250807183059.png" src="site-lib/media/pasted-image-20250807183059.png" target="_self" style="width: 725px; max-width: 100%;">
-网格规定了可更改集结点单位的可移动区域路径上直接画 land，非路径一般都有 no walk 标签
-brush size 为刷子大小点击 nav 选项然后点击塔位调整 top / left / right / bottom 即可<br>
-<img alt="Pasted image 20250808185126.png" src="site-lib/media/pasted-image-20250808185126.png" target="_self" style="width: 500px; max-width: 100%;">
-nav 规定了可集结单位的寻路（？）一切完毕后点击 save 保存即可
-此时会自动创建对应关卡的路径与格子数据文件使用波次编辑器在 kr\data\waves 创建 levelx_waves_campaign 波次数据文件
-注：不同后缀表示对应模式的波次数据，英雄为 _heroic，钢铁为 _iron，请自行创建，若没有则全部使用战役的波次数据再次打开关卡编辑器插入 editor_wave_flag 的实体，修改位置即可<br>
-<img alt="Pasted image 20250808090849.png" src="site-lib/media/pasted-image-20250808090849.png" target="_self">
-注：默认按钮是没有贴图的，需要找加号修改位置（加号默认在中心点偏下）
-如果有多条路径则需要增加多个波次释放按钮可以通过插入实体来创建一些动态贴图或可交互彩蛋<br>
-<img alt="Pasted image 20250811184142.png" src="site-lib/media/pasted-image-20250811184142.png" target="_self" style="width: 349px; max-width: 100%;">
-注：其他场景装饰实体自行在关卡编辑器查看，并且需要加载相应贴图与动画资源]]></description><link>第-2-章、关卡/2-修改教程/1-关卡.html</link><guid isPermaLink="false">第 2 章、关卡/2 - 修改教程/1 - 关卡.md</guid><pubDate>Tue, 02 Sep 2025 06:59:22 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[AI 提示词]]></title><description><![CDATA[请自行加上 “kingdom rush, cartoon style, fantasy continent, game paths, cel shading, flat colors, clean outlines, no gradients, hard-edged shadows, ”触发词]]></description><link>第-2-章、关卡/2-修改教程/ai-提示词.html</link><guid isPermaLink="false">第 2 章、关卡/2 - 修改教程/AI 提示词.md</guid><pubDate>Tue, 02 Sep 2025 06:57:57 GMT</pubDate></item><item><title><![CDATA[1 - 模板]]></title><description><![CDATA[
-更详细的数据请查阅 @杨叔伟大无需多言 的文档：
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[王国保卫战修改教程]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>site-lib/media/favicon.png</url><title>王国保卫战修改教程</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Sat, 27 Sep 2025 05:43:25 GMT</lastBuildDate><atom:link href="site-lib/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sat, 27 Sep 2025 05:43:02 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[1.5 - 五代模板]]></title><link>总结/1-模板/1.5-五代模板.html</link><guid isPermaLink="false">总结/1 - 模板/1.5 - 五代模板.md</guid><pubDate>Sat, 27 Sep 2025 05:39:51 GMT</pubDate></item><item><title><![CDATA[1.4 - 四代模板]]></title><description><![CDATA[部分防御塔四级名字略有不同好的，这是根据您提供的场景单位信息整理的表格：]]></description><link>总结/1-模板/1.4-四代模板.html</link><guid isPermaLink="false">总结/1 - 模板/1.4 - 四代模板.md</guid><pubDate>Fri, 26 Sep 2025 09:39:02 GMT</pubDate></item><item><title><![CDATA[1.3 - 三代模板]]></title><link>总结/1-模板/1.3-三代模板.html</link><guid isPermaLink="false">总结/1 - 模板/1.3 - 三代模板.md</guid><pubDate>Fri, 26 Sep 2025 09:38:22 GMT</pubDate></item><item><title><![CDATA[1.2 - 二代模板]]></title><link>总结/1-模板/1.2-二代模板.html</link><guid isPermaLink="false">总结/1 - 模板/1.2 - 二代模板.md</guid><pubDate>Fri, 26 Sep 2025 09:36:57 GMT</pubDate></item><item><title><![CDATA[1.1 - 一代模板]]></title><link>总结/1-模板/1.1-一代模板.html</link><guid isPermaLink="false">总结/1 - 模板/1.1 - 一代模板.md</guid><pubDate>Fri, 26 Sep 2025 09:35:46 GMT</pubDate></item><item><title><![CDATA[1.0 - 综合]]></title><description><![CDATA[
+更详细的数据请查阅 @杨叔伟大无需多言的文档：
 <a data-tooltip-position="top" aria-label="https://www.bilibili.com/read/readlist/rl141527" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.bilibili.com/read/readlist/rl141527" target="_self">《王国保卫战》Kingdom Rush 中文百科全集</a>
 注：文档为直径，代码为半径
-所有基础塔模板名都是相同的，n 后缀为等级
+本篇主要用于引路，所有附属模板请自行搜索，例如 tower_barrack 兵营召唤的士兵模板所有基础塔模板名都是相同的，n 后缀为等级
 tower_archer + _n 箭塔
 tower_barrack + _n 兵营
 tower_mage + _n 法师
 tower_engineer + _n 炮塔
-所有英雄大招模板名都是：英雄模板名 + _ultimate所有关卡自带塔的塔位模板名都是：自带塔模板名 + _holder]]></description><link>总结/1-模板.html</link><guid isPermaLink="false">总结/1 - 模板.md</guid><pubDate>Tue, 02 Sep 2025 06:42:02 GMT</pubDate></item><item><title><![CDATA[index]]></title><description><![CDATA[
-相关链接：
-<a data-tooltip-position="top" aria-label="https://github.com/MC123ACD/KR_modCourse" rel="noopener nofollow" class="external-link is-unresolved" href="https://github.com/MC123ACD/KR_modCourse" target="_self">本文档 Github 仓库</a><br>
-<a data-tooltip-position="top" aria-label="https://kingdomrush.huijiwiki.com/p/1" rel="noopener nofollow" class="external-link is-unresolved" href="https://kingdomrush.huijiwiki.com/p/1" target="_self">中文维基</a><br>
-<a data-tooltip-position="top" aria-label="https://www.bilibili.com/read/readlist/rl141527" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.bilibili.com/read/readlist/rl141527" target="_self">中文百科全集</a>
-本文档适用于电脑版的一、二、三、五代，请注意版本（安卓版部分可用）
-由于本人正处于学习阶段，所以错误在所难免，欢迎提出意见，以及提 request本文档将默认您已了解并掌握 Lua 编程语言
-如未了解请先观看以下教程：
-观看大约需要 2 小时 <br><a data-tooltip-position="top" aria-label="https://www.bilibili.com/video/BV1vf4y1L7Rb/" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.bilibili.com/video/BV1vf4y1L7Rb/" target="_self">Lua教程-入门—哔哩哔哩</a>
-<br><a data-tooltip-position="top" aria-label="https://www.bilibili.com/video/BV1WR4y1E7ud/" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.bilibili.com/video/BV1WR4y1E7ud/" target="_self">Lua教程-进阶—哔哩哔哩</a> 该文档仅限学习交流，禁止用于商业用途请购买正版游戏后再进行修改。若修改盗版出现任何问题，均与作者以及文档无关]]></description><link>index.html</link><guid isPermaLink="false">index.md</guid><pubDate>Tue, 02 Sep 2025 03:34:45 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[README]]></title><description><![CDATA[文档地址：
-mc123acd.github.io/KR_modCourseHTML文件在另一个分支，主分支用来放 Markdown 源文件]]></description><link>readme.html</link><guid isPermaLink="false">README.md</guid><pubDate>Tue, 02 Sep 2025 03:34:17 GMT</pubDate></item><item><title><![CDATA[2 - 常量]]></title><description><![CDATA[看二进制效率较低，所以直接写 1 所在的位数，例如 1000 则位数为 4仅总结常用的，其他自行见 constants]]></description><link>总结/2-常量.html</link><guid isPermaLink="false">总结/2 - 常量.md</guid><pubDate>Tue, 02 Sep 2025 03:02:25 GMT</pubDate></item><item><title><![CDATA[1 - 模板]]></title><description><![CDATA[首先使用搜索功能在 kr/game_templates 任意找到一个英雄模板模板定义见 <a data-href="1.1 - 模板" href="第-1-章、基础/1.1-模板.html" class="internal-link" target="_self" rel="noopener nofollow">1.1 - 模板</a><br>
-模板名见 <a data-tooltip-position="top" aria-label="总结/1 - 模板" data-href="总结/1 - 模板" href="总结/1-模板.html" class="internal-link" target="_self" rel="noopener nofollow">1 - 模板</a>如图以小公主为例：<br>
+所有英雄大招模板名都是：英雄模板名 + _ultimate所有关卡自带塔的塔位模板名都是：自带塔模板名 + _holder]]></description><link>总结/1-模板/1.0-综合.html</link><guid isPermaLink="false">总结/1 - 模板/1.0 - 综合.md</guid><pubDate>Fri, 26 Sep 2025 09:31:11 GMT</pubDate></item><item><title><![CDATA[1 - 模板]]></title><description><![CDATA[首先使用搜索功能在 kr/game_templates 任意找到一个英雄模板模板定义见 <a data-href="1.1 - 模板" href="第-1-章、基础/1.1-模板.html" class="internal-link" target="_self" rel="noopener nofollow">1.1 - 模板</a><br>
+模板名见 <a data-tooltip-position="top" aria-label="1.1 - 一代模板" data-href="1.1 - 一代模板" href="总结/1-模板/1.1-一代模板.html" class="internal-link" target="_self" rel="noopener nofollow">1.1 - 一代模板</a>如图以小公主为例：<br>
 <img alt="Pasted image 20250626164940.png" src="site-lib/media/pasted-image-20250626164940.png" target="_self" style="width: 800px; max-width: 100%;">
 tt 指的是对应英雄，第一个键指来自哪个组件，例如 tt.hero.hp_max 指对应英雄的 hero 组件的最大血量键tt.hero.level_stats 键的子键都是基础属性：tt.hero.level_stats.armor	-- 物理护甲
 tt.hero.level_stats.hp_max	-- 最大血量
@@ -111,7 +33,7 @@ A：因为 E:register_t 函数会返回创建的模板的引用，也就是说�
 <br>E:register_t 函数见 <a data-href="1.1 - 模板#1 创建模板" href="第-1-章、基础/1.1-模板.html#1 创建模板" class="internal-link" target="_self" rel="noopener nofollow">1.1 - 模板 &gt; 1 创建模板</a>下面来看 skills 技能的基础属性<br>
 <img alt="Pasted image 20250627155614.png" src="site-lib/media/pasted-image-20250627155614.png" target="_self" style="width: 450px; max-width: 100%;">
 如图为艾莉丹假设要修改艾莉丹的四技能；双刀跳斩的伤害：<br>
-首先查资料（见 <a data-tooltip-position="top" aria-label="总结/1 - 模板" data-href="总结/1 - 模板" href="总结/1-模板.html" class="internal-link" target="_self" rel="noopener nofollow">1 - 模板</a>）知道：四技能的名称是 double_strike<br>
+首先查资料（见 <a data-tooltip-position="top" aria-label="1.1 - 一代模板" data-href="1.1 - 一代模板" href="总结/1-模板/1.1-一代模板.html" class="internal-link" target="_self" rel="noopener nofollow">1.1 - 一代模板</a>）知道：四技能的名称是 double_strike<br>
 <img alt="Pasted image 20250627185432.png" src="site-lib/media/pasted-image-20250627185432.png" target="_self" style="width: 450px; max-width: 100%;">
 五代还是与基础属性相同在 balance3 行数字意义同上
 例如：修改第三行最大伤害为 233 则双刀跳斩三级时最大伤害为 233 点修改后同上运行游戏测试就行，不再赘叙
@@ -228,6 +150,7 @@ tt.melee.attaks[1].hit_times = {n, fts(1)}	-- 一次攻击 2 次，n 为秒，1 
 }
 tt.ranged.attaks[1].loops = 1
 tt.ranged.attaks[1].shoot_times = {n, fts(1)}	-- 一次性攻击 2 次
+主要目的：让远程攻击的子弹落地后原地生成实体给子弹加上 hit_payload 键，键值为模板名称即可示例：tt.bullet.hit_payload = "decal_bolin_mine"
 只需要给实体增加闪避组件即可示例：E:add_comps(tt, "dodge", ...)	-- 增加闪避组件
 tt.dodge.chance = 0.25	-- 闪避概率 25 %
 tt.dodge.silent = true	-- true 表示无动画
@@ -242,161 +165,21 @@ tt.ranged.attacks[1].vis_flags = F_RANGED	-- 远程攻击标签 -- 某个敌人�
 tt.vis.bans = F_DRILL	-- 不会被钻头攻击，就是二代的地震的钻头 支持在效果、光环上增加
 可以自己在 constants 写个标签 参考资料：<br>
 <a data-tooltip-position="top" aria-label="https://tieba.baidu.com/p/9839262014" rel="noopener nofollow" class="external-link is-unresolved" href="https://tieba.baidu.com/p/9839262014" target="_self">标签与技能的释放机制 by发的gtr让他发 -百度贴吧</a>
-]]></description><link>第-1-章、基础/1-修改教程/1-模板.html</link><guid isPermaLink="false">第 1 章、基础/1 - 修改教程/1 - 模板.md</guid><pubDate>Mon, 01 Sep 2025 12:43:00 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[2.1 - 关卡]]></title><description><![CDATA[关卡中所有数据存储于 kr/data/levels 中其中：
-无后缀为关卡相关函数
-_data 为关卡参数
-_paths 为路径数据
-_gird 为网格数据 表： locked_hero 是否锁定英雄
-max_upgrade_level 防御塔最大等级
-entities_list 进入关卡创建的实体 实体 1： template 创建的实体
-pos 创建位置
-修改实体表... 实体 2... level_mode_overrides 不同模式的差异： 战役模式
-英雄模式
-钢铁模式 required_sounds 加载的音效资源
-required_textures 加载的贴图与动画资源 点击开始战斗按钮
-调用 screen_map:start_level 函数
-回调 director:item_done_callback 函数：
-1. 将 director.next_item_name 键赋值为 "game"
-调用 director:update 函数： 调用 director:queue_load_item_named 函数： 根据 next_item_name 键在 kr-desktop/data/director_data.item_props 的 src 决定进入的界面 进入 game 界面
-加载模块 game 并存入 director.queued_item 内 调用 director.queued_item.init 函数（game:init）初始化 调用 GR:load（all/grid_db）函数加载网格数据
-调用 P:load（all/path_db）函数加载路径数据
-调用 W:load（all/wave_db）函数加载波次数据
-若有 level:init 关卡初始化函数则调用进行初始化
-若有关卡参数则调用 LU.insert_entities 创建关卡参数内的实体
-根据波次数据设定初始金币
-根据模式设定初始生命 若有 store.level.update 关卡更新函数则调用其
-调用 LU.insert_hero 函数插入英雄
-若生命小于 1 （失败）则： 将结果、关卡索引、模式、难度存入 store.game_outcome
-将存档 last_victory 键赋值为 nil
-保存英雄经验（调用 store_hero_xp 函数）
-无尽模式则将最高分数写入存档 若关卡完成、所有波次已释放、敌人全部死亡（胜利）则： 根据血量计算星星
-将结果、模式、关卡索引、星星数量等存入 store.game_outcome 以及存档的 last_victory 表中
-保存英雄经验 点击退出按钮：胜利和暂停界面的退出
-调用 game_gui:go_to_map 函数： 保存英雄经验
-停止所有音效
-回调 director:item_done_callback 函数： 将 director.next_item_name 键赋值为 "map" 调用 director:update 函数： 调用 director:queue_load_item_named 函数： 根据 next_item_name 键在 kr-desktop/data/director_data.item_props 的 src 决定进入的界面 进入 screen_map 界面
-加载模块 screen_map 并存入 director.queued_item 内 调用 director.queued_item.init 函数（screen_map:init）重新初始化 若存档中有 last_victory 键且存档没有对应关卡模式的通关数据（存档的 levels 键）则根据关卡模式进行： 战役：调用 U.find_next_level_in_ranges 函数将 ud.new_level 赋值为下一个关卡的索引： 遍历 GS.level_ranges 关卡范围，根据不同条件进行：
-若一个范围内的 list 键为 true （表示这个范围是无序的）且通关的关卡索引包含在内则直接返回范围中的下一个关卡的索引 或通关的关卡索引等于最大范围，返回下一个范围表的第一个键 若通关的关卡索引在一个范围区间内则直接返回通关的关卡索引 + 1 或通关的关卡索引等于最大范围，返回下一个范围表的第一个键 将存档内所对应的关卡的键初始化（= {}）
-将下一个关卡的索引存入将要解锁的关卡表
-若存档有对应关卡的战役数据且通关获得的星星大于此前获得的星星则： 将 ud.show_stars_level 赋值为通关的关卡索引
-将 ud.star_count_before 赋值为通关获得的星星
-将通关获得的星星重新赋值给存档对应关卡数据的星星键 英雄与钢铁：分别将 ud.heroic_level 与 ud.iron_level 赋值为通关关卡索引
-注：screen.unlock_data 缩写为 ud 调用 U.unlock_next_levels_in_ranges 函数将将要解锁的关卡存起： 若存档有主线最后一关的关卡数据则： 将所有存档内没有的（没有通关过）支线关卡第一关存入将要解锁的关卡表 将所有存档内没有的关卡，根据关卡范围（逻辑同上）将下一关索引存入将要解锁的关卡表 同时将下一关索引存入 ud.new_level 加载 kr-desktop/data.map_points 模块并将对应表分别存入：
-screen_map.map_points.points / flags / endless_flags
-调用 self:show_flags 函数（续承自父类 MapView）显示关卡旗帜： 调用 self:load_level_decos 函数加载并创建地图装饰 kr-desktop/data.map_data.map_decos
-将有 trigger_level 键的装饰返回到 self.level_decos 中
-根据 GS.last_level 设定最大关卡数
-遍历存档中通关的关卡 根据 screen_map.map_points.points 表创建旗帜之间的连接点（续承自 KImageView）
-创建已通关的关卡的旗帜（续承自 LevelFlagView）
-根据存档内战役、英雄、钢铁通关状态为旗帜设定不同样式
-创建无尽模式旗帜（续承自 EndlessLevelFlagView）
-若是首次创建的旗帜则根据不同情况播放动画： 若关卡索引等于 ud.show_stars_level 则播放显示星星动画
-若通过钢铁模式 ud.iron_level 则播放通过钢铁模式的动画
-若通过英雄模式 ud.heroic_level 则播放通过英雄模式的动画
-显示对应关卡的地图装饰（trigger_level）
-播放连接新解锁（ud.new_level）的关卡的连接动画（旗帜之间的连接点）
-播放所有将要解锁的关卡表的关卡（ud.unlocked_levels）的插入旗帜动画 ]]></description><link>第-2-章、关卡/2.1-关卡.html</link><guid isPermaLink="false">第 2 章、关卡/2.1 - 关卡.md</guid><pubDate>Mon, 01 Sep 2025 05:23:15 GMT</pubDate></item><item><title><![CDATA[3 - 函数]]></title><description><![CDATA[几乎所有索敌本质都是在一定范围索敌
-也就是说基本所有索敌都是在范围索敌的基础上增加一些代码而来的（图片是游戏自带调试模式的功能，快捷键 b）
-<img alt="Pasted image 20250705124548.png" src="site-lib/media/pasted-image-20250705124548.png" target="_self" style="width: 361px; max-width: 100%;">过滤函数 用于筛选目标，筛选出过滤函数返回 true 的实体，false 表示无视这个实体最小范围内标签 用于判断目标标签有没有设定的标签，如果有则无最小范围限制是否仅上游 用于指定是否只筛选位于当前节点的上游（即更靠近路径起点）或下游（即更靠近路径终点）的敌人通常用于索敌的过滤函数
-当然也可以用于技能，对具有特定效果的敌人造成额外效果，典型就是三代莉恩，对有诅咒效果的敌人造成额外伤害]]></description><link>总结/3-函数.html</link><guid isPermaLink="false">总结/3 - 函数.md</guid><pubDate>Mon, 25 Aug 2025 11:45:15 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[1.4 - 函数]]></title><description><![CDATA[所有基础函数都存储在 all/scripts 模块
-后续会通过 kr/game_scripts 模块动态向 scripts 模块增加实体的各种函数
-all/script_utils（简称 SU）用于存储实体各种行为的函数（如攻击等，技能则是直接写到实体的更新函数上）
-all/utils（简称 U）用于存储通用工具函数（索敌等）
-注：调用顺序 love → director → game → simulation → systems（简称 sys）
-更新逻辑时间（store.tick_ts += 1）
-处理实体插入与移除
-调用各种 sys 的更新函数
-所有实体最终都会创建到 all/game.store.entities 表中（game.store 简称 store）
-调用 E:create_entity(模板) 函数： 深拷贝模板，生成独立实体表（存储实体的各种数据）
-分配唯一 ID（只增不减）
-返回该实体表引用 调用 simulation.queue_insert_entity 函数： 将实体表增加到 store.pending_inserts（待插入队列） 取出队列的实体表
-调用&nbsp;simulation:insert_entity&nbsp;函数 遍历并调用各种 sys 的插入函数 传递参数：创建的实体 this、store
-若插入函数返回 false 则： 调用各种 sys 的 dequeue 函数 传递参数：this、store、true
-直接返回，中断遍历 以键值对&nbsp;[ID] = 实体表&nbsp;形式插入&nbsp;store.entities 正式创建实体 调用 sys.main_script:on_update 函数调度协程： 遍历所有有更新函数的实体
-若实体更新函数没有协程且没有运行过则创建更新函数的协程
-重启协程 传递参数：更新函数对应协程、对应实体（this）、store、实体的函数表的引用 一般从更新函数的 while 重启 调用 simulation.queue_remove_entity 函数： 将实体表增加到 store.pending_removals（待移除队列）中 取出队列的实体表
-调用&nbsp;simulation:remove_entity&nbsp;函数移除实体 调用各种 sys 的移除函数 传递参数：this、store 若移除函数返回 false 调用实体 dequeue 函数，逻辑与插入相同，不进行赘叙 传递参数：this、store、false 将对应 ID 实体表赋值为 nil 移除实体 调用 E:create_entity("damage") 创建伤害实体表： 返回伤害实体表引用 此后可以通过这个引用直接修改创建的实体表（使用 ID 不好索引），比如增加目标等 调用 table.insert(store.damage_queue, 伤害) 函数： 将伤害插入 store.damage_queue 伤害队列 d = E:create_entity("damage")	-- 创建伤害实体
-d.damage_type = DAMAGE_TRUE	-- 伤害类型设置为真伤，注意：修改的是创建的完全独立的伤害实体表 queue_damage(store, d)	-- 正式插入伤害，等价于 table.insert(store.damage_queue, d) 调用血量更新函数 sys.health:on_update： 若伤害队列非空，遍历伤害队列，使其中没有造成伤害的伤害，进行下一步
-在 store 索引目标的 ID（target_id）
-调用 U.predict_damage 函数计算伤害大小（计算护甲与伤害类型的影响）
-造成伤害 与插入实体相同
-若没有 modifier 键则直接返回 true true 将跳过插入实体
-false 正常插入 筛选出所有具有相同目标的效果
-若当前效果被其他相同目标的效果 ban 则直接返回 false
-遍历所有具有相同目标的效果 若当前效果的 modifier.remove_banned 键值为 true 则： 移除被 ban 其他相同目标的效果
-将 modifier.removed_by_ban 键的键赋值为 true 再次遍历所有具有相同目标的效果 若 modifier.allows_duplicates 键值为 true 则返回 true（中断遍历）
-若 modifier.replaces_lower 键值为 true 则： 将其他相同目标的效果移除（继续遍历） 若 modifier.resets_same 键值为 true 则： 将其他相同目标的另一个效果的 modifier.ts 键赋值为当前时间戳
-返回 false 以上条件都不满足则直接返回 false 最后以上代码都执行完毕返回 true 调用 U.attack_order 函数排序攻击： 遍历实体的攻击表（melee / ranged.attacks） 根据以下条件排序攻击表： 概率不同，释放概率低者在前
-释放概率相同，冷却时间长者在前
-所有条件相同，攻击序号在前者在前 返回到实体 melee / ranged.order 表 melee / ranged.order 默认值只有攻击 1，也就是说没有排序则只能使用普通攻击 调用 SU.y_soldier_melee_block_and_attacks 近战攻击函数： 调用 SU.soldier_pick_melee_target 函数寻找拦截范围内的目标： 返回目标 无目标返回 A_NO_TARGET
-调用 SU.soldier_pick_melee_attack 函数遍历实体的 melee.order 表： 优先进行闪避攻击
-**按排序顺序返回可用攻击 可用攻击：攻击没有禁用、攻击冷却完毕、标签没有被过滤、fn_can 函数返回 true、计算概率或调用 fn_chance 函数计算概率，返回可用攻击
-fn_can 函数会传递：调用这个函数的实体、store、攻击、目标
-fn_chance 函数传递内容同上 无可用攻击返回 A_IN_COOLDOWN
-根据攻击类型：单体攻击、多次攻击、近战范围攻击，调用对应攻击类型的函数 攻击函数就是最基础的造成伤害与造成效果、播放动画、处理共享冷却等，不进行赘叙
-单体攻击会调用 SU.unit_dodges 函数判断目标是否闪避此次攻击，若闪避将不会造成伤害 攻击完毕返回 A_DONE 注意步骤内的缩进，返回值是上一层级的函数返回
-调用 SU.soldier_pick_ranged_target_and_attack 函数： 寻找攻击范围内的目标
-遍历实体的 ranged.order 表（排序在前的优先）
-同时返回目标与可用攻击 可用攻击：攻击没有禁用、攻击冷却完毕、标签没有被过滤、没有被筛选函数 filter_fn 过滤
-传递的参数同索敌的筛选函数（v，origin，实体表与圆心坐标） 无目标返回 A_NO_TARGET
-无可用攻击返回 A_IN_COOLDOWN 根据攻击类型：单体攻击、多次攻击，调用对应攻击类型的函数
-创建子弹实体
-攻击完毕返回 A_DONE 调用子弹的更新函数： 计算子弹飞行轨迹，抛物线（箭矢），直线追踪（魔法弹）等
-造成伤害与造成效果 若目标闪避此次攻击 闪避：没有被眩晕、闪避冷却完毕、攻击的伤害类型没有 DAMAGE_NO_DODGE、计算概率、can_dodge 函数返回 true
-can_dodge 函数会传递：store、调用这个函数的实体、远程攻击、攻击、攻击来源
-目标的 dodge.active 键的键值设为 true 闪避返回 true，否则返回 false 若 dodge.counter_attack_pending 为 true 则： soldier_pick_melee_attack 函数返回 dodge.counter_attack 的攻击 dodge.counter_attack_pending 键的键值改为 false
-注：是否闪避是攻击者在判断，而不是目标
-攻击者 → 目标，目标闪避攻击 → 攻击者死亡（1） → 被控制（2） → 闪避（3） → 更换集结点（4） → 特殊待机（5） → 技能（6） → 特殊远程攻击（7） → 近战攻击（8） → 远程攻击 (9) → 返回集结点 (10) → 待机 (11) → 脱战回血 (12)注：
-闪避优先级较高，如果有闪避动画，则会打断低优先级行为
-实现逻辑就是简单的判断，详见 all/scripts.soldier_barrack.update 函数 参考资料：
-<a data-tooltip-position="top" aria-label="https://tieba.baidu.com/p/9764441850" rel="noopener nofollow" class="external-link is-unresolved" href="https://tieba.baidu.com/p/9764441850" target="_self">关于士兵是如何攻击的讨论 by天玑布可 -百度贴吧</a>
-]]></description><link>第-1-章、基础/1.4-函数.html</link><guid isPermaLink="false">第 1 章、基础/1.4 - 函数.md</guid><pubDate>Fri, 22 Aug 2025 13:52:56 GMT</pubDate></item><item><title><![CDATA[2.2 - 波次]]></title><description><![CDATA[波次的所有数据存储于 kr/data/waves 中其中：
-_campaign 为战役模式
-_heroic 为英雄模式
-_iron 为钢铁模式
-注：时间单位这里都是游戏帧
-表： cash 初始金币
-live 无尽模式生命
-groups 波次： 第一波： interval 下一波到来时间
-waves 第一组出怪： delay 这组出怪延迟
-path_index 出怪路径
-spawns 出怪顺序数量等 怪物 1： interval 出怪间隔
-creep 怪物，填实体模板
-creep_aux 交替的怪物，每次出一定怪后交替出这个怪
-max_same 每次交替出怪数量
-max 总数量
-fixed_sub_path 出怪子路径，0 为随机
-path 指定出怪子路径后将子路径索引修改为此键值
-interval_next 下一个出怪的延迟 怪物 2... 第二组出怪... 第二波... 将波次数据存入 W.db 调用 sys.wave_spawn:init 函数 若游戏模式为无尽则最大波次 store.wave_group_total 赋值为 0
-非无尽根据波次数据的波次数量决定（W:groups_count）
-创建波次线协程 store.wave_spawn_thread 调用 W:get_group 获得 W.db.groups 对应波次的数据
-若为第一波则调用 game_gui.wave_notification_handler 函数显示消息
-若没有主动释放第一波则循环挂起协程
-若下一波没有到来（interval），没有跳过这一波则循环挂起协程
-若主动释放下一波则调用 game_gui.early_wave_called_handler 函数处理释放非第一波波次 无尽模式额外增加分数
-调用对应力量的 early_wave_bonus 函数给予玩家奖励（力量减冷却） 调用 game_gui.next_wave_sent_handler 函数处理释放波次 隐藏释放波次按钮
-调用 game_gui.unlock_user_power_handler 函数解锁对应技能 显示消息
-创建协程，延迟 delay 一定时间，返回并调用生成敌人函数 协程返回到 store.waves_active
-生成敌人就是简单的遍历表生成敌人，不进行赘叙详细请查看 sys.spawner 函数 这一波敌人生成完毕后 i += 1 标志进入下一波 ]]></description><link>第-2-章、关卡/2.2-波次.html</link><guid isPermaLink="false">第 2 章、关卡/2.2 - 波次.md</guid><pubDate>Sun, 17 Aug 2025 01:53:05 GMT</pubDate></item><item><title><![CDATA[2.3 - 路径]]></title><description><![CDATA[路径中：
-ni 为节点索引（node index），即一条路径中的位置
-pi 为路径索引（path index），即不同路径
-spi 为子路径索引（subpath index），即路径中的三个分支
-<img alt="Pasted image 20250812125430.png" src="site-lib/media/pasted-image-20250812125430.png" target="_self">
-如图所示一条路径有三条子路径，白点为节点 加载关卡路径数据并存入 P:paths
-P:set_start_node 与 P:set_end_node 函数设定起点与终点节点，存入 P:path_start_node 与 P:set_end_node 在驱动函数调用 sys.goal_line:on_update 函数
-若具有 nav_path 键的敌人到达终点（nav_path.ni &gt;= P:path_end_node）则： 将生命减去敌人的 enemy.lives_cost，并移除这个敌人 以下是所有函数的表格，表头为“函数”，函数形式参数使用中文描述：]]></description><link>第-2-章、关卡/2.3-路径.html</link><guid isPermaLink="false">第 2 章、关卡/2.3 - 路径.md</guid><pubDate>Wed, 13 Aug 2025 01:31:36 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[0.1 - 配置环境]]></title><description><![CDATA[游戏引擎版本：Lua_v5.1 + Love 2d_v10.2 + LuaJIT_v2.0.4（通过 print 版本信息得到）
+]]></description><link>第-1-章、基础/1-修改教程/1-模板.html</link><guid isPermaLink="false">第 1 章、基础/1 - 修改教程/1 - 模板.md</guid><pubDate>Fri, 26 Sep 2025 09:28:18 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[0.1 - 配置环境]]></title><description><![CDATA[游戏引擎版本：Lua_v5.1 + Love 2d_v10.2 + LuaJIT_v2.0.4（通过 print 版本信息得到）
 <a data-tooltip-position="top" aria-label="https://code.visualstudio.com/" rel="noopener nofollow" class="external-link is-unresolved" href="https://code.visualstudio.com/" target="_self">下载链接</a>) 将网盘的整合包下载并解压
+条件允许的情况下推荐直接下载仓库的整合包
 <br>
-<a data-tooltip-position="top" aria-label="https://pan.baidu.com/s/1FNmzdCuilWbFg5sFR0AO5w?#list/path=%2F%E8%8B%B1%E9%9B%84%E8%A1%A5%E5%BC%BA%2F%E5%B7%A5%E5%85%B7" rel="noopener nofollow" class="external-link is-unresolved" href="https://pan.baidu.com/s/1FNmzdCuilWbFg5sFR0AO5w?#list/path=%2F%E8%8B%B1%E9%9B%84%E8%A1%A5%E5%BC%BA%2F%E5%B7%A5%E5%85%B7" target="_self">下载链接</a>
-<br><img alt="Pasted image 20250710100316.png" src="site-lib/media/pasted-image-20250710100316.png" target="_self" style="width: 347px; max-width: 100%;">
-将 VScode_KR_workspace 文件夹放到 D 盘
+<a data-tooltip-position="top" aria-label="https://pan.baidu.com/s/1FNmzdCuilWbFg5sFR0AO5w?#list/path=%2F%E8%8B%B1%E9%9B%84%E8%A1%A5%E5%BC%BA%2F%E5%B7%A5%E5%85%B7" rel="noopener nofollow" class="external-link is-unresolved" href="https://pan.baidu.com/s/1FNmzdCuilWbFg5sFR0AO5w?#list/path=%2F%E8%8B%B1%E9%9B%84%E8%A1%A5%E5%BC%BA%2F%E5%B7%A5%E5%85%B7" target="_self">下载链接</a><br>
+<img alt="Pasted image 20250710100316.png" src="site-lib/media/pasted-image-20250710100316.png" target="_self" style="width: 347px; max-width: 100%;"> 将 VScode_KR_workspace 文件夹放到 D 盘
 可以放到其他地方，但要保证没有中文路径，也可以重命名，请改一个便于找到的位置与名字<br>
 <img alt="Pasted image 20250706200745.png" src="site-lib/media/pasted-image-20250706200745.png" target="_self" style="width: 395px; max-width: 100%;">
 此文件夹包含配置文件、Love 2d 引擎，以及用于推荐插件与使用预先修改的设置 打开 VSCode → 安装所有建议的扩展
 位于右下角<br>
 <img alt="Pasted image 20250710092722.png" src="site-lib/media/pasted-image-20250710092722.png" target="_self" style="width: 525px; max-width: 100%;"> 包含 Lua 代码补全、诊断、格式化、用于调试的扩展
 所有插件均配置完毕，无需自行配置 将要修改的游戏本体 exe 复制到工作区文件夹内的 src 文件夹内 将游戏本体解压到当前位置
-注意：不是直接解压，而是解压到当前位置 使用 VSCode 打开文件夹
+注意：不是直接解压，而是解压到当前位置
+后续 exe 本体可自行删除
+使用 VSCode 打开文件夹
 双击工作区文件夹的 VScode_KR_workspace 文件即可<br>
 <img alt="Pasted image 20250716131909.png" src="site-lib/media/pasted-image-20250716131909.png" target="_self" style="width: 325px; max-width: 100%;"> 设置与配置均已在 .vscode 内设置完毕，为了性能部分游戏资源文件已被排除（图片等）
 参考资料：<br>
@@ -416,13 +199,13 @@ Debug 为调试模式，Release 则为正常模式<br>
 一切正常下游戏会在断点处暂停，同时可以看到变量、堆栈<br>
 <img alt="Pasted image 20250618143251.png" src="site-lib/media/pasted-image-20250618143251.png" target="_self" style="width: 725px; max-width: 100%;">完成后存档位置与原版独立，路径为 C:\Users\用户\AppData\Roaming\LOVE\kingdom_rush_xxx
 也可以点击工作区文件夹内的存档位置快捷方式进行跳转
-在 args 模块的 love.keypressed 函数内打个断点即可<br>
-<img alt="Pasted image 20250707135331.png" src="site-lib/media/pasted-image-20250707135331.png" target="_self" style="width: 500px; max-width: 100%;">注意：只有触发断点时监视才可用<br><img alt="Pasted image 20250621105918.png" src="site-lib/media/pasted-image-20250621105918.png" target="_self" style="width: 450px; max-width: 100%;">
+注：只有触发断点时监视才可用<br><img alt="Pasted image 20250621105918.png" src="site-lib/media/pasted-image-20250621105918.png" target="_self" style="width: 450px; max-width: 100%;">if LLDEBUGGER then LLDEBUGGER.start()
+end
+复制以上代码到 main.love.errhand 函数的 while true 循环之前即可<br>
+<img alt="Pasted image 20250926101829.png" src="pasted-image-20250926101829.png" target="_self" style="width: 400px; max-width: 100%;">
 点击左上角金币图标，可以开启有 UI 的控制台（功能与快捷键相同）<br>
 <img alt="Pasted image 20250620190901.png" src="site-lib/media/pasted-image-20250620190901.png" target="_self" style="width: 600px; max-width: 100%;">
-调试控制台会显示详细信息，比如加载资源，所有点击事件，操作实体（插入，移除）等待补充...在运行过程中的打断点、删除、禁用断点、激活断点的操作，只有断点后进行的才会立刻生效
-否则不会立刻生效，需要到下次重新启动才会生效也就是说想在运行过程中打断点，必须在断点触发时才能打，否则不会立刻生效
-（建议手动触发断点，然后打断点，或者提前打好断点然后禁用，需要使用时手动触发断点，然后启用）
+调试控制台会显示详细信息，比如加载资源，所有点击事件，操作实体（插入，移除）等待补充...运行过程可按 0 手动断点
 取消 screen 与 custom 的注释
 custom 输入要编辑的关卡的编号运行后即可进入关卡编辑器<br>
 <img alt="Pasted image 20250712192159.png" src="site-lib/media/pasted-image-20250712192159.png" target="_self" style="width: 500px; max-width: 100%;">
@@ -433,16 +216,31 @@ if coroutine.status(s.co) == "dead" or error ~= nil then if error ~= nil then --
 if coroutine.status(s.co) == "dead" or (not success and error ~= nil) then if not success and error ~= nil then
 <br><img alt="Pasted image 20250717091020.png" src="site-lib/media/pasted-image-20250717091020.png" target="_self" style="width: 975px; max-width: 100%;">将 main 模块的 ppref 设为空字符串即可<br>
 <img alt="Pasted image 20250618161513.png" src="site-lib/media/pasted-image-20250618161513.png" target="_self" style="width: 600px; max-width: 100%;">在设置关闭诊断即可<br>
-<img alt="Pasted image 20250728093403.png" src="site-lib/media/pasted-image-20250728093403.png" target="_self" style="width: 675px; max-width: 100%;">]]></description><link>0.1-配置环境.html</link><guid isPermaLink="false">0.1 - 配置环境.md</guid><pubDate>Tue, 12 Aug 2025 04:34:10 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[4 - 关卡]]></title><link>总结/4-关卡.html</link><guid isPermaLink="false">总结/4 - 关卡.md</guid><pubDate>Tue, 12 Aug 2025 00:49:44 GMT</pubDate></item><item><title><![CDATA[发布与安装改版]]></title><description><![CDATA[发布时应该仅发布修改的模块<img alt="Pasted image 20250626193110.png" src="site-lib/media/pasted-image-20250626193110.png" target="_self" style="width: 235px; max-width: 100%;">all，krn，all-desktop，krn-desktop
-其中 n 为游戏版本，例如：一代就是 1，五代就是 5<br>
-<img alt="Pasted image 20250626193245.png" src="site-lib/media/pasted-image-20250626193245.png" target="_self">假设修改了 kr.game_templates 则将修改的 game_templates 放入以上文件夹内对应的文件夹（改版名.krn）<br>
-<img alt="Pasted image 20250626193952.png" src="site-lib/media/pasted-image-20250626193952.png" target="_self" style="width: 409px; max-width: 100%;">将改版文件夹增加到压缩包打包（任意压缩软件即可），发布即可找到游戏目录，然后打开游戏 exe 的压缩包<br><img alt="Pasted image 20250626200756.png" src="site-lib/media/pasted-image-20250626200756.png" target="_self" style="width: 650px; max-width: 100%;">]]></description><link>发布与安装改版.html</link><guid isPermaLink="false">发布与安装改版.md</guid><pubDate>Mon, 11 Aug 2025 11:27:56 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[2.4 - 网格]]></title><description><![CDATA[网格通常用于规定可集结单位的寻路
-加载关卡网格数据，并存入 GR.grid
-GR.ox 网格中心点 x 轴
-GR.oy 网格中心点 y 轴
-GR.grid_w 所有网格总长度
-GR.grid_h 所有网格总宽度
-]]></description><link>第-2-章、关卡/2.4-网格.html</link><guid isPermaLink="false">第 2 章、关卡/2.4 - 网格.md</guid><pubDate>Mon, 11 Aug 2025 11:20:30 GMT</pubDate></item><item><title><![CDATA[2 - 函数]]></title><description><![CDATA[每次创建实体都会调用一次对应实体的插入函数有些技能就是通过插入函数来实现的；
+<img alt="Pasted image 20250728093403.png" src="site-lib/media/pasted-image-20250728093403.png" target="_self" style="width: 675px; max-width: 100%;">]]></description><link>0.1-配置环境.html</link><guid isPermaLink="false">0.1 - 配置环境.md</guid><pubDate>Fri, 26 Sep 2025 02:18:50 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[index]]></title><description><![CDATA[
+相关链接：
+<a data-tooltip-position="top" aria-label="https://github.com/MC123ACD/KR_modCourse" rel="noopener nofollow" class="external-link is-unresolved" href="https://github.com/MC123ACD/KR_modCourse" target="_self">本文档 Github 仓库</a><br>
+<a data-tooltip-position="top" aria-label="https://kingdomrush.huijiwiki.com/p/1" rel="noopener nofollow" class="external-link is-unresolved" href="https://kingdomrush.huijiwiki.com/p/1" target="_self">中文维基</a><br>
+<a data-tooltip-position="top" aria-label="https://www.bilibili.com/read/readlist/rl141527" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.bilibili.com/read/readlist/rl141527" target="_self">中文百科全集</a>
+本文档适用于电脑版的一、二、三、五代，请注意版本（安卓版部分可用）
+由于本人正处于学习阶段，所以错误在所难免，欢迎提出意见，以及提 request本文档将默认您已了解并掌握 Lua 编程语言与 Love2d
+如未了解请先观看以下教程：
+观看大约需要 3-4 小时 <br><a data-tooltip-position="top" aria-label="https://www.bilibili.com/video/BV1vf4y1L7Rb/" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.bilibili.com/video/BV1vf4y1L7Rb/" target="_self">Lua教程-入门—哔哩哔哩</a>
+<br><a data-tooltip-position="top" aria-label="https://www.bilibili.com/video/BV1WR4y1E7ud/" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.bilibili.com/video/BV1WR4y1E7ud/" target="_self">Lua教程-进阶—哔哩哔哩</a>
+<br><a data-tooltip-position="top" aria-label="https://blog.csdn.net/qq_44918090/category_11757733.html" rel="noopener nofollow" class="external-link is-unresolved" href="https://blog.csdn.net/qq_44918090/category_11757733.html" target="_self">Love2d-教程</a> 注：本教程主要以总结为目的，所以教程都是重要知识点，其他修改方法类比一下即可如有疑问建议先问 AI 再向他人寻求帮助该文档仅限学习交流，禁止用于商业用途请购买正版游戏后再进行修改。若修改盗版出现任何问题，均与作者以及文档无关]]></description><link>index.html</link><guid isPermaLink="false">index.md</guid><pubDate>Wed, 24 Sep 2025 01:36:28 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[1 - 精灵]]></title><description><![CDATA[在模板的 tt.render.sprites 就是精灵了，修改精灵的一些键即可做到修改基础数据还是与之前相同，搜索 E:add_comps 的组件或 E:register_t 的底模板，由于镶套过多不进行赘叙，只需要搜索 sprite 组件即可E:add_comps(tt, "tween")	-- 增加组件
+-- tt.tween.props[1] = E:clone_c("tween_prop")	-- 因为 tween 组件默认会进行这一步可以省略 tt.tween.props[1].keys = { { 0,	-- 默认透明度 0 255 }, { 1,	-- 1 秒时完全淡出 0 }, { 2,	-- 2 秒时完全淡入 255 }
+}
+tt.tween.props[1].sprite_id = {	-- 补间的精灵，可以直接用数字或表 1, 2, ...
+}
+tt.tween.remove = false	-- 禁用播放后移除
+tt.tween.props[1].loop = true	-- 循环播放
+-- 模板内
+tt.tween.disabled = true	-- 默认禁用 -- 更新函数内
+while true do ... if 特定条件 then this.tween.disabled = nil	-- 特定条件下取消禁用 else this.tween.disabled = true	-- 非特定条件禁用 for i = 1, 3 do	-- 假设 sprite_id 键的键值是表 {1, 2, 3} this.render.sprites[i].alpha = 255	-- 让补间的对应精灵的键重回默认值即可，假设是透明度 end end ...
+end
+]]></description><link>第-3-章、动画/3-修改教程/1-精灵.html</link><guid isPermaLink="false">第 3 章、动画/3 - 修改教程/1 - 精灵.md</guid><pubDate>Fri, 19 Sep 2025 11:03:13 GMT</pubDate></item><item><title><![CDATA[3 - 函数]]></title><description><![CDATA[几乎所有索敌本质都是在一定范围索敌
+也就是说基本所有索敌都是在范围索敌的基础上增加一些代码而来的（图片是游戏自带调试模式的功能，快捷键 b）
+<img alt="Pasted image 20250705124548.png" src="site-lib/media/pasted-image-20250705124548.png" target="_self" style="width: 361px; max-width: 100%;">过滤函数 用于筛选目标，筛选出过滤函数返回 true 的实体，false 表示无视这个实体最小范围内标签 用于判断目标标签有没有设定的标签，如果有则无最小范围限制是否仅上游 用于指定是否只筛选位于当前节点的上游（即更靠近路径起点）或下游（即更靠近路径终点）的敌人通常用于索敌的过滤函数
+当然也可以用于技能，对具有特定效果的敌人造成额外效果，典型就是三代莉恩，对有诅咒效果的敌人造成额外伤害]]></description><link>总结/3-函数.html</link><guid isPermaLink="false">总结/3 - 函数.md</guid><pubDate>Sun, 14 Sep 2025 03:10:22 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[2 - 函数]]></title><description><![CDATA[每次创建实体都会调用一次对应实体的插入函数有些技能就是通过插入函数来实现的；
 典型代表就是二代女巫的 1 伤害的光环，原理：调用插入函数 → 判断技能等级 → 创建光环搜索对应英雄的模板，在 kr/game_scripts 就可以找到函数了（如图为艾莉丹）
 <img alt="Pasted image 20250701213229.png" src="site-lib/media/pasted-image-20250701213229.png" target="_self" style="width: 825px; max-width: 100%;">
 当然也可以直接跳转到对应函数的定义，不需要搜索，直接在对应英雄模板右键插入函数转到定义即可<br>
@@ -494,8 +292,8 @@ skill = this.hero.skills.flaming_frenzy if sta ~= A_NO_TARGET and not a.disabled
 ... targets = U.find_enemies_in_range(store.entities, this.pos, 0, a.max_range, a.vis_flags, a.vis_bans) if targets then for _, t in pairs(targets) do local d = E:create_entity("damage") d.damage_type = a.damage_type d.source_id = this.id d.target_id = t.id d.value = math.random(a.damage_min, a.damage_max) queue_damage(store, d) -- 修改造成效果的代码块 if a.mod or a.mods then	-- 避免没有 mod 导致的一些问题 local mods = a.mods or {	-- 没有 mods 则创建一个包含 mod 的表，然后赋值 a.mod } for _, mod_name in pairs(mods) do	-- 遍历效果表 local new_mod = E:create_entity(mod_name) new_mod.modifier.target_id = t.id new_mod.modifier.source_id = this.id queue_insert(store, new_mod) end end end end
 ... -- 模板内
 tt.timed_attacks.list[1].mods = { 效果 1,	-- 因为 mod 会被覆盖，所以需要注意一下如果原本就有效果，需要加上之前的效果，否则技能将不会造成之前的效果 效果 2 ...
-} <br>所有索敌函数见 <a data-href="3 - 函数#一、索敌" href="总结/3-函数.html#一、索敌" class="internal-link" target="_self" rel="noopener nofollow">3 - 函数 &gt; 一、索敌</a>target = find_foremost_enemy(..., function(v，origin)	-- 其他传递的参数省略，v 会传递实体表，origin 会传递圆心 ...	-- 函数体 return v.health.hp &gt;= 1000	-- 寻找血量大于等于 1000 的敌人
-end, ...) <br>函数见 <a data-href="3 - 函数#二、判断拥有效果" href="总结/3-函数.html#二、判断拥有效果" class="internal-link" target="_self" rel="noopener nofollow">3 - 函数 &gt; 二、判断拥有效果</a>target = find_foremost_enemy(..., function(v，origin) ... return v.health.hp &gt;= 1000 and U.has_modifiers(store, v, "mod_lava") -- 寻找血量大于等于 1000，并且处于燃烧效果的敌人
+} <br>所有索敌函数见 <a data-href="3 - 函数#一、索敌" href="总结/3-函数.html#一、索敌" class="internal-link" target="_self" rel="noopener nofollow">3 - 函数 &gt; 一、索敌</a>target = find_foremost_enemy(..., function(v, origin)	-- 其他传递的参数省略，v 会传递实体表，origin 会传递圆心 ...	-- 函数体 return v.health.hp &gt;= 1000	-- 寻找血量大于等于 1000 的敌人
+end, ...) <br>函数见 <a data-href="3 - 函数#二、判断拥有效果" href="总结/3-函数.html#二、判断拥有效果" class="internal-link" target="_self" rel="noopener nofollow">3 - 函数 &gt; 二、判断拥有效果</a>target = find_foremost_enemy(..., function(v, origin) ... return v.health.hp &gt;= 1000 and U.has_modifiers(store, v, "mod_lava") -- 寻找血量大于等于 1000，并且处于燃烧效果的敌人
 end, ...) 因为基本所有索敌都是从范围索敌改来的，由此先通过范围索敌找到目标，然后排序血量最高的敌人local targets = U.find_enemies_in_range(store.entities, hero.pos, 0, a.radius, a.vis_flags, a.vis_bans)
 --索敌 if targets then table.sort(targets, function(e1, e2)	-- 排序函数 return e1.health.hp &gt; e2.health.hp	-- 根据血量排序，最终血量最高的会排序在最前 end) local target = targets[1]	-- 取第一个目标 ...	-- 后面造成伤害，造成效果，目标都传第一个目标即可
 返回 true 表示 e1 在前 e2 在后，false 则是 e1 在后 e2 在前当然你也可以根据伤害、速度、护甲大小排序，表示选择伤害最高或最低、速度最快或最慢、护甲最高或最低的目标主要目的：给实体释放某个近战攻击增加条件，满足条件才释放这个攻击注意：仅支持实体的近战攻击，技能与远程不支持，防御塔的攻击也不支持只需要给实体的模板的近战攻击增加 fn_can 键，键值为函数即可以给一代鬼侍二技能灭魂斩增加血量释放条件为例-- 鬼侍模板内
@@ -577,18 +375,227 @@ tt.dodge.counter_attack.sound = "MeleeSword"	-- 动画和音效可以套用普�
 end -- 模板内直接把效果写在 mods 键上即可
 tt.melee.attacks[1].mods = { 效果 1, 效果 2 ...
 }
-三个函数都改一遍即可]]></description><link>第-1-章、基础/1-修改教程/2-函数.html</link><guid isPermaLink="false">第 1 章、基础/1 - 修改教程/2 - 函数.md</guid><pubDate>Sat, 09 Aug 2025 07:59:08 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[1.3 - 常量]]></title><description><![CDATA[all/constants 内的所有变量名义上称为 “常量”（constants）建议使用 win 自带的计算器的程序员模式输入十进制然后选择按位来计算结果，看二进制效率较低]]></description><link>第-1-章、基础/1.3-常量.html</link><guid isPermaLink="false">第 1 章、基础/1.3 - 常量.md</guid><pubDate>Fri, 08 Aug 2025 11:04:14 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[1 - 精灵]]></title><description><![CDATA[在模板的 tt.render.sprites 就是精灵了，修改精灵的一些键即可做到修改基础数据还是与之前相同，搜索 E:add_comps 的组件或 E:register_t 的底模板，由于套娃过多不进行赘叙，只需要搜索 sprite 组件即可注：补间原理还是通过修改精灵的各种键来实现的E:add_comps(tt, "tween")	-- 增加组件
--- tt.tween.props[1] = E:clone_c("tween_prop")	-- 因为 tween 组件默认会进行这一步可以省略 tt.tween.props[1].keys = { { 0,	-- 默认透明度 0 255 }, { 1,	-- 1 秒时完全淡出 0 }, { 2,	-- 2 秒时完全淡入 255 }
+三个函数都改一遍即可]]></description><link>第-1-章、基础/1-修改教程/2-函数.html</link><guid isPermaLink="false">第 1 章、基础/1 - 修改教程/2 - 函数.md</guid><pubDate>Wed, 10 Sep 2025 07:37:27 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[1.4 - 函数]]></title><description><![CDATA[所有基础函数都存储在 all/scripts 模块
+后续会通过 kr/game_scripts 模块动态向 scripts 模块增加实体的各种函数
+all/script_utils（简称 SU）用于存储实体各种行为的函数（如攻击等，技能则是直接写到实体的更新函数上）
+all/utils（简称 U）用于存储通用工具函数（索敌等）
+注：调用流水线 love → director → game → simulation → systems（简称 sys）
+前三代 simulation 位于 all 中，五代则是位于 lib/klove 中
+更新逻辑时间（store.tick_ts += 1）
+处理实体插入与移除
+调用各种 sys 的更新函数
+所有实体最终都会创建到 all/game.store.entities 表中（game.store 简称 store）
+调用 E:create_entity(模板) 函数： 深拷贝模板，生成独立实体表（存储实体的各种数据）
+分配唯一 ID（只增不减）
+返回该实体表引用 调用 simulation.queue_insert_entity 函数： 将实体表增加到 store.pending_inserts（待插入队列） 取出队列的实体表
+调用&nbsp;simulation:insert_entity&nbsp;函数 遍历并调用各种 sys 的插入函数 传递参数：创建的实体 this、store
+若插入函数返回 false 则： 调用各种 sys 的 dequeue 函数 传递参数：this、store、true
+直接返回，中断遍历 以键值对&nbsp;[ID] = 实体表&nbsp;形式插入&nbsp;store.entities 正式创建实体 调用 sys.main_script:on_update 函数调度协程： 遍历所有有更新函数的实体
+若实体更新函数没有协程且没有运行过则创建更新函数的协程
+重启协程 传递参数：更新函数对应协程、对应实体（this）、store、实体的函数表的引用 一般从更新函数的 while 重启 调用 simulation.queue_remove_entity 函数： 将实体表增加到 store.pending_removals（待移除队列）中 取出队列的实体表
+调用&nbsp;simulation:remove_entity&nbsp;函数移除实体 调用各种 sys 的移除函数 传递参数：this、store 若移除函数返回 false 调用实体 dequeue 函数，逻辑与插入相同，不进行赘叙 传递参数：this、store、false 将对应 ID 实体表赋值为 nil 移除实体 调用 E:create_entity("damage") 创建伤害实体表： 返回伤害实体表引用 此后可以通过这个引用直接修改创建的实体表（使用 ID 不好索引），比如增加目标等 调用 table.insert(store.damage_queue, 伤害) 函数： 将伤害插入 store.damage_queue 伤害队列 d = E:create_entity("damage")	-- 创建伤害实体
+d.damage_type = DAMAGE_TRUE	-- 伤害类型设置为真伤，注意：修改的是创建的完全独立的伤害实体表 queue_damage(store, d)	-- 正式插入伤害，等价于 table.insert(store.damage_queue, d) 调用血量更新函数 sys.health:on_update： 若伤害队列非空，遍历伤害队列，使其中没有造成伤害的伤害，进行下一步
+在 store 索引目标的 ID（target_id）
+调用 U.predict_damage 函数计算伤害大小（计算护甲与伤害类型的影响）
+造成伤害 与插入实体相同
+若没有 modifier 键则直接返回 true true 将跳过插入实体
+false 正常插入 筛选出所有具有相同目标的效果
+若当前效果被其他相同目标的效果 ban 则直接返回 false
+遍历所有具有相同目标的效果 若当前效果的 modifier.remove_banned 键值为 true 则： 移除被 ban 其他相同目标的效果
+将 modifier.removed_by_ban 键的键赋值为 true 再次遍历所有具有相同目标的效果 若 modifier.allows_duplicates 键值为 true 则返回 true（中断遍历）
+若 modifier.replaces_lower 键值为 true 则： 将其他相同目标的效果移除（继续遍历） 若 modifier.resets_same 键值为 true 则： 将其他相同目标的另一个效果的 modifier.ts 键赋值为当前时间戳
+返回 false 以上条件都不满足则直接返回 false 最后以上代码都执行完毕返回 true 调用 U.attack_order 函数排序攻击： 遍历实体的攻击表（melee / ranged.attacks） 根据以下条件排序攻击表： 概率不同，释放概率低者在前
+释放概率相同，冷却时间长者在前
+所有条件相同，攻击序号在前者在前 返回到实体 melee / ranged.order 表 melee / ranged.order 默认值只有攻击 1，也就是说没有排序则只能使用普通攻击 调用 SU.y_soldier_melee_block_and_attacks 近战攻击函数： 调用 SU.soldier_pick_melee_target 函数寻找拦截范围内的目标： 返回目标 无目标返回 A_NO_TARGET
+调用 SU.soldier_pick_melee_attack 函数遍历实体的 melee.order 表： 优先进行闪避攻击
+**按排序顺序返回可用攻击 可用攻击：攻击没有禁用、攻击冷却完毕、标签没有被过滤、fn_can 函数返回 true、计算概率或调用 fn_chance 函数计算概率，返回可用攻击
+fn_can 函数会传递：调用这个函数的实体、store、攻击、目标
+fn_chance 函数传递内容同上 无可用攻击返回 A_IN_COOLDOWN
+根据攻击类型：单体攻击、多次攻击、近战范围攻击，调用对应攻击类型的函数 攻击函数就是最基础的造成伤害与造成效果、播放动画、处理共享冷却等，不进行赘叙
+单体攻击会调用 SU.unit_dodges 函数判断目标是否闪避此次攻击，若闪避将不会造成伤害 攻击完毕返回 A_DONE 注意步骤内的缩进，返回值是上一层级的函数返回
+调用 SU.soldier_pick_ranged_target_and_attack 函数： 寻找攻击范围内的目标
+遍历实体的 ranged.order 表（排序在前的优先）
+同时返回目标与可用攻击 可用攻击：攻击没有禁用、攻击冷却完毕、标签没有被过滤、没有被筛选函数 filter_fn 过滤
+传递的参数同索敌的筛选函数（v，origin，实体表与圆心坐标） 无目标返回 A_NO_TARGET
+无可用攻击返回 A_IN_COOLDOWN 根据攻击类型：单体攻击、多次攻击，调用对应攻击类型的函数
+创建子弹实体
+攻击完毕返回 A_DONE 调用子弹的更新函数： 计算子弹飞行轨迹，抛物线（箭矢），直线追踪（魔法弹）等
+造成伤害与造成效果 若目标闪避此次攻击 闪避：没有被眩晕、闪避冷却完毕、攻击的伤害类型没有 DAMAGE_NO_DODGE、计算概率、can_dodge 函数返回 true
+can_dodge 函数会传递：store、调用这个函数的实体、远程攻击、攻击、攻击来源
+目标的 dodge.active 键的键值设为 true 闪避返回 true，否则返回 false 若 dodge.counter_attack_pending 为 true 则： soldier_pick_melee_attack 函数返回 dodge.counter_attack 的攻击 dodge.counter_attack_pending 键的键值改为 false
+注：是否闪避是攻击者在判断，而不是目标
+攻击者 → 目标，目标闪避攻击 → 攻击者死亡（1） → 被控制（2） → 闪避（3） → 更换集结点（4） → 特殊待机（5） → 技能（6） → 特殊远程攻击（7） → 近战攻击（8） → 远程攻击 (9) → 返回集结点 (10) → 待机 (11) → 脱战回血 (12)注：
+闪避优先级较高，如果有闪避动画，则会打断低优先级行为
+实现逻辑就是简单的判断，详见 all/scripts.soldier_barrack.update 函数 参考资料：
+<a data-tooltip-position="top" aria-label="https://tieba.baidu.com/p/9764441850" rel="noopener nofollow" class="external-link is-unresolved" href="https://tieba.baidu.com/p/9764441850" target="_self">关于士兵是如何攻击的讨论 by天玑布可 -百度贴吧</a>
+]]></description><link>第-1-章、基础/1.4-函数.html</link><guid isPermaLink="false">第 1 章、基础/1.4 - 函数.md</guid><pubDate>Fri, 05 Sep 2025 07:12:43 GMT</pubDate></item><item><title><![CDATA[1 - 关卡]]></title><description><![CDATA[根据结构修改即可，详见 <a data-href="2.2 - 波次#波次数据表结构" href="第-2-章、关卡/2.2-波次.html#波次数据表结构" class="internal-link" target="_self" rel="noopener nofollow">2.2 - 波次 &gt; 波次数据表结构</a> 没有加载对应怪的资源将会导致怪物透明在关卡数据的 required_textures 键增加对应资源即可required_textures = { "go_enemies...", ...
 }
-tt.tween.props[1].sprite_id = {	-- 补间的精灵，可以直接用数字或表 1, 2, ...
+图像资源基本都在 _assets/kr-desktop/images/fullhd 内，前缀含义：注：有些实体的资源在关卡资源内<br><img alt="Pasted image 20250828164236.png" src="site-lib/media/pasted-image-20250828164236.png" target="_self" style="width: 750px; max-width: 100%;">
+由于出怪的表不易于查看修改，推荐使用附件的波次生成脚本修改
+所有出怪组都是并发的，可以使用出怪组延迟控制
+出怪组一般用于多个怪物组合进攻与进攻不同路径
+交替出怪用于两个怪物轮流进攻
+每个组的怪物只有前一个出完才会出下一个
+修改完毕保存：<br>
+<img alt="Pasted image 20250828164839.png" src="site-lib/media/pasted-image-20250828164839.png" target="_self" style="width: 550px; max-width: 100%;">
+数字改成你修改的关卡编号，然后直接替换波次数据即可在 level_data 的 entities_list 增加一个实体，在这个实体更新函数写召唤逻辑即可-- 模板
+tt = RT("s_spawner_entities")
+AC(tt, "main_script", "editor")
+tt.main_script.update = scripts.s_spawner_entities.update
+tt.ts = 0 tt.entity = "enemy_halloween_zombie"	-- 召唤实体
+tt.spawn_margin = { ["start"] = 30,	-- 距离起点边距 ["end"] = 60	-- 距离终点边距
 }
-tt.tween.remove = false	-- 禁用播放后移除
-tt.tween.props[1].loop = true	-- 循环播放
--- 模板内
-tt.tween.disabled = true	-- 默认禁用 -- 更新函数内
-while true do ... if 特定条件 then this.tween.disabled = nil	-- 特定条件下取消禁用 else this.tween.disabled = true	-- 非特定条件禁用 for i = 1, 3 do	-- 假设 sprite_id 键的键值是表 {1, 2, 3} this.render.sprites[i].alpha = 255	-- 让补间的对应精灵的键重回默认值即可，假设是透明度 end end ...
-end
-]]></description><link>第-3-章、动画/3-修改教程/1-精灵.html</link><guid isPermaLink="false">第 3 章、动画/3 - 修改教程/1 - 精灵.md</guid><pubDate>Fri, 08 Aug 2025 11:03:52 GMT</pubDate></item><item><title><![CDATA[1.5 - 存档]]></title><description><![CDATA[存档用于存储各种英雄等级，加点，完成的成就、星星以及升级、关卡完成情况等
+tt.spawn_cooldown = 3	-- 召唤间隔
+tt.spawn_count = 1	-- 召唤数量
+tt.spawn_wave = 1	-- 开始召唤的波次
+tt.spawn_path = { pi = {	-- 生成的路径 1, 2, 5 }, spi = {	-- 生成的子路径 1, 2, 3 }
+}
+tt.ani = "raise"	-- 召唤后实体的动画，需要有相应动画，`idle` 为凭空出现
+tt.enemy_gold = 0.5	-- 召唤的敌人赏金乘数 -- 函数
+scripts.s_spawner_entities = {}
+function scripts.s_spawner_entities.update(this, store) local pi, spi, ni local p_pi, p_spi = this.spawn_path["pi"], this.spawn_path["spi"] local margin = this.spawn_margin while true do if this.interrupt then break end -- 计算召唤间隔 if store.wave_group_number &gt;= this.spawn_wave and this.spawn_cooldown &lt; store.tick_ts - this.ts then this.ts = store.tick_ts for i = 1, this.spawn_count do -- 取随机路径上随机节点 pi, spi = p_pi[math.random(p_pi[1], #p_pi)], p_spi[math.random(p_spi[1], #p_spi)] ni = math.random(P:get_start_node(pi) + margin["start"], P:get_end_node(pi) - margin["end"]) pos = P:node_pos(pi, spi, ni) -- 召唤实体 local e = E:create_entity(this.entity) e.pos, e.nav_path.pi, e.nav_path.spi, e.nav_path.ni = pos, pi, spi, ni e.render.sprites[1].name = this.ani e.enemy.gold = e.enemy.gold * this.enemy_gold queue_insert(store, e) end end coroutine.yield() end queue_remove(store, this)
+end -- 关卡数据
+entities_list = { { template = "s_spawner_entities",	-- 关卡开始时召唤 pos = {	-- 位置随便填 x = 0, y = 0 } }, ...
+} 绘图<br>
+可以使用 AI 进行绘图 <a data-tooltip-position="top" aria-label="https://tieba.baidu.com/p/9780582087?" rel="noopener nofollow" class="external-link is-unresolved" href="https://tieba.baidu.com/p/9780582087?" target="_self">AI 链接</a> 将背景图片放入 _assets/kr-desktop/images/fullhd 内，并改名为 go_stagex_bg-1，x 为关卡编号，在保证不会与已有关卡冲突的条件下可以随便填一个
+图片分辨率推荐 1920x1080<br>
+<img alt="Pasted image 20250809164512.png" src="site-lib/media/pasted-image-20250809164512.png" target="_self" style="width: 425px; max-width: 100%;"> 然后创建对应的数据文件 go_stagex_bg.lua，x 同上，并复制以下模板 return { stagex = {	-- x 同上 a_name = "go_stagex_bg-1.png",-- x 同上 size = { 1920, 1080 }, trim = { 0, 0, 0, 0 }, a_size = { 1920, 1080 }, f_quad = { 0, 0, 1920, 1080 }, alias = {} }
+}
+在 _assets/kr1-desktop/images/fullhd/screen_map 最后面增加一个表即可：stage_thumbs_000x = {	-- x 同上，若 x 为 1 则是 0001，大于等于 10 则需要在前面加 “00” 如：0010 a_name = "go_stagex_bg-1.png", size = { 1920, 1080 }, trim = { 0, 0, 0, 0 }, a_size = { 342, 246 }, f_quad = { 0, 0, 342, 246 }, alias = {}
+}
+会按长宽比拉伸图片，可以自己重新裁剪一个图片然后使用裁剪后的图片<br>
+<img alt="Pasted image 20250809094636.png" src="site-lib/media/pasted-image-20250809094636.png" target="_self" style="width: 425px; max-width: 100%;">在 kr\data\levels 创建 levelx_data.lua 文件，x 同上，并复制以下模板，参数可以按照自己的想法填return { entities_list = { { template = "decal_background",	-- 背景贴图，背景本质也是实体 pos = { x = 512, y = 384 }, ["render.sprites[1].name"] = "stage27", ["render.sprites[1].z"] = 1000 }, { template = "decal_background",	-- 防守点旗帜，可选 pos = { x = -43.46875, y = 326.34375 }, ["render.sprites[1].name"] = "blue_flag", ["render.sprites[1].z"] = 1400 }, { template = "decal_background", pos = { x = -43.46875, y = 526.03125 }, ["render.sprites[1].name"] = "blue_flag", ["render.sprites[1].z"] = 1400 }, { template = "decal_defend_point",	-- 防守点，必加，否则进入将会报错 ["editor.exit_id"] = 1, pos = { x = -44.875, y = 402.28125 } }, { template = "editor_wave_flag",	-- 释放波次贴图，必加，否则无法释放波次 ["editor.len"] = 240, ["editor.path_id"] = 1, ["editor.r"] = 0, pos = { x = 1156.0625, y = 399.46875 } }, }, invalid_path_ranges = {}, level_mode_overrides = { { locked_towers = {}, max_upgrade_level = 5 }, { locked_towers = {}, max_upgrade_level = 5 }, { locked_towers = {}, max_upgrade_level = 5 } }, level_terrain_type = 1, locked_hero = false, max_upgrade_level = 5, nav_mesh = {}, required_sounds = {},	-- 音效资源 required_textures = { "go_enemies_grass",	-- 一些敌人资源 "go_stagex_bg",	-- 加载对应关卡背景资源，x 同上 "go_stages_blackburn"	-- 借用里面的防守点旗帜资源 }
+} 将 GS.last_level 数字加 1 在 GS.level_ranges 最后面增加一个关卡序号表，表内填增加的关卡序号 {x}，可以增加 list 键改为无序解锁
+GS.level_ranges 表决定关卡解锁顺序，注：所有支线第一关在主线通关后会全部解锁 示例：GS.level_ranges = { { 1, 12	-- 1-12 关为主线 }, -- 主线通关后解锁第 13、14、17 关支线 { 13 }, { 14, 16	-- 第 14 关通关后解锁第 15 关，第 15 关通关后解锁第 16 关，以此类推 }, { 17, 22,	-- 第 16 关通关后仅解锁第 22 关 list = true }, ...
+} 在 kr-desktop\data\map_data.level_data 最后面增加一个表：
+{ upgrades = { heroe = true,	-- 规则：有英雄 level = 5	-- 规则：防御塔等级 }, iron = {	-- 钢铁规则：禁用的塔 "archers",	-- 箭塔 "barracks"	-- 兵营 "mages",	-- 法师 "artillery",	-- 炮塔 }
+}
+map_data.level_data 表的键的下标索引决定对应的关卡的模式选择界面显示的规则<br>
+<img alt="Pasted image 20250809094524.png" src="site-lib/media/pasted-image-20250809094524.png" target="_self" style="width: 190px; max-width: 100%;">
+在 kr-desktop/data/map_points.flags 最后面增加一个入口位置表
+{ number = "x",	-- 关卡编号 pos = { x = 1173,	-- 位置 y = 102 }
+}
+map_points.flags 表的键的下标索引决定对应关卡的入口的坐标位置将 args 启动参数的关卡编辑器取消注释，将 custom 键修改为刚刚创建的关卡编号
+运行游戏即可进入关卡编辑器点击小加号选中，拖动即可移动位置，注：需要点击 entities 选项<br>
+<img alt="Pasted image 20250807181638.png" src="site-lib/media/pasted-image-20250807181638.png" target="_self" style="width: 900px; max-width: 100%;">
+防守点规定了英雄出生位置搜索并选择样式，然后插入塔位即可
+修改位置的方法还是拖动，注：会同时插入名为 editor_rally_point 的默认集结点<br>
+<img alt="Pasted image 20250807183501.png" src="site-lib/media/pasted-image-20250807183501.png" target="_self">
+注：若进入关卡发现塔位贴图消失就是忘记选择样式了点击 paths 选项然后创建路径，自行设定路径即可<br>
+<img alt="Pasted image 20250807182230.png" src="site-lib/media/pasted-image-20250807182230.png" target="_self">
+注：较大的节点为起点，推荐将起点与终点设在关卡背景外
+最下面 subdivide 可以增加额外节点点击 grid 选项，选择网格类型然后画满背景即可<br>
+<img alt="Pasted image 20250807183059.png" src="site-lib/media/pasted-image-20250807183059.png" target="_self" style="width: 725px; max-width: 100%;">
+网格规定了可更改集结点单位的可移动区域路径上直接画 land，非路径一般都有 no walk 标签
+brush size 为刷子大小点击 nav 选项然后点击塔位调整 top / left / right / bottom 即可<br>
+<img alt="Pasted image 20250808185126.png" src="site-lib/media/pasted-image-20250808185126.png" target="_self" style="width: 500px; max-width: 100%;">
+nav 规定了键盘方向键切换塔位的顺序一切完毕后点击 save 保存即可
+此时会自动创建对应关卡的路径与格子数据文件使用波次编辑器在 kr\data\waves 创建 levelx_waves_campaign 波次数据文件
+注：不同后缀表示对应模式的波次数据，英雄为 _heroic，钢铁为 _iron，请自行创建，若没有则全部使用战役的波次数据再次打开关卡编辑器插入 editor_wave_flag 的实体，修改位置即可<br>
+<img alt="Pasted image 20250808090849.png" src="site-lib/media/pasted-image-20250808090849.png" target="_self">
+注：默认按钮是没有贴图的，需要找加号修改位置（加号默认在中心点偏下）
+如果有多条路径则需要增加多个波次释放按钮可以通过插入实体来创建一些动态贴图或可交互彩蛋<br>
+<img alt="Pasted image 20250811184142.png" src="site-lib/media/pasted-image-20250811184142.png" target="_self" style="width: 349px; max-width: 100%;">
+注：其他场景装饰实体自行在关卡编辑器查看，并且需要加载相应贴图与动画资源]]></description><link>第-2-章、关卡/2-修改教程/1-关卡.html</link><guid isPermaLink="false">第 2 章、关卡/2 - 修改教程/1 - 关卡.md</guid><pubDate>Wed, 03 Sep 2025 07:36:31 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[README]]></title><description><![CDATA[文档地址：
+mc123acd.github.io/KR_modCourseHTML文件在另一个分支，主分支用来放 Markdown 源文件第三个分支为整合包 使用 Git 克隆本仓库的 MD 源文件的分支 使用 Obsidian 打开克隆的仓库 <a data-tooltip-position="top" aria-label="https://thoughts.teambition.com/share/62a131711a6baa00416a79d3#title=Obsidian_%E5%AE%89%E8%A3%85%E5%8C%85" rel="noopener nofollow" class="external-link is-unresolved" href="https://thoughts.teambition.com/share/62a131711a6baa00416a79d3#title=Obsidian_%E5%AE%89%E8%A3%85%E5%8C%85" target="_self">下载链接</a> 虽然仓库自带 MD 转化 HTML 插件，但是还是推荐编辑完毕后仅提交 MD 源文件
+<br>
+图片必须为 png，并且需要压缩，请将图片放到 site-lib/media 内 <a data-tooltip-position="top" aria-label="https://www.iloveimg.com/zh-cn/compress-image" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.iloveimg.com/zh-cn/compress-image" target="_self">在线压缩图像</a> 格式统一 ]]></description><link>readme.html</link><guid isPermaLink="false">README.md</guid><pubDate>Wed, 03 Sep 2025 07:00:06 GMT</pubDate></item><item><title><![CDATA[AI 提示词]]></title><description><![CDATA[请自行加上 “kingdom rush, cartoon style, fantasy continent, game paths, cel shading, flat colors, clean outlines, no gradients, hard-edged shadows, ”触发词]]></description><link>第-2-章、关卡/2-修改教程/ai-提示词.html</link><guid isPermaLink="false">第 2 章、关卡/2 - 修改教程/AI 提示词.md</guid><pubDate>Tue, 02 Sep 2025 06:57:57 GMT</pubDate></item><item><title><![CDATA[2 - 常量]]></title><description><![CDATA[看二进制效率较低，所以直接写 1 所在的位数，例如 1000 则位数为 4仅总结常用的，其他自行见 constants]]></description><link>总结/2-常量.html</link><guid isPermaLink="false">总结/2 - 常量.md</guid><pubDate>Tue, 02 Sep 2025 03:02:25 GMT</pubDate></item><item><title><![CDATA[2.1 - 关卡]]></title><description><![CDATA[关卡中所有数据存储于 kr/data/levels 中其中：
+无后缀为关卡相关函数
+_data 为关卡参数
+_paths 为路径数据
+_gird 为网格数据 表： locked_hero 是否锁定英雄
+max_upgrade_level 防御塔最大等级
+entities_list 进入关卡创建的实体 实体 1： template 创建的实体
+pos 创建位置
+修改实体表... 实体 2... level_mode_overrides 不同模式的差异： 战役模式
+英雄模式
+钢铁模式 required_sounds 加载的音效资源
+required_textures 加载的贴图与动画资源 点击开始战斗按钮
+调用 screen_map:start_level 函数
+回调 director:item_done_callback 函数：
+1. 将 director.next_item_name 键赋值为 "game"
+调用 director:update 函数： 调用 director:queue_load_item_named 函数： 根据 next_item_name 键在 kr-desktop/data/director_data.item_props 的 src 决定进入的界面 进入 game 界面
+加载模块 game 并存入 director.queued_item 内 调用 director.queued_item.init 函数（game:init）初始化 调用 GR:load（all/grid_db）函数加载网格数据
+调用 P:load（all/path_db）函数加载路径数据
+调用 W:load（all/wave_db）函数加载波次数据
+若有 level:init 关卡初始化函数则调用进行初始化
+若有关卡参数则调用 LU.insert_entities 创建关卡参数内的实体
+根据波次数据设定初始金币
+根据模式设定初始生命 若有 store.level.update 关卡更新函数则调用其
+调用 LU.insert_hero 函数插入英雄
+若生命小于 1 （失败）则： 将结果、关卡索引、模式、难度存入 store.game_outcome
+将存档 last_victory 键赋值为 nil
+保存英雄经验（调用 store_hero_xp 函数）
+无尽模式则将最高分数写入存档 若关卡完成、所有波次已释放、敌人全部死亡（胜利）则： 根据血量计算星星
+将结果、模式、关卡索引、星星数量等存入 store.game_outcome 以及存档的 last_victory 表中
+保存英雄经验 点击退出按钮：胜利和暂停界面的退出
+调用 game_gui:go_to_map 函数： 保存英雄经验
+停止所有音效
+回调 director:item_done_callback 函数： 将 director.next_item_name 键赋值为 "map" 调用 director:update 函数： 调用 director:queue_load_item_named 函数： 根据 next_item_name 键在 kr-desktop/data/director_data.item_props 的 src 决定进入的界面 进入 screen_map 界面
+加载模块 screen_map 并存入 director.queued_item 内 调用 director.queued_item.init 函数（screen_map:init）重新初始化 若存档中有 last_victory 键且存档没有对应关卡模式的通关数据（存档的 levels 键）则根据关卡模式进行： 战役：调用 U.find_next_level_in_ranges 函数将 ud.new_level 赋值为下一个关卡的索引： 遍历 GS.level_ranges 关卡范围，根据不同条件进行：
+若一个范围内的 list 键为 true （表示这个范围是无序的）且通关的关卡索引包含在内则直接返回范围中的下一个关卡的索引 或通关的关卡索引等于最大范围，返回下一个范围表的第一个键 若通关的关卡索引在一个范围区间内则直接返回通关的关卡索引 + 1 或通关的关卡索引等于最大范围，返回下一个范围表的第一个键 将存档内所对应的关卡的键初始化（= {}）
+将下一个关卡的索引存入将要解锁的关卡表
+若存档有对应关卡的战役数据且通关获得的星星大于此前获得的星星则： 将 ud.show_stars_level 赋值为通关的关卡索引
+将 ud.star_count_before 赋值为通关获得的星星
+将通关获得的星星重新赋值给存档对应关卡数据的星星键 英雄与钢铁：分别将 ud.heroic_level 与 ud.iron_level 赋值为通关关卡索引
+注：screen.unlock_data 缩写为 ud 调用 U.unlock_next_levels_in_ranges 函数将将要解锁的关卡存起： 若存档有主线最后一关的关卡数据则： 将所有存档内没有的（没有通关过）支线关卡第一关存入将要解锁的关卡表 将所有存档内没有的关卡，根据关卡范围（逻辑同上）将下一关索引存入将要解锁的关卡表 同时将下一关索引存入 ud.new_level 加载 kr-desktop/data.map_points 模块并将对应表分别存入：
+screen_map.map_points.points / flags / endless_flags
+调用 self:show_flags 函数（续承自父类 MapView）显示关卡旗帜： 调用 self:load_level_decos 函数加载并创建地图装饰 kr-desktop/data.map_data.map_decos
+将有 trigger_level 键的装饰返回到 self.level_decos 中
+根据 GS.last_level 设定最大关卡数
+遍历存档中通关的关卡 根据 screen_map.map_points.points 表创建旗帜之间的连接点（续承自 KImageView）
+创建已通关的关卡的旗帜（续承自 LevelFlagView）
+根据存档内战役、英雄、钢铁通关状态为旗帜设定不同样式
+创建无尽模式旗帜（续承自 EndlessLevelFlagView）
+若是首次创建的旗帜则根据不同情况播放动画： 若关卡索引等于 ud.show_stars_level 则播放显示星星动画
+若通过钢铁模式 ud.iron_level 则播放通过钢铁模式的动画
+若通过英雄模式 ud.heroic_level 则播放通过英雄模式的动画
+显示对应关卡的地图装饰（trigger_level）
+播放连接新解锁（ud.new_level）的关卡的连接动画（旗帜之间的连接点）
+播放所有将要解锁的关卡表的关卡（ud.unlocked_levels）的插入旗帜动画 ]]></description><link>第-2-章、关卡/2.1-关卡.html</link><guid isPermaLink="false">第 2 章、关卡/2.1 - 关卡.md</guid><pubDate>Mon, 01 Sep 2025 05:23:15 GMT</pubDate></item><item><title><![CDATA[2.2 - 波次]]></title><description><![CDATA[波次的所有数据存储于 kr/data/waves 中其中：
+_campaign 为战役模式
+_heroic 为英雄模式
+_iron 为钢铁模式
+注：时间单位这里都是游戏帧
+表： cash 初始金币
+live 无尽模式生命
+groups 波次： 第一波： interval 下一波到来时间
+waves 第一组出怪： delay 这组出怪延迟
+path_index 出怪路径
+spawns 出怪顺序数量等 怪物 1： interval 出怪间隔
+creep 怪物，填实体模板
+creep_aux 交替的怪物，每次出一定怪后交替出这个怪
+max_same 每次交替出怪数量
+max 总数量
+fixed_sub_path 出怪子路径，0 为随机
+path 指定出怪子路径后将子路径索引修改为此键值
+interval_next 下一个出怪的延迟 怪物 2... 第二组出怪... 第二波... 将波次数据存入 W.db 调用 sys.wave_spawn:init 函数 若游戏模式为无尽则最大波次 store.wave_group_total 赋值为 0
+非无尽根据波次数据的波次数量决定（W:groups_count）
+创建波次线协程 store.wave_spawn_thread 调用 W:get_group 获得 W.db.groups 对应波次的数据
+若为第一波则调用 game_gui.wave_notification_handler 函数显示消息
+若没有主动释放第一波则循环挂起协程
+若下一波没有到来（interval），没有跳过这一波则循环挂起协程
+若主动释放下一波则调用 game_gui.early_wave_called_handler 函数处理释放非第一波波次 无尽模式额外增加分数
+调用对应力量的 early_wave_bonus 函数给予玩家奖励（力量减冷却） 调用 game_gui.next_wave_sent_handler 函数处理释放波次 隐藏释放波次按钮
+调用 game_gui.unlock_user_power_handler 函数解锁对应技能 显示消息
+创建协程，延迟 delay 一定时间，返回并调用生成敌人函数 协程返回到 store.waves_active
+生成敌人就是简单的遍历表生成敌人，不进行赘叙详细请查看 sys.spawner 函数 这一波敌人生成完毕后 i += 1 标志进入下一波 ]]></description><link>第-2-章、关卡/2.2-波次.html</link><guid isPermaLink="false">第 2 章、关卡/2.2 - 波次.md</guid><pubDate>Sun, 17 Aug 2025 01:53:05 GMT</pubDate></item><item><title><![CDATA[2.3 - 路径]]></title><description><![CDATA[路径中：
+ni 为节点索引（node index），即一条路径中的位置
+pi 为路径索引（path index），即不同路径
+spi 为子路径索引（subpath index），即路径中的三个分支
+<img alt="Pasted image 20250812125430.png" src="site-lib/media/pasted-image-20250812125430.png" target="_self">
+如图所示一条路径有三条子路径，白点为节点 加载关卡路径数据并存入 P:paths
+P:set_start_node 与 P:set_end_node 函数设定起点与终点节点，存入 P:path_start_node 与 P:set_end_node 在驱动函数调用 sys.goal_line:on_update 函数
+若具有 nav_path 键的敌人到达终点（nav_path.ni &gt;= P:path_end_node）则： 将生命减去敌人的 enemy.lives_cost，并移除这个敌人 以下是所有函数的表格，表头为“函数”，函数形式参数使用中文描述：]]></description><link>第-2-章、关卡/2.3-路径.html</link><guid isPermaLink="false">第 2 章、关卡/2.3 - 路径.md</guid><pubDate>Wed, 13 Aug 2025 01:31:36 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[4 - 关卡]]></title><link>总结/4-关卡.html</link><guid isPermaLink="false">总结/4 - 关卡.md</guid><pubDate>Tue, 12 Aug 2025 00:49:44 GMT</pubDate></item><item><title><![CDATA[发布与安装改版]]></title><description><![CDATA[发布时应该仅发布修改的模块<img alt="Pasted image 20250626193110.png" src="site-lib/media/pasted-image-20250626193110.png" target="_self" style="width: 235px; max-width: 100%;">all，krn，all-desktop，krn-desktop
+其中 n 为游戏版本，例如：一代就是 1，五代就是 5<br>
+<img alt="Pasted image 20250626193245.png" src="site-lib/media/pasted-image-20250626193245.png" target="_self">假设修改了 kr.game_templates 则将修改的 game_templates 放入以上文件夹内对应的文件夹（改版名.krn）<br>
+<img alt="Pasted image 20250626193952.png" src="site-lib/media/pasted-image-20250626193952.png" target="_self" style="width: 409px; max-width: 100%;">将改版文件夹增加到压缩包打包（任意压缩软件即可），发布即可找到游戏目录，然后打开游戏 exe 的压缩包<br><img alt="Pasted image 20250626200756.png" src="site-lib/media/pasted-image-20250626200756.png" target="_self" style="width: 650px; max-width: 100%;">]]></description><link>发布与安装改版.html</link><guid isPermaLink="false">发布与安装改版.md</guid><pubDate>Mon, 11 Aug 2025 11:27:56 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[2.4 - 网格]]></title><description><![CDATA[网格通常用于规定可集结单位的寻路
+加载关卡网格数据，并存入 GR.grid
+GR.ox 网格中心点 x 轴
+GR.oy 网格中心点 y 轴
+GR.grid_w 所有网格总长度
+GR.grid_h 所有网格总宽度
+]]></description><link>第-2-章、关卡/2.4-网格.html</link><guid isPermaLink="false">第 2 章、关卡/2.4 - 网格.md</guid><pubDate>Mon, 11 Aug 2025 11:20:30 GMT</pubDate></item><item><title><![CDATA[1.3 - 常量]]></title><description><![CDATA[all/constants 内的所有变量名义上称为 “常量”（constants）建议使用 win 自带的计算器的程序员模式输入十进制然后选择按位来计算结果，看二进制效率较低]]></description><link>第-1-章、基础/1.3-常量.html</link><guid isPermaLink="false">第 1 章、基础/1.3 - 常量.md</guid><pubDate>Fri, 08 Aug 2025 11:04:14 GMT</pubDate><enclosure url="." length="0" type="false"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;.&quot;&gt;&lt;/figure&gt;</content:encoded></item><item><title><![CDATA[1.5 - 存档]]></title><description><![CDATA[存档用于存储各种英雄等级，加点，完成的成就、星星以及升级、关卡完成情况等
 原版 C:\Users\用户\AppData\Roaming\kingdom_rush_xxx 调试 C:\Users\用户\AppData\Roaming\LOVE\kingdom_rush_xxx 里面 也可以点击工作区文件夹内的存档位置快捷方式进行跳转
 存档内就是一些简单的表，不进行赘叙slot = storage:load_slot()	-- slot 就是存档的表了
 storage:save_slot(slot)

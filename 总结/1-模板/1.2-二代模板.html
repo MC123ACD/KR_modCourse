@@ -1,0 +1,1004 @@
+<!DOCTYPE html> <html lang="zh-cn"><head>
+<title>1.2 - 二代模板</title>
+<base href="../..">
+<meta name="pathname" content="总结/1-模板/1.2-二代模板.html">
+<meta name="description" content="王国保卫战修改教程 - 1.2 - 二代模板">
+<meta property="og:title" content="1.2 - 二代模板">
+<meta property="og:description" content="王国保卫战修改教程 - 1.2 - 二代模板">
+<meta property="og:type" content="website">
+<meta property="og:url" content="总结/1-模板/1.2-二代模板.html">
+<meta property="og:image" content="undefined">
+<meta charset="UTF-8"><meta property="og:site_name" content="王国保卫战修改教程"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="preload" href="site-lib/styles/snippets.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/snippets.css"></noscript><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/other-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/other-plugins.css"></noscript><link rel="stylesheet" href="site-lib/styles/theme.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/supported-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/supported-plugins.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager mod-windows is-frameless is-hidden-frameless styled-scrollbars show-ribbon background-settings-workplace-theme-dark-in-the-sky background-image-settings-markdown-page-custom notebook-liked-markdown-page-grid-notebook-1 panel-page-bg-theme-light-custom panel-page-bg-theme-dark-plant hide-left-ribbon-retention-drawer toggle-divider-lines toggle-header-bottom-line bt-bubble-layout bt-bubble-layout-hide-borders remove-heading-indicator h1-toggle-underline toggle-left-aligned-content fancy-hr-no-icon custom-unordered-list custom-ordered-list list-no-border bt-connected-indent-hover folder-icons bt-toggle-colorful-folder folder-style-change-options-colorful-default folder-colorful-one table-width-auto table-style-two link-underline-internal enable-alternative-checkboxes default-loading-page loading-text-typing-style rainbow-tag translucent-setting-panel underline-tab-style canvas-card-text-middle admonition-bg-color-same toggle-calendar-shadow style-options-for-buttons-plugin dataview-list-style-pacman memos-banner-gradient thino-frosted-style thino-background-default quiet-outline-optimize code-theme-sublime is-focused"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event is-readable-line-width allow-fold-headings show-indentation-guide show-properties" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section"><div class="header"><h1 class="page-title heading" id="1.2_-_二代模板_0">1.2 - 二代模板</h1><div class="data-bar"></div></div><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-h1"><h1 data-heading="(一) 防御塔" dir="auto" class="heading" id="(一)_防御塔_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>(一) 防御塔</h1></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr"><center>防御塔</center></th>
+<th dir="ltr"><center>模板名</center></th>
+<th dir="auto"></th>
+<th dir="ltr">一技能</th>
+<th dir="auto"></th>
+<th dir="ltr">二技能</th>
+<th dir="auto"></th>
+<th dir="ltr">三技能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong>弩堡</strong></td>
+<td dir="ltr"><code>tower_crossbow</code></td>
+<td dir="ltr">弹幕</td>
+<td dir="ltr"><code>multishot_crossbow</code></td>
+<td dir="ltr">训鹰者</td>
+<td dir="ltr"><code>mod_crossbow_eagle</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>图腾</strong></td>
+<td dir="ltr"><code>tower_totem</code></td>
+<td dir="ltr">虚弱图腾</td>
+<td dir="ltr"><code>mod_totem_weakness</code></td>
+<td dir="ltr">精神图腾</td>
+<td dir="ltr"><code>mod_silence_totem</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>刺客</strong></td>
+<td dir="ltr"><code>tower_assassin</code></td>
+<td dir="ltr">偷袭</td>
+<td dir="ltr"><code>sneak</code></td>
+<td dir="ltr">反击</td>
+<td dir="ltr"><code>counter</code></td>
+<td dir="ltr"><code>扒手</code></td>
+<td dir="ltr"><code>pickpocket</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>圣殿</strong></td>
+<td dir="ltr"><code>tower_templar</code></td>
+<td dir="ltr">坚韧</td>
+<td dir="ltr"><code>extralife</code></td>
+<td dir="ltr">动脉打击</td>
+<td dir="ltr"><code>mod_blood</code></td>
+<td dir="ltr"><code>圣杯</code></td>
+<td dir="ltr"><code>holygrail</code></td>
+</tr>
+<tr>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>大法师</strong></td>
+<td dir="ltr"><code>tower_archmage</code></td>
+<td dir="ltr">龙卷风</td>
+<td dir="ltr"><code>twister</code></td>
+<td dir="ltr">临界质量</td>
+<td dir="ltr"><code>blast</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>死灵法师</strong></td>
+<td dir="ltr"><code>tower_necromancer</code></td>
+<td dir="ltr">瘟疫</td>
+<td dir="ltr"><code>pestilence</code></td>
+<td dir="ltr">死亡骑士</td>
+<td dir="ltr"><code>rider</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>地震</strong></td>
+<td dir="ltr"><code>tower_dwaarp</code></td>
+<td dir="ltr">死亡钻头</td>
+<td dir="ltr"><code>drill</code></td>
+<td dir="ltr">熔岩爆裂</td>
+<td dir="ltr"><code>lava</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>高达</strong></td>
+<td dir="ltr"><code>mecha</code></td>
+<td dir="ltr">黄蜂导弹</td>
+<td dir="ltr"><code>missile_mecha</code></td>
+<td dir="ltr">废料倾泻</td>
+<td dir="ltr"><code>oil_mecha</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>军团弓箭手</strong></td>
+<td dir="ltr"><code>tower_archer_hammerhold</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>佣兵营地</strong></td>
+<td dir="ltr"><code>tower_barrack_mercenaries</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>海盗酒馆</strong></td>
+<td dir="ltr"><code>tower_barrack_pirates</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>海盗营地</strong></td>
+<td dir="ltr"><code>tower_pirate_camp</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>长矛女战士小屋</strong></td>
+<td dir="ltr"><code>tower_barrack_amazona</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>矮人堡垒</strong></td>
+<td dir="ltr"><code>tower_archer_dwarf</code></td>
+<td dir="ltr">爆炸酒桶</td>
+<td dir="ltr"><code>barrel</code></td>
+<td dir="ltr">合金弹头</td>
+<td dir="ltr"><code>extra_damage</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>矮人大厅</strong></td>
+<td dir="ltr"><code>tower_barrack_dwarf</code></td>
+<td dir="ltr">秘银铠甲</td>
+<td dir="ltr"><code>armor</code></td>
+<td dir="ltr">秘银战锤</td>
+<td dir="ltr"><code>hammer</code></td>
+<td dir="ltr">啤酒</td>
+<td dir="ltr"><code>beer</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>海贼守望者</strong></td>
+<td dir="ltr"><code>tower_pirate_watchtower</code></td>
+<td dir="ltr">快速装填</td>
+<td dir="ltr"><code>reduce_cooldown</code></td>
+<td dir="ltr">驯养鹦鹉</td>
+<td dir="ltr"><code>parrot</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>海神雕像</strong></td>
+<td dir="ltr"><code>tower_neptune</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><strong>黑暗锻造炉</strong></td>
+<td dir="ltr"><code>tower_frankenstein</code></td>
+<td dir="ltr">闪电打击<br></td>
+<td dir="ltr"><code>lightning</code></td>
+<td dir="ltr">血肉傀儡</td>
+<td dir="ltr"><code>frankie</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="auto"><font color="#fafafa">..............</font></td>
+<td dir="auto"></td>
+<td dir="auto"><font color="#fafafa">...........</font></td>
+<td dir="auto"></td>
+<td dir="auto"><font color="#fafafa">...........</font></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+</tbody>
+</table></div><div class="el-h1"><h1 data-heading="(二) 英雄" dir="auto" class="heading" id="(二)_英雄_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>(二) 英雄</h1></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th align="center" dir="ltr">英雄</th>
+<th dir="ltr"><center>模板名</center></th>
+<th dir="auto"></th>
+<th dir="ltr">一技能</th>
+<th dir="auto"></th>
+<th dir="ltr">二技能</th>
+<th dir="auto"></th>
+<th dir="ltr">三技能</th>
+<th dir="auto"></th>
+<th dir="ltr">四技能</th>
+<th dir="auto"></th>
+<th dir="ltr">五技能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" dir="ltr"><strong>沙王</strong></td>
+<td dir="ltr"><code>hero_alric</code></td>
+<td dir="ltr">剑术</td>
+<td dir="ltr"><code>swordsmanship</code></td>
+<td dir="ltr">反伤刺甲</td>
+<td dir="ltr"><code>spikedarmor</code></td>
+<td dir="ltr">坚韧</td>
+<td dir="ltr"><code>toughness</code></td>
+<td dir="ltr">连斩</td>
+<td dir="ltr"><code>flurry</code></td>
+<td dir="ltr">沙兵</td>
+<td dir="ltr"><code>sandwarriors</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>幻影</strong></td>
+<td dir="ltr"><code>hero_mirage</code></td>
+<td dir="ltr">鹰眼</td>
+<td dir="ltr"><code>precision</code></td>
+<td dir="ltr">闪避</td>
+<td dir="ltr"><code>shadowdodge</code></td>
+<td dir="ltr">迅捷</td>
+<td dir="ltr"><code>swiftness</code></td>
+<td dir="ltr">影舞</td>
+<td dir="ltr"><code>shadowdance</code></td>
+<td dir="ltr">致命打击</td>
+<td dir="ltr"><code>lethalstrike</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>船长</strong></td>
+<td dir="ltr"><code>hero_pirate</code></td>
+<td dir="ltr">海盗弯刀</td>
+<td dir="ltr"><code>swordsmanship</code></td>
+<td dir="ltr">赏金猎人</td>
+<td dir="ltr"><code>looting</code></td>
+<td dir="ltr">韧性</td>
+<td dir="ltr"><code>toughness</code></td>
+<td dir="ltr">爆炸酒桶</td>
+<td dir="ltr"><code>scattershot</code></td>
+<td dir="ltr">克拉肯</td>
+<td dir="ltr"><code>kraken</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>兽王</strong></td>
+<td dir="ltr"><code>hero_beastmaster</code></td>
+<td dir="ltr">召唤野猪</td>
+<td dir="ltr"><code>boarmaster</code></td>
+<td dir="ltr">犀牛</td>
+<td dir="ltr"><code>stampede</code></td>
+<td dir="ltr">猎鹰</td>
+<td dir="ltr"><code>falconer</code></td>
+<td dir="ltr">鞭挞</td>
+<td dir="ltr"><code>deeplashes</code></td>
+<td dir="ltr">再生</td>
+<td dir="ltr"><code>regeneration</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>女巫</strong></td>
+<td dir="ltr"><code>hero_voodoo_witch</code></td>
+<td dir="ltr">螺旋头骨</td>
+<td dir="ltr"><code>laughingskulls</code></td>
+<td dir="ltr">颅骨投掷</td>
+<td dir="ltr"><code>deathskull</code></td>
+<td dir="ltr">骨舞</td>
+<td dir="ltr"><code>bonedance</code></td>
+<td dir="ltr">恐惧光环</td>
+<td dir="ltr"><code>deathaura</code></td>
+<td dir="ltr">巫毒娃娃</td>
+<td dir="ltr"><code>voodoomagic</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>大法师</strong></td>
+<td dir="ltr"><code>hero_wizard</code></td>
+<td dir="ltr">魔法导弹</td>
+<td dir="ltr"><code>magicmissile</code></td>
+<td dir="ltr">连锁反应</td>
+<td dir="ltr"><code>chainspell</code></td>
+<td dir="ltr">奥术瓦解</td>
+<td dir="ltr"><code>disintegrate</code></td>
+<td dir="ltr">奥术范围</td>
+<td dir="ltr"><code>arcanereach</code></td>
+<td dir="ltr">奥术专注</td>
+<td dir="ltr"><code>arcanefocus</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>女祭司</strong></td>
+<td dir="ltr"><code>hero_priest</code></td>
+<td dir="ltr">治疗圣光</td>
+<td dir="ltr"><code>holylight</code></td>
+<td dir="ltr">神圣祝福</td>
+<td dir="ltr"><code>consecrate</code></td>
+<td dir="ltr">光明守护</td>
+<td dir="ltr"><code>wingsoflight</code></td>
+<td dir="ltr">圣洁护甲</td>
+<td dir="ltr"><code>blessedarmor</code></td>
+<td dir="ltr">神圣躯体</td>
+<td dir="ltr"><code>divinehealth</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>石头人</strong></td>
+<td dir="ltr"><code>hero_giant</code></td>
+<td dir="ltr">巨石投掷</td>
+<td dir="ltr"><code>boulderthrow</code></td>
+<td dir="ltr">地震</td>
+<td dir="ltr"><code>stomp</code></td>
+<td dir="ltr">磐石堡垒</td>
+<td dir="ltr"><code>bastion</code></td>
+<td dir="ltr">水晶之拳</td>
+<td dir="ltr"><code>massivedamage</code></td>
+<td dir="ltr">铁石心肠</td>
+<td dir="ltr"><code>hardrock</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>沙塔</strong></td>
+<td dir="ltr"><code>hero_alien</code></td>
+<td dir="ltr">能量镖刃</td>
+<td dir="ltr"><code>energyglaive</code></td>
+<td dir="ltr">净化协议</td>
+<td dir="ltr"><code>purificationprotocol</code></td>
+<td dir="ltr">母舰劫持</td>
+<td dir="ltr"><code>abduction</code></td>
+<td dir="ltr">能量剑刃</td>
+<td dir="ltr"><code>vibroblades</code></td>
+<td dir="ltr">自爆</td>
+<td dir="ltr"><code>finalcountdown</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>火龙</strong></td>
+<td dir="ltr"><code>hero_dragon</code></td>
+<td dir="ltr">炽热龙息</td>
+<td dir="ltr"><code>blazingbreath</code></td>
+<td dir="ltr">魔龙盛宴</td>
+<td dir="ltr"><code>feast</code></td>
+<td dir="ltr">火焰迷雾</td>
+<td dir="ltr"><code>fierymist</code></td>
+<td dir="ltr">野火弹幕</td>
+<td dir="ltr"><code>wildfirebarrage</code></td>
+<td dir="ltr">灼炎</td>
+<td dir="ltr"><code>reignoffire</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>螃蟹</strong></td>
+<td dir="ltr"><code>hero_crab</code></td>
+<td dir="ltr">铁钳子</td>
+<td dir="ltr"><code>hookedclaw</code></td>
+<td dir="ltr">无懈可击</td>
+<td dir="ltr"><code>battlehardened</code></td>
+<td dir="ltr">弹簧钳</td>
+<td dir="ltr"><code>pincerattack</code></td>
+<td dir="ltr">水炮</td>
+<td dir="ltr"><code>pincerattack</code></td>
+<td dir="ltr">遁地</td>
+<td dir="ltr"><code>burrow</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>库绍</strong></td>
+<td dir="ltr"><code>hero_monk</code></td>
+<td dir="ltr">蛇形拳</td>
+<td dir="ltr"><code>snakestyle</code></td>
+<td dir="ltr">龙形拳</td>
+<td dir="ltr"><code>dragonstyle</code></td>
+<td dir="ltr">虎形拳</td>
+<td dir="ltr"><code>tigerstyle</code></td>
+<td dir="ltr">豹形拳</td>
+<td dir="ltr"><code>leopardstyle</code></td>
+<td dir="ltr">鹤形拳</td>
+<td dir="ltr"><code>cranestyle</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>但丁</strong></td>
+<td dir="ltr"><code>hero_van_helsing</code></td>
+<td dir="ltr">圣枪洗礼</td>
+<td dir="ltr"><code>multishoot</code></td>
+<td dir="ltr">爆裂银弹</td>
+<td dir="ltr"><code>silverbullet</code></td>
+<td dir="ltr">神圣手雷</td>
+<td dir="ltr"><code>holygrenade</code></td>
+<td dir="ltr">圣物之力</td>
+<td dir="ltr"><code>relicofpower</code></td>
+<td dir="ltr">光之信标</td>
+<td dir="ltr"><code>beaconoflight</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>骨龙</strong></td>
+<td dir="ltr"><code>hero_dracolich</code></td>
+<td dir="ltr">脊椎雨</td>
+<td dir="ltr"><code>spinerain</code></td>
+<td dir="ltr">骨傀儡</td>
+<td dir="ltr"><code>bonegolem</code></td>
+<td dir="ltr">瘟疫载体</td>
+<td dir="ltr"><code>plaguecarrier</code></td>
+<td dir="ltr">疾病新星</td>
+<td dir="ltr"><code>diseasenova</code></td>
+<td dir="ltr">尸爆</td>
+<td dir="ltr"><code>unstabledisease</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>牛头人</strong></td>
+<td dir="ltr"><code>hero_minotaur</code></td>
+<td dir="ltr">野蛮冲撞</td>
+<td dir="ltr"><code>bullrush</code></td>
+<td dir="ltr">血色战斧</td>
+<td dir="ltr"><code>bloodaxe</code></td>
+<td dir="ltr">死亡迷宫</td>
+<td dir="ltr"><code>daedalusmaze</code></td>
+<td dir="ltr">振奋怒吼</td>
+<td dir="ltr"><code>roaroffury</code></td>
+<td dir="ltr">末日旋转</td>
+<td dir="ltr"><code>doomspin</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>猴神</strong></td>
+<td dir="ltr"><code>hero_monkey_god</code></td>
+<td dir="ltr">回旋打击</td>
+<td dir="ltr"><code>spinningpole</code></td>
+<td dir="ltr">铁棒连击</td>
+<td dir="ltr"><code>tetsubostorm</code></td>
+<td dir="ltr">封印猴掌</td>
+<td dir="ltr"><code>monkeypalm</code></td>
+<td dir="ltr">神怒</td>
+<td dir="ltr"><code>angrygod</code></td>
+<td dir="ltr">神性</td>
+<td dir="ltr"><code>divinenature</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>矮人鲁林</strong></td>
+<td dir="ltr"><code>hero_dwarf</code></td>
+<td dir="ltr">地震打击</td>
+<td dir="ltr"><code>dwarf_area_quake</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>黑胡子</strong></td>
+<td dir="ltr"><code>hero_steam_frigate</code></td>
+<td dir="ltr">鱼雷</td>
+<td dir="ltr"><code>steam_frigate_mine</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>女吸血鬼</strong></td>
+<td dir="ltr"><code>hero_vampiress</code></td>
+<td dir="ltr">生命汲取</td>
+<td dir="ltr"><code>mod_vampiress_lifesteal</code></td>
+<td dir="ltr">蝙蝠形态</td>
+<td dir="ltr"><code>hero_vampiress_bat</code></td>
+<td dir="ltr">回旋披风</td>
+<td dir="ltr"><code>area_attack</code></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="auto"><font color="#f2f2f2">.................</font></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+</tbody>
+</table></div><div class="el-h1"><h1 data-heading="(三) 科技树" dir="auto" class="heading" id="(三)_科技树_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>(三) 科技树</h1></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th align="center" dir="ltr">科技</th>
+<th dir="ltr"><center>模板名</center></th>
+<th align="center" dir="ltr">科技</th>
+<th dir="ltr"><center>模板名</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" dir="ltr">箭塔</td>
+<td dir="auto"></td>
+<td align="center" dir="ltr">兵营</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>稳健之手</strong></td>
+<td dir="ltr"><code>archer_improved_aim</code></td>
+<td align="center" dir="ltr"><strong>防御姿态</strong></td>
+<td dir="ltr"><code>barrack_defensive_techniques</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>伐木场</strong></td>
+<td dir="ltr"><code>archer_lumbermill</code></td>
+<td align="center" dir="ltr"><strong>训练营</strong></td>
+<td dir="ltr"><code>barrack_boot_camp</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>专注瞄准</strong></td>
+<td dir="ltr"><code>archer_focused_aim</code></td>
+<td align="center" dir="ltr"><strong>团队精神</strong></td>
+<td dir="ltr"><code>barrack_esprit_des_corps</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>精准</strong></td>
+<td dir="ltr"><code>archer_master_marksmanship</code></td>
+<td align="center" dir="ltr"><strong>老兵部队</strong></td>
+<td dir="ltr"><code>barrack_veteran_squad</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>双箭齐发</strong></td>
+<td dir="ltr"><code>archer_twin_shot</code></td>
+<td align="center" dir="ltr"><strong>勇气</strong></td>
+<td dir="ltr"><code>barrack_courage</code></td>
+</tr>
+<tr>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr">法师</td>
+<td dir="auto"></td>
+<td align="center" dir="ltr">炮塔</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>力量符文</strong></td>
+<td dir="ltr"><code>mage_rune_of_power</code></td>
+<td align="center" dir="ltr"><strong>探测仪</strong></td>
+<td dir="ltr"><code>engineer_smoothbore</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>法术穿透</strong></td>
+<td dir="ltr"><code>mage_spell_of_penetration</code></td>
+<td align="center" dir="ltr"><strong>炼金术粉末</strong></td>
+<td dir="ltr"><code>engineer_alchemical_powder</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>神秘力量</strong></td>
+<td dir="ltr"><code>mage_eldrich_power</code></td>
+<td align="center" dir="ltr"><strong>改良军火</strong></td>
+<td dir="ltr"><code>engineer_improved_ordnance</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>巫师学院</strong></td>
+<td dir="ltr"><code>mage_wizard_academy</code></td>
+<td align="center" dir="ltr"><strong>快速装填</strong></td>
+<td dir="ltr"><code>engineer_gnomish_tinkering</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>辉光</strong></td>
+<td dir="ltr"><code>mage_brilliance</code></td>
+<td align="center" dir="ltr"><strong>晕头转向</strong></td>
+<td dir="ltr"><code>engineer_shock_and_awe</code></td>
+</tr>
+<tr>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr">火雨</td>
+<td dir="ltr"><code>power_fireball_control</code></td>
+<td align="center" dir="ltr">援兵</td>
+<td dir="ltr"><code>re_legionnaire_ranged</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>天火</strong></td>
+<td dir="ltr"><code>rain_burning_skies</code></td>
+<td align="center" dir="ltr"><strong>熟练志愿者</strong></td>
+<td dir="ltr"><code>reinforcement_level_1</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>灼烧大地</strong></td>
+<td dir="ltr"><code>rain_scorched_earth</code></td>
+<td align="center" dir="ltr"><strong>武装士兵</strong></td>
+<td dir="ltr"><code>reinforcement_level_2</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>地狱火</strong></td>
+<td dir="ltr"><code>rain_fire_and_brimstone</code></td>
+<td align="center" dir="ltr"><strong>战士</strong></td>
+<td dir="ltr"><code>reinforcement_level_3</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>烈焰</strong></td>
+<td dir="ltr"><code>rain_conflagration</code></td>
+<td align="center" dir="ltr"><strong>誓言之刃</strong></td>
+<td dir="ltr"><code>reinforcement_level_4</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>大灾难</strong></td>
+<td dir="ltr"><code>rain_armaggedon</code></td>
+<td align="center" dir="ltr"><strong>反曲弓</strong></td>
+<td dir="ltr"><code>reinforcement_level_5</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h1"><h1 data-heading="(四) 敌人" dir="auto" class="heading" id="(四)_敌人_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>(四) 敌人</h1></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th align="center" dir="ltr">敌人</th>
+<th dir="ltr"><center>模板名</center></th>
+<th align="center" dir="ltr">敌人</th>
+<th dir="ltr"><center>模板名</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" dir="ltr"><strong>沙漠暴徒</strong></td>
+<td dir="ltr"><code>enemy_bouncer</code></td>
+<td align="center" dir="ltr"><strong>丛林蜘蛛</strong></td>
+<td dir="ltr"><code>enemy_jungle_spider_small</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>沙漠突袭者</strong></td>
+<td dir="ltr"><code>enemy_desert_raider</code></td>
+<td align="center" dir="ltr"><strong>丛林蜘蛛主母</strong></td>
+<td dir="ltr"><code>enemy_jungle_spider_big</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>沙漠弓箭手</strong></td>
+<td dir="ltr"><code>enemy_desert_archer</code></td>
+<td align="center" dir="ltr"><strong>野蛮人战士</strong></td>
+<td dir="ltr"><code>enemy_cannibal</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>沙犬</strong></td>
+<td dir="ltr"><code>enemy_desert_wolf_small</code></td>
+<td align="center" dir="ltr"><strong>野蛮人猎人</strong></td>
+<td dir="ltr"><code>enemy_hunter</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>战犬</strong></td>
+<td dir="ltr"><code>enemy_desert_wolf</code></td>
+<td align="center" dir="ltr"><strong>巫医</strong></td>
+<td dir="ltr"><code>enemy_shaman_priest</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>长生军</strong></td>
+<td dir="ltr"><code>enemy_immortal</code></td>
+<td align="center" dir="ltr"><strong>大地萨满</strong></td>
+<td dir="ltr"><code>enemy_shaman_shield</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>木乃伊</strong></td>
+<td dir="ltr"><code>enemy_fallen</code></td>
+<td align="center" dir="ltr"><strong>精神萨满</strong></td>
+<td dir="ltr"><code>enemy_shaman_magic</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>行刑者</strong></td>
+<td dir="ltr"><code>enemy_executioner</code></td>
+<td align="center" dir="ltr"><strong>野蛮人狂战士</strong></td>
+<td dir="ltr"><code>enemy_cannibal_volcano</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蝎子</strong></td>
+<td dir="ltr"><code>enemy_scorpion</code></td>
+<td align="center" dir="ltr"><strong>血祭巫医</strong></td>
+<td dir="ltr"><code>enemy_shaman_necro</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>黄蜂</strong></td>
+<td dir="ltr"><code>enemy_wasp</code></td>
+<td align="center" dir="ltr"><strong>野蛮人僵尸</strong></td>
+<td dir="ltr"><code>enemy_cannibal_zombie</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蜂后</strong></td>
+<td dir="ltr"><code>enemy_wasp_queen</code></td>
+<td align="center" dir="ltr"><strong>大猩猩</strong></td>
+<td dir="ltr"><code>enemy_gorilla</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>沙虫</strong></td>
+<td dir="ltr"><code>enemy_tremor</code></td>
+<td align="center" dir="ltr"><strong>巨鸟骑士</strong></td>
+<td dir="ltr"><code>enemy_savage_bird_rider</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>沙漠幽魂</strong></td>
+<td dir="ltr"><code>enemy_munra</code></td>
+<td align="center" dir="ltr"><strong>巨鸟</strong></td>
+<td dir="ltr"><code>enemy_savage_bird</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>小火灵</strong></td>
+<td dir="ltr"><code>enemy_efreeti_small</code></td>
+<td align="center" dir="ltr"><strong>抱脸虫</strong></td>
+<td dir="ltr"><code>enemy_alien_breeder</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>boss 灯神</strong></td>
+<td dir="ltr"><code>eb_efreeti</code></td>
+<td align="center" dir="ltr"><strong>收割者</strong></td>
+<td dir="ltr"><code>enemy_alien_reaper</code></td>
+</tr>
+<tr>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+<td align="center" dir="ltr"><strong>猿猴</strong></td>
+<td dir="ltr"><code>enemy_gorilla_small</code></td>
+</tr>
+<tr>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+<td align="center" dir="ltr"><strong>boss 精钢</strong></td>
+<td dir="ltr"><code>eb_gorilla</code></td>
+</tr>
+<tr>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蜥蜴守卫者</strong></td>
+<td dir="ltr"><code>enemy_broodguard</code></td>
+<td align="center" dir="ltr"><strong>炮艇</strong></td>
+<td dir="ltr"><code>enemy_gunboat</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蜥蜴仆从</strong></td>
+<td dir="ltr"><code>enemy_myrmidon</code></td>
+<td align="center" dir="ltr"><strong>鱼人猎手</strong></td>
+<td dir="ltr"><code>enemy_greenfin</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>小飞蜥</strong></td>
+<td dir="ltr"><code>enemy_razorwing</code></td>
+<td align="center" dir="ltr"><strong>海潮骑手</strong></td>
+<td dir="ltr"><code>enemy_deviltide</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>大飞蜥</strong></td>
+<td dir="ltr"><code>enemy_quetzal</code></td>
+<td align="center" dir="ltr"><strong>海潮战士</strong></td>
+<td dir="ltr"><code>enemy_redspine</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蜥蜴未来战士</strong></td>
+<td dir="ltr"><code>enemy_blazefang</code></td>
+<td align="center" dir="ltr"><strong>海螺法师</strong></td>
+<td dir="ltr"><code>enemy_blacksurge</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蜥蜴夜行者</strong></td>
+<td dir="ltr"><code>enemy_nightscale</code></td>
+<td align="center" dir="ltr"><strong>蓝色风暴</strong></td>
+<td dir="ltr"><code>enemy_bluegale</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蜥蜴跃动者</strong></td>
+<td dir="ltr"><code>enemy_darter</code></td>
+<td align="center" dir="ltr"><strong>螃蟹</strong></td>
+<td dir="ltr"><code>enemy_bloodshell</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蜥蜴狂战士</strong></td>
+<td dir="ltr"><code>enemy_brute</code></td>
+<td align="center" dir="ltr"><strong>boss 利维坦</strong></td>
+<td dir="ltr"><code>eb_leviathan</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>蜥蜴学者</strong></td>
+<td dir="ltr"><code>enemy_savant</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>暗影元素</strong></td>
+<td dir="ltr"><code>enemy_umbra_minion</code></td>
+<td align="center" dir="ltr"><strong>蜥蜴人狙击手</strong></td>
+<td dir="ltr"><code>enemy_sniper</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>安布拉碎片</strong></td>
+<td dir="ltr"><code>enemy_umbra_piece</code></td>
+<td align="center" dir="ltr"><strong>boss 西兹</strong></td>
+<td dir="ltr"><code>eb_saurian_king</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>boss 安布拉</strong></td>
+<td dir="ltr"><code>eb_umbra</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>僵尸</strong></td>
+<td dir="ltr"><code>enemy_halloween_zombie</code></td>
+<td align="center" dir="ltr"><strong>阿努比斯</strong></td>
+<td dir="ltr"><code>enemy_anoobis</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>食尸鬼</strong></td>
+<td dir="ltr"><code>enemy_ghoul</code></td>
+<td align="center" dir="ltr"><strong>神王薛西斯</strong></td>
+<td dir="ltr"><code>eb_xerxes</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>吸血蝙蝠</strong></td>
+<td dir="ltr"><code>enemy_bat</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>憎恶</strong></td>
+<td dir="ltr"><code>enemy_abomination</code></td>
+<td align="center" dir="ltr"><strong>收割者领主</strong></td>
+<td dir="ltr"><code>enemy_reaper_lord</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>狼人</strong></td>
+<td dir="ltr"><code>enemy_werewolf</code></td>
+<td align="center" dir="ltr"><strong>收割者女王</strong></td>
+<td dir="ltr"><code>eb_alien_l1</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>强狼人</strong></td>
+<td dir="ltr"><code>enemy_lycan</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>幽魂</strong></td>
+<td dir="ltr"><code>enemy_ghost</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>幽魂勇士</strong></td>
+<td dir="ltr"><code>enemy_phantom_warrior</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>南瓜骑士杰克</strong></td>
+<td dir="ltr"><code>enemy_headless_horseman</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>吸血鬼夫人</strong></td>
+<td dir="ltr"><code>enemy_elvira</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>boss 瓦西里</strong></td>
+<td dir="ltr"><code>eb_dracula</code></td>
+<td align="center" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+</tbody>
+</table></div><div class="el-h1"><h1 data-heading="(五) 杂项" dir="auto" class="heading" id="(五)_杂项_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>(五) 杂项</h1></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th align="center" dir="ltr">描述</th>
+<th dir="ltr"><center>位置</center></th>
+<th dir="ltr"><center>模板名</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" dir="ltr"><strong>塔斯肯人狙击手</strong></td>
+<td dir="ltr">第 3 关</td>
+<td dir="ltr"><code>decal_tusken</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>沙虫</strong></td>
+<td dir="ltr">第 4 关</td>
+<td dir="ltr"><code>sand_worm</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>敌方炮舰</strong></td>
+<td dir="ltr">第 5 关</td>
+<td dir="ltr"><code>pirate_cannons</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>巨灵之门</strong></td>
+<td dir="ltr">第 6 关</td>
+<td dir="ltr"><code>efreeti_door</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>食人花</strong></td>
+<td dir="ltr">第 8 关</td>
+<td dir="ltr"><code>carnivorous_plant</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>火山</strong></td>
+<td dir="ltr">第 10 关</td>
+<td dir="ltr"><code>volcano_virgin</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>贝雷萨德</strong></td>
+<td dir="ltr">第 13 关</td>
+<td dir="ltr"><code>black_dragon_flame</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>运输白鲸</strong></td>
+<td dir="ltr">第 17 关</td>
+<td dir="ltr"><code>decal_whale</code></td>
+</tr>
+<tr>
+<td align="center" dir="ltr"><strong>月圆</strong></td>
+<td dir="ltr">第 19-21 关</td>
+<td dir="ltr"><code>moon_controller</code></td>
+</tr>
+</tbody>
+</table></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item" data-depth="1"><a class="tree-item-self is-clickable" href="总结/1-模板/1.2-二代模板.html#1.2_-_二代模板_0" data-path="#1.2_-_二代模板_0"><div class="tree-item-inner heading-link" heading-name="1.2 - 二代模板">1.2 - 二代模板</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="1"><a class="tree-item-self is-clickable" href="总结/1-模板/1.2-二代模板.html#(一)_防御塔_0" data-path="#(一)_防御塔_0"><div class="tree-item-inner heading-link" heading-name="(一) 防御塔">(一) 防御塔</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="1"><a class="tree-item-self is-clickable" href="总结/1-模板/1.2-二代模板.html#(二)_英雄_0" data-path="#(二)_英雄_0"><div class="tree-item-inner heading-link" heading-name="(二) 英雄">(二) 英雄</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="1"><a class="tree-item-self is-clickable" href="总结/1-模板/1.2-二代模板.html#(三)_科技树_0" data-path="#(三)_科技树_0"><div class="tree-item-inner heading-link" heading-name="(三) 科技树">(三) 科技树</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="1"><a class="tree-item-self is-clickable" href="总结/1-模板/1.2-二代模板.html#(四)_敌人_0" data-path="#(四)_敌人_0"><div class="tree-item-inner heading-link" heading-name="(四) 敌人">(四) 敌人</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="1"><a class="tree-item-self is-clickable" href="总结/1-模板/1.2-二代模板.html#(五)_杂项_0" data-path="#(五)_杂项_0"><div class="tree-item-inner heading-link" heading-name="(五) 杂项">(五) 杂项</div></a><div class="tree-item-children"></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>
