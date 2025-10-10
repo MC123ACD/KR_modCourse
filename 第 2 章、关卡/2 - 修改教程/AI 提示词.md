@@ -1,6 +1,0 @@
-请自行加上 “kingdom rush, cartoon style, fantasy continent, game paths, cel shading, flat colors, clean outlines, no gradients, hard-edged shadows, ”触发词
-
-| <center>提示词</center>                                                                                                                                                                                                                             | <center>生成</center> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- |
-| A cartoon-style fantasy landscape with a winding snowy path following a frozen river cutting through a deep mountain canyon. Snow-covered pine trees line the cliffs, and scattered rocks and icy patches enhance the cold, desolate atmosphere. | 生成雪地峡谷              |
-|                                                                                                                                                                                                                                                  |                     |
