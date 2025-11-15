@@ -88,7 +88,7 @@
   "blue-topaz-theme@@style-options-for-calendar-plugin": "style-options-for-calendar-plugin-default",
   "blue-topaz-theme@@toggle-calendar-shadow": true,
   "blue-topaz-theme@@toggle-calendar-transparent": false,
-  "blue-topaz-theme@@bt-connected-indent-hover": true,
+  "blue-topaz-theme@@bt-connected-indent-hover": false,
   "Blue-Topaz-Codebox-Highlight@@text-color-code@@light": "#000000",
   "blue-topaz-theme@@notebook-liked-markdown-page-options": "notebook-liked-markdown-page-grid-notebook-1",
   "blue-topaz-theme@@full-width-dvtable": false,

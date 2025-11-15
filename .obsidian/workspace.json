@@ -4,20 +4,43 @@
     "type": "split",
     "children": [
       {
-        "id": "40274a3359a6ac4a",
+        "id": "951445d474473442",
         "type": "tabs",
         "children": [
           {
-            "id": "2767fdd43fddcda0",
+            "id": "ba05a75ab8332b86",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "第 2 章 - 进阶/5. 模块.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "5. 模块"
+            }
+          },
+          {
+            "id": "ff42448c654f7f53",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "site-lib/media/Pasted image 20251115103112.canvas",
+                "viewState": {
+                  "x": 150,
+                  "y": -50,
+                  "zoom": 0
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "Pasted image 20251115103112"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -36,8 +59,8 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
-                "matchingCase": false,
+                "query": "num",
+                "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
                 "extraContext": false,
@@ -48,7 +71,7 @@
             }
           },
           {
-            "id": "69fe73d4fdb7d846",
+            "id": "b713673e4fa761ec",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -65,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 285.5011098384857
+    "width": 242.50110983848572
   },
   "right": {
     "id": "b3a58f8c143e4ce0",
@@ -81,26 +104,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "site-lib/media/Pasted image 20251115103112.canvas",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
-            }
-          },
-          {
-            "id": "1c0a7475c9144d3e",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "骨龙版相关/规范.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "规范 的出链列表"
+              "title": "Pasted image 20251115103112 的大纲"
             }
           },
           {
@@ -112,9 +122,23 @@
               "icon": "git-pull-request",
               "title": "Source Control"
             }
+          },
+          {
+            "id": "14a1870c7f43d5bf",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "第 3 章 - 函数/总结/逻辑.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "逻辑 的出链列表"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -122,70 +146,69 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:创建新数据库": false,
       "obsidian-excalidraw-plugin:新建绘图文件": false,
       "webpage-html-export:导出为HTML": false,
       "command-palette:打开命令面板": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "canvas:新建白板": false
     }
   },
   "active": "ada1704951e09b08",
   "lastOpenFiles": [
-    "第 6 章 - 界面/README.md",
-    "第 1 章 - 模板/总结.md",
-    "第 1 章 - 模板/kviews_screen_map_sequels.lua",
-    "未命名.md",
-    "第 4 章 - 关卡/总结.md",
-    "第 6 章 - 界面/总结.md",
-    "第 3 章 - 函数/总结.md",
-    "第 3 章 - 函数/3. 实体更新函数.md",
+    "Pasted image 20251115103112.png",
+    "site-lib/media/Pasted image 20251115103112.canvas",
+    "第 0 章 - 必要/1. 配置环境.md",
+    "Pasted image 20251115141653.png",
+    "总结/0. 说明.md",
+    "总结/1. 模板名.md",
+    "第 0 章 - 必要/2. 发布与安装改版.md",
+    "第 2 章 - 进阶/5. 模块.md",
+    "index.md",
+    "第 2 章 - 进阶/Drawing 2025-11-15 10.17.42.excalidraw.md",
+    "总结/实体逻辑.md",
+    "第 2 章 - 进阶/1. 常量.md",
+    "总结/3. 常量.md",
+    "总结/7. 系统逻辑.canvas",
+    "总结/9. 路径函数.md",
+    "总结/7. 其他函数.md",
+    "总结/12. 界面逻辑.md",
+    "总结/8. 关卡逻辑.md",
+    "总结/6. 工具函数.md",
+    "总结",
+    "README.md",
+    "第 2 章 - 进阶/2. 错误.md",
+    "第 1 章 - 模板/2. 额外效果.md",
+    "第 2 章 - 进阶/4. 注意事项.md",
+    "第 5 章 - 动画/2. 补间动画.md",
+    "第 6 章 - 界面/2. 地图界面.md",
     "第 3 章 - 函数/2. 实体升级函数.md",
     "第 3 章 - 函数/1. 实体插入函数.md",
-    "第 1 章 - 模板/2. 额外效果.md",
-    "第 1 章 - 模板/1. 修改属性.md",
-    "第 2 章 - 进阶/3. 存档.md",
-    "第 2 章 - 进阶/1. 常量.md",
-    "第 0 章 - 必要/1. 配置环境.md",
-    "第 5 章 - 动画/1. 修改精灵.md",
-    "第 5 章 - 动画/2. 补间动画.md",
-    "第 7 章 - 高级/1. 移植.md",
-    "第 4 章 - 关卡/2. 创建新关卡.md",
-    "第 5 章 - 动画/总结.md",
-    "第 3 章 - 函数/1.4 - 函数.md",
-    "第 2 章 - 进阶/4. 注意事项.md",
-    "第 2 章 - 进阶/2. 错误.md",
-    "第 4 章 - 关卡/1. 修改关卡.md",
-    "第 3 章 - 函数/4. 实体行为函数.md",
-    "site-lib/media/Pasted image 20250705190320.png",
-    "site-lib/media/Pasted image 20250706170225.png",
-    "site-lib/media/Pasted image 20250705184937.png",
-    "site-lib/media/Pasted image 20250705182915.png",
-    "site-lib/media/Pasted image 20250705131332.png",
-    "site-lib/media/Pasted image 20250705131059.png",
-    "site-lib/media/Pasted image 20250705124548.png",
-    "site-lib/media/Pasted image 20250705082808.png",
-    "第 4 章 - 关卡/2.4 - 网格.md",
-    "第 4 章 - 关卡/2.3 - 路径.md",
+    "第 3 章 - 函数/3. 实体更新函数.md",
+    "第 6 章 - 界面/1. 关卡界面.md",
+    "总结/5. 实体逻辑.canvas",
+    "Pasted image 20251114104734.png",
+    "Pasted image 20251114104116.png",
+    "site-lib/media/Pasted image 20251110153008.png",
+    "site-lib/media/Pasted image 20251110151928.png",
+    "site-lib/media/Pasted image 20251110151753.png",
+    "site-lib/media/Pasted image 20251109133154.png",
+    "site-lib/media/Pasted image 20250926101829.png",
+    "Pasted image 20251110153008.png",
+    "第 6 章 - 界面/总结",
+    "第 5 章 - 动画/总结",
+    "第 4 章 - 关卡/总结",
+    "第 3 章 - 函数/总结",
+    "第 2 章 - 进阶/总结",
+    "第 1 章 - 模板/总结",
+    "第 1 章 - 模板/kviews_screen_map_sequels.lua",
     "第 0 章 - 必要",
     "第 7 章 - 高级",
-    "第 2 章 - 进阶",
-    "第 6 章 - 界面",
-    "进阶",
-    "第 1 章 - 模板/未命名/desktop.ini",
-    "第 1 章 - 模板/未命名",
-    "第 1 章 - 模板/总结",
-    "第 5 章 - 动画",
-    "Pasted image 20250926101829.png",
-    "site-lib/media/Pasted image 20250710100316.png",
     "第 1 章、基础/程序运行逻辑.canvas",
     "未命名.canvas",
     "拷贝.canvas",
     "英语/单词/未命名.canvas",
     "数学/图形/平行四边形.canvas",
     "英语/单词/单词.canvas",
-    "物理/作用力.canvas",
-    "物理/物质性质.canvas",
-    "物理/机械能.canvas",
-    "物理/电路.canvas"
+    "物理/作用力.canvas"
   ]
 }

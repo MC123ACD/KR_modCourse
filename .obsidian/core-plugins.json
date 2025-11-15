@@ -4,11 +4,11 @@
   "switcher": false,
   "graph": false,
   "backlink": false,
-  "canvas": false,
+  "canvas": true,
   "outgoing-link": true,
   "tag-pane": false,
   "properties": false,
-  "page-preview": false,
+  "page-preview": true,
   "daily-notes": false,
   "templates": false,
   "note-composer": false,
@@ -29,5 +29,5 @@
   "sync": false,
   "webviewer": false,
   "footnotes": false,
-  "bases": true
+  "bases": false
 }

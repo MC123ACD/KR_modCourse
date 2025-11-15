@@ -146,7 +146,7 @@
   "cMenuBottomValue": 4.25,
   "cMenuNumRows": 14,
   "cMenuWidth": 296,
-  "cMenuFontColor": "#ff0000",
+  "cMenuFontColor": "#92d050",
   "cMenuBackgroundColor": "#d3f8b6",
   "autohide": false,
   "Iscentered": false,
@@ -165,7 +165,9 @@
   "verticalPosition": 0,
   "formatBrushes": {},
   "customCommands": [],
-  "viewTypeSettings": {},
+  "viewTypeSettings": {
+    "canvas": false
+  },
   "toolbarBackgroundColor": "rgba(var(--background-secondary-rgb), 0.7)",
   "toolbarIconColor": "var(--text-normal)",
   "toolbarIconSize": 18
