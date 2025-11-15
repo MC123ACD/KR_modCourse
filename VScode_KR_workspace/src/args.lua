@@ -23,6 +23,61 @@ else
 
             return t
         end
+
+        local PSU = require("platform_services_utils")
+
+        function PSU:get_library_path()
+            if love.filesystem.isFused() then
+                return ""
+            else
+                local osname = love.system.getOS()
+                local path = love.filesystem.getSourceBaseDirectory() .. "/platform/bin"
+
+                if osname == "Windows" then
+                    return ""
+                elseif osname == "OS X" then
+                    return string.format("%s/macOS", path)
+                elseif osname == "iOS" then
+                    return string.format("%s/iOS", path)
+                elseif osname == "Linux" or osname == "Android" then
+                    return string.format("%s/%s", path, osname)
+                else
+                    return name
+                end
+            end
+        end
+
+        function PSU:get_library_file(name)
+            local osname = love.system.getOS()
+
+            if love.filesystem.isFused() then
+                if osname == "Windows" then
+                    return name .. ".dll"
+                else
+                    return name
+                end
+            else
+                local path = self:get_library_path()
+
+                if osname == "Windows" then
+                    return name .. ".dll"
+                elseif osname == "OS X" then
+                    return string.format("%s/lib%s.dylib", path, name)
+                elseif osname == "iOS" then
+                    return string.format("%s/lib%s.a", path, name)
+                elseif osname == "Linux" or osname == "Android" then
+                    return string.format("%s/lib%s.so", path, name)
+                else
+                    return name
+                end
+            end
+        end
+        
+        local services = require("platform_services")
+
+        function services.update()
+            return true
+        end
     end
 end
 

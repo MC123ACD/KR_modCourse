@@ -34,4 +34,6 @@
     "Lua.diagnostics.globals": [
         "lfs"
     ],
+    "search.useIgnoreFiles": false,
+    "Lua.diagnostics.enable": false
 }
