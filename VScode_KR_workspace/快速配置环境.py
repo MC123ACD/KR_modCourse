@@ -48,9 +48,11 @@ def reset_files(src):
 		LLDEBUGGER.start()
 	end
 
-    while true do"""
+    while true do
+        love.event.pump()"""
 
-        return file.replace("\twhile true do", new_text, 1)
+        return file.replace("""\twhile true do
+\t\tlove.event.pump()""", new_text, 1)
 
     reset_file(src / "main.lua", reset_main)
 
@@ -58,10 +60,10 @@ def reset_files(src):
 
     def reset_sys(file):
         new_text = """\t\t\t\tif coroutine.status(s.co) == "dead" or (not success and error ~= nil) then
-\t\t\t\t\tif not success and error ~= nil then"""
+                    if not success and error ~= nil then"""
 
-        return file.replace("""\t\t\t\tif coroutine.status(s.co) == \"dead\" or error ~= nil then
-\t\t\t\t\tif error ~= nil then""", new_text)
+        return file.replace("""\t\t\t\tif coroutine.status(s.co) == "dead" or error ~= nil then
+                    if error ~= nil then""", new_text)
 
     reset_file(src / "all" / "systems.lua", reset_sys)
 
