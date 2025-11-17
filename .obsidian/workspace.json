@@ -26,21 +26,40 @@
             "id": "ff42448c654f7f53",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "site-lib/media/Pasted image 20251115103112.canvas",
-                "viewState": {
-                  "x": 150,
-                  "y": -50,
-                  "zoom": 0
-                }
+                "file": "骨龙版相关/规范.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "Pasted image 20251115103112"
+              "icon": "lucide-file",
+              "title": "规范"
             }
           }
         ],
         "currentTab": 1
+      },
+      {
+        "id": "24af631ea08fc3b0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bd944ad1e276affc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "骨龙版相关/规范.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "规范"
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -88,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 242.50110983848572
+    "width": 237.50110983848572
   },
   "right": {
     "id": "b3a58f8c143e4ce0",
@@ -104,13 +123,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "site-lib/media/Pasted image 20251115103112.canvas",
+                "file": "骨龙版相关/规范.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Pasted image 20251115103112 的大纲"
+              "title": "规范 的大纲"
             }
           },
           {
@@ -155,25 +174,34 @@
   },
   "active": "ada1704951e09b08",
   "lastOpenFiles": [
-    "Pasted image 20251115103112.png",
-    "site-lib/media/Pasted image 20251115103112.canvas",
+    "第 2 章 - 进阶/1. 常量.md",
+    "第 3 章 - 函数/2. 实体升级函数.md",
+    "第 3 章 - 函数/1. 实体插入函数.md",
+    "第 3 章 - 函数/3. 实体更新函数.md",
+    "总结/5. 实体逻辑.canvas",
+    "总结/3. 常量.md",
+    "总结/7. 工具函数.md",
+    "第 3 章 - 函数/4. 实体相关.md",
+    "总结/1. 模板名.md",
+    "总结/8. 脚本函数.md",
+    "总结/9. 其他函数.md",
     "第 0 章 - 必要/1. 配置环境.md",
+    "Pasted image 20251115142758.png",
+    "site-lib/media/Pasted image 20250710100316.png",
+    "site-lib/media/Pasted image 20250710092722.png",
+    "site-lib/media/Pasted image 20251115103112.canvas",
+    "Pasted image 20251115103112.png",
     "Pasted image 20251115141653.png",
     "总结/0. 说明.md",
-    "总结/1. 模板名.md",
     "第 0 章 - 必要/2. 发布与安装改版.md",
     "第 2 章 - 进阶/5. 模块.md",
     "index.md",
     "第 2 章 - 进阶/Drawing 2025-11-15 10.17.42.excalidraw.md",
     "总结/实体逻辑.md",
-    "第 2 章 - 进阶/1. 常量.md",
-    "总结/3. 常量.md",
-    "总结/7. 系统逻辑.canvas",
-    "总结/9. 路径函数.md",
-    "总结/7. 其他函数.md",
-    "总结/12. 界面逻辑.md",
-    "总结/8. 关卡逻辑.md",
-    "总结/6. 工具函数.md",
+    "总结/6. 系统逻辑.canvas",
+    "总结/11. 路径函数.md",
+    "总结/15. 界面逻辑.md",
+    "总结/12. 关卡逻辑.md",
     "总结",
     "README.md",
     "第 2 章 - 进阶/2. 错误.md",
@@ -181,19 +209,11 @@
     "第 2 章 - 进阶/4. 注意事项.md",
     "第 5 章 - 动画/2. 补间动画.md",
     "第 6 章 - 界面/2. 地图界面.md",
-    "第 3 章 - 函数/2. 实体升级函数.md",
-    "第 3 章 - 函数/1. 实体插入函数.md",
-    "第 3 章 - 函数/3. 实体更新函数.md",
-    "第 6 章 - 界面/1. 关卡界面.md",
-    "总结/5. 实体逻辑.canvas",
     "Pasted image 20251114104734.png",
     "Pasted image 20251114104116.png",
     "site-lib/media/Pasted image 20251110153008.png",
     "site-lib/media/Pasted image 20251110151928.png",
     "site-lib/media/Pasted image 20251110151753.png",
-    "site-lib/media/Pasted image 20251109133154.png",
-    "site-lib/media/Pasted image 20250926101829.png",
-    "Pasted image 20251110153008.png",
     "第 6 章 - 界面/总结",
     "第 5 章 - 动画/总结",
     "第 4 章 - 关卡/总结",

@@ -4,17 +4,6 @@
 		{"id":"57fb5dad8da5dc5f","type":"group","x":-80,"y":680,"width":1800,"height":720,"label":"实体移除逻辑"},
 		{"id":"4255847abd0d2efe","type":"group","x":-80,"y":1480,"width":1240,"height":1040,"label":"伤害造成逻辑"},
 		{
-			"id":"a7eb48843e37da03",
-			"type":"text",
-			"text":"返回该实体表",
-			"styleAttributes":{"textAlign":"center"},
-			"x":380,
-			"y":387,
-			"width":240,
-			"height":80,
-			"color":"1"
-		},
-		{
 			"id":"46bb479c3d069c21",
 			"type":"text",
 			"text":"调用 `simulation.queue_insert_entity` 函数将实体表增加到待插入队列",
@@ -35,6 +24,79 @@
 			"width":260,
 			"height":100,
 			"color":"4"
+		},
+		{
+			"id":"f8e50d53f04e52c5",
+			"type":"text",
+			"text":"增加到 `store.pending_inserts`",
+			"styleAttributes":{"textAlign":"center","shape":"pill"},
+			"x":750,
+			"y":187,
+			"width":260,
+			"height":100
+		},
+		{
+			"id":"e0634a6ee234ba59",
+			"type":"text",
+			"text":"取出队列的实体表",
+			"styleAttributes":{"textAlign":"center","border":"dashed"},
+			"x":1360,
+			"y":87,
+			"width":260,
+			"height":60,
+			"color":"4"
+		},
+		{
+			"id":"0e0e7093f7cdbb66",
+			"type":"text",
+			"text":"调用插入系统",
+			"styleAttributes":{"textAlign":"center"},
+			"x":1360,
+			"y":387,
+			"width":260,
+			"height":80
+		},
+		{
+			"id":"bf37ac2b3ccc68be",
+			"type":"text",
+			"text":"传递参数：`this` 当前实体表、`store`",
+			"styleAttributes":{"textAlign":"center","shape":"pill"},
+			"x":1360,
+			"y":467,
+			"width":260,
+			"height":90
+		},
+		{
+			"id":"cf9a158d8c12889a",
+			"type":"text",
+			"text":"调用 `simulation.queue_remove_entity` 函数将实体增加到待移除队列",
+			"styleAttributes":{"textAlign":"center"},
+			"x":-60,
+			"y":707,
+			"width":260,
+			"height":135,
+			"color":"4"
+		},
+		{
+			"id":"01888c4e9ea5438f",
+			"type":"text",
+			"text":"增加到 `store.pending_removals`",
+			"styleAttributes":{"textAlign":"center","shape":"pill"},
+			"x":-60,
+			"y":842,
+			"width":260,
+			"height":110
+		},
+		{
+			"id":"a7eb48843e37da03",
+			"type":"text",
+			"text":"返回该实体表",
+			"styleAttributes":{"textAlign":"center"},
+			"x":380,
+			"y":387,
+			"width":240,
+			"height":80,
+			"color":"1"
 		},
 		{
 			"id":"59fb5bbb3a3ed54c",
@@ -99,100 +161,6 @@
 			"height":160
 		},
 		{
-			"id":"f8e50d53f04e52c5",
-			"type":"text",
-			"text":"增加到 `store.pending_inserts`",
-			"styleAttributes":{"textAlign":"center","shape":"pill"},
-			"x":750,
-			"y":187,
-			"width":260,
-			"height":100
-		},
-		{
-			"id":"a5d5e08ee9a46c9f",
-			"type":"text",
-			"text":"调用 `simulation:remove_entity` 函数移除实体",
-			"styleAttributes":{"textAlign":"center"},
-			"x":880,
-			"y":715,
-			"width":260,
-			"height":120,
-			"color":"4"
-		},
-		{
-			"id":"e0634a6ee234ba59",
-			"type":"text",
-			"text":"取出队列的实体表",
-			"styleAttributes":{"textAlign":"center","border":"dashed"},
-			"x":1360,
-			"y":87,
-			"width":260,
-			"height":60,
-			"color":"4"
-		},
-		{
-			"id":"0e0e7093f7cdbb66",
-			"type":"text",
-			"text":"调用插入系统",
-			"styleAttributes":{"textAlign":"center"},
-			"x":1360,
-			"y":387,
-			"width":260,
-			"height":80
-		},
-		{
-			"id":"bf37ac2b3ccc68be",
-			"type":"text",
-			"text":"传递参数：`this` 当前实体表、`store`",
-			"styleAttributes":{"textAlign":"center","shape":"pill"},
-			"x":1360,
-			"y":467,
-			"width":260,
-			"height":90
-		},
-		{
-			"id":"cf9a158d8c12889a",
-			"type":"text",
-			"text":"调用 `simulation.queue_remove_entity` 函数将实体增加到待移除队列",
-			"styleAttributes":{"textAlign":"center"},
-			"x":-60,
-			"y":707,
-			"width":260,
-			"height":135,
-			"color":"4"
-		},
-		{
-			"id":"f9017c26ab0a3825",
-			"type":"text",
-			"text":"取出队列的实体",
-			"styleAttributes":{"textAlign":"center","border":"dashed"},
-			"x":420,
-			"y":745,
-			"width":260,
-			"height":60,
-			"color":"4"
-		},
-		{
-			"id":"f63213df80ab0a25",
-			"type":"text",
-			"text":"调用移除系统",
-			"styleAttributes":{"textAlign":"center"},
-			"x":880,
-			"y":1069,
-			"width":260,
-			"height":80
-		},
-		{
-			"id":"01888c4e9ea5438f",
-			"type":"text",
-			"text":"增加到 `store.pending_removals`",
-			"styleAttributes":{"textAlign":"center","shape":"pill"},
-			"x":-60,
-			"y":842,
-			"width":260,
-			"height":110
-		},
-		{
 			"id":"764a0d2139dd3dbf",
 			"type":"text",
 			"text":"若其中任意一个移除函数返回假则调用出列系统",
@@ -214,16 +182,6 @@
 			"height":73
 		},
 		{
-			"id":"e356a299e9648173",
-			"type":"text",
-			"text":"将 `store.entities` 对应 ID 实体表赋值为 `nil` 移除实体",
-			"styleAttributes":{"textAlign":"center"},
-			"x":1440,
-			"y":1224,
-			"width":260,
-			"height":136
-		},
-		{
 			"id":"ad88be2d22add42d",
 			"type":"text",
 			"text":"传递参数：`this`、`store`",
@@ -231,6 +189,38 @@
 			"x":900,
 			"y":1149,
 			"width":220,
+			"height":80
+		},
+		{
+			"id":"a5d5e08ee9a46c9f",
+			"type":"text",
+			"text":"调用 `simulation:remove_entity` 函数移除实体",
+			"styleAttributes":{"textAlign":"center"},
+			"x":880,
+			"y":715,
+			"width":260,
+			"height":120,
+			"color":"4"
+		},
+		{
+			"id":"f9017c26ab0a3825",
+			"type":"text",
+			"text":"取出队列的实体",
+			"styleAttributes":{"textAlign":"center","border":"dashed"},
+			"x":420,
+			"y":745,
+			"width":260,
+			"height":60,
+			"color":"4"
+		},
+		{
+			"id":"f63213df80ab0a25",
+			"type":"text",
+			"text":"调用移除系统",
+			"styleAttributes":{"textAlign":"center"},
+			"x":880,
+			"y":1069,
+			"width":260,
 			"height":80
 		},
 		{
@@ -295,6 +285,16 @@
 			"width":260,
 			"height":100,
 			"color":"4"
+		},
+		{
+			"id":"e356a299e9648173",
+			"type":"text",
+			"text":"将 `store.entities` 对应 ID 实体表赋值为 `nil` 移除实体",
+			"styleAttributes":{"textAlign":"center"},
+			"x":1440,
+			"y":1224,
+			"width":260,
+			"height":136
 		},
 		{
 			"id":"d7922527ef90f89a",
@@ -551,7 +551,7 @@
 		},
 		{
 			"id":"88ab474557ec8d77",
-			"styleAttributes":{"path":"dotted","arrow":"triangle-outline"},
+			"styleAttributes":{"path":"short-dashed","arrow":"triangle-outline"},
 			"fromNode":"4d971e2f78b1cbc9",
 			"fromSide":"right",
 			"toNode":"e0634a6ee234ba59",
