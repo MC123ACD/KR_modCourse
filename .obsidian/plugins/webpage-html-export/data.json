@@ -13,15 +13,15 @@
     "exportPath": "D:\\Onedrive\\王国保卫战修改教程\\HTML",
     "filesToExport": [
       "第 0 章 - 必要",
-      "第 1 章 - 模板",
+      "第 1 章 - 实体",
       "第 2 章 - 进阶",
       "第 3 章 - 函数",
       "第 4 章 - 关卡",
       "第 5 章 - 动画",
       "第 6 章 - 界面",
       "第 7 章 - 高级",
-      "骨龙版相关",
-      "总结/0. 说明.md",
+      "其他",
+      "总结",
       "index.md",
       "README.md"
     ],
@@ -126,7 +126,7 @@
     },
     "themeToggleOptions": {
       "featureId": "theme-toggle",
-      "enabled": false,
+      "enabled": true,
       "unavailable": false,
       "alwaysEnabled": false,
       "hideSettingsButton": false,

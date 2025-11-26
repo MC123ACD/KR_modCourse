@@ -4,59 +4,45 @@
     "type": "split",
     "children": [
       {
-        "id": "951445d474473442",
+        "id": "9e247d6668a6432b",
         "type": "tabs",
         "children": [
           {
-            "id": "ba05a75ab8332b86",
+            "id": "e6b8a12cdea91e96",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 2 章 - 进阶/5. 模块.md",
+                "file": "总结/4 - 动画/3. 动画逻辑.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "5. 模块"
-            }
-          },
-          {
-            "id": "ff42448c654f7f53",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "骨龙版相关/规范.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "规范"
+              "title": "3. 动画逻辑"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
-        "id": "24af631ea08fc3b0",
+        "id": "c4a936ee3cd6fcdb",
         "type": "tabs",
         "children": [
           {
-            "id": "bd944ad1e276affc",
+            "id": "245684756f2c1a7b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "骨龙版相关/规范.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
+                "file": "总结/4 - 动画/逻辑/3. 精灵更新逻辑.canvas",
+                "viewState": {
+                  "x": -49.9460901677525,
+                  "y": 468.107082006179,
+                  "zoom": -1.111111080062888
+                }
               },
-              "icon": "lucide-file",
-              "title": "规范"
+              "icon": "lucide-layout-dashboard",
+              "title": "3. 精灵更新逻辑"
             }
           }
         ]
@@ -78,7 +64,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "num",
+                "query": "省略",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -107,7 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 237.50110983848572
+    "width": 251.50110983848572
   },
   "right": {
     "id": "b3a58f8c143e4ce0",
@@ -123,13 +109,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "骨龙版相关/规范.md",
+                "file": "总结/4 - 动画/3. 动画逻辑.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "规范 的大纲"
+              "title": "3. 动画逻辑 的大纲"
             }
           },
           {
@@ -174,61 +160,60 @@
   },
   "active": "ada1704951e09b08",
   "lastOpenFiles": [
-    "第 2 章 - 进阶/1. 常量.md",
-    "第 3 章 - 函数/2. 实体升级函数.md",
-    "第 3 章 - 函数/1. 实体插入函数.md",
-    "第 3 章 - 函数/3. 实体更新函数.md",
-    "总结/5. 实体逻辑.canvas",
-    "总结/3. 常量.md",
-    "总结/7. 工具函数.md",
-    "第 3 章 - 函数/4. 实体相关.md",
-    "总结/1. 模板名.md",
-    "总结/8. 脚本函数.md",
-    "总结/9. 其他函数.md",
+    "总结/4 - 动画/逻辑/3. 精灵更新逻辑.canvas",
+    "总结/4 - 动画/3. 动画逻辑.md",
+    "总结/4 - 动画/逻辑/1. 精灵插入逻辑.canvas",
     "第 0 章 - 必要/1. 配置环境.md",
-    "Pasted image 20251115142758.png",
-    "site-lib/media/Pasted image 20250710100316.png",
-    "site-lib/media/Pasted image 20250710092722.png",
-    "site-lib/media/Pasted image 20251115103112.canvas",
-    "Pasted image 20251115103112.png",
-    "Pasted image 20251115141653.png",
-    "总结/0. 说明.md",
-    "第 0 章 - 必要/2. 发布与安装改版.md",
-    "第 2 章 - 进阶/5. 模块.md",
-    "index.md",
-    "第 2 章 - 进阶/Drawing 2025-11-15 10.17.42.excalidraw.md",
-    "总结/实体逻辑.md",
-    "总结/6. 系统逻辑.canvas",
-    "总结/11. 路径函数.md",
-    "总结/15. 界面逻辑.md",
-    "总结/12. 关卡逻辑.md",
-    "总结",
-    "README.md",
-    "第 2 章 - 进阶/2. 错误.md",
-    "第 1 章 - 模板/2. 额外效果.md",
-    "第 2 章 - 进阶/4. 注意事项.md",
-    "第 5 章 - 动画/2. 补间动画.md",
-    "第 6 章 - 界面/2. 地图界面.md",
-    "Pasted image 20251114104734.png",
-    "Pasted image 20251114104116.png",
-    "site-lib/media/Pasted image 20251110153008.png",
-    "site-lib/media/Pasted image 20251110151928.png",
-    "site-lib/media/Pasted image 20251110151753.png",
-    "第 6 章 - 界面/总结",
-    "第 5 章 - 动画/总结",
-    "第 4 章 - 关卡/总结",
-    "第 3 章 - 函数/总结",
-    "第 2 章 - 进阶/总结",
+    "总结/1 - 实体/逻辑/3. 实体移除逻辑.canvas",
+    "总结/1 - 实体/逻辑/2. 实体创建逻辑.canvas",
+    "总结/1 - 实体/逻辑/4. 实体更新逻辑.canvas",
+    "总结/1 - 实体/逻辑/9. 闪避逻辑.canvas",
+    "总结/1 - 实体/逻辑/7. 近战攻击逻辑.canvas",
+    "总结/1 - 实体/逻辑/8. 远程攻击逻辑.canvas",
+    "总结/1 - 实体/逻辑/6. 造成效果逻辑.canvas",
+    "总结/4 - 动画/2. 精灵键.md",
+    "总结/4 - 动画/逻辑/2. 精灵移除逻辑.canvas",
+    "总结/4 - 动画/逻辑",
+    "总结/3 - 关卡/12. 关卡逻辑.md",
+    "总结/3 - 关卡/1. 关卡编号.md",
+    "总结/6 - 界面/1. 界面逻辑.md",
+    "第 4 章 - 关卡/5. 创建新关卡.md",
+    "第 7 章 - 高级/1. 前三代移植五代.md",
+    "其他/骨龙版相关/规范.md",
+    "总结/1 - 实体/2. 模板函数.md",
+    "总结/4 - 动画/1. 动画函数.md",
+    "总结/2 - 函数/9. 其他函数.md",
+    "总结/2 - 函数/8. 脚本函数.md",
+    "总结/1 - 实体/1. 模板名.md",
+    "第 3 章 - 函数/5. 综合.md",
+    "第 1 章 - 实体/0. 概念.md",
+    "第 7 章 - 高级/2. 移植四代.md",
+    "总结/3 - 关卡/2. 路径函数.md",
+    "第 4 章 - 关卡/3. 路径.md",
+    "第 4 章 - 关卡/2. 修改关卡.md",
+    "第 4 章 - 关卡/4. 特殊出怪.md",
+    "第 4 章 - 关卡/1. 波次.md",
+    "其他/模组管理器/0. 介绍.md",
+    "其他/模组管理器/1. 使用方法.md",
+    "总结/6 - 界面/2. 类.md",
     "第 1 章 - 模板/总结",
-    "第 1 章 - 模板/kviews_screen_map_sequels.lua",
-    "第 0 章 - 必要",
-    "第 7 章 - 高级",
-    "第 1 章、基础/程序运行逻辑.canvas",
-    "未命名.canvas",
-    "拷贝.canvas",
-    "英语/单词/未命名.canvas",
-    "数学/图形/平行四边形.canvas",
-    "英语/单词/单词.canvas",
-    "物理/作用力.canvas"
+    "第 1 章 - 模板",
+    "site-lib/media/Pasted image 20251115103112.png",
+    "site-lib/media/Pasted image 20251124205340.png",
+    "site-lib/media/Pasted image 20251124202637.png",
+    "site-lib/media/Pasted image 20251120103043.png",
+    "site-lib/media/Pasted image 20251115142758.png",
+    "site-lib/media/Pasted image 20251115141653.png",
+    "Pasted image 20251120103043.png",
+    "总结/1 - 实体/逻辑",
+    "总结/6 - 界面",
+    "总结/5 - 其他",
+    "总结/3 - 关卡",
+    "总结/4 - 动画",
+    "总结/2 - 函数",
+    "总结/1 - 实体",
+    "Pasted image 20251124205340.png",
+    "Pasted image 20251124202637.png",
+    "Pasted image 20251115142758.png"
   ]
 }
