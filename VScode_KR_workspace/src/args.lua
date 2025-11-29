@@ -1,3 +1,12 @@
+-- 启动参数
+local r = {
+    log_level = 5, -- 日志等级 5：调试控制台显示完整信息
+    -- screen = "slots",   -- 跳过开屏 logo，与开局设置
+
+    -- screen = "game_editor", -- 进入关卡编辑器
+    -- custom = 1,  -- 要编辑的关卡
+}
+
 if arg[2] == "debug" then
     LLDEBUGGER = require("lldebugger")
     LLDEBUGGER.start()
@@ -91,15 +100,6 @@ function love.keypressed(key, scancode, isrepeat)
         end
     end
 end
-
--- 启动参数
-local r = {
-    log_level = 5,  -- 日志等级 5：调试控制台显示完整信息
-    -- screen = "slots",   -- 跳过开屏 logo，与开局设置
-
-    -- screen = "game_editor", -- 进入关卡编辑器
-    -- custom = 1,  -- 要编辑的关卡
-}
 
 local result = {}
 for key, value in pairs(r) do

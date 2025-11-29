@@ -9,18 +9,36 @@ require("klua.dump")
 local km = require("klua.macros")
 local signal = require("hump.signal")
 local V = require("hump.vector-light")
-local E = require("entity_db")
-local A = require("animation_db")
-local U = require("utils")
-local RU = require("render_utils")
+local F = require("klove.font_db")
+
+local simulation, A
+local serpent = require("serpent")
 local I = require("klove.image_db")
 local E = require("entity_db")
-local F = require("klove.font_db")
+local U = require("utils")
+local RU = require("render_utils")
+local E = require("entity_db")
 local P = require("path_db")
 local SU = require("screen_utils")
 local GR = require("grid_db")
 local LU = require("level_utils")
-local simulation = require("simulation")
+local sys = require("systems")
+
+local IS_KR5 = KR_GAME == "kr5"
+
+if IS_KR5 then
+	simulation = require("klove.simulation")
+	A = require("klove.animation_db")
+else
+	simulation = require("simulation")
+	A = require("animation_db")
+end
+
+local EXO
+
+if IS_KR5 then
+	EXO = require("exoskeleton")
+end
 
 if DEBUG then
 	package.loaded.game_editor_gui = nil
@@ -35,13 +53,13 @@ require("constants")
 BATCH_SIZE = 1000
 DEFAULT_PATH_WIDTH = 40
 editor = {}
+
 editor.required_textures = {
 	"go_decals",
 	"go_towers",
-	"go_special_towers",
-	"go_stages_common",
 	"go_editor"
 }
+
 editor.ref_h = REF_H
 editor.ref_w = REF_W
 editor.ref_res = TEXTURE_SIZE_ALIAS.ipad
@@ -51,20 +69,116 @@ editor.simulation_systems = {
 	"render"
 }
 
+function editor:save_data(data, name)
+	local fn = KR_FULLPATH_BASE .. "/" .. KR_PATH_GAME .. "/data/levels/" .. name .. "_data.lua"
+
+	local function custom_sort(k, o)
+		local function sort_table(a, b)
+			if a == "template" then
+				return true
+			elseif b == "template" then
+				return false
+			elseif type(a) == "number" and type(b) == "number" then
+				if type(o[a]) == "table" and type(o[b]) == "table" and o[a].template and o[b].template then
+					if o[a].template == o[b].template and o[a].pos and o[b].pos then
+						if o[a].pos.y == o[b].pos.y then
+							if o[a].pos.x == o[b].pos.x then
+								if o[a]["editor.game_mode"] and o[b]["editor.game_mode"] then
+									return o[a]["editor.game_mode"] < o[b]["editor.game_mode"]
+								elseif o[a]["tunnel.name"] and o[b]["tunnel.name"] then
+									return o[a]["tunnel.name"] < o[b]["tunnel.name"]
+								else
+									return o[a].pos.x < o[b].pos.x
+								end
+							else
+								return o[a].pos.x < o[b].pos.x
+							end
+						else
+							return o[a].pos.y < o[b].pos.y
+						end
+					else
+						return o[a].template < o[b].template
+					end
+				else
+					return a < b
+				end
+			else
+				return tostring(a) < tostring(b)
+			end
+		end
+
+		table.sort(k, sort_table)
+	end
+
+	local str = serpent.block(data, {
+		indent = "    ",
+		comment = false,
+		sortkeys = custom_sort,
+		keyignore = {
+			_idx = true,
+			_id = true,
+			_before_ov = true,
+			locations = true,
+			frames = true
+		}
+	})
+	local out = "return " .. str .. "\n"
+	local f = io.open(fn, "w")
+
+	f:write(out)
+	f:flush()
+	f:close()
+end
+
+function editor:save_curves(name)
+	local fn = KR_FULLPATH_BASE .. "/" .. KR_PATH_GAME .. "/data/levels/" .. name .. "_paths.lua"
+	local t = {
+		connections = P.path_connections,
+		curves = P.path_curves,
+		paths = P:generate_paths(),
+		active = P.active_paths
+	}
+	local str = serpent.block(t, {
+		indent = "    ",
+		comment = false,
+		sortkeys = true,
+		keyignore = {
+			beziers = true
+		}
+	})
+	local out = "return " .. str .. "\n"
+	local dir = fn:match("(.+)/[^/]+$")
+	if dir then
+		os.execute("mkdir \"" .. dir .. "\"")
+	end
+
+	local f = io.open(fn, "w")
+
+	f:write(out)
+	f:flush()
+	f:close()
+end
+
 function editor:init(screen_w, screen_h, done_callback)
 	self.screen_w = screen_w
 	self.screen_h = screen_h
 	self.done_callback = done_callback
-	--self.game_scale = self.ref_h / TEXTURE_SIZE_ALIAS[self.args.texture_size]
+	-- self.game_scale = self.ref_h / TEXTURE_SIZE_ALIAS[self.args.texture_size]
 	self.game_scale = self.ref_h / TEXTURE_SIZE_ALIAS["ipad"]
 	self.game_scale = self.game_scale / (tsf and tsf.game_editor or 1)
-	self.game_ref_origin = V.v((screen_w - self.ref_w * self.game_scale) * 0.5, (screen_h - self.ref_h * self.game_scale) * 0.5)
+	self.game_ref_origin = V.v((screen_w - self.ref_w * self.game_scale) / 2, (screen_h - self.ref_h * self.game_scale) / 2)
 
 	RU.init()
 
 	self.store = {}
 
-	simulation:init(self.store, self.simulation_systems)
+	local systems
+	if IS_KR5 then
+		systems = sys
+	else
+		systems = self.simulation_systems
+	end
+	simulation:init(self.store, systems, self.simulation_systems, TICK_LENGTH)
 
 	self.simulation = simulation
 	self.undo_stack = {}
@@ -74,7 +188,6 @@ function editor:init(screen_w, screen_h, done_callback)
 
 	self.gui = game_editor_gui
 	self.paths_visible = false
-    -- self.paths_visible = true
 	self.grid_visible = false
 	self.nav_visible = false
 	self.tool_pointer = {
@@ -130,8 +243,7 @@ function editor:wheelmoved(dx, dy)
 end
 
 function editor:draw()
-	local frame_draw_params = RU.frame_draw_params
-	local draw_frames_range = RU.draw_frames_range
+	love.graphics.print("Memory: " .. collectgarbage("count") .. " KB", 10, 10)
 	local rox, roy = self.game_ref_origin.x, self.game_ref_origin.y
 	local gs = self.game_scale
 	local last_idx
@@ -207,13 +319,13 @@ function editor:draw()
 					G.setColor(color_width)
 
 					if i == 1 then
-						local n1x, n1y = V.mul(w1 * 0.5, V.rotate(km.pi_2, V.normalize(p2x - p1x, p2y - p1y)))
+						local n1x, n1y = V.mul(w1 / 2, V.rotate(km.pi_2, V.normalize(p2x - p1x, p2y - p1y)))
 
 						G.line(p1x, p1y, p1x + n1x, p1y + n1y)
 						G.line(p1x, p1y, p1x - n1x, p1y - n1y)
 					end
 
-					local n4x, n4y = V.mul(w4 * 0.5, V.rotate(km.pi_2, V.normalize(p4x - p3x, p4y - p3y)))
+					local n4x, n4y = V.mul(w4 / 2, V.rotate(km.pi_2, V.normalize(p4x - p3x, p4y - p3y)))
 
 					G.line(p4x, p4y, p4x + n4x, p4y + n4y)
 					G.line(p4x, p4y, p4x + -n4x, p4y - n4y)
@@ -221,8 +333,8 @@ function editor:draw()
 					G.setColor(color_handle)
 					G.line(p1x, p1y, p2x, p2y)
 					G.line(p3x, p3y, p4x, p4y)
-					G.circle("fill", p2x, p2y, node_w * 0.5, 8)
-					G.circle("fill", p3x, p3y, node_w * 0.5, 8)
+					G.circle("fill", p2x, p2y, node_w / 2, 8)
+					G.circle("fill", p3x, p3y, node_w / 2, 8)
 				end
 			end
 
@@ -244,7 +356,7 @@ function editor:draw()
 				end
 
 				if self.path_selected == pi then
-					G.rectangle("fill", p4x - node_w * 0.5, p4y - node_w * 0.5, node_w, node_w)
+					G.rectangle("fill", p4x - node_w / 2, p4y - node_w / 2, node_w, node_w)
 				end
 			end
 
@@ -334,8 +446,8 @@ function editor:draw()
 				G.rectangle("fill", e.pos.x - 2, e.pos.y - 8, 4, 16)
 				G.rectangle("fill", e.pos.x - 8, e.pos.y - 2, 16, 4)
 
-				if self.entities_selected and table.contains(self.entities_selected, e.id) and e.render and e.render.frames and e.render.frames[1] then
-					local f = e.render.frames[1]
+				if self.entities_selected and table.contains(self.entities_selected, e.id) and e.render and e.render.sprites and e.render.sprites[1] then
+					local f = e.render.sprites[1]
 
 					if f.ss then
 						local w, h = f.ss.size[1] * f.ss.ref_scale, f.ss.size[2] * f.ss.ref_scale
@@ -498,7 +610,7 @@ function editor:draw()
 	G.translate(rox, roy)
 	G.scale(gs, gs)
 
-	last_idx = draw_frames_range(self.store.render_frames, 1, Z_GUI - 1)
+	last_idx = RU.draw_frames_range(self.store.render_frames, 1, Z_GUI - 1)
 
 	G.pop()
 
@@ -542,7 +654,7 @@ function editor:draw()
 
 			local bx, by = self.tool_pointer.x, self.tool_pointer.y
 			local bsize = self.tool_pointer.size
-			local bw = bsize * 0.5 * GR.cell_size
+			local bw = bsize / 2 * GR.cell_size
 
 			G.setColor(255, 255, 255, 200)
 			G.setLineWidth(1)
@@ -587,18 +699,19 @@ function editor:level_save(idx, mode)
 	end
 
 	local s = self.store
+	local ss
 
 	s.level_idx = idx
 	s.level_name = "level" .. string.format("%02i", idx)
 
 	log.debug("saving level %s", idx)
-	P:save_curves(s.level_name)
+	self:save_curves(s.level_name)
 	GR:save(s.level_name)
 	self:serialize_level(s)
 
-	local ss = table.deepclone(s.level.data)
+	ss = table.deepclone(s.level.data)
 
-	LU.save_data(ss, s.level_name)
+	self:save_data(ss, s.level_name)
 end
 
 function editor:level_load(idx, mode)
@@ -607,11 +720,21 @@ function editor:level_load(idx, mode)
 	self.undo_active = false
 	self.store = {}
 
-	simulation:init(self.store, self.simulation_systems)
+	local systems
+	if IS_KR5 then
+		systems = sys
+	else
+		systems = self.simulation_systems
+	end
+	simulation:init(self.store, systems, self.simulation_systems, TICK_LENGTH)
 
 	self.simulation = simulation
 
-	A:load()
+	if IS_KR5 then
+		A:load(I.last_preloaded_group_names)
+	else
+		A:load()
+	end
 	E:load()
 
 	local s = self.store
@@ -623,7 +746,13 @@ function editor:level_load(idx, mode)
 	s.level = LU.load_level(s, s.level_name, true)
 
 	director:load_texture_groups(s.level.required_textures, director.params.texture_size, self.ref_res, false, "game_editor")
-	LU.insert_entities(self.store, s.level.data.entities_list, true)
+    if s.level.data then
+    	LU.insert_entities(self.store, s.level.data.entities_list, true)
+    end
+
+	if IS_KR5 then
+		EXO:load(s.level.data.required_exoskeletons)
+	end
 
 	self.entities_dirty = true
 
@@ -653,6 +782,9 @@ function editor:level_load(idx, mode)
 
 	if not s.level.nav_mesh then
 		s.level.nav_mesh = {}
+        if not s.level.data then
+            s.level.data = {}
+        end
 		s.level.data.nav_mesh = s.level.nav_mesh
 	end
 
@@ -661,7 +793,10 @@ function editor:level_load(idx, mode)
 	self.nav_dirty = true
 	self.undo_stack = {}
 	self.undo_active = true
-
+    if s.level.load then
+        P.add_invalid_range = function()end
+        s.level:load(s)
+    end
 	self.gui:level_loaded(idx)
 end
 
@@ -744,7 +879,7 @@ function editor:undo_push_entity(from_drag, eid, ...)
 	}
 	local props = {}
 
-	for i = 1, #args * 0.5 do
+	for i = 1, #args / 2 do
 		props[args[2 * i - 1]] = args[2 * i]
 	end
 
@@ -1004,7 +1139,7 @@ function editor:remove_path(pi)
 end
 
 function editor:create_path()
-	local x, y = REF_W * 0.5, REF_H * 0.5
+	local x, y = REF_W / 2, REF_H / 2
 	local d = 50
 	local nodes = {
 		V.v(x, y),
