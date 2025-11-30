@@ -56,7 +56,7 @@ editor = {}
 
 editor.required_textures = {
 	"go_decals",
-	"go_towers",
+	"go_towers_1",
 	"go_editor"
 }
 

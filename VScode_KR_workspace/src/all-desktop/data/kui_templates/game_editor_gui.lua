@@ -111,7 +111,7 @@ return {
 					}
 				},
 				{
-					text = "关卡编辑器",
+					text = "KR EDITOR",
 					class = "KLabel",
 					id = "tools_title",
 					text_align = "left",
@@ -154,13 +154,13 @@ return {
 						},
 						{
 							id = "tools_level_name",
-							title = "关卡",
+							title = "Level name",
 							class = "KEPropNum",
 							value = 1
 						},
 						{
 							id = "tools_game_mode",
-							title = "游戏模式",
+							title = "Game mode",
 							class = "KEPropNum",
 							value = 1
 						},
@@ -171,7 +171,7 @@ return {
 								{
 									id = "tools_save",
 									class = "KEButton",
-									title = "保存",
+									title = "save",
 									size = {
 										x = 86,
 										y = 20
@@ -180,7 +180,7 @@ return {
 								{
 									id = "tools_load",
 									class = "KEButton",
-									title = "加载",
+									title = "load",
 									size = {
 										x = 86,
 										y = 20
@@ -190,7 +190,7 @@ return {
 						},
 						{
 							id = "tools_undo",
-							title = "撤销",
+							title = "undo",
 							class = "KEButton"
 						},
 						{
@@ -199,27 +199,32 @@ return {
 						},
 						{
 							id = "tools_general",
-							title = "常规",
+							title = "general",
 							class = "KEButton"
 						},
 						{
 							id = "tools_entities",
-							title = "实体",
+							title = "entities",
 							class = "KEButton"
 						},
 						{
 							id = "tools_paths",
-							title = "路径",
+							title = "paths",
 							class = "KEButton"
 						},
 						{
 							id = "tools_grid",
-							title = "网格",
+							title = "grid",
 							class = "KEButton"
 						},
 						{
 							id = "tools_nav",
-							title = "方向键导航",
+							title = "nav",
+							class = "KEButton"
+						},
+						{
+							id = "tools_particles",
+							title = "particles",
 							class = "KEButton"
 						},
 						{
@@ -228,7 +233,7 @@ return {
 						},
 						{
 							id = "tg_safe_frame",
-							title = "切换安全框",
+							title = "Toggle safe frame",
 							class = "KEButton"
 						}
 					}
@@ -282,7 +287,7 @@ return {
 					}
 				},
 				{
-					text = "常规",
+					text = "GENERAL",
 					class = "KLabel",
 					id = "general_title",
 					text_align = "left",
@@ -356,7 +361,7 @@ return {
 					}
 				},
 				{
-					text = "实体",
+					text = "ENTITIES",
 					class = "KLabel",
 					id = "entities_title",
 					text_align = "left",
@@ -392,12 +397,12 @@ return {
 					children = {
 						{
 							id = "entities_delete",
-							title = "删除实体",
+							title = "delete",
 							class = "KEButton"
 						},
 						{
 							id = "entities_duplicate",
-							title = "复制实体",
+							title = "duplicate",
 							class = "KEButton"
 						},
 						{
@@ -408,13 +413,13 @@ return {
 						},
 						{
 							id = "entities_template",
-							title = "模板名",
+							title = "Template",
 							class = "KEProp",
 							prop_name = "template_name"
 						},
 						{
 							id = "entities_pos",
-							title = "坐标",
+							title = "pos",
 							class = "KEPropCoords",
 							prop_name = "pos"
 						},
@@ -440,7 +445,7 @@ return {
 							children = {
 								{
 									id = "entities_show",
-									title = "显示实体",
+									title = "show",
 									class = "KEButton",
 									size = {
 										x = 88,
@@ -449,7 +454,7 @@ return {
 								},
 								{
 									id = "entities_hide",
-									title = "隐藏实体",
+									title = "hide",
 									class = "KEButton",
 									size = {
 										x = 88,
@@ -460,18 +465,18 @@ return {
 						},
 						{
 							id = "entities_insert",
-							title = "插入实体",
+							title = "insert",
 							class = "KEButton"
 						},
 						{
 							id = "entities_insert_template",
-							title = "模板名",
+							title = "Template",
 							class = "KEProp",
 							editable = true
 						},
 						{
 							id = "entities_search",
-							title = "搜索",
+							title = "search",
 							class = "KEButton"
 						},
 						{
@@ -529,7 +534,7 @@ return {
 					}
 				},
 				{
-					text = "路径",
+					text = "PATHS",
 					class = "KLabel",
 					id = "paths_title",
 					text_align = "left",
@@ -574,7 +579,7 @@ return {
 							children = {
 								{
 									class = "KESep",
-									title = "路径列表"
+									title = "Paths list"
 								},
 								{
 									id = "paths_list",
@@ -590,7 +595,7 @@ return {
 									children = {
 										{
 											id = "path_create",
-											title = "创建新路径",
+											title = "create",
 											class = "KEButton",
 											size = {
 												x = 88,
@@ -599,7 +604,7 @@ return {
 										},
 										{
 											id = "path_remove",
-											title = "移除路径",
+											title = "remove",
 											class = "KEButton",
 											size = {
 												x = 88,
@@ -614,7 +619,7 @@ return {
 									children = {
 										{
 											id = "path_move_up",
-											title = "上移",
+											title = "move up",
 											class = "KEButton",
 											size = {
 												x = 88,
@@ -623,7 +628,7 @@ return {
 										},
 										{
 											id = "path_move_down",
-											title = "下移",
+											title = "move down",
 											class = "KEButton",
 											size = {
 												x = 88,
@@ -638,7 +643,7 @@ return {
 									children = {
 										{
 											id = "path_duplicate",
-											title = "复制路径",
+											title = "duplicate",
 											class = "KEButton",
 											size = {
 												x = 88,
@@ -647,7 +652,7 @@ return {
 										},
 										{
 											id = "path_flip",
-											title = "镜像",
+											title = "flip",
 											class = "KEButton",
 											size = {
 												x = 88,
@@ -658,19 +663,19 @@ return {
 								},
 								{
 									id = "path_preview",
-									title = "查看子路径",
+									title = "preview points",
 									class = "KEButton"
 								},
 								{
 									id = "path_active",
 									class = "KEPropBool",
 									value = true,
-									title = "活跃的",
+									title = "active",
 									inactive_title = "inactive"
 								},
 								{
 									id = "path_connects_to",
-									title = "连接到路径",
+									title = "Connects to",
 									class = "KEPropNum",
 									value = -1
 								}
@@ -687,21 +692,21 @@ return {
 							children = {
 								{
 									class = "KESep",
-									title = "节点"
+									title = "Node"
 								},
 								{
 									id = "path_node_id",
-									title = "当前选择的节点",
+									title = "Node id",
 									class = "KEProp"
 								},
 								{
 									id = "path_node_pos",
-									title = "坐标",
+									title = "pos",
 									class = "KEPropCoords"
 								},
 								{
 									id = "path_node_width",
-									title = "路径节点宽度",
+									title = "node width",
 									class = "KEPropNum",
 									value = 20
 								},
@@ -711,7 +716,7 @@ return {
 									children = {
 										{
 											id = "path_node_subdivide",
-											title = "细分路径",
+											title = "subdivide",
 											class = "KEButton",
 											size = {
 												x = 88,
@@ -720,7 +725,7 @@ return {
 										},
 										{
 											id = "path_node_extend",
-											title = "扩充路径",
+											title = "extend",
 											class = "KEButton",
 											size = {
 												x = 88,
@@ -731,7 +736,7 @@ return {
 								},
 								{
 									id = "path_node_remove",
-									title = "移除",
+									title = "remove",
 									class = "KEButton"
 								}
 							}
@@ -750,7 +755,7 @@ return {
 			},
 			size = {
 				x = 200,
-				y = 450
+				y = 500
 			},
 			colors = {
 				background = {
@@ -787,7 +792,7 @@ return {
 					}
 				},
 				{
-					text = "网格",
+					text = "GRID",
 					class = "KLabel",
 					id = "grid_title",
 					text_align = "left",
@@ -826,7 +831,7 @@ return {
 						},
 						{
 							class = "KESep",
-							title = "地形"
+							title = "Terrains"
 						},
 						{
 							style = "horizontal",
@@ -835,7 +840,7 @@ return {
 								{
 									id = "paint_type_none",
 									class = "KEButton",
-									title = "无",
+									title = "None",
 									size = {
 										x = 88,
 										y = 20
@@ -844,7 +849,7 @@ return {
 								{
 									id = "paint_type_land",
 									class = "KEButton",
-									title = "陆地",
+									title = "Land",
 									size = {
 										x = 88,
 										y = 20
@@ -859,7 +864,7 @@ return {
 								{
 									id = "paint_type_water",
 									class = "KEButton",
-									title = "水",
+									title = "Water",
 									size = {
 										x = 88,
 										y = 20
@@ -868,7 +873,7 @@ return {
 								{
 									id = "paint_type_cliff",
 									class = "KEButton",
-									title = "悬崖",
+									title = "Cliff",
 									size = {
 										x = 88,
 										y = 20
@@ -878,7 +883,7 @@ return {
 						},
 						{
 							class = "KESep",
-							title = "标签"
+							title = "Flags"
 						},
 						{
 							style = "horizontal",
@@ -887,7 +892,7 @@ return {
 								{
 									id = "paint_flag_shallow",
 									class = "KEButton",
-									title = "浅滩",
+									title = "shallow",
 									size = {
 										x = 88,
 										y = 20
@@ -896,7 +901,7 @@ return {
 								{
 									id = "paint_flag_nowalk",
 									class = "KEButton",
-									title = "无法行走",
+									title = "no-walk",
 									size = {
 										x = 88,
 										y = 20
@@ -911,7 +916,7 @@ return {
 								{
 									id = "paint_flag_faerie",
 									class = "KEButton",
-									title = "仙子",
+									title = "faerie",
 									size = {
 										x = 88,
 										y = 20
@@ -920,7 +925,7 @@ return {
 								{
 									id = "paint_flag_ice",
 									class = "KEButton",
-									title = "冰",
+									title = "ice",
 									size = {
 										x = 88,
 										y = 20
@@ -935,7 +940,7 @@ return {
 								{
 									id = "paint_flag_flying_nw",
 									class = "KEButton",
-									title = "飞行",
+									title = "flying-nw",
 									size = {
 										x = 88,
 										y = 20
@@ -945,7 +950,7 @@ return {
 						},
 						{
 							class = "KESep",
-							title = "笔刷大小"
+							title = "Brush size"
 						},
 						{
 							style = "horizontal",
@@ -973,7 +978,7 @@ return {
 						},
 						{
 							class = "KESep",
-							title = "网格"
+							title = "Grid"
 						},
 						{
 							style = "vertical",
@@ -983,14 +988,14 @@ return {
 									prop_name = "grid_size",
 									class = "KEPropCoords",
 									id = "grid_size",
-									title = "单元格大小",
+									title = "size (cells)",
 									step = 2
 								},
 								{
 									prop_name = "grid_offset",
 									class = "KEPropCoords",
 									id = "grid_offset",
-									title = "偏移 (px)",
+									title = "offset (px)",
 									step = 16
 								}
 							}
@@ -1046,7 +1051,7 @@ return {
 					}
 				},
 				{
-					text = "方向键导航",
+					text = "NAV MESH",
 					class = "KLabel",
 					id = "nav_title",
 					text_align = "left",
@@ -1078,30 +1083,30 @@ return {
 					children = {
 						{
 							class = "KESep",
-							title = "模式"
+							title = "mode override"
 						},
 						{
 							id = "nav_mode_override_active",
 							class = "KEPropBool",
 							value = true,
-							title = "网",
-							inactive_title = "默认"
+							title = "mode mesh",
+							inactive_title = "use default mesh"
 						},
 						{
 							id = "nav_sel_id",
-							title = "选择的 id",
+							title = "selected id",
 							class = "KEProp",
 							prop_name = "nav_sel_id"
 						},
 						{
 							id = "nav_holder_id",
-							title = "塔位 id",
+							title = "holder id",
 							class = "KEProp",
 							prop_name = "nav_holder_id"
 						},
 						{
 							class = "KESep",
-							title = "上/左/右/下"
+							title = "top/left/right/bottom"
 						},
 						{
 							class = "KEEnum",
@@ -1155,6 +1160,456 @@ return {
 							id = "nav_renumber_holders",
 							title = "renumber (WARN!)",
 							class = "KEButton"
+						}
+					}
+				}
+			}
+		},
+		{
+			can_drag = true,
+			class = "KView",
+			id = "particles",
+			pos = {
+				x = 900,
+				y = 100
+			},
+			size = {
+				x = 400,
+				y = 640
+			},
+			colors = {
+				background = {
+					220,
+					220,
+					220,
+					255
+				}
+			},
+			children = {
+				{
+					text = "X",
+					class = "KButton",
+					id = "particles_close",
+					colors = {
+						background = {
+							120,
+							120,
+							120,
+							255
+						}
+					},
+					size = {
+						x = 20,
+						y = 20
+					},
+					pos = {
+						x = 0,
+						y = 0
+					},
+					text_offset = {
+						x = 0,
+						y = 4
+					}
+				},
+				{
+					text = "PARTICLES",
+					class = "KLabel",
+					id = "particles_title",
+					text_align = "left",
+					colors = {
+						background = {
+							180,
+							180,
+							180,
+							255
+						}
+					},
+					size = {
+						x = 380,
+						y = 20
+					},
+					pos = {
+						x = 20,
+						y = 0
+					},
+					text_offset = {
+						x = 10,
+						y = 4
+					}
+				},
+				{
+					text = "",
+					class = "KLabel",
+					id = "ps_stats",
+					text_align = "left",
+					pos = v(10, 30),
+					size = {
+						x = 380,
+						y = 20
+					}
+				},
+				{
+					style = "horizontal",
+					class = "KELayout",
+					id = "particles_data",
+					pos = {
+						x = 10,
+						y = 50
+					},
+					children = {
+						{
+							style = "vertical",
+							class = "KELayout",
+							id = "particles_data_left",
+							pos = {
+								x = 10,
+								y = 30
+							},
+							children = {
+								{
+									id = "ps_list",
+									class = "KEList",
+									size = {
+										x = 0,
+										y = 60
+									}
+								},
+								{
+									id = "particles_data_buttons",
+									style = "horizontal",
+									class = "KELayout",
+									children = {
+										{
+											id = "ps_create",
+											title = "add",
+											class = "KEButton",
+											size = {
+												x = 40,
+												y = 20
+											}
+										},
+										{
+											id = "ps_remove",
+											title = "rem",
+											class = "KEButton",
+											size = {
+												x = 40,
+												y = 20
+											}
+										},
+										{
+											id = "ps_copy",
+											title = "copy",
+											class = "KEButton",
+											size = {
+												x = 40,
+												y = 20
+											}
+										},
+										{
+											id = "ps_paste",
+											title = "paste",
+											class = "KEButton",
+											size = {
+												x = 40,
+												y = 20
+											}
+										}
+									}
+								},
+								{
+									prop_name = "emit",
+									class = "KEPropBool",
+									value = true,
+									title = "running",
+									inactive_title = "paused"
+								},
+								{
+									prop_name = "emission_rate",
+									class = "KEPropNum",
+									value = 1,
+									title = "emission rate parts/sec",
+									step = 5,
+									range = {
+										0,
+										100
+									}
+								},
+								{
+									title = "area spread (x,y)",
+									class = "KEPropCoords",
+									prop_name = "emit_area_spread",
+									ranges = {
+										{
+											-800,
+											800
+										},
+										{
+											-400,
+											400
+										}
+									}
+								},
+								{
+									prop_name = "emit_direction",
+									class = "KEPropNum",
+									value = 0,
+									title = "direction (rad)",
+									range = {
+										-math.pi,
+										math.pi
+									},
+									step = math.pi / 18
+								},
+								{
+									prop_name = "emit_spread",
+									class = "KEPropNum",
+									value = 0,
+									title = "direction spread angle",
+									range = {
+										0,
+										math.pi
+									},
+									step = math.pi / 18
+								},
+								{
+									title = "emit offset (x,y)",
+									class = "KEPropCoords",
+									prop_name = "emit_offset",
+									ranges = {
+										{
+											-100,
+											100
+										},
+										{
+											-100,
+											100
+										}
+									}
+								},
+								{
+									prop_name = "emit_rotation",
+									class = "KEPropNum",
+									nil_value = 0,
+									value = 0,
+									title = "rotation angle",
+									range = {
+										-math.pi,
+										math.pi
+									},
+									step = math.pi / 18
+								},
+								{
+									prop_name = "emit_rotation_spread",
+									class = "KEPropNum",
+									value = 0,
+									title = "rotation spread (rad)",
+									range = {
+										0,
+										math.pi
+									},
+									step = math.pi / 18
+								},
+								{
+									prop_name = "emit_speed",
+									class = "KEPropPair",
+									title = "speed (min,max)",
+									step = 5,
+									ranges = {
+										{
+											-150,
+											150
+										},
+										{
+											-150,
+											150
+										}
+									}
+								},
+								{
+									prop_name = "spin",
+									class = "KEPropPair",
+									title = "spin (min,max)",
+									step = 0.5,
+									ranges = {
+										{
+											-50,
+											50
+										},
+										{
+											-50,
+											50
+										}
+									}
+								}
+							}
+						},
+						{
+							style = "vertical",
+							class = "KELayout",
+							id = "particles_data_right",
+							pos = {
+								x = 10,
+								y = 30
+							},
+							children = {
+								{
+									id = "ps_images",
+									class = "KEList",
+									size = {
+										x = 0,
+										y = 90
+									}
+								},
+								{
+									id = "ps_animated",
+									prop_name = "animated",
+									class = "KEPropBool",
+									value = false,
+									title = "animated",
+									inactive_title = "single frame"
+								},
+								{
+									prop_name = "loop",
+									class = "KEPropBool",
+									value = false,
+									title = "loop ani",
+									inactive_title = "one time ani"
+								},
+								{
+									title = "anchor",
+									class = "KEPropCoords",
+									prop_name = "anchor",
+									ranges = {
+										{
+											0,
+											1
+										},
+										{
+											0,
+											1
+										}
+									}
+								},
+								{
+									prop_name = "alphas",
+									class = "KEPropTrio",
+									title = "alphas",
+									value_format = "%d",
+									step = 10,
+									ranges = {
+										{
+											0,
+											255
+										},
+										{
+											0,
+											255
+										},
+										{
+											0,
+											255
+										}
+									}
+								},
+								{
+									title = "particle life (min,max)",
+									class = "KEPropPair",
+									prop_name = "particle_lifetime",
+									ranges = {
+										{
+											0,
+											20
+										},
+										{
+											0,
+											20
+										}
+									}
+								},
+								{
+									prop_name = "emit_duration",
+									class = "KEPropNum",
+									nil_value = 0,
+									value = 0,
+									title = "emission duration",
+									range = {
+										0,
+										20
+									}
+								},
+								{
+									prop_name = "scale_var",
+									class = "KEPropPair",
+									title = "initial scale (min,max)",
+									step = 0.1,
+									ranges = {
+										{
+											-10,
+											10
+										},
+										{
+											-10,
+											10
+										}
+									}
+								},
+								{
+									prop_name = "scales_x",
+									class = "KEPropTrio",
+									title = "scales x",
+									ranges = {
+										{
+											-10,
+											10
+										},
+										{
+											-10,
+											10
+										},
+										{
+											-10,
+											10
+										}
+									},
+									nil_value = {
+										0,
+										0,
+										0
+									}
+								},
+								{
+									prop_name = "scales_y",
+									class = "KEPropTrio",
+									title = "scales y",
+									ranges = {
+										{
+											-10,
+											10
+										},
+										{
+											-10,
+											10
+										},
+										{
+											-10,
+											10
+										}
+									},
+									nil_value = {
+										0,
+										0,
+										0
+									}
+								},
+								{
+									prop_name = "scale_same_aspect",
+									class = "KEPropBool",
+									value = true,
+									title = "same scale x/y",
+									inactive_title = "different scale x/y"
+								}
+							}
 						}
 					}
 				}
