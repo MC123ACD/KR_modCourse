@@ -4,6 +4,7 @@
         "sumneko.lua",
         "alefragnani.bookmarks",
         "w88975.code-translate",
-        "arturodent.find-and-transform"
+        "arturodent.find-and-transform",
+        "formulahendry.code-runner"
     ],
 }
