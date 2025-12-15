@@ -13,7 +13,7 @@
   "strictLineBreaks": false,
   "alwaysUpdateLinks": true,
   "showLineNumber": false,
-  "readableLineLength": true,
+  "readableLineLength": false,
   "rightToLeft": false,
   "defaultViewMode": "source"
 }

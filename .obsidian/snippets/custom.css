@@ -1,3 +1,7 @@
+body.css-settings-manager {
+    --font-text-size: 1rem !important;
+}
+
 /* 所有图片左对齐 */
 .markdown-preview-view img {
     margin: 0 !important;
@@ -38,46 +42,6 @@ table:not(:has(tbody)) {
 /* 增加列表下边距 */
 .el-ul, .el-ol {
     margin-block-end: 25px;
-}
-@counter-style circled_numbers {
-    system: cyclic;
-    symbols: ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨;
-    suffix: " ";
-}
-@counter-style brackets_numbers {
-    system: extends decimal;
-    prefix: "(";
-    suffix: ") ";
-}
-@counter-style square_brackets_numbers {
-    system: extends decimal;
-    prefix: "[";
-    suffix: "] ";
-}
-@counter-style curly_brackets_numbers {
-    system: extends decimal;
-    prefix: "{";
-    suffix: "} ";
-}
-/* 一级列表使用圆内数字 */
-body.custom-ordered-list ol {
-    list-style-type: circled_numbers !important;
-}
-/* 二级列表使用括号内数字 */
-body.custom-ordered-list :is(ul, ol) ol {
-    list-style-type: brackets_numbers !important;
-}
-/* 三级列表使用方括号内数字 */
-body.custom-ordered-list :is(ul, ol) :is(ul, ol) ol {
-    list-style-type: square_brackets_numbers !important;
-}
-/* 四级列表使用大括号内数字 */
-body.custom-ordered-list :is(ul, ol) :is(ul, ol) :is(ul, ol) ol {
-    list-style-type: curly_brackets_numbers !important;
-}
-/* 降低列表序号大小 */
-body.custom-ordered-list ol>li::marker {
-    font-size: 20px;
 }
 ol li .has-list-bullet::before {
     margin-left: -3.75px !important;

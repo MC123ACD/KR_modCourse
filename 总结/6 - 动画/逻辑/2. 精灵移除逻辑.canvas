@@ -1,0 +1,40 @@
+{
+	"nodes":[
+		{
+			"id":"50ad8db838cf888e",
+			"type":"text",
+			"text":"将精灵帧从 `store.render_frames` 移除",
+			"styleAttributes":{"textAlign":"center","border":"dashed"},
+			"x":-240,
+			"y":0,
+			"width":260,
+			"height":100,
+			"color":"4"
+		},
+		{
+			"id":"2ae0da333f2553d3",
+			"type":"text",
+			"text":"## 每帧调用驱动函数 `simulation:do_tick`",
+			"styleAttributes":{"textAlign":"center","shape":"circle","border":"dashed"},
+			"x":-240,
+			"y":-440,
+			"width":260,
+			"height":160,
+			"color":"4"
+		}
+	],
+	"edges":[
+		{
+			"id":"791a2b9a985bbc8d",
+			"styleAttributes":{},
+			"fromNode":"2ae0da333f2553d3",
+			"fromSide":"bottom",
+			"toNode":"50ad8db838cf888e",
+			"toSide":"top"
+		}
+	],
+	"metadata":{
+		"version":"1.0-1.0",
+		"frontmatter":{}
+	}
+}
