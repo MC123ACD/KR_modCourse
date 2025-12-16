@@ -30,30 +30,28 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 2 节 - 修改基础/5. 精灵与补间动画.md",
+                "file": "总结/7. 工具函数.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "5. 精灵与补间动画"
+              "title": "7. 工具函数"
             }
           },
           {
             "id": "95c04cfae862aa74",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "总结/逻辑/2. 实体创建逻辑.canvas",
-                "viewState": {
-                  "x": -195.3416434447983,
-                  "y": -43.570320793524445,
-                  "zoom": -0.579848369024514
-                }
+                "file": "总结/5. 表.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "2. 实体创建逻辑"
+              "icon": "lucide-file",
+              "title": "5. 表"
             }
           }
         ],
@@ -76,7 +74,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "语法",
+                "query": "store",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -121,13 +119,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "第 2 节 - 修改基础/5. 精灵与补间动画.md",
+                "file": "总结/7. 工具函数.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "5. 精灵与补间动画 的大纲"
+              "title": "7. 工具函数 的大纲"
             }
           },
           {
@@ -183,35 +181,39 @@
   },
   "active": "ada1704951e09b08",
   "lastOpenFiles": [
-    "第 3 节 - 进阶/5. 界面.md",
-    "第 3 节 - 进阶/4. 移植.md",
-    "第 3 节 - 进阶/4. 创建新关卡.md",
-    "第 2 节 - 修改基础/5. 精灵与补间动画.md",
-    "第 2 节 - 修改基础/4. 关卡.md",
-    "第 2 节 - 修改基础/2. 实体与模板.md",
-    "第 2 节 - 修改基础/3. 实体函数.md",
-    "第 3 节 - 进阶/3. 系统.md",
-    "第 2 节 - 修改基础/6. 存档.md",
-    "第 3 节 - 进阶/2. 特殊出怪.md",
-    "总结/逻辑/2. 实体创建逻辑.canvas",
-    "总结/逻辑/1. 更新逻辑.canvas",
-    "Pasted image 20251215185551.png",
-    "总结/1. 关卡编号.md",
-    "第 1 节 - 语法/11. 迭代器与泛型for.md",
+    "第 1 节 - 语法/7. 表.md",
+    "第 1 节 - 语法/1. Lua 介绍.md",
+    "第 1 节 - 语法/0. 配置环境.md",
+    "总结/4. 键.md",
+    "总结/1. 关卡.md",
+    "总结/9. 其他函数.md",
     "总结/1. 模板名.md",
-    "index.md",
-    "README.md",
+    "总结/2. 模板函数.md",
+    "总结/3. 常量.md",
+    "总结/5. 表.md",
+    "总结/6. 字符串.md",
+    "总结/7. 工具函数.md",
+    "总结/8. 脚本函数.md",
+    "总结/逻辑/2. 实体创建逻辑.canvas",
+    "第 3 节 - 进阶/4. 移植.md",
+    "第 2 节 - 修改基础/4. 关卡.md",
+    "第 2 节 - 修改基础/5. 精灵与补间动画.md",
+    "7. 脚本函数.md",
+    "总结/2. 路径函数.md",
+    "总结/未命名.md",
+    "总结/0. 说明.md",
+    "第 2 节 - 修改基础/3. 实体函数.md",
+    "总结/1. 动画函数.md",
+    "总结/12. 类.md",
+    "Pasted image 20251215185551.png",
     "第 1 节 - 语法/12. 协程.md",
-    "第 1 节 - 语法/9. 模块.md",
-    "第 1 节 - 语法/6. 函数.md",
-    "第 1 节 - 语法/2. 基础语法规则.md",
-    "第 1 节 - 语法/3. 变量与数据类型.md",
-    "第 1 节 - 语法/4. 运算符.md",
-    "总结/逻辑/1. 界面逻辑.md",
-    "总结/5 - 关卡/逻辑/12. 关卡逻辑.md",
-    "其他/骨龙版相关/规范.md",
-    "总结/8. 其他函数.md",
-    "总结/7. 脚本函数.md",
+    "site-lib/media/Pasted image 20251215100819.png",
+    "site-lib/media/Pasted image 20251213194044.png",
+    "site-lib/media/Pasted image 20251213173619.png",
+    "site-lib/media/Pasted image 20251212181056.png",
+    "第 3 节 - 进阶/5. 界面.md",
+    "第 3 节 - 进阶/4. 创建新关卡.md",
+    "总结/逻辑/1. 更新逻辑.canvas",
     "总结/逻辑/3. 实体移除逻辑.canvas",
     "总结/逻辑/4. 实体更新逻辑.canvas",
     "总结/逻辑/5. 造成伤害逻辑.canvas",
@@ -220,10 +222,6 @@
     "总结/逻辑/9. 闪避逻辑.canvas",
     "总结/6 - 动画/逻辑/1. 精灵插入逻辑.canvas",
     "总结/5 - 关卡/逻辑/特殊出怪逻辑.canvas",
-    "site-lib/media/Pasted image 20251215100819.png",
-    "site-lib/media/Pasted image 20251213194044.png",
-    "site-lib/media/Pasted image 20251213173619.png",
-    "site-lib/media/Pasted image 20251212181056.png",
     "Pasted image 20251215100819.png",
     "Pasted image 20251213151524.png",
     "Pasted image 20251212181056.png",
