@@ -2,9 +2,8 @@
     "recommendations": [
         "tomblind.local-lua-debugger-vscode",
         "sumneko.lua",
-        "alefragnani.bookmarks",
         "w88975.code-translate",
         "arturodent.find-and-transform",
-        "formulahendry.code-runner"
+        "actboy168.lua-debug"
     ],
 }

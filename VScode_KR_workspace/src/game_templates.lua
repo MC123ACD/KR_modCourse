@@ -12,10 +12,13 @@ local function vv(v1)
 end
 
 if KR_GAME == "kr1" then
+    package.loaded["kr1.game_templates"] = nil
     require("kr1.game_templates")
 elseif KR_GAME == "kr2" then
+    package.loaded["kr2.game_templates"] = nil
     require("kr2.game_templates")
 elseif KR_GAME == "kr3" then
+    package.loaded["kr3.game_templates"] = nil
     require("kr3.game_templates")
 end
 
