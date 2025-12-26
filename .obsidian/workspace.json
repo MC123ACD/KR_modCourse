@@ -8,35 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "ff0beb22cb3896d2",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "总结/逻辑/1. 更新逻辑.canvas",
-                "viewState": {
-                  "x": -180,
-                  "y": 125,
-                  "zoom": -0.8475020703158717
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "1. 更新逻辑"
-            }
-          },
-          {
-            "id": "2ba262c50ce05e64",
+            "id": "3b6875bf0e5cd290",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "总结/7. 工具函数.md",
+                "file": "第 1 节 - 语法/13. 元表.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "7. 工具函数"
+              "title": "13. 元表"
             }
           },
           {
@@ -45,17 +28,47 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "总结/5. 表.md",
+                "file": "第 1 节 - 语法/5. 控制结构.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "5. 表"
+              "title": "5. 控制结构"
+            }
+          },
+          {
+            "id": "d46a6db8859ae9cb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "第 1 节 - 语法/14. LuaJIT.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "14. LuaJIT"
+            }
+          },
+          {
+            "id": "aff464f2d44e5974",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "第 1 节 - 语法/2. 基础语法规则.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "2. 基础语法规则"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -74,7 +87,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "store",
+                "query": "攻击优先级",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -103,7 +116,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 285.5011098384857
+    "width": 301.5011098384857
   },
   "right": {
     "id": "b3a58f8c143e4ce0",
@@ -119,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "总结/7. 工具函数.md",
+                "file": "第 1 节 - 语法/14. LuaJIT.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "7. 工具函数 的大纲"
+              "title": "14. LuaJIT 的大纲"
             }
           },
           {
@@ -181,52 +194,53 @@
   },
   "active": "ada1704951e09b08",
   "lastOpenFiles": [
-    "第 1 节 - 语法/7. 表.md",
+    "第 2 节 - 修改基础/1. 介绍.md",
+    "第 1 节 - 语法/13. 元表.md",
+    "第 1 节 - 语法/14. LuaJIT.md",
+    "第 1 节 - 语法/5. 控制结构.md",
+    "第 1 节 - 语法/2. 基础语法规则.md",
     "第 1 节 - 语法/1. Lua 介绍.md",
+    "第 1 节 - 语法/10. 调试与错误处理.md",
+    "index.md",
+    "第 2 节 - 修改基础/5. 科技树与难度设定.md",
+    "site-lib/media/Pasted image 20251226133851.png",
+    "site-lib/media/Pasted image 20251225203906.png",
+    "site-lib/media/Pasted image 20251225202221.png",
+    "site-lib/media/Pasted image 20251225201739.png",
+    "site-lib/media/Pasted image 20251225195034.png",
+    "site-lib/media/Pasted image 20251225194600.png",
+    "site-lib/media/Pasted image 20251225194347.png",
+    "site-lib/media/Pasted image 20251225194118.png",
+    "site-lib/media/Pasted image 20251225191640.png",
+    "site-lib/media/Pasted image 20251225190451.png",
+    "第 1 节 - 语法/参考答案.md",
+    "其他/Local Lua Debugger 说明翻译.md",
+    "其他",
+    "第 1 节 - 语法/4. 运算符.md",
+    "未命名 2.md",
+    "未命名 1.md",
+    "未命名.md",
+    "第 1 节 - 语法/8. 字符串.md",
+    "第 1 节 - 语法/9. 模块.md",
     "第 1 节 - 语法/0. 配置环境.md",
-    "总结/4. 键.md",
-    "总结/1. 关卡.md",
-    "总结/9. 其他函数.md",
-    "总结/1. 模板名.md",
-    "总结/2. 模板函数.md",
-    "总结/3. 常量.md",
-    "总结/5. 表.md",
-    "总结/6. 字符串.md",
-    "总结/7. 工具函数.md",
-    "总结/8. 脚本函数.md",
-    "总结/逻辑/2. 实体创建逻辑.canvas",
-    "第 3 节 - 进阶/4. 移植.md",
-    "第 2 节 - 修改基础/4. 关卡.md",
-    "第 2 节 - 修改基础/5. 精灵与补间动画.md",
-    "7. 脚本函数.md",
-    "总结/2. 路径函数.md",
-    "总结/未命名.md",
-    "总结/0. 说明.md",
-    "第 2 节 - 修改基础/3. 实体函数.md",
-    "总结/1. 动画函数.md",
-    "总结/12. 类.md",
-    "Pasted image 20251215185551.png",
-    "第 1 节 - 语法/12. 协程.md",
-    "site-lib/media/Pasted image 20251215100819.png",
-    "site-lib/media/Pasted image 20251213194044.png",
-    "site-lib/media/Pasted image 20251213173619.png",
-    "site-lib/media/Pasted image 20251212181056.png",
-    "第 3 节 - 进阶/5. 界面.md",
-    "第 3 节 - 进阶/4. 创建新关卡.md",
-    "总结/逻辑/1. 更新逻辑.canvas",
-    "总结/逻辑/3. 实体移除逻辑.canvas",
-    "总结/逻辑/4. 实体更新逻辑.canvas",
-    "总结/逻辑/5. 造成伤害逻辑.canvas",
     "总结/逻辑/7. 近战攻击逻辑.canvas",
-    "总结/逻辑/8. 远程攻击逻辑.canvas",
+    "第 2 节 - 修改基础/11. 工具使用方法.md",
+    "第 2 节 - 修改基础/3. 实体函数.md",
+    "第 1 节 - 语法/7. 表.md",
+    "总结/1. 模板名.md",
+    "第 2 节 - 修改基础/7. 界面.md",
+    "第 2 节 - 修改基础/4. 关卡.md",
+    "第 2 节 - 修改基础/9. 系统.md",
+    "第 2 节 - 修改基础/8. 存档.md",
+    "总结/逻辑/2. 实体创建逻辑.canvas",
+    "总结/逻辑/1. 更新逻辑.canvas",
+    "总结/5 - 关卡/逻辑/3. 生成怪物逻辑.canvas",
+    "总结/5 - 关卡/逻辑/2. 关卡更新逻辑.canvas",
+    "总结/5 - 关卡/逻辑/1. 关卡加载逻辑.canvas",
     "总结/逻辑/9. 闪避逻辑.canvas",
-    "总结/6 - 动画/逻辑/1. 精灵插入逻辑.canvas",
-    "总结/5 - 关卡/逻辑/特殊出怪逻辑.canvas",
-    "Pasted image 20251215100819.png",
-    "Pasted image 20251213151524.png",
-    "Pasted image 20251212181056.png",
-    "Pasted image 20251213194044.png",
-    "Pasted image 20251213173619.png",
+    "site-lib/media/Pasted image 20251215100819.canvas",
+    "site-lib/media/Pasted image 20251208134125.canvas",
+    "site-lib/media/Pasted image 20251209094358.canvas",
     "总结/1 - 语法",
     "第 1 节 - 语法",
     "第 1 节 - 语法",
@@ -235,7 +249,6 @@
     "第 1 章 - 模板/总结",
     "第 1 章 - 模板",
     "总结/逻辑",
-    "总结/7 - 界面",
-    "总结/3 - 进阶"
+    "总结/7 - 界面"
   ]
 }

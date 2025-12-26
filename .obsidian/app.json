@@ -1,6 +1,6 @@
 {
   "trashOption": "local",
-  "showInlineTitle": false,
+  "showInlineTitle": true,
   "promptDelete": false,
   "spellcheck": false,
   "pdfExportSettings": {
