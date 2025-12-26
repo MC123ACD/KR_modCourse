@@ -1,0 +1,473 @@
+<!DOCTYPE html> <html lang="zh-cn"><head>
+<title>4. 关卡</title>
+<base href="..">
+<meta name="pathname" content="第-2-节-修改基础/4.-关卡.html">
+<meta name="description" content="王国保卫战修改教程 - 4. 关卡">
+<meta property="og:title" content="4. 关卡">
+<meta property="og:description" content="王国保卫战修改教程 - 4. 关卡">
+<meta property="og:type" content="website">
+<meta property="og:url" content="第-2-节-修改基础/4.-关卡.html">
+<meta property="og:image" content="site-lib/media/pasted-image-20250812125430.png">
+<meta charset="UTF-8"><meta property="og:site_name" content="王国保卫战修改教程"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="preload" href="site-lib/styles/snippets.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/snippets.css"></noscript><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/other-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/other-plugins.css"></noscript><link rel="stylesheet" href="site-lib/styles/theme.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/supported-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/supported-plugins.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager mod-windows is-frameless is-hidden-frameless styled-scrollbars show-inline-title show-ribbon background-settings-workplace-theme-dark-in-the-sky background-image-settings-markdown-page-custom notebook-liked-markdown-page-grid-notebook-1 panel-page-bg-theme-light-custom panel-page-bg-theme-dark-plant hide-left-ribbon-retention-drawer toggle-divider-lines toggle-header-bottom-line bt-bubble-layout bt-bubble-layout-hide-borders remove-heading-indicator h1-toggle-underline toggle-left-aligned-content fancy-hr-no-icon custom-unordered-list custom-ordered-list list-no-border folder-icons bt-toggle-colorful-folder folder-style-change-options-colorful-default folder-colorful-one table-width-auto table-style-two link-underline-internal enable-alternative-checkboxes default-loading-page loading-text-typing-style rainbow-tag translucent-setting-panel underline-tab-style canvas-card-text-middle admonition-bg-color-same toggle-calendar-shadow style-options-for-buttons-plugin dataview-list-style-pacman memos-banner-gradient thino-frosted-style thino-background-default quiet-outline-optimize code-theme-sublime is-focused"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event allow-fold-headings show-indentation-guide show-properties is-readable-line-width" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section"><div class="header"><h1 class="page-title heading inline-title" id="4._关卡_0">4. 关卡</h1><div class="data-bar"></div></div><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-h2"><h2 data-heading="4.1 关卡数据" dir="auto" class="heading" id="4.1_关卡数据_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.1 关卡数据</h2></div><div class="el-p"><p dir="auto">关卡中所有数据存储于 <code>kr/data/levels</code> 中</p></div><div class="el-p"><p dir="auto"><strong>其中</strong>：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">无后缀为关卡的函数</li>
+<li data-line="1" dir="auto"><code>_data</code> 为关卡参数</li>
+<li data-line="2" dir="auto"><code>_paths</code> 为路径数据</li>
+<li data-line="3" dir="auto"><code>_gird</code> 为网格数据</li>
+</ol></div><div class="el-h3"><h3 data-heading="结构：" dir="auto" class="heading" id="结构：_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>结构：</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">locked_hero <span class="token operator">=</span> 是否锁定英雄<span class="token punctuation">:</span> bool<span class="token punctuation">,</span>
+max_upgrade_level <span class="token operator">=</span> 科技最大等级<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+locked_towers <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 锁定的防御塔</span>
+	防御塔模板名 <span class="token number">1</span><span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+	<span class="token comment">-- 防御塔模板名 2...</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+available_towers <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 可用的防御塔（五代可用）</span>
+	防御塔模板名 <span class="token number">1</span><span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+	<span class="token comment">-- 防御塔模板名 2...</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token function">locked_powers</span> <span class="token punctuation">{</span>				<span class="token comment">-- 锁定的能力</span>
+	是否锁定对应索引的能力<span class="token punctuation">:</span> bool
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+entities_list <span class="token operator">=</span> <span class="token punctuation">{</span>			<span class="token comment">-- 进入关卡创建的实体</span>
+	<span class="token punctuation">{</span>		<span class="token comment">-- 实体 1</span>
+		template <span class="token operator">=</span> 创建的实体模板名<span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+		pos <span class="token operator">=</span> 实体位置<span class="token punctuation">:</span> vec2<span class="token punctuation">,</span>
+		
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token comment">-- 实体 2...</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+level_mode_overrides <span class="token operator">=</span> <span class="token punctuation">{</span>	<span class="token comment">-- 不同模式覆盖的键（战役模式索引为 1、英雄为 2、钢铁为 3）</span>
+	<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>		<span class="token comment">-- 战役模式</span>
+	<span class="token punctuation">{</span>		<span class="token comment">-- 英雄模式</span>
+		max_upgrade_level <span class="token operator">=</span> <span class="token number">2</span>	<span class="token comment">-- 英雄模式下科技最大等级 2</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+required_sounds <span class="token operator">=</span> <span class="token punctuation">{</span>			<span class="token comment">-- 加载的音效资源</span>
+	资源 <span class="token number">1</span> 名称<span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+	<span class="token comment">-- 资源 2 名称...</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+required_textures <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 加载的美术资源</span>
+	资源 <span class="token number">1</span> 名称<span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+	<span class="token comment">-- 资源 2 名称...</span>
+<span class="token punctuation">}</span>
+required_exoskeletons <span class="token operator">=</span> <span class="token punctuation">{</span>	<span class="token comment">-- 加载的骨骼动画资源</span>
+	资源 <span class="token number">1</span> 名称<span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+	<span class="token comment">-- 资源 2 名称...</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="4.2 路径（path）" dir="auto" class="heading" id="4.2_路径（path）_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.2 路径（path）</h2></div><div class="el-p"><p dir="auto">路径用于规定怪物的行走路线，缩写为 P</p></div><div class="el-p"><p dir="auto"><strong>存储位置</strong>：<code>all/path_db</code> 的 <code>paths</code> 表中<br>
+<strong>读取位置</strong>：读取 <code>kr/data/levels</code> 中的关卡路径数据（<code>_paths</code>）</p></div><div class="el-p"><p dir="auto"><strong>路径中</strong>：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto"><code>ni</code> 为节点索引（<strong>node index</strong>），即一条路径中的位置</li>
+<li data-line="1" dir="auto"><code>pi</code> 为路径索引（<strong>path index</strong>），即不同路径</li>
+<li data-line="2" dir="auto"><code>spi</code> 为子路径索引（<strong>subpath index</strong>），即路径中的三个分支<br>
+<span alt="Pasted image 20250812125430.png" src="site-lib/media/pasted-image-20250812125430.png" class="internal-embed media-embed image-embed is-loaded" target="_self"><img alt="Pasted image 20250812125430.png" src="site-lib/media/pasted-image-20250812125430.png" target="_self"></span><br>
+如图所示一条路径有三条子路径，白点为节点，关卡内按 <code>H</code> 即可显示路径</li>
+</ol></div><div class="el-h3"><h3 data-heading="4.2.1 随机在路径上召唤实体" dir="auto" class="heading" id="4.2.1_随机在路径上召唤实体_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.2.1 随机在路径上召唤实体</h3></div><div class="el-p"><p dir="auto">在 <code>level_data</code> 的 <code>entities_list</code> 增加一个实体，在这个实体更新函数写召唤逻辑即可</p></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 模板</span>
+tt <span class="token operator">=</span> <span class="token function">RT</span><span class="token punctuation">(</span><span class="token string">"s_spawner_entities"</span><span class="token punctuation">)</span>
+<span class="token function">AC</span><span class="token punctuation">(</span>tt<span class="token punctuation">,</span> <span class="token string">"main_script"</span><span class="token punctuation">,</span> <span class="token string">"editor"</span><span class="token punctuation">)</span>
+tt<span class="token punctuation">.</span>main_script<span class="token punctuation">.</span>update <span class="token operator">=</span> scripts<span class="token punctuation">.</span>s_spawner_entities<span class="token punctuation">.</span>update
+tt<span class="token punctuation">.</span>ts <span class="token operator">=</span> <span class="token number">0</span>
+tt<span class="token punctuation">.</span>entity <span class="token operator">=</span> <span class="token string">"enemy_halloween_zombie"</span>	<span class="token comment">-- 召唤的实体</span>
+tt<span class="token punctuation">.</span>spawn_margin <span class="token operator">=</span> <span class="token punctuation">{</span>
+	<span class="token number">30</span><span class="token punctuation">,</span>	<span class="token comment">-- 距离起点边距</span>
+	<span class="token number">60</span>	<span class="token comment">-- 距离终点边距</span>
+<span class="token punctuation">}</span>
+tt<span class="token punctuation">.</span>spawn_cooldown <span class="token operator">=</span> <span class="token number">3</span>	<span class="token comment">-- 召唤间隔</span>
+tt<span class="token punctuation">.</span>spawn_count <span class="token operator">=</span> <span class="token number">1</span>		<span class="token comment">-- 召唤数量</span>
+tt<span class="token punctuation">.</span>spawn_wave <span class="token operator">=</span> <span class="token number">1</span>		<span class="token comment">-- 开始召唤的波次</span>
+tt<span class="token punctuation">.</span>spawn_path <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 生成的路径</span>
+	<span class="token number">1</span><span class="token punctuation">,</span>
+	<span class="token number">2</span><span class="token punctuation">,</span>
+	<span class="token number">3</span>
+<span class="token punctuation">}</span>
+tt<span class="token punctuation">.</span>enemy_gold <span class="token operator">=</span> <span class="token number">0.5</span>	<span class="token comment">-- 召唤的敌人赏金乘数</span>
+
+<span class="token comment">-- 函数</span>
+scripts<span class="token punctuation">.</span>s_spawner_entities <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">function</span> scripts<span class="token punctuation">.</span>s_spawner_entities<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>this<span class="token punctuation">,</span> store<span class="token punctuation">)</span>
+	<span class="token keyword">local</span> pi<span class="token punctuation">,</span> spi<span class="token punctuation">,</span> ni
+	<span class="token keyword">local</span> p_pi<span class="token punctuation">,</span> p_spi <span class="token operator">=</span> this<span class="token punctuation">.</span>spawn_path<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token punctuation">}</span>
+	<span class="token keyword">local</span> start_margin<span class="token punctuation">,</span> end_margin <span class="token operator">=</span> <span class="token function">unpack</span><span class="token punctuation">(</span>this<span class="token punctuation">.</span>spawn_margin<span class="token punctuation">)</span>
+
+	<span class="token keyword">while</span> <span class="token keyword">true</span> <span class="token keyword">do</span>
+		<span class="token keyword">if</span> store<span class="token punctuation">.</span>waves_finished <span class="token keyword">then</span>
+			<span class="token keyword">break</span>
+		<span class="token keyword">end</span>
+
+		<span class="token comment">-- 计算召唤间隔</span>
+		<span class="token keyword">if</span> store<span class="token punctuation">.</span>wave_group_number <span class="token operator">&gt;=</span> this<span class="token punctuation">.</span>spawn_wave <span class="token keyword">and</span> this<span class="token punctuation">.</span>spawn_cooldown <span class="token operator">&lt;</span> store<span class="token punctuation">.</span>tick_ts <span class="token operator">-</span> this<span class="token punctuation">.</span>ts <span class="token keyword">then</span>
+			this<span class="token punctuation">.</span>ts <span class="token operator">=</span> store<span class="token punctuation">.</span>tick_ts
+			<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> this<span class="token punctuation">.</span>spawn_count <span class="token keyword">do</span>
+				<span class="token comment">-- 取随机路径上随机节点</span>
+				pi<span class="token punctuation">,</span> spi <span class="token operator">=</span> table<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span>p_pi<span class="token punctuation">)</span><span class="token punctuation">,</span> table<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span>p_spi<span class="token punctuation">)</span>
+				ni <span class="token operator">=</span> math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span>P<span class="token punctuation">:</span><span class="token function">get_start_node</span><span class="token punctuation">(</span>pi<span class="token punctuation">)</span> <span class="token operator">+</span> start_margin<span class="token punctuation">,</span> P<span class="token punctuation">:</span><span class="token function">get_end_node</span><span class="token punctuation">(</span>pi<span class="token punctuation">)</span> <span class="token operator">-</span> end_margin<span class="token punctuation">)</span>
+
+				<span class="token comment">-- 召唤实体</span>
+				<span class="token keyword">local</span> e <span class="token operator">=</span> E<span class="token punctuation">:</span><span class="token function">create_entity</span><span class="token punctuation">(</span>this<span class="token punctuation">.</span>entity<span class="token punctuation">)</span>
+				e<span class="token punctuation">.</span>pos <span class="token operator">=</span> P<span class="token punctuation">:</span><span class="token function">node_pos</span><span class="token punctuation">(</span>pi<span class="token punctuation">,</span> spi<span class="token punctuation">,</span> ni<span class="token punctuation">)</span>
+				e<span class="token punctuation">.</span>nav_path<span class="token punctuation">.</span>pi<span class="token punctuation">,</span> e<span class="token punctuation">.</span>nav_path<span class="token punctuation">.</span>spi<span class="token punctuation">,</span> e<span class="token punctuation">.</span>nav_path<span class="token punctuation">.</span>ni <span class="token operator">=</span> pi<span class="token punctuation">,</span> spi<span class="token punctuation">,</span> ni
+				e<span class="token punctuation">.</span>render<span class="token punctuation">.</span>sprites<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"raise"</span>
+				e<span class="token punctuation">.</span>enemy<span class="token punctuation">.</span>gold <span class="token operator">=</span> e<span class="token punctuation">.</span>enemy<span class="token punctuation">.</span>gold <span class="token operator">*</span> this<span class="token punctuation">.</span>enemy_gold
+				<span class="token function">queue_insert</span><span class="token punctuation">(</span>store<span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+			<span class="token keyword">end</span>
+		<span class="token keyword">end</span>
+
+		coroutine<span class="token punctuation">.</span><span class="token function">yield</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">end</span>
+
+	<span class="token function">queue_remove</span><span class="token punctuation">(</span>store<span class="token punctuation">,</span> this<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 关卡数据</span>
+entities_list <span class="token operator">=</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">{</span>
+		template <span class="token operator">=</span> <span class="token string">"s_spawner_entities"</span><span class="token punctuation">,</span>
+		pos <span class="token operator">=</span> <span class="token punctuation">{</span>
+			x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+			y <span class="token operator">=</span> <span class="token number">0</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token punctuation">...</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="4.3 波次数据" dir="auto" class="heading" id="4.3_波次数据_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.3 波次数据</h2></div><div class="el-p"><p dir="auto">波次的所有数据存储于 <code>kr/data/waves</code> 中</p></div><div class="el-p"><p dir="auto"><strong>其中</strong>：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto"><code>_campaign</code> 为战役模式（1）</li>
+<li data-line="1" dir="auto"><code>_heroic</code> 为英雄模式（2）</li>
+<li data-line="2" dir="auto"><code>_iron</code> 为钢铁模式（3）</li>
+</ol></div><div class="el-h3"><h3 data-heading="4.3.1 结构" dir="auto" class="heading" id="4.3.1_结构_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.3.1 结构</h3></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>时间单位为游戏帧</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>所有出怪组都是并发的，使用出怪组延迟控制</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>出怪组一般用于多个怪物组合进攻与进攻不同路径</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>交替出怪用于两个怪物轮流进攻</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>每个组的怪物只有前一个出完才会出下一个</li>
+</ul></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">cash <span class="token operator">=</span> 初始金币<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+groups <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 所有波次</span>
+	<span class="token punctuation">{</span>			<span class="token comment">-- 第 1 波</span>
+		interval <span class="token operator">=</span> 下一波到来时间<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+		waves <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 出怪组</span>
+			<span class="token punctuation">{</span>			<span class="token comment">-- 第 1 组</span>
+				delay <span class="token operator">=</span> 延迟<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+				path_index <span class="token operator">=</span> 出怪路径<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+				spawns <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 生成的怪物</span>
+					<span class="token punctuation">{</span>			<span class="token comment">-- 怪物 1</span>
+						interval <span class="token operator">=</span> 生成间隔<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+						creep <span class="token operator">=</span> 怪物模板名<span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+						creep_aux <span class="token operator">=</span> 交替怪物模板名<span class="token punctuation">:</span> str<span class="token punctuation">,</span>	<span class="token comment">-- 每次出 max_same 数量的怪交替怪物</span>
+						max_same <span class="token operator">=</span> 交替数量<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+						max <span class="token operator">=</span> 出怪总数量<span class="token punctuation">:</span> int<span class="token punctuation">,</span>			<span class="token comment">-- 包含交替的怪物</span>
+						fixed_sub_path <span class="token operator">=</span> 出怪子路径<span class="token punctuation">:</span> int<span class="token punctuation">,</span>	<span class="token comment">-- 0 为随机 1-3，1 为 path 指定的子路径</span>
+						path <span class="token operator">=</span> 子路径<span class="token punctuation">:</span> int<span class="token punctuation">,</span>				<span class="token comment">-- 用于 fixed_sub_path</span>
+						interval_next <span class="token operator">=</span> 下一个怪物的延迟<span class="token punctuation">:</span> num
+					<span class="token punctuation">}</span><span class="token punctuation">,</span>
+					<span class="token comment">-- 怪物 2...</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span><span class="token punctuation">,</span>
+			<span class="token comment">-- 第 2 组...</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token comment">-- 第 2 波...</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="4.3.2 修改出怪" dir="auto" class="heading" id="4.3.2_修改出怪_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.3.2 修改出怪</h3></div><div class="el-p"><p dir="auto">由于出怪数据的表不易于查看修改，推荐使用附件的波次生成脚本修改<br>
+<span alt="Pasted image 20250828164236.png" src="site-lib/media/pasted-image-20250828164236.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 750px; max-width: 100%;"><img alt="Pasted image 20250828164236.png" src="site-lib/media/pasted-image-20250828164236.png" target="_self" style="width: 750px; max-width: 100%;"></span></p></div><div class="el-p"><p dir="auto"><span alt="Pasted image 20250828164839.png" src="site-lib/media/pasted-image-20250828164839.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 550px; max-width: 100%;"><img alt="Pasted image 20250828164839.png" src="site-lib/media/pasted-image-20250828164839.png" target="_self" style="width: 550px; max-width: 100%;"></span><br>
+数字改成你修改的关卡编号，然后直接替换波次数据即可.</p></div><div class="el-h3"><h3 data-heading="4.3.3 加载资源" dir="auto" class="heading" id="4.3.3_加载资源_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.3.3 加载资源</h3></div><div class="el-p"><p dir="auto">在关卡数据的 <code>required_textures</code> 键增加对应资源即可。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">required_textures <span class="token operator">=</span> <span class="token punctuation">{</span>
+	<span class="token string">"go_enemies_bandits"</span><span class="token punctuation">,</span>	<span class="token comment">-- 强盗支线的所有怪物资源</span>
+	<span class="token punctuation">...</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">图像资源基本都在 <code>_assets/kr-desktop/images/fullhd</code> 内</p></div><div class="el-p"><p dir="auto">注：有些实体的资源在关卡资源内</p></div><div class="el-h2"><h2 data-heading="4.4 特殊出怪" dir="auto" class="heading" id="4.4_特殊出怪_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.4 特殊出怪</h2></div><div class="el-p"><p dir="auto">特殊出怪数据位于 <code>kr/data/levels/levelxx_spawner</code> 中</p></div><div class="el-h3"><h3 data-heading="4.4.1 正常出怪模式" dir="auto" class="heading" id="4.4.1_正常出怪模式_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.4.1 正常出怪模式</h3></div><div class="el-h4"><h4 data-heading="结构" dir="auto" class="heading" id="结构_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>结构</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">groups <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 组</span>
+	<span class="token punctuation">{</span>			<span class="token comment">-- 组 1</span>
+		可能出怪点位 <span class="token number">1</span><span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+		<span class="token comment">-- 可能出怪点位 2...</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token comment">-- 组 2...</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+points <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 出怪点位</span>
+	<span class="token punctuation">{</span>			<span class="token comment">-- 点位 1</span>
+		path <span class="token operator">=</span> int<span class="token punctuation">,</span>		<span class="token comment">-- 生成路径</span>
+		from <span class="token operator">=</span> vec2<span class="token punctuation">,</span>	<span class="token comment">-- 生成位置</span>
+		to <span class="token operator">=</span> vec2		<span class="token comment">-- 实际生成节点位置</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token comment">-- 点位 2...</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+waves <span class="token operator">=</span> <span class="token punctuation">{</span>	<span class="token comment">-- 生成的波次</span>
+	<span class="token punctuation">{</span>		<span class="token comment">-- 战役模式（战役 1，英雄 2，钢铁 3）的生成</span>
+		<span class="token punctuation">{</span>	<span class="token comment">-- 第 1 波</span>
+			<span class="token punctuation">{</span>	<span class="token comment">-- 出怪 1</span>
+				延迟<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+				延迟随机变化值<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+				组<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+				生成子路径<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+				生成数量<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+				是否所有点位同时出怪<span class="token punctuation">:</span> bool<span class="token punctuation">,</span>
+				顺序生成<span class="token operator">/</span>并行生成<span class="token punctuation">:</span> bool<span class="token punctuation">,</span>
+				出怪随机间隔最小值<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+				出怪随机间隔最大值<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+				生成怪物模板名<span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+				自定义参数<span class="token punctuation">:</span> any
+			<span class="token punctuation">}</span><span class="token punctuation">,</span>
+			<span class="token comment">-- 出怪 2...</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token comment">-- 第二波...</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token comment">-- 英雄模式的生成...</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_1"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 关卡数据</span>
+entities_list <span class="token operator">=</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">{</span>	<span class="token comment">-- 加载的特殊出怪数据</span>
+		template <span class="token operator">=</span> <span class="token string">"mega_spawner"</span><span class="token punctuation">,</span>
+		load_file <span class="token operator">=</span> <span class="token string">"level417_spawner"</span><span class="token punctuation">,</span>	<span class="token comment">-- 特殊出怪文件名</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">-- 特殊出怪数据</span>
+groups <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 组</span>
+	<span class="token punctuation">{</span>
+		<span class="token number">1</span>		<span class="token comment">-- 组 1 生成在点位 1</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+points <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 点位</span>
+	<span class="token punctuation">{</span>			<span class="token comment">-- 点位 1</span>
+		path <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span>	<span class="token comment">-- 位于路径 3</span>
+		from <span class="token operator">=</span> <span class="token punctuation">{</span>	<span class="token comment">-- 点位坐标</span>
+			x <span class="token operator">=</span> <span class="token number">260</span><span class="token punctuation">,</span>
+			y <span class="token operator">=</span> <span class="token number">147</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		to <span class="token operator">=</span> <span class="token punctuation">{</span>
+			x <span class="token operator">=</span> <span class="token number">260</span><span class="token punctuation">,</span>
+			y <span class="token operator">=</span> <span class="token number">147</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+waves <span class="token operator">=</span> <span class="token punctuation">{</span>			<span class="token comment">-- 生成的波次</span>
+	<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>			<span class="token comment">-- 战役模式</span>
+		<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 第 3 波</span>
+			<span class="token punctuation">{</span>
+				<span class="token number">2.6</span><span class="token punctuation">,</span>		<span class="token comment">-- 延迟 2.6 秒</span>
+				<span class="token number">0</span><span class="token punctuation">,</span>			<span class="token comment">-- 延迟不随机变化</span>
+				<span class="token number">1</span><span class="token punctuation">,</span>			<span class="token comment">-- 组 1</span>
+				<span class="token number">1</span><span class="token punctuation">,</span>			<span class="token comment">-- 生成到子路径 1</span>
+				<span class="token number">1</span><span class="token punctuation">,</span>			<span class="token comment">-- 生成 1 个</span>
+				<span class="token keyword">false</span><span class="token punctuation">,</span>		<span class="token comment">-- 所有点位不同时出怪</span>
+				<span class="token keyword">true</span><span class="token punctuation">,</span>		<span class="token comment">-- 顺序出怪</span>
+				<span class="token number">4</span><span class="token punctuation">,</span>			<span class="token comment">-- 出怪随机间隔最小值</span>
+				<span class="token number">4</span><span class="token punctuation">,</span>			<span class="token comment">-- 出怪随机间隔最大值</span>
+				<span class="token string">"enemy_chaser"</span>	<span class="token comment">-- 怪物模板名</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="4.4.2 出怪包模式" dir="auto" class="heading" id="4.4.2_出怪包模式_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.4.2 出怪包模式</h3></div><div class="el-p"><p dir="auto">包可以理解为模板，提前创建，后续快速使用。缺点是无法指定点位，只能生成在起点节点</p></div><div class="el-h4"><h4 data-heading="结构" dir="auto" class="heading" id="结构_1"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>结构</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">packs <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 包</span>
+	包 <span class="token number">1</span> 名称 <span class="token operator">=</span> <span class="token punctuation">{</span>
+		<span class="token punctuation">{</span>	<span class="token comment">-- 出怪 1</span>
+			延迟<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+			延迟随机变化值<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			生成子路径<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+			生成数量<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			出怪随机间隔最小值<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+			出怪随机间隔最大值<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+			生成怪物模板名<span class="token punctuation">:</span> str
+		<span class="token punctuation">}</span>
+		<span class="token comment">-- 出怪 2...</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token comment">-- 包 2...</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+waves <span class="token operator">=</span> <span class="token punctuation">{</span>	<span class="token comment">-- 生成的波次</span>
+	<span class="token punctuation">{</span>		<span class="token comment">-- 战役模式（战役 1，英雄 2，钢铁 3）的生成</span>
+		<span class="token punctuation">{</span>	<span class="token comment">-- 第 1 波</span>
+			<span class="token punctuation">{</span>	<span class="token comment">-- 出怪 1</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token string">"PACK"</span><span class="token punctuation">,</span>		<span class="token comment">-- 生成怪物模板名改为 "PACK"</span>
+				<span class="token punctuation">{</span>
+					spawnPackId <span class="token operator">=</span> 生成的包名<span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+					path <span class="token operator">=</span> 生成路径<span class="token punctuation">:</span> int
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span><span class="token punctuation">,</span>
+			<span class="token comment">-- 出怪 2...</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token comment">-- 第二波...</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token comment">-- 英雄模式的生成...</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_2"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 关卡数据</span>
+entities_list <span class="token operator">=</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">{</span>	<span class="token comment">-- 加载的特殊出怪数据</span>
+		template <span class="token operator">=</span> <span class="token string">"mega_spawner"</span><span class="token punctuation">,</span>
+		load_file <span class="token operator">=</span> <span class="token string">"level417_spawner"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">-- 特殊出怪数据</span>
+packs <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 包</span>
+	frogs <span class="token operator">=</span> <span class="token punctuation">{</span>
+		<span class="token punctuation">{</span>
+			<span class="token number">0</span><span class="token punctuation">,</span>				<span class="token comment">-- 延迟 0 帧</span>
+			<span class="token number">0</span><span class="token punctuation">,</span>				<span class="token comment">-- 延迟不随机变化</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			<span class="token number">1</span><span class="token punctuation">,</span>				<span class="token comment">-- 生成到子路径 1</span>
+			<span class="token number">1</span><span class="token punctuation">,</span>				<span class="token comment">-- 生成 1 个</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			<span class="token number">4</span><span class="token punctuation">,</span>				<span class="token comment">--</span>
+			<span class="token number">4</span><span class="token punctuation">,</span>				<span class="token comment">-- 出怪随机间隔 4 ~ 4</span>
+			<span class="token string">"enemy_chaser"</span>	<span class="token comment">-- 怪物模板名 "enemy_chaser"</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token punctuation">{</span>
+			<span class="token number">2</span><span class="token punctuation">,</span>				<span class="token comment">-- 延迟 2 帧</span>
+			<span class="token number">0</span><span class="token punctuation">,</span>				<span class="token comment">-- 延迟不随机变化</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			<span class="token number">1</span><span class="token punctuation">,</span>				<span class="token comment">-- 生成到子路径 1</span>
+			<span class="token number">10</span><span class="token punctuation">,</span>				<span class="token comment">-- 生成 10 个</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			<span class="token keyword">nil</span><span class="token punctuation">,</span>
+			<span class="token number">4</span><span class="token punctuation">,</span>				<span class="token comment">--</span>
+			<span class="token number">4</span><span class="token punctuation">,</span>				<span class="token comment">-- 出怪随机间隔 4 ~ 4</span>
+			<span class="token string">"enemy_chaser"</span>	<span class="token comment">-- 怪物模板名 "enemy_chaser"</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+waves <span class="token operator">=</span> <span class="token punctuation">{</span>			<span class="token comment">-- 生成的波次</span>
+	<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>			<span class="token comment">-- 战役模式</span>
+		<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 第 3 波</span>
+			<span class="token punctuation">{</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token string">"PACK"</span><span class="token punctuation">,</span>	<span class="token comment">-- 出怪包模式</span>
+				<span class="token punctuation">{</span>
+					spawnPackId <span class="token operator">=</span> <span class="token string">"frogs"</span><span class="token punctuation">,</span>	<span class="token comment">-- 生成包 "frogs" 的怪物</span>
+					path <span class="token operator">=</span> <span class="token number">1</span>				<span class="token comment">-- 生成路径</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="4.4.3 生成器出怪模式" dir="auto" class="heading" id="4.4.3_生成器出怪模式_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.4.3 生成器出怪模式</h3></div><div class="el-p"><p dir="auto">通常用于给一些生成器实体发送出怪信号，用于检查是否正在出怪，播放动画等</p></div><div class="el-h4"><h4 data-heading="结构" dir="auto" class="heading" id="结构_2"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>结构</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">groups <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 组</span>
+	组名 <span class="token operator">=</span> <span class="token punctuation">{</span>
+		生成器名称<span class="token number">1</span><span class="token punctuation">:</span> str<span class="token punctuation">,</span>
+		<span class="token comment">-- 生成器名称2...</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+waves <span class="token operator">=</span> <span class="token punctuation">{</span>	<span class="token comment">-- 生成的波次</span>
+	<span class="token punctuation">{</span>		<span class="token comment">-- 战役模式（战役 1，英雄 2，钢铁 3）的生成</span>
+		<span class="token punctuation">{</span>	<span class="token comment">-- 第一波</span>
+			<span class="token punctuation">{</span>	<span class="token comment">-- 出怪 1</span>
+				延迟<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+				延迟随机变化值<span class="token punctuation">:</span> num<span class="token punctuation">,</span>
+				组<span class="token punctuation">:</span> int<span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token string">"CUSTOM"</span><span class="token punctuation">,</span>		<span class="token comment">-- 生成怪物模板名改为 "CUSTOM"</span>
+				为生成器的 spawner<span class="token punctuation">.</span>spawn_data 键传递的数据<span class="token punctuation">:</span> any
+			<span class="token punctuation">}</span><span class="token punctuation">,</span>
+			<span class="token comment">-- 出怪 2...</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token comment">-- 第二波...</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token comment">-- 英雄模式的生成</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_3"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 关卡数据</span>
+entities_list <span class="token operator">=</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">{</span>
+		template <span class="token operator">=</span> <span class="token string">"bullywag_spawner"</span><span class="token punctuation">,</span>
+		pos <span class="token operator">=</span> <span class="token punctuation">{</span>
+			x <span class="token operator">=</span> <span class="token number">260</span><span class="token punctuation">,</span>
+			y <span class="token operator">=</span> <span class="token number">147</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token punctuation">[</span><span class="token string">"spawner.name"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"object1"</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token punctuation">{</span>	<span class="token comment">-- 加载的特殊出怪数据</span>
+		template <span class="token operator">=</span> <span class="token string">"mega_spawner"</span><span class="token punctuation">,</span>
+		load_file <span class="token operator">=</span> <span class="token string">"level417_spawner"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+<span class="token comment">-- 特殊出怪数据</span>
+groups <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 组</span>
+	<span class="token punctuation">{</span>
+		<span class="token number">1</span>		<span class="token comment">-- 组 1 生成在点位 1</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	som1 <span class="token operator">=</span> <span class="token punctuation">{</span>
+		<span class="token string">"object1"</span><span class="token punctuation">,</span>	<span class="token comment">-- 组 "som1" 为 "object1" 也就是 "bullywag_spawner" 传递数据</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+points <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 点位</span>
+	<span class="token punctuation">{</span>			<span class="token comment">-- 点位 1</span>
+		path <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span>	<span class="token comment">-- 位于路径 3</span>
+		from <span class="token operator">=</span> <span class="token punctuation">{</span>	<span class="token comment">-- 点位坐标</span>
+			x <span class="token operator">=</span> <span class="token number">260</span><span class="token punctuation">,</span>
+			y <span class="token operator">=</span> <span class="token number">147</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		to <span class="token operator">=</span> <span class="token punctuation">{</span>
+			x <span class="token operator">=</span> <span class="token number">260</span><span class="token punctuation">,</span>
+			y <span class="token operator">=</span> <span class="token number">147</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+waves <span class="token operator">=</span> <span class="token punctuation">{</span>			<span class="token comment">-- 生成的波次</span>
+	<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>			<span class="token comment">-- 战役模式</span>
+		<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>		<span class="token comment">-- 第 3 波</span>
+			<span class="token punctuation">{</span>		<span class="token comment">-- 出怪前 1.6 秒（动画时间）给 "som1" 组内的所有生成器传递 true</span>
+				<span class="token number">1</span><span class="token punctuation">,</span>			<span class="token comment">-- 延迟</span>
+				<span class="token number">0</span><span class="token punctuation">,</span>			<span class="token comment">-- 延迟随机变化值</span>
+				<span class="token string">"som1"</span><span class="token punctuation">,</span>		<span class="token comment">-- 组 "som1"</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token keyword">nil</span><span class="token punctuation">,</span>
+				<span class="token string">"CUSTOM"</span><span class="token punctuation">,</span>	<span class="token comment">-- 生成器模式</span>
+				<span class="token keyword">true</span>		<span class="token comment">-- 为生成器的 spawner.spawn_data 键传递的数据</span>
+			<span class="token punctuation">}</span><span class="token punctuation">,</span>
+			<span class="token punctuation">{</span>
+				<span class="token number">2.6</span><span class="token punctuation">,</span>		<span class="token comment">-- 延迟 2.6 帧</span>
+				<span class="token number">0</span><span class="token punctuation">,</span>			<span class="token comment">-- 延迟不随机变化</span>
+				<span class="token number">1</span><span class="token punctuation">,</span>			<span class="token comment">-- 组 1</span>
+				<span class="token number">1</span><span class="token punctuation">,</span>			<span class="token comment">-- 生成子路径</span>
+				<span class="token number">1</span><span class="token punctuation">,</span>			<span class="token comment">-- 生成 1 个</span>
+				<span class="token keyword">false</span><span class="token punctuation">,</span>		<span class="token comment">-- 所有点位不同时出怪</span>
+				<span class="token keyword">true</span><span class="token punctuation">,</span>		<span class="token comment">-- 顺序出怪</span>
+				<span class="token number">4</span><span class="token punctuation">,</span>			<span class="token comment">--</span>
+				<span class="token number">4</span><span class="token punctuation">,</span>			<span class="token comment">-- 出怪随机间隔 4 ~ 4</span>
+				<span class="token string">"enemy_chaser"</span>	<span class="token comment">-- 怪物模板名 "enemy_chaser"</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">-- 生成器实体更新函数</span>
+<span class="token keyword">function</span> scripts<span class="token punctuation">.</span>basic_spawner<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>this<span class="token punctuation">,</span> store<span class="token punctuation">,</span> script<span class="token punctuation">)</span>
+	<span class="token keyword">while</span> <span class="token keyword">true</span> <span class="token keyword">do</span>
+		<span class="token keyword">if</span> this<span class="token punctuation">.</span>spawner<span class="token punctuation">.</span>spawn_data <span class="token keyword">then</span>
+			<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"当前生成器生成怪物"</span><span class="token punctuation">)</span>
+			
+			this<span class="token punctuation">.</span>spawner<span class="token punctuation">.</span>spawn_data <span class="token operator">=</span> <span class="token keyword">nil</span>
+		<span class="token keyword">else</span>
+			<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"当前生成器未生成怪物"</span><span class="token punctuation">)</span>
+		<span class="token keyword">end</span>
+
+		coroutine<span class="token punctuation">.</span><span class="token function">yield</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">end</span>
+
+	<span class="token function">queue_remove</span><span class="token punctuation">(</span>store<span class="token punctuation">,</span> this<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="4.5 网格（grid）" dir="auto" class="heading" id="4.5_网格（grid）_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.5 网格（grid）</h2></div><div class="el-p"><p dir="auto">网格用于通过设定单元格类型来设定地形，例如水路、冰面等。实体可以通过判断地形来进行一些逻辑，例如判断脚下地形如果是冰面则开始滑冰增加移动速度。网格同时也会规范寻路。</p></div><div class="el-p"><p dir="auto">网格缩写为 GR</p></div><div class="el-p"><p dir="auto"><span alt="Pasted image 20251223100412.png" src="site-lib/media/pasted-image-20251223100412.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 600px; max-width: 100%;"><img alt="Pasted image 20251223100412.png" src="site-lib/media/pasted-image-20251223100412.png" target="_self" style="width: 600px; max-width: 100%;"></span><br>
+如图所示绿色部分的单元格类型为不可移动，也就是说修改英雄集结点英雄只会在灰色部分寻路，关卡内按 <code>g</code> 显示网格</p></div><div class="el-p"><p dir="auto"><strong>存储位置</strong>：<code>all/grid_db</code> 的 <code>grid</code> 表中<br>
+<strong>读取位置</strong>：读取 <code>kr/data/levels</code> 中的关卡网格数据（<code>_grid</code>）</p></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4._关卡_0" data-path="#4._关卡_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4. 关卡">4. 关卡</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4.1_关卡数据_0" data-path="#4.1_关卡数据_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4.1 关卡数据">4.1 关卡数据</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#结构：_0" data-path="#结构：_0"><div class="tree-item-inner heading-link" heading-name="结构：">结构：</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4.2_路径（path）_0" data-path="#4.2_路径（path）_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4.2 路径（path）">4.2 路径（path）</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4.2.1_随机在路径上召唤实体_0" data-path="#4.2.1_随机在路径上召唤实体_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4.2.1 随机在路径上召唤实体">4.2.1 随机在路径上召唤实体</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#示例_0" data-path="#示例_0"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4.3_波次数据_0" data-path="#4.3_波次数据_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4.3 波次数据">4.3 波次数据</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#4.3.1_结构_0" data-path="#4.3.1_结构_0"><div class="tree-item-inner heading-link" heading-name="4.3.1 结构">4.3.1 结构</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#4.3.2_修改出怪_0" data-path="#4.3.2_修改出怪_0"><div class="tree-item-inner heading-link" heading-name="4.3.2 修改出怪">4.3.2 修改出怪</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#4.3.3_加载资源_0" data-path="#4.3.3_加载资源_0"><div class="tree-item-inner heading-link" heading-name="4.3.3 加载资源">4.3.3 加载资源</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4.4_特殊出怪_0" data-path="#4.4_特殊出怪_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4.4 特殊出怪">4.4 特殊出怪</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4.4.1_正常出怪模式_0" data-path="#4.4.1_正常出怪模式_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4.4.1 正常出怪模式">4.4.1 正常出怪模式</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#结构_0" data-path="#结构_0"><div class="tree-item-inner heading-link" heading-name="结构">结构</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#示例_1" data-path="#示例_1"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4.4.2_出怪包模式_0" data-path="#4.4.2_出怪包模式_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4.4.2 出怪包模式">4.4.2 出怪包模式</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#结构_1" data-path="#结构_1"><div class="tree-item-inner heading-link" heading-name="结构">结构</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#示例_2" data-path="#示例_2"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-2-节-修改基础/4.-关卡.html#4.4.3_生成器出怪模式_0" data-path="#4.4.3_生成器出怪模式_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4.4.3 生成器出怪模式">4.4.3 生成器出怪模式</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#结构_2" data-path="#结构_2"><div class="tree-item-inner heading-link" heading-name="结构">结构</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#示例_3" data-path="#示例_3"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="第-2-节-修改基础/4.-关卡.html#4.5_网格（grid）_0" data-path="#4.5_网格（grid）_0"><div class="tree-item-inner heading-link" heading-name="4.5 网格（grid）">4.5 网格（grid）</div></a><div class="tree-item-children"></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>

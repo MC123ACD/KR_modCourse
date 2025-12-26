@@ -1,0 +1,850 @@
+<!DOCTYPE html> <html lang="zh-cn"><head>
+<title>5. 控制结构</title>
+<base href="..">
+<meta name="pathname" content="第-1-节-语法/5.-控制结构.html">
+<meta name="description" content="王国保卫战修改教程 - 5. 控制结构">
+<meta property="og:title" content="5. 控制结构">
+<meta property="og:description" content="王国保卫战修改教程 - 5. 控制结构">
+<meta property="og:type" content="website">
+<meta property="og:url" content="第-1-节-语法/5.-控制结构.html">
+<meta property="og:image" content="undefined">
+<meta charset="UTF-8"><meta property="og:site_name" content="王国保卫战修改教程"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="preload" href="site-lib/styles/snippets.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/snippets.css"></noscript><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/other-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/other-plugins.css"></noscript><link rel="stylesheet" href="site-lib/styles/theme.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/supported-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/supported-plugins.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager mod-windows is-frameless is-hidden-frameless styled-scrollbars show-inline-title show-ribbon background-settings-workplace-theme-dark-in-the-sky background-image-settings-markdown-page-custom notebook-liked-markdown-page-grid-notebook-1 panel-page-bg-theme-light-custom panel-page-bg-theme-dark-plant hide-left-ribbon-retention-drawer toggle-divider-lines toggle-header-bottom-line bt-bubble-layout bt-bubble-layout-hide-borders remove-heading-indicator h1-toggle-underline toggle-left-aligned-content fancy-hr-no-icon custom-unordered-list custom-ordered-list list-no-border folder-icons bt-toggle-colorful-folder folder-style-change-options-colorful-default folder-colorful-one table-width-auto table-style-two link-underline-internal enable-alternative-checkboxes default-loading-page loading-text-typing-style rainbow-tag translucent-setting-panel underline-tab-style canvas-card-text-middle admonition-bg-color-same toggle-calendar-shadow style-options-for-buttons-plugin dataview-list-style-pacman memos-banner-gradient thino-frosted-style thino-background-default quiet-outline-optimize code-theme-sublime is-focused"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event allow-fold-headings show-indentation-guide show-properties is-readable-line-width" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer"><div class="header"><h1 class="page-title heading inline-title" id="5._控制结构_0">5. 控制结构</h1><div class="data-bar"></div></div><div class="markdown-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-h2"><h2 data-heading="5.1 条件判断：if 语句" dir="auto" class="heading" id="5.1_条件判断：if_语句_0">5.1 条件判断：if 语句</h2></div><div class="el-p"><p dir="auto">控制结构是编程中实现逻辑决策和重复执行的关键。在 Lua 中，最基本的控制结构是 if 语句。</p></div><div class="el-h3"><h3 data-heading="5.1.1 基本 if 语句" dir="auto" class="heading" id="5.1.1_基本_if_语句_0">5.1.1 基本 if 语句</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">if</span> 条件 <span class="token keyword">then</span>
+    <span class="token comment">-- 条件为真时执行的条件代码块</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_0">示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例：检查玩家生命值</span>
+<span class="token keyword">local</span> health <span class="token operator">=</span> <span class="token number">75</span>
+
+<span class="token keyword">if</span> health <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家还活着"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="错误示例" dir="auto" class="heading" id="错误示例_0">错误示例</h4></div><div class="el-p"><p dir="auto">还记得学过的 <a data-href="2. 基础语法规则#1 代码块" href="第-1-节-语法/2.-基础语法规则.html#1 代码块" class="internal-link" target="_self" rel="noopener nofollow">2. 基础语法规则 &gt; 1 代码块</a> 吗？这里条件语句中的条件代码块也是局部作用域</p></div><div class="el-p"><p dir="auto"><strong>错误 1</strong>：局部作用域内的局部变量外部不可见</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">if</span> <span class="token keyword">true</span> <span class="token keyword">then</span>
+    <span class="token keyword">local</span> health <span class="token operator">=</span> <span class="token number">999</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span>health<span class="token punctuation">)</span>	<span class="token comment">-- 错误！</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto"><strong>错误 2</strong>： 意外定义全局变量</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">if</span> <span class="token keyword">true</span> <span class="token keyword">then</span>
+    health <span class="token operator">=</span> <span class="token number">999</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span>health<span class="token punctuation">)</span>	<span class="token comment">-- 错误！输出 999，虽然成功输出但是意外定义了全局变量，全局变量应避免滥用</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto"><strong>正确方法</strong>：</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> health	<span class="token comment">-- 提前定义局部变量</span>
+
+<span class="token keyword">if</span> <span class="token keyword">true</span> <span class="token keyword">then</span>
+    health <span class="token operator">=</span> <span class="token number">999</span>	<span class="token comment">-- 这里程序会优先查找有没有已定义的局部变量，所以是给上面定义的局部变量赋值</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span>health<span class="token punctuation">)</span>	<span class="token comment">-- 正确！输出 999</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.1.2 if-else 语句" dir="auto" class="heading" id="5.1.2_if-else_语句_0">5.1.2 if-else 语句</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">if</span> 条件 <span class="token keyword">then</span>
+    <span class="token comment">-- 条件为真时执行的条件代码块</span>
+<span class="token keyword">else</span>
+    <span class="token comment">-- 条件为假时执行的条件代码块</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_1">示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例：判断玩家是否存活</span>
+<span class="token keyword">local</span> health <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword">if</span> health <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家还活着"</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"当前生命值："</span> <span class="token operator">..</span> health<span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家已死亡"</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"游戏结束"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.1.3 if-elseif-else 语句" dir="auto" class="heading" id="5.1.3_if-elseif-else_语句_0">5.1.3 if-elseif-else 语句</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">if</span> 条件<span class="token number">1</span> <span class="token keyword">then</span>
+    <span class="token comment">-- 条件1为真时执行的条件代码块</span>
+<span class="token keyword">elseif</span> 条件<span class="token number">2</span> <span class="token keyword">then</span>
+    <span class="token comment">-- 条件2为真时执行的条件代码块</span>
+<span class="token keyword">elseif</span> 条件<span class="token number">3</span> <span class="token keyword">then</span>
+    <span class="token comment">-- 条件3为真时执行的条件代码块</span>
+<span class="token keyword">else</span>
+    <span class="token comment">-- 所有条件都为假时执行的条件代码块</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_2">示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例：游戏难度选择</span>
+<span class="token keyword">local</span> difficulty_level <span class="token operator">=</span> <span class="token string">"hard"</span>
+<span class="token keyword">local</span> enemy_health<span class="token punctuation">,</span> player_health	<span class="token comment">-- 注意！：一定要提前定义局部变量，避免意外定义全局变量</span>
+
+<span class="token keyword">if</span> difficulty_level <span class="token operator">==</span> <span class="token string">"easy"</span> <span class="token keyword">then</span>
+    enemy_health <span class="token operator">=</span> <span class="token number">50</span>
+    player_health <span class="token operator">=</span> <span class="token number">200</span>
+<span class="token keyword">elseif</span> difficulty_level <span class="token operator">==</span> <span class="token string">"normal"</span> <span class="token keyword">then</span>
+    enemy_health <span class="token operator">=</span> <span class="token number">100</span>
+    player_health <span class="token operator">=</span> <span class="token number">150</span>
+<span class="token keyword">elseif</span> difficulty_level <span class="token operator">==</span> <span class="token string">"hard"</span> <span class="token keyword">then</span>
+    enemy_health <span class="token operator">=</span> <span class="token number">150</span>
+    player_health <span class="token operator">=</span> <span class="token number">100</span>
+<span class="token keyword">elseif</span> difficulty_level <span class="token operator">==</span> <span class="token string">"insane"</span> <span class="token keyword">then</span>
+    enemy_health <span class="token operator">=</span> <span class="token number">200</span>
+    player_health <span class="token operator">=</span> <span class="token number">50</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"无效的难度设置，使用默认难度"</span><span class="token punctuation">)</span>
+    enemy_health <span class="token operator">=</span> <span class="token number">100</span>
+    player_health <span class="token operator">=</span> <span class="token number">150</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"难度："</span> <span class="token operator">..</span> difficulty_level<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"敌人生命值："</span> <span class="token operator">..</span> enemy_health<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家生命值："</span> <span class="token operator">..</span> player_health<span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.1.4 嵌套 if 语句" dir="auto" class="heading" id="5.1.4_嵌套_if_语句_0">5.1.4 嵌套 if 语句</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例：等级解锁关卡检查</span>
+<span class="token keyword">local</span> player_level <span class="token operator">=</span> <span class="token number">10</span>
+
+<span class="token keyword">local</span> info_level <span class="token operator">=</span> <span class="token string">"森林"</span>	<span class="token comment">-- 模拟玩家点击关卡</span>
+<span class="token keyword">local</span> level_mode <span class="token operator">=</span> <span class="token string">"夜晚模式"</span>
+
+<span class="token comment">-- 外层检查</span>
+<span class="token keyword">if</span> info_level <span class="token operator">==</span> <span class="token string">"森林"</span> <span class="token keyword">then</span>
+    <span class="token comment">-- 内层检查</span>
+    <span class="token keyword">if</span> player_level <span class="token operator">&gt;=</span> <span class="token number">1</span> <span class="token keyword">then</span>	<span class="token comment">-- 玩家等级大于等于 1</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家等级足够，可以进入森林"</span><span class="token punctuation">)</span>
+        
+        <span class="token comment">-- 更深层的检查</span>
+        <span class="token keyword">if</span> level_mode <span class="token operator">==</span> <span class="token string">"夜晚模式"</span> <span class="token keyword">then</span>	<span class="token comment">-- 判断关卡模式</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家进入夜晚的森林"</span><span class="token punctuation">)</span>
+        <span class="token keyword">elseif</span> level_mode <span class="token operator">==</span> <span class="token string">"白天模式"</span> <span class="token keyword">then</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家进入白天的森林"</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"未知模式"</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">else</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家等级不足，不能进入森林"</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">elseif</span> info_level <span class="token operator">==</span> <span class="token string">"雪地"</span> <span class="token keyword">then</span>
+    <span class="token comment">-- 内层检查</span>
+    <span class="token keyword">if</span> player_level <span class="token operator">&gt;=</span> <span class="token number">11</span> <span class="token keyword">then</span>	<span class="token comment">-- 玩家等级大于等于 11</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家等级足够，可以进入雪地"</span><span class="token punctuation">)</span>
+        
+        <span class="token comment">-- 更深层的检查</span>
+        <span class="token keyword">if</span> level_mode <span class="token operator">==</span> <span class="token string">"夜晚模式"</span> <span class="token keyword">then</span>	<span class="token comment">-- 判断关卡模式</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家进入夜晚的雪地"</span><span class="token punctuation">)</span>
+        <span class="token keyword">elseif</span> level_mode <span class="token operator">==</span> <span class="token string">"白天模式"</span> <span class="token keyword">then</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家进入白天的雪地"</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"未知模式"</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">else</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家等级不足，不能进入雪地"</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"未知关卡"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.1.5 条件表达式中的逻辑运算符" dir="auto" class="heading" id="5.1.5_条件表达式中的逻辑运算符_0">5.1.5 条件表达式中的逻辑运算符</h3></div><div class="el-h4"><h4 data-heading="1. 使用 and 连接多个条件" dir="auto" class="heading" id="1._使用_and_连接多个条件_0">1. 使用 and 连接多个条件</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> age <span class="token operator">=</span> <span class="token number">25</span>
+<span class="token keyword">local</span> has_license <span class="token operator">=</span> <span class="token keyword">true</span>
+
+<span class="token keyword">if</span> age <span class="token operator">&gt;=</span> <span class="token number">18</span> <span class="token keyword">and</span> has_license <span class="token keyword">then</span>	<span class="token comment">-- 如果年龄大于等于 18，并且有驾驶证</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"可以驾驶"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"不能驾驶"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="2. 使用 or 表示多个条件之一成立" dir="auto" class="heading" id="2._使用_or_表示多个条件之一成立_0">2. 使用 or 表示多个条件之一成立</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> is_weekend <span class="token operator">=</span> <span class="token keyword">false</span>
+<span class="token keyword">local</span> is_holiday <span class="token operator">=</span> <span class="token keyword">true</span>
+
+<span class="token keyword">if</span> is_weekend <span class="token keyword">or</span> is_holiday <span class="token keyword">then</span>	<span class="token comment">-- 如果是周末，或者是节假日</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"今天是休息日"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"今天是工作日"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="3. 使用not进行条件取反" dir="auto" class="heading" id="3._使用not进行条件取反_0">3. 使用not进行条件取反</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> is_raining <span class="token operator">=</span> <span class="token keyword">false</span>
+
+<span class="token keyword">if</span> <span class="token keyword">not</span> is_raining <span class="token keyword">then</span>		<span class="token comment">-- 如果没有下雨</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"天气晴朗，适合外出"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"下雨了，记得带伞"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="4. 复杂条件组合" dir="auto" class="heading" id="4._复杂条件组合_0">4. 复杂条件组合</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> temperature <span class="token operator">=</span> <span class="token number">28</span>
+<span class="token keyword">local</span> is_sunny <span class="token operator">=</span> <span class="token keyword">true</span>
+<span class="token keyword">local</span> has_umbrella <span class="token operator">=</span> <span class="token keyword">false</span>
+
+<span class="token comment">-- 如果温度大于 25 度，并且是晴天，或者不是晴天，并且带了伞</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>temperature <span class="token operator">&gt;</span> <span class="token number">25</span> <span class="token keyword">and</span> is_sunny<span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">(</span><span class="token keyword">not</span> is_sunny <span class="token keyword">and</span> has_umbrella<span class="token punctuation">)</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"适合去公园"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"最好待在家里"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="5. 示例" dir="auto" class="heading" id="5._示例_0">5. 示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> player_level <span class="token operator">=</span> <span class="token number">15</span>
+<span class="token keyword">local</span> has_quest_item <span class="token operator">=</span> <span class="token keyword">true</span>
+<span class="token keyword">local</span> completed_prerequisite <span class="token operator">=</span> <span class="token keyword">false</span>
+
+<span class="token comment">-- 如果玩家等级大于等于 10 并且有任务物品以及完成前置任务</span>
+<span class="token keyword">if</span> player_level <span class="token operator">&gt;=</span> <span class="token number">10</span> <span class="token keyword">and</span> has_quest_item <span class="token keyword">and</span> completed_prerequisite <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"可以接受新任务"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"条件不足，无法接受任务"</span><span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 提供具体反馈</span>
+    <span class="token keyword">if</span> player_level <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"需要达到10级"</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token keyword">if</span> <span class="token keyword">not</span> has_quest_item <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"需要任务物品"</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token keyword">if</span> <span class="token keyword">not</span> completed_prerequisite <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"需要完成前置任务"</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="5.2 循环结构" dir="auto" class="heading" id="5.2_循环结构_0">5.2 循环结构</h2></div><div class="el-p"><p dir="auto">循环允许我们重复执行一段代码，直到满足特定条件为止。</p></div><div class="el-h3"><h3 data-heading="5.2.1 while 循环" dir="auto" class="heading" id="5.2.1_while_循环_0">5.2.1 while 循环</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">while</span> 条件 <span class="token keyword">do</span>
+    <span class="token comment">-- 循环体（条件为真时重复执行）</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_3">示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例：简单的计数器</span>
+<span class="token keyword">local</span> count <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">while</span> count <span class="token operator">&lt;=</span> <span class="token number">5</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"当前计数："</span> <span class="token operator">..</span> count<span class="token punctuation">)</span>
+    count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span>  <span class="token comment">-- 注意！：不要忘记改变循环条件</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+当前计数：1
+当前计数：2
+当前计数：3
+当前计数：4
+当前计数：5
+--]]</span>
+
+<span class="token comment">-- 注意：如果没有正确改变条件，可能导致无限循环！</span>
+<span class="token comment">-- local count = 1</span>
+<span class="token comment">-- while count &lt;= 5 do</span>
+<span class="token comment">--     print("无限循环？")  -- count永远不大于5，所以会一直执行</span>
+<span class="token comment">--     -- 忘记写 count = count + 1</span>
+<span class="token comment">-- end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_4">示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 实际应用：等待玩家准备</span>
+<span class="token keyword">local</span> is_player_ready <span class="token operator">=</span> <span class="token keyword">false</span>
+<span class="token keyword">local</span> wait_time <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">local</span> max_wait_time <span class="token operator">=</span> <span class="token number">30</span>  <span class="token comment">-- 最大等待30秒</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"等待玩家准备..."</span><span class="token punctuation">)</span>
+<span class="token comment">-- 如果玩家没有准备，并且没有超过最大等待时间</span>
+<span class="token keyword">while</span> <span class="token keyword">not</span> is_player_ready <span class="token keyword">and</span> wait_time <span class="token operator">&lt;</span> max_wait_time <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"等待中... 已等待"</span> <span class="token operator">..</span> wait_time <span class="token operator">..</span> <span class="token string">"秒"</span><span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 模拟每秒检查一次</span>
+    <span class="token comment">-- 在实际游戏中，这里可能会有网络检查或用户输入检查</span>
+    wait_time <span class="token operator">=</span> wait_time <span class="token operator">+</span> <span class="token number">1</span>
+    
+    <span class="token comment">-- 模拟玩家在第5秒时准备好</span>
+    <span class="token keyword">if</span> wait_time <span class="token operator">==</span> <span class="token number">5</span> <span class="token keyword">then</span>
+        is_player_ready <span class="token operator">=</span> <span class="token keyword">true</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"玩家已准备好！"</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">if</span> <span class="token keyword">not</span> is_player_ready <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"等待超时，开始游戏"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"游戏开始"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+等待玩家准备...
+等待中... 已等待0秒
+等待中... 已等待1秒
+等待中... 已等待2秒
+等待中... 已等待3秒
+等待中... 已等待4秒
+玩家已准备好！
+游戏开始
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.2.2 repeat-until 后判断循环" dir="auto" class="heading" id="5.2.2_repeat-until_后判断循环_0">5.2.2 repeat-until 后判断循环</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">repeat</span>
+    <span class="token comment">-- 循环体</span>
+<span class="token keyword">until</span> 条件  <span class="token comment">-- 当条件为真时停止循环</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_5">示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例：密码验证（至少尝试一次）</span>
+<span class="token keyword">local</span> correct_password <span class="token operator">=</span> <span class="token string">"123456"</span>
+<span class="token keyword">local</span> user_password
+<span class="token keyword">local</span> attempts <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword">repeat</span>
+    attempts <span class="token operator">=</span> attempts <span class="token operator">+</span> <span class="token number">1</span>
+
+    <span class="token comment">-- 模拟用户输入</span>
+    <span class="token keyword">if</span> attempts <span class="token operator">==</span> <span class="token number">1</span> <span class="token keyword">then</span>
+        user_password <span class="token operator">=</span> <span class="token string">"111111"</span>  <span class="token comment">-- 错误密码</span>
+    <span class="token keyword">elseif</span> attempts <span class="token operator">==</span> <span class="token number">2</span> <span class="token keyword">then</span>
+        user_password <span class="token operator">=</span> <span class="token string">"654321"</span>  <span class="token comment">-- 错误密码</span>
+    <span class="token keyword">else</span>
+        user_password <span class="token operator">=</span> <span class="token string">"123456"</span>  <span class="token comment">-- 正确密码</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"第"</span> <span class="token operator">..</span> attempts <span class="token operator">..</span> <span class="token string">"次尝试输入密码"</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">if</span> user_password <span class="token operator">~=</span> correct_password <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>user_password <span class="token operator">..</span> <span class="token string">"密码错误，请重试"</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">until</span> user_password <span class="token operator">==</span> correct_password
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"密码正确，登录成功！"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"总共尝试次数："</span> <span class="token operator">..</span> attempts<span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+第1次尝试输入密码
+111111密码错误，请重试
+第2次尝试输入密码
+654321密码错误，请重试
+第3次尝试输入密码
+密码正确，登录成功！
+总共尝试次数：3
+--]]</span>
+
+<span class="token comment">-- 游戏中的实际应用：玩家生命值恢复</span>
+<span class="token keyword">local</span> player_health <span class="token operator">=</span> <span class="token number">30</span>
+<span class="token keyword">local</span> max_health <span class="token operator">=</span> <span class="token number">60</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"初始生命值："</span> <span class="token operator">..</span> player_health<span class="token punctuation">)</span>
+
+<span class="token keyword">repeat</span>
+	<span class="token comment">-- 模拟每秒恢复一次</span>
+    player_health <span class="token operator">=</span> player_health <span class="token operator">+</span> <span class="token number">10</span>
+    
+    <span class="token keyword">if</span> player_health <span class="token operator">&gt;</span> max_health <span class="token keyword">then</span>
+        player_health <span class="token operator">=</span> max_health
+    <span class="token keyword">end</span>
+    
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"血量恢复！当前生命值："</span> <span class="token operator">..</span> player_health<span class="token punctuation">)</span>
+    <span class="token comment">-- 直到血量回满</span>
+<span class="token keyword">until</span> player_health <span class="token operator">==</span> max_health
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"生命值已满！"</span><span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+初始生命值：30
+血量恢复！当前生命值：40
+血量恢复！当前生命值：50
+血量恢复！当前生命值：60
+生命值已满！
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="while 与 repeat-until 对比" dir="auto" class="heading" id="while_与_repeat-until_对比_0">while 与 repeat-until 对比</h4></div><div class="el-p"><p dir="auto"><strong>首先需要明确语义</strong>：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">while 循环：当条件为真时，继续执行循环体；当条件为假时，退出循环。</li>
+<li data-line="1" dir="auto">repeat-until 循环：重复执行循环体，直到条件为真时退出（即条件为真时结束循环）</li>
+</ol></div><div class="el-p"><p dir="auto">即：在 repeat-until 循环中，设置的条件是<strong>退出循环的条件</strong>，而在 while 循环中，设置的条件是<strong>继续循环的条件</strong>。<br>
+所以：<strong>两个循环设置的条件完全相反</strong></p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- while</span>
+<span class="token keyword">local</span> count <span class="token operator">=</span> <span class="token number">10</span>
+
+<span class="token keyword">while</span> count <span class="token operator">&lt;</span> <span class="token number">5</span> <span class="token keyword">do</span>  <span class="token comment">-- 继续循环的条件：计数小于 5，一开始就不成立</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"while循环执行"</span><span class="token punctuation">)</span>  <span class="token comment">-- 循环体不会执行</span>
+    count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"while循环结束，count = "</span> <span class="token operator">..</span> count<span class="token punctuation">)</span>		<span class="token comment">-- 输出 10</span>
+
+<span class="token comment">-- repeat-until</span>
+<span class="token keyword">local</span> count <span class="token operator">=</span> <span class="token number">10</span>
+
+<span class="token keyword">repeat</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"repeat-until循环执行"</span><span class="token punctuation">)</span>  <span class="token comment">-- 循环体至少会执行一次</span>
+    count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token keyword">until</span> count <span class="token operator">&gt;=</span> <span class="token number">5</span>  <span class="token comment">-- 结束循环的条件：计算大于等于 5，检查在循环体之后</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"repeat-until循环结束，count = "</span> <span class="token operator">..</span> count<span class="token punctuation">)</span>	<span class="token comment">-- 输出 11</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.2.3 for 循环：数值 for" dir="auto" class="heading" id="5.2.3_for_循环：数值_for_0">5.2.3 for 循环：数值 for</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">for</span> 变量 <span class="token operator">=</span> 起始值<span class="token punctuation">,</span> 结束值<span class="token punctuation">,</span> 步长 <span class="token keyword">do</span>
+    <span class="token comment">-- 循环体</span>
+<span class="token keyword">end</span>
+<span class="token comment">-- 步长可以省略，默认为1</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_6">示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"=== 从1到5 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"i = "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+i = 1
+i = 2
+i = 3
+i = 4
+i = 5
+--]]</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 从5到1（递减）==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"i = "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+i = 5
+i = 4
+i = 3
+i = 2
+i = 1
+--]]</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 从0到10，步长为2 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">2</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"偶数: "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+偶数: 0
+偶数: 2
+偶数: 4
+偶数: 6
+偶数: 8
+--]]</span>
+
+<span class="token comment">-- 注意：for循环变量是局部变量</span>
+<span class="token keyword">for</span> index <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"循环内 index = "</span> <span class="token operator">..</span> index<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"循环外 index = "</span> <span class="token operator">..</span> index<span class="token punctuation">)</span>  <span class="token comment">-- 错误！index 在这里不可访问</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="实际应用" dir="auto" class="heading" id="实际应用_0">实际应用</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 计算示例：累加和阶乘</span>
+<span class="token keyword">local</span> sum <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">local</span> factorial <span class="token operator">=</span> <span class="token number">1</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 计算1到10的和与10的阶乘 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    sum <span class="token operator">=</span> sum <span class="token operator">+</span> i
+    factorial <span class="token operator">=</span> factorial <span class="token operator">*</span> i
+<span class="token keyword">end</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"1到10的和 = "</span> <span class="token operator">..</span> sum<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"10的阶乘 = "</span> <span class="token operator">..</span> factorial<span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+1到10的和 = 55
+10的阶乘 = 3628800
+--]]</span>
+
+<span class="token comment">-- 生成乘法表</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 乘法表 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">9</span> <span class="token keyword">do</span>
+    <span class="token keyword">for</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> i <span class="token keyword">do</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>j <span class="token operator">..</span> <span class="token string">" × "</span> <span class="token operator">..</span> i <span class="token operator">..</span> <span class="token string">" = "</span> <span class="token operator">..</span> i <span class="token operator">*</span> j<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+1 × 1 = 1
+1 × 2 = 2
+...
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.2.4 循环控制：break 语句" dir="auto" class="heading" id="5.2.4_循环控制：break_语句_0">5.2.4 循环控制：break 语句</h3></div><div class="el-p"><p dir="auto">break用于立即退出当前循环</p></div><div class="el-h4"><h4 data-heading="示例" dir="auto" class="heading" id="示例_7">示例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例：寻找第一个能被7整除的数</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">100</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">7</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"找到第一个能被7整除的数："</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+
+        <span class="token keyword">break</span>  <span class="token comment">-- 找到后立即退出循环</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token comment">-- 输出 找到第一个能被7整除的数：14</span>
+
+<span class="token comment">-- 游戏示例：搜索敌人直到找到首领</span>
+<span class="token keyword">local</span> enemies <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"小兵"</span><span class="token punctuation">,</span> <span class="token string">"小兵"</span><span class="token punctuation">,</span> <span class="token string">"小兵"</span><span class="token punctuation">,</span> <span class="token string">"小兵"</span><span class="token punctuation">,</span> <span class="token string">"首领"</span><span class="token punctuation">,</span> <span class="token string">"小兵"</span><span class="token punctuation">}</span>
+<span class="token keyword">local</span> boss_found
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"=== 搜索敌人 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> index<span class="token punctuation">,</span> enemy <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>enemies<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"遭遇："</span> <span class="token operator">..</span> enemy<span class="token punctuation">)</span>
+    
+    <span class="token keyword">if</span> enemy <span class="token operator">==</span> <span class="token string">"首领"</span> <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"找到首领！开始战斗"</span><span class="token punctuation">)</span>
+        boss_found <span class="token operator">=</span> <span class="token keyword">true</span>
+
+        <span class="token keyword">break</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"击败"</span> <span class="token operator">..</span> enemy<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">if</span> <span class="token keyword">not</span> boss_found <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"没有找到首领"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+遭遇：小兵
+击败小兵
+遭遇：小兵
+击败小兵
+遭遇：小兵
+击败小兵
+遭遇：小兵
+击败小兵
+遭遇：首领
+找到首领！开始战斗
+--]]</span>
+
+<span class="token comment">-- 注意：break只能用于循环中，不能用于if语句</span>
+<span class="token comment">-- if true then</span>
+<span class="token comment">--     break  -- 错误：break不在循环内</span>
+<span class="token comment">-- end</span>
+
+<span class="token comment">-- 多层循环中的break</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 多层循环中的break ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"外层循环 i = "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token keyword">do</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  内层循环 j = "</span> <span class="token operator">..</span> j<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">2</span> <span class="token keyword">and</span> j <span class="token operator">==</span> <span class="token number">2</span> <span class="token keyword">then</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  触发break，只退出内层循环"</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">break</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+外层循环 i = 1
+  内层循环 j = 1
+  内层循环 j = 2
+  内层循环 j = 3
+外层循环 i = 2
+  内层循环 j = 1
+  内层循环 j = 2
+  触发break，只退出内层循环
+外层循环 i = 3
+  内层循环 j = 1
+  内层循环 j = 2
+  内层循环 j = 3
+--]]</span>
+
+<span class="token comment">-- 无限循环中的break</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 无限循环与break ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> count <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword">while</span> <span class="token keyword">true</span> <span class="token keyword">do</span>  <span class="token comment">-- 故意创建无限循环</span>
+    count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"无限循环计数："</span> <span class="token operator">..</span> count<span class="token punctuation">)</span>
+    
+    <span class="token keyword">if</span> count <span class="token operator">&gt;=</span> <span class="token number">5</span> <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"达到5次，使用break退出"</span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"成功退出无限循环"</span><span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+无限循环计数：1
+无限循环计数：2
+无限循环计数：3
+无限循环计数：4
+无限循环计数：5
+达到5次，使用break退出
+成功退出无限循环
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.2.5 进入下一次循环" dir="auto" class="heading" id="5.2.5_进入下一次循环_0">5.2.5 进入下一次循环</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 与其他语言不同，Lua没有continue语句</span>
+<span class="token comment">-- 但我们可以用其他方法实现类似功能</span>
+
+<span class="token comment">-- 方法1：使用if语句包装</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"=== 方法1：使用if跳过单次循环 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">~=</span> <span class="token number">0</span> <span class="token keyword">then</span>  <span class="token comment">-- 如果不是偶数</span>
+        <span class="token comment">-- 执行代码（相当于跳过偶数）</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"奇数："</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+    <span class="token comment">-- 如果是偶数，这里什么都不做，相当于continue</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+奇数：1
+奇数：3
+奇数：5
+奇数：7
+奇数：9
+--]]</span>
+
+<span class="token comment">-- 方法2：使用反向逻辑</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 方法2：反向逻辑 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">then</span>  <span class="token comment">-- 如果是偶数</span>
+        <span class="token comment">-- 直接进入下一次迭代</span>
+        <span class="token comment">-- 在Lua中没有continue，所以我们用if的else部分</span>
+    <span class="token keyword">else</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"奇数："</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+奇数：1
+奇数：3
+奇数：5
+奇数：7
+奇数：9
+--]]</span>
+
+<span class="token comment">-- 方法3：使用 goto（Lua 5.1不支持，但 LuaJIT 2.0+ 支持）</span>
+<span class="token comment">-- 注意：Lua 5.1 不支持 goto，这里仅能用于 LuaJIT，这里仅说明，后续 LuaJIT 篇详细说明</span>
+<span class="token comment">-- for i = 1, 10 do</span>
+<span class="token comment">--    if i % 2 == 0 then</span>
+<span class="token comment">--        goto continue  -- 跳过后续代码</span>
+<span class="token comment">--    end</span>
+
+<span class="token comment">--    print("处理奇数：" .. i)</span>
+
+<span class="token comment">--    ::continue::</span>
+<span class="token comment">-- end</span>
+
+<span class="token comment">-- 方法4：使用嵌套的if-else</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 方法4：跳过特定条件的处理 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">6</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">5</span> <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"跳过数字5"</span><span class="token punctuation">)</span>
+        <span class="token comment">-- 什么都不做，相当于continue</span>
+    <span class="token keyword">else</span>
+        <span class="token comment">-- 正常处理</span>
+        <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">then</span>
+            <span class="token function">print</span><span class="token punctuation">(</span>i <span class="token operator">..</span> <span class="token string">"是偶数"</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span>
+            <span class="token function">print</span><span class="token punctuation">(</span>i <span class="token operator">..</span> <span class="token string">"是奇数"</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+1是奇数
+2是偶数
+3是奇数
+4是偶数
+跳过数字5
+6是偶数
+--]]</span>
+
+<span class="token comment">-- 实际游戏示例：处理敌人列表，跳过已死亡的敌人</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 敌人处理示例 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> enemies <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">{</span>name <span class="token operator">=</span> <span class="token string">"敌人A"</span><span class="token punctuation">,</span> health <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>name <span class="token operator">=</span> <span class="token string">"敌人B"</span><span class="token punctuation">,</span> health <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>  <span class="token comment">-- 已死亡</span>
+    <span class="token punctuation">{</span>name <span class="token operator">=</span> <span class="token string">"敌人C"</span><span class="token punctuation">,</span> health <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>name <span class="token operator">=</span> <span class="token string">"敌人D"</span><span class="token punctuation">,</span> health <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>  <span class="token comment">-- 已死亡</span>
+    <span class="token punctuation">{</span>name <span class="token operator">=</span> <span class="token string">"敌人E"</span><span class="token punctuation">,</span> health <span class="token operator">=</span> <span class="token number">80</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> index<span class="token punctuation">,</span> enemy <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>enemies<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token comment">-- 跳过已死亡的敌人（模拟continue）</span>
+    <span class="token keyword">if</span> enemy<span class="token punctuation">.</span>health <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"跳过已死亡的敌人："</span> <span class="token operator">..</span> enemy<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+        <span class="token comment">-- 在Lua 5.1中，我们只能这样"跳过"</span>
+        <span class="token comment">-- 实际的代码应该放在else块中</span>
+    <span class="token keyword">else</span>
+        <span class="token comment">-- 处理存活的敌人</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"攻击敌人："</span> <span class="token operator">..</span> enemy<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+        enemy<span class="token punctuation">.</span>health <span class="token operator">=</span> enemy<span class="token punctuation">.</span>health <span class="token operator">-</span> <span class="token number">20</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"敌人"</span> <span class="token operator">..</span> enemy<span class="token punctuation">.</span>name <span class="token operator">..</span> <span class="token string">"剩余生命值："</span> <span class="token operator">..</span> enemy<span class="token punctuation">.</span>health<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+攻击敌人：敌人A
+敌人敌人A剩余生命值：30
+跳过已死亡的敌人：敌人B
+攻击敌人：敌人C
+敌人敌人C剩余生命值：10
+跳过已死亡的敌人：敌人D
+攻击敌人：敌人E
+敌人敌人E剩余生命值：60
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="5.2.6 泛型 for 循环（初步了解）" dir="auto" class="heading" id="5.2.6_泛型_for_循环（初步了解）_0">5.2.6 泛型 for 循环（初步了解）</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 泛型for循环用于遍历表</span>
+<span class="token comment">-- 我们会在第7章详细学习表，这里先简单了解</span>
+
+<span class="token comment">-- 使用ipairs遍历数组部分（索引从1开始）</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"=== 使用ipairs遍历数组 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> monsters <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"哥布林"</span><span class="token punctuation">,</span> <span class="token string">"兽人"</span><span class="token punctuation">,</span> <span class="token string">"骷髅"</span><span class="token punctuation">,</span> <span class="token string">"僵尸"</span><span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> index<span class="token punctuation">,</span> m <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>monsters<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"第"</span> <span class="token operator">..</span> index <span class="token operator">..</span> <span class="token string">"个怪物: "</span> <span class="token operator">..</span> m<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+第1个怪物: 哥布林
+第2个怪物: 兽人
+第3个怪物: 骷髅
+第4个怪物: 僵尸
+--]]</span>
+
+<span class="token comment">-- 使用pairs遍历所有键值对</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n=== 使用pairs遍历表 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> player <span class="token operator">=</span> <span class="token punctuation">{</span>
+    name <span class="token operator">=</span> <span class="token string">"英雄"</span><span class="token punctuation">,</span>
+    level <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    health <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span>
+    class <span class="token operator">=</span> <span class="token string">"hero"</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>player<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>key <span class="token operator">..</span> <span class="token string">": "</span> <span class="token operator">..</span> value<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+class: hero
+level: 10
+name: 英雄
+health: 100
+--]]</span>
+<span class="token comment">-- 注：pairs的遍历顺序是无序的</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="5.3 练习" dir="auto" class="heading" id="5.3_练习_0">5.3 练习</h2></div><div class="el-h3"><h3 data-heading="练习 1：猜数字游戏" dir="auto" class="heading" id="练习_1：猜数字游戏_0">练习 1：猜数字游戏</h3></div><div class="el-p"><p dir="auto">（答案见 <a data-href="第 1 节 - 语法/参考答案#练习 5 1：猜数字游戏" href="第-1-节-语法/参考答案.html#练习 5 1：猜数字游戏" class="internal-link" target="_self" rel="noopener nofollow">第 1 节 - 语法/参考答案 &gt; 练习 5 1：猜数字游戏</a>）</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 使用以下代码生成 1 - 100 的随机数，设定一个最大尝试次数，模拟用户多次输入</span>
+<span class="token comment">-- 如果猜错了给出太小了还是太大了的提示，猜中数字或超过最大尝试次数退出循环</span>
+math<span class="token punctuation">.</span><span class="token function">randomseed</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> random_number <span class="token operator">=</span> math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="练习2：打印图形" dir="auto" class="heading" id="练习2：打印图形_0">练习2：打印图形</h3></div><div class="el-p"><p dir="auto">（答案见<a data-href="第 1 节 - 语法/参考答案#练习 5.2：打印图形" href="第-1-节-语法/参考答案.html#练习 5.2：打印图形" class="internal-link" target="_self" rel="noopener nofollow">第 1 节 - 语法/参考答案 &gt; 练习 5.2：打印图形</a>）</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 使用 io.write("*") （不换行的 print）打印星号与 print() 换行打印以下图形</span>
+<span class="token comment">-- 1. 打印直角三角形</span>
+<span class="token comment">-- 2. 打印倒直角三角形</span>
+<span class="token comment">-- 3. 打印等腰三角形</span>
+<span class="token comment">-- 4. 打印空心菱形</span>
+<span class="token comment">--[[ 输出
+1. 直角三角形:
+* 
+* * 
+* * * 
+* * * * 
+* * * * * 
+
+2. 倒直角三角形:
+* * * * * 
+* * * * 
+* * * 
+* * 
+* 
+
+3. 等腰三角形:
+    *
+   ***
+  *****
+ *******
+*********
+
+4. 空心菱形:
+    *
+   * *
+  *   *
+ *     *
+*       *
+ *     *
+  *   *
+   * *
+    *
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="5.4 本章总结" dir="auto" class="heading" id="5.4_本章总结_0">5.4 本章总结</h2></div><div class="el-h3"><h3 data-heading="关键知识点回顾" dir="auto" class="heading" id="关键知识点回顾_0">关键知识点回顾</h3></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto"><div class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div>
+<p><strong>条件语句</strong>：</p>
+<ul>
+<li data-line="1" dir="auto"><code>if-then</code>：基本条件判断</li>
+<li data-line="2" dir="auto"><code>if-then-else</code>：二选一分支</li>
+<li data-line="3" dir="auto"><code>if-then-elseif-then-else</code>：多分支选择</li>
+<li data-line="4" dir="auto">嵌套 if 语句：复杂条件逻辑</li>
+</ul>
+</li>
+<li data-line="6" dir="auto"><div class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div>
+<p><strong>循环语句</strong>：</p>
+<ul>
+<li data-line="7" dir="auto"><code>while</code> 循环：先判断条件，条件为真时执行循环体，设置的是继续循环的条件</li>
+<li data-line="8" dir="auto"><code>repeat-until</code> 循环：先执行循环体，然后判断条件，条件为真时停止，设置的是结束循环的条件</li>
+<li data-line="9" dir="auto"><code>for</code> 循环（数值）：精确控制循环次数，使用计数器</li>
+<li data-line="10" dir="auto">泛型 <code>for</code> 循环：用于遍历表（初步了解）</li>
+</ul>
+</li>
+<li data-line="12" dir="auto"><div class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div>
+<p><strong>循环控制</strong>：</p>
+<ul>
+<li data-line="13" dir="auto"><code>break</code> 语句：立即退出当前循环</li>
+<li data-line="14" dir="auto">Lua 没有 <code>continue</code> 语句，但可以通过 if 语句模拟</li>
+</ul>
+</li>
+</ol></div><div class="el-h3"><h3 data-heading="编程思维培养" dir="auto" class="heading" id="编程思维培养_0">编程思维培养</h3></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto"><strong>条件逻辑思维</strong>：学会将现实问题转化为条件判断</li>
+<li data-line="1" dir="auto"><strong>循环思维</strong>：识别需要重复执行的模式</li>
+<li data-line="2" dir="auto"><strong>边界思维</strong>：注意循环的起始、结束条件和边界情况</li>
+<li data-line="3" dir="auto"><strong>效率思维</strong>：避免无限循环，合理使用 break</li>
+</ol></div><div class="el-h3"><h3 data-heading="常见错误与调试技巧" dir="auto" class="heading" id="常见错误与调试技巧_0">常见错误与调试技巧</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 错误1：忘记改变循环条件（无限循环）</span>
+<span class="token keyword">local</span> i <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">while</span> i <span class="token operator">&lt;=</span> <span class="token number">5</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    <span class="token comment">-- 忘记写 i = i + 1</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 错误2：错误的条件表达式</span>
+<span class="token keyword">local</span> count <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">while</span> count <span class="token operator">~=</span> <span class="token number">10</span> <span class="token keyword">do</span>  <span class="token comment">-- 如果count跳过10，可能成为无限循环</span>
+    count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">2</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 错误3：在for循环中修改循环变量（通常不是好主意）</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">2</span>  <span class="token comment">-- 不推荐，可能导致意外行为</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 调试技巧：添加打印语句</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"=== 开始循环 ==="</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"循环开始，i = "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+    <span class="token comment">-- ... 其他代码 ...</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"循环结束，i = "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"=== 循环结束 ==="</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="最佳实践" dir="auto" class="heading" id="最佳实践_0">最佳实践</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 1. 总是使用局部变量作为循环计数器</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>  <span class="token comment">-- i自动成为局部变量</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 2. 复杂条件使用括号提高可读性</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>player_level <span class="token operator">&gt;=</span> <span class="token number">10</span> <span class="token keyword">and</span> has_key<span class="token punctuation">)</span> <span class="token keyword">or</span> is_admin <span class="token keyword">then</span>
+    <span class="token comment">-- 清晰的逻辑</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 3. 避免过深的嵌套</span>
+<span class="token comment">-- 不好：嵌套太深</span>
+<span class="token keyword">if</span> condition1 <span class="token keyword">then</span>
+    <span class="token keyword">if</span> condition2 <span class="token keyword">then</span>
+        <span class="token keyword">if</span> condition3 <span class="token keyword">then</span>
+        	<span class="token comment">-- 条件代码块</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 更好：使用逻辑运算符</span>
+<span class="token keyword">if</span> condition1 <span class="token keyword">and</span> condition2 <span class="token keyword">and</span> condition3 <span class="token keyword">then</span>
+	<span class="token comment">-- 条件代码块</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 4. 避免短路求值失效，尤其是循环内</span>
+<span class="token keyword">local</span> n1<span class="token punctuation">,</span> n2<span class="token punctuation">,</span> n3 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span>
+<span class="token keyword">local</span> s1<span class="token punctuation">,</span> s2<span class="token punctuation">,</span> s3 <span class="token operator">=</span> <span class="token string">"a"</span><span class="token punctuation">,</span> <span class="token string">"b"</span><span class="token punctuation">,</span> <span class="token string">"c"</span>
+
+<span class="token comment">-- 计时</span>
+<span class="token keyword">local</span> start1 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10000000</span> <span class="token keyword">do</span>
+	<span class="token comment">-- 错误示例，循环内使用变量分组</span>
+    <span class="token keyword">local</span> check_n <span class="token operator">=</span> n1 <span class="token operator">==</span> <span class="token number">1</span> <span class="token keyword">and</span> n2 <span class="token operator">==</span> <span class="token number">2</span> <span class="token keyword">and</span> n3 <span class="token operator">==</span> <span class="token number">3</span>
+    <span class="token keyword">local</span> check_s <span class="token operator">=</span> s1 <span class="token operator">==</span> <span class="token string">"a"</span> <span class="token keyword">and</span> s2 <span class="token operator">==</span> <span class="token string">"b"</span> <span class="token keyword">and</span> s3 <span class="token operator">==</span> <span class="token string">"c"</span> <span class="token comment">-- 即使 n3 判断为假也会继续判断 s123</span>
+
+    <span class="token keyword">if</span> check_n <span class="token keyword">and</span> check_s <span class="token keyword">then</span>	<span class="token comment">-- 可读性改善，代价是短路求值失效一半</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token keyword">local</span> time1 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start1
+
+<span class="token keyword">local</span> start2 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10000000</span> <span class="token keyword">do</span>
+	<span class="token comment">-- 正确示例，使用括号分组</span>
+	<span class="token comment">-- n3 判断为假，直接停止判断，虽然可读性较差</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>n1 <span class="token operator">==</span> <span class="token number">1</span> <span class="token keyword">and</span> n2 <span class="token operator">==</span> <span class="token number">2</span> <span class="token keyword">and</span> n3 <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>s1 <span class="token operator">==</span> <span class="token string">"a"</span> <span class="token keyword">and</span> s2 <span class="token operator">==</span> <span class="token string">"b"</span> <span class="token keyword">and</span> s3 <span class="token operator">==</span> <span class="token string">"c"</span><span class="token punctuation">)</span> <span class="token keyword">then</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token keyword">local</span> time2 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start2
+
+<span class="token comment">-- 或者在循环外部创建变量</span>
+<span class="token keyword">local</span> start3 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> check_n <span class="token operator">=</span> n1 <span class="token operator">==</span> <span class="token number">1</span> <span class="token keyword">and</span> n2 <span class="token operator">==</span> <span class="token number">2</span> <span class="token keyword">and</span> n3 <span class="token operator">==</span> <span class="token number">3</span>
+<span class="token keyword">local</span> check_s <span class="token operator">=</span> s1 <span class="token operator">==</span> <span class="token string">"a"</span> <span class="token keyword">and</span> s2 <span class="token operator">==</span> <span class="token string">"b"</span> <span class="token keyword">and</span> s3 <span class="token operator">==</span> <span class="token string">"c"</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10000000</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> check_n <span class="token keyword">and</span> check_s <span class="token keyword">then</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token keyword">local</span> time3 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start3
+
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"括号分组: %.4f 秒"</span><span class="token punctuation">,</span> time2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"变量分组: %.4f 秒"</span><span class="token punctuation">,</span> time1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"静态变量分组: %.4f 秒"</span><span class="token punctuation">,</span> time3<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"动态变量分组开销: %.2f%%"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>time1 <span class="token operator">-</span> time2<span class="token punctuation">)</span> <span class="token operator">/</span> time2 <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"静态变量分组开销: %.2f%%"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>time1 <span class="token operator">-</span> time3<span class="token punctuation">)</span> <span class="token operator">/</span> time3 <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+变量分组: 0.1200 秒
+括号分组: 0.1010 秒
+静态变量分组: 0.0290 秒
+动态变量分组开销: 18.81%
+静态变量分组开销: -313.79%
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="检查清单" dir="auto" class="heading" id="检查清单_0">检查清单</h3></div><div class="el-p"><p dir="auto">（点击勾选框勾选）<br>
+完成本章后，你应该能够：</p></div><div class="el-ul"><ul class="contains-task-list">
+<li data-line="0" data-task="" class="task-list-item" dir="auto"><input data-line="0" type="checkbox" class="task-list-item-checkbox">使用 if 语句实现条件分支</li>
+<li data-line="1" data-task="" class="task-list-item" dir="auto"><input data-line="1" type="checkbox" class="task-list-item-checkbox">理解并使用各种循环结构</li>
+<li data-line="2" data-task="" class="task-list-item" dir="auto"><input data-line="2" type="checkbox" class="task-list-item-checkbox">正确使用 break 退出循环</li>
+<li data-line="3" data-task="" class="task-list-item" dir="auto"><input data-line="3" type="checkbox" class="task-list-item-checkbox">识别并避免无限循环</li>
+<li data-line="4" data-task="" class="task-list-item" dir="auto"><input data-line="4" type="checkbox" class="task-list-item-checkbox">使用嵌套的控制结构解决复杂问题</li>
+<li data-line="5" data-task="" class="task-list-item" dir="auto"><input data-line="5" type="checkbox" class="task-list-item-checkbox">理解 while 和 repeat-until 的区别</li>
+<li data-line="6" data-task="" class="task-list-item" dir="auto"><input data-line="6" type="checkbox" class="task-list-item-checkbox">使用 for 循环处理计数任务</li>
+</ul></div><div class="el-h3"><h3 data-heading="思考题" dir="auto" class="heading" id="思考题_0">思考题</h3></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">什么情况下应该使用 while 循环而不是 for 循环？</li>
+<li data-line="1" dir="auto">如果需要在循环中跳过某些迭代但不退出循环，有哪些方法？</li>
+<li data-line="2" dir="auto">如何设计一个程序，让用户可以多次尝试直到成功？</li>
+<li data-line="3" dir="auto">在什么情况下应该使用嵌套循环？有什么需要注意的？</li>
+<li data-line="4" dir="auto">如何确保循环能够正常结束，不会成为无限循环？</li>
+</ol></div><div class="el-h3"><h3 data-heading="拓展练习" dir="auto" class="heading" id="拓展练习_0">拓展练习</h3></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">编写一个程序，找出 100 以内所有的素数</li>
+<li data-line="1" dir="auto">创建一个简单的文字冒险游戏，使用条件语句控制游戏流程</li>
+<li data-line="2" dir="auto">实现一个模拟银行 ATM 机的程序，支持存款、取款、查询等功能</li>
+<li data-line="3" dir="auto">编写一个程序，打印出斐波那契数列的前 20 项</li>
+<li data-line="4" dir="auto">创建一个简单的成绩管理系统，可以输入多个学生成绩并统计平均分</li>
+</ol></div><div class="el-hr"><hr></div><div class="el-p"><p dir="auto"><strong>下一章预告</strong>：在第 6 章中，我们将深入学习函数。函数是组织和重用代码的重要工具，它能将复杂问题分解为小的、可管理的部分。我们将学习如何定义函数、传递参数、返回值，以及更高级的函数概念。</p></div><div class="el-p"><p dir="auto"><strong>学习建议</strong>：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">多做练习，特别是循环和条件组合的题目</li>
+<li data-line="1" dir="auto">尝试将日常生活中的决策过程用 if 语句描述</li>
+<li data-line="2" dir="auto">注意观察哪些任务适合用循环自动化</li>
+<li data-line="3" dir="auto">多调试，理解程序执行的流程</li>
+</ol></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5._控制结构_0" data-path="#5._控制结构_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5. 控制结构">5. 控制结构</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.1_条件判断：if_语句_0" data-path="#5.1_条件判断：if_语句_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.1 条件判断：if 语句">5.1 条件判断：if 语句</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.1.1_基本_if_语句_0" data-path="#5.1.1_基本_if_语句_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.1.1 基本 if 语句">5.1.1 基本 if 语句</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#示例_0" data-path="#示例_0"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#错误示例_0" data-path="#错误示例_0"><div class="tree-item-inner heading-link" heading-name="错误示例">错误示例</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.1.2_if-else_语句_0" data-path="#5.1.2_if-else_语句_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.1.2 if-else 语句">5.1.2 if-else 语句</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#示例_1" data-path="#示例_1"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.1.3_if-elseif-else_语句_0" data-path="#5.1.3_if-elseif-else_语句_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.1.3 if-elseif-else 语句">5.1.3 if-elseif-else 语句</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#示例_2" data-path="#示例_2"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#5.1.4_嵌套_if_语句_0" data-path="#5.1.4_嵌套_if_语句_0"><div class="tree-item-inner heading-link" heading-name="5.1.4 嵌套 if 语句">5.1.4 嵌套 if 语句</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.1.5_条件表达式中的逻辑运算符_0" data-path="#5.1.5_条件表达式中的逻辑运算符_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.1.5 条件表达式中的逻辑运算符">5.1.5 条件表达式中的逻辑运算符</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#1._使用_and_连接多个条件_0" data-path="#1._使用_and_连接多个条件_0"><div class="tree-item-inner heading-link" heading-name="1. 使用 and 连接多个条件">1. 使用 and 连接多个条件</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#2._使用_or_表示多个条件之一成立_0" data-path="#2._使用_or_表示多个条件之一成立_0"><div class="tree-item-inner heading-link" heading-name="2. 使用 or 表示多个条件之一成立">2. 使用 or 表示多个条件之一成立</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#3._使用not进行条件取反_0" data-path="#3._使用not进行条件取反_0"><div class="tree-item-inner heading-link" heading-name="3. 使用not进行条件取反">3. 使用not进行条件取反</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#4._复杂条件组合_0" data-path="#4._复杂条件组合_0"><div class="tree-item-inner heading-link" heading-name="4. 复杂条件组合">4. 复杂条件组合</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#5._示例_0" data-path="#5._示例_0"><div class="tree-item-inner heading-link" heading-name="5. 示例">5. 示例</div></a><div class="tree-item-children"></div></div></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.2_循环结构_0" data-path="#5.2_循环结构_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.2 循环结构">5.2 循环结构</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.2.1_while_循环_0" data-path="#5.2.1_while_循环_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.2.1 while 循环">5.2.1 while 循环</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#示例_3" data-path="#示例_3"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#示例_4" data-path="#示例_4"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.2.2_repeat-until_后判断循环_0" data-path="#5.2.2_repeat-until_后判断循环_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.2.2 repeat-until 后判断循环">5.2.2 repeat-until 后判断循环</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#示例_5" data-path="#示例_5"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#while_与_repeat-until_对比_0" data-path="#while_与_repeat-until_对比_0"><div class="tree-item-inner heading-link" heading-name="while 与 repeat-until 对比">while 与 repeat-until 对比</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.2.3_for_循环：数值_for_0" data-path="#5.2.3_for_循环：数值_for_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.2.3 for 循环：数值 for">5.2.3 for 循环：数值 for</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#示例_6" data-path="#示例_6"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#实际应用_0" data-path="#实际应用_0"><div class="tree-item-inner heading-link" heading-name="实际应用">实际应用</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.2.4_循环控制：break_语句_0" data-path="#5.2.4_循环控制：break_语句_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.2.4 循环控制：break 语句">5.2.4 循环控制：break 语句</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#示例_7" data-path="#示例_7"><div class="tree-item-inner heading-link" heading-name="示例">示例</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#5.2.5_进入下一次循环_0" data-path="#5.2.5_进入下一次循环_0"><div class="tree-item-inner heading-link" heading-name="5.2.5 进入下一次循环">5.2.5 进入下一次循环</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#5.2.6_泛型_for_循环（初步了解）_0" data-path="#5.2.6_泛型_for_循环（初步了解）_0"><div class="tree-item-inner heading-link" heading-name="5.2.6 泛型 for 循环（初步了解）">5.2.6 泛型 for 循环（初步了解）</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.3_练习_0" data-path="#5.3_练习_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.3 练习">5.3 练习</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#练习_1：猜数字游戏_0" data-path="#练习_1：猜数字游戏_0"><div class="tree-item-inner heading-link" heading-name="练习 1：猜数字游戏">练习 1：猜数字游戏</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#练习2：打印图形_0" data-path="#练习2：打印图形_0"><div class="tree-item-inner heading-link" heading-name="练习2：打印图形">练习2：打印图形</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/5.-控制结构.html#5.4_本章总结_0" data-path="#5.4_本章总结_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5.4 本章总结">5.4 本章总结</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#关键知识点回顾_0" data-path="#关键知识点回顾_0"><div class="tree-item-inner heading-link" heading-name="关键知识点回顾">关键知识点回顾</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#编程思维培养_0" data-path="#编程思维培养_0"><div class="tree-item-inner heading-link" heading-name="编程思维培养">编程思维培养</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#常见错误与调试技巧_0" data-path="#常见错误与调试技巧_0"><div class="tree-item-inner heading-link" heading-name="常见错误与调试技巧">常见错误与调试技巧</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#最佳实践_0" data-path="#最佳实践_0"><div class="tree-item-inner heading-link" heading-name="最佳实践">最佳实践</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#检查清单_0" data-path="#检查清单_0"><div class="tree-item-inner heading-link" heading-name="检查清单">检查清单</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#思考题_0" data-path="#思考题_0"><div class="tree-item-inner heading-link" heading-name="思考题">思考题</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/5.-控制结构.html#拓展练习_0" data-path="#拓展练习_0"><div class="tree-item-inner heading-link" heading-name="拓展练习">拓展练习</div></a><div class="tree-item-children"></div></div></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>

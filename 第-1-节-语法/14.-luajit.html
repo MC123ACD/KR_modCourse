@@ -1,0 +1,853 @@
+<!DOCTYPE html> <html lang="zh-cn"><head>
+<title>14. LuaJIT</title>
+<base href="..">
+<meta name="pathname" content="第-1-节-语法/14.-luajit.html">
+<meta name="description" content="王国保卫战修改教程 - 14. LuaJIT">
+<meta property="og:title" content="14. LuaJIT">
+<meta property="og:description" content="王国保卫战修改教程 - 14. LuaJIT">
+<meta property="og:type" content="website">
+<meta property="og:url" content="第-1-节-语法/14.-luajit.html">
+<meta property="og:image" content="undefined">
+<meta charset="UTF-8"><meta property="og:site_name" content="王国保卫战修改教程"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="preload" href="site-lib/styles/snippets.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/snippets.css"></noscript><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/other-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/other-plugins.css"></noscript><link rel="stylesheet" href="site-lib/styles/theme.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/supported-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/supported-plugins.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager mod-windows is-frameless is-hidden-frameless styled-scrollbars show-inline-title show-ribbon background-settings-workplace-theme-dark-in-the-sky background-image-settings-markdown-page-custom notebook-liked-markdown-page-grid-notebook-1 panel-page-bg-theme-light-custom panel-page-bg-theme-dark-plant hide-left-ribbon-retention-drawer toggle-divider-lines toggle-header-bottom-line bt-bubble-layout bt-bubble-layout-hide-borders remove-heading-indicator h1-toggle-underline toggle-left-aligned-content fancy-hr-no-icon custom-unordered-list custom-ordered-list list-no-border folder-icons bt-toggle-colorful-folder folder-style-change-options-colorful-default folder-colorful-one table-width-auto table-style-two link-underline-internal enable-alternative-checkboxes default-loading-page loading-text-typing-style rainbow-tag translucent-setting-panel underline-tab-style canvas-card-text-middle admonition-bg-color-same toggle-calendar-shadow style-options-for-buttons-plugin dataview-list-style-pacman memos-banner-gradient thino-frosted-style thino-background-default quiet-outline-optimize code-theme-sublime is-focused"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event allow-fold-headings show-indentation-guide show-properties is-readable-line-width" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section"><div class="header"><h1 class="page-title heading inline-title" id="14._LuaJIT_0">14. LuaJIT</h1><div class="data-bar"></div></div><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-h3"><h3 data-heading="14.1 LuaJIT 简介" dir="auto" class="heading" id="14.1_LuaJIT_简介_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.1 LuaJIT 简介</h3></div><div class="el-p"><p dir="auto">LuaJIT 是一个高性能的 Lua 解释器和即时编译器（JIT），它完全兼容 Lua 5.1，但性能通常比标准 Lua 快得多。</p></div><div class="el-p"><p dir="auto"><strong>LuaJIT 的主要特性</strong>：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">高性能 JIT 编译器</li>
+<li data-line="1" dir="auto">提供 FFI 允许直接调用 C 函数和使用 C 数据结构</li>
+<li data-line="2" dir="auto">内存使用更少</li>
+<li data-line="3" dir="auto">完全兼容 Lua 5.1</li>
+<li data-line="4" dir="auto">支持更多字节码指令</li>
+</ol></div><div class="el-h2"><h2 data-heading="14.2 使用 LuaJIT" dir="auto" class="heading" id="14.2_使用_LuaJIT_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.2 使用 LuaJIT</h2></div><div class="el-p"><p dir="auto">同 <a data-href="2. 基础语法规则#2 1 2 修复无法中文乱码" href="第-1-节-语法/2.-基础语法规则.html#2 1 2 修复无法中文乱码" class="internal-link" target="_self" rel="noopener nofollow">2. 基础语法规则 &gt; 2 1 2 修复无法中文乱码</a><br>
+切换到 LuaJIT 运行程序即可。</p></div><div class="el-h2"><h2 data-heading="14.3 JIT 编译器" dir="auto" class="heading" id="14.3_JIT_编译器_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.3 JIT 编译器</h2></div><div class="el-p"><p dir="auto">JIT 编译器用于将 Lua 字节码动态编译为本地机器码，提高 2-15 倍性能。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 性能测试：标准Lua vs LuaJIT</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">benchmark_loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> sum <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10000000</span> <span class="token keyword">do</span>
+        sum <span class="token operator">=</span> sum <span class="token operator">+</span> i
+    <span class="token keyword">end</span>
+    <span class="token keyword">return</span> sum
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> start1 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> result <span class="token operator">=</span> <span class="token function">benchmark_loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> time1 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start1
+
+<span class="token comment">-- 启用 JIT 编译器</span>
+jit<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> start2 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> result <span class="token operator">=</span> <span class="token function">benchmark_loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> time2 <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start2
+
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"Lua 执行时间: %.4f秒"</span><span class="token punctuation">,</span> time1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"JIT 执行时间: %.4f秒"</span><span class="token punctuation">,</span> time2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"性能提高: %.2f%%"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>time1 <span class="token operator">-</span> time2<span class="token punctuation">)</span> <span class="token operator">/</span> time2 <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+Lua 执行时间: 0.0410秒
+JIT 执行时间: 0.0110秒
+性能提高: 270%
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="14.4 goto - 代码跳转" dir="auto" class="heading" id="14.4_goto_-_代码跳转_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.4 goto - 代码跳转</h2></div><div class="el-p"><p dir="auto">goto&nbsp;语句提供了一种低级的控制流跳转机制，可以在代码块内直接跳转到指定标签位置。<br>
+可以使用 goto 来模拟 continue 跳过单次循环。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token punctuation">::</span>跳转标签名称<span class="token punctuation">::</span>	<span class="token comment">-- 定义跳转位置</span>
+
+<span class="token keyword">goto</span> 跳转到的标签
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="核心用途" dir="auto" class="heading" id="核心用途_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>核心用途</h4></div><div class="el-h5"><h5 data-heading="1. 模拟 `continue` 语句" dir="auto" class="heading" id="1._模拟_`continue`_语句_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1. 模拟 <code>continue</code> 语句</h5></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- Lua 没有 continue 关键字，用 goto 实现</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">then</span>      <span class="token comment">-- 跳过偶数</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"跳过偶数: "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+        <span class="token keyword">goto</span> continue
+    <span class="token keyword">end</span>
+    
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"处理奇数: "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+    
+    <span class="token punctuation">::</span>continue<span class="token punctuation">::</span>  <span class="token comment">-- 循环末尾的标签</span>
+<span class="token keyword">end</span>
+<span class="token comment">--[[ 输出
+处理奇数: 1
+跳过偶数: 2
+处理奇数: 3
+跳过偶数: 4
+处理奇数: 5
+跳过偶数: 6
+处理奇数: 7
+跳过偶数: 8
+处理奇数: 9
+跳过偶数: 10
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h5"><h5 data-heading="2. 跳出多重嵌套" dir="auto" class="heading" id="2._跳出多重嵌套_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>2. 跳出多重嵌套</h5></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token keyword">do</span>
+    <span class="token keyword">for</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token keyword">do</span>
+        <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">2</span> <span class="token keyword">and</span> j <span class="token operator">==</span> <span class="token number">2</span> <span class="token keyword">then</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"找到目标，跳出所有循环"</span><span class="token punctuation">)</span>
+            <span class="token keyword">goto</span> exit_loops
+        <span class="token keyword">end</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token punctuation">::</span>exit_loops<span class="token punctuation">::</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"继续执行后续代码"</span><span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+1	1
+1	2
+1	3
+2	1
+找到目标，跳出所有循环
+继续执行后续代码
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h5"><h5 data-heading="3. 卫语句模式（提前返回）" dir="auto" class="heading" id="3._卫语句模式（提前返回）_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>3. 卫语句模式（提前返回）</h5></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 在非函数中模拟"提前返回"逻辑</span>
+<span class="token keyword">local</span> x <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+
+<span class="token punctuation">::</span>validate<span class="token punctuation">::</span>
+<span class="token keyword">if</span> x <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"x 必须大于0"</span><span class="token punctuation">)</span>
+    <span class="token keyword">goto</span> end_process
+<span class="token keyword">end</span>
+
+<span class="token keyword">if</span> x <span class="token operator">&gt;</span> <span class="token number">100</span> <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"x 不能超过100"</span><span class="token punctuation">)</span>
+    <span class="token keyword">goto</span> end_process
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"x 有效: "</span> <span class="token operator">..</span> x<span class="token punctuation">)</span>
+
+<span class="token punctuation">::</span>end_process<span class="token punctuation">::</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"验证完成"</span><span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+x 必须大于0
+验证完成
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="重要限制与规则" dir="auto" class="heading" id="重要限制与规则_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>重要限制与规则</h4></div><div class="el-h5"><h5 data-heading="1. 作用域限制（最重要！）" dir="auto" class="heading" id="1._作用域限制（最重要！）_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1. 作用域限制（最重要！）</h5></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 不允许：跳进函数</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">::</span>inside_func<span class="token punctuation">::</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">goto</span> inside_func
+
+<span class="token comment">-- 不允许：跳进其他代码块</span>
+<span class="token keyword">if</span> condition <span class="token keyword">then</span>
+    <span class="token keyword">local</span> x <span class="token operator">=</span> <span class="token number">10</span>
+    <span class="token punctuation">::</span>label3<span class="token punctuation">::</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">goto</span> label3
+
+<span class="token comment">-- 不允许：跳过局部变量定义</span>
+<span class="token keyword">goto</span> lable1
+
+<span class="token keyword">local</span> a <span class="token operator">=</span> <span class="token number">123</span>
+
+<span class="token punctuation">::</span>lable1<span class="token punctuation">::</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h5"><h5 data-heading="2. 标签定义规则" dir="auto" class="heading" id="2._标签定义规则_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>2. 标签定义规则</h5></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 合法标签名（字母、数字、下划线）</span>
+<span class="token punctuation">::</span>valid_label<span class="token punctuation">::</span>
+<span class="token punctuation">::</span>Label123<span class="token punctuation">::</span>
+<span class="token punctuation">::</span>_start<span class="token punctuation">::</span>
+
+<span class="token comment">-- 不合法标签名</span>
+<span class="token punctuation">::</span>123start<span class="token punctuation">::</span>    <span class="token comment">-- 不能以数字开头</span>
+<span class="token punctuation">::</span>my<span class="token operator">-</span>label<span class="token punctuation">::</span>    <span class="token comment">-- 不能包含连字符</span>
+<span class="token punctuation">::</span><span class="token keyword">end</span><span class="token punctuation">::</span>         <span class="token comment">-- 不能用保留字</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="14.5 其他功能" dir="auto" class="heading" id="14.5_其他功能_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.5 其他功能</h2></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 1. bit库 - 位运算</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"1. bit库 - 位运算:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> bit <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"bit"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> a <span class="token operator">=</span> <span class="token number">0x0F</span> <span class="token comment">-- 00001111</span>
+<span class="token keyword">local</span> b <span class="token operator">=</span> <span class="token number">0xF0</span> <span class="token comment">-- 11110000</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"a = 0x%X (%d)"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> a<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"b = 0x%X (%d)"</span><span class="token punctuation">,</span> b<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"bit.band(a, b) = 0x%X"</span><span class="token punctuation">,</span> bit<span class="token punctuation">.</span><span class="token function">band</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>     <span class="token comment">-- 与</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"bit.bor(a, b) = 0x%X"</span><span class="token punctuation">,</span> bit<span class="token punctuation">.</span><span class="token function">bor</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>       <span class="token comment">-- 或</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"bit.bxor(a, b) = 0x%X"</span><span class="token punctuation">,</span> bit<span class="token punctuation">.</span><span class="token function">bxor</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>     <span class="token comment">-- 异或</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"bit.bnot(a) = 0x%X"</span><span class="token punctuation">,</span> bit<span class="token punctuation">.</span><span class="token function">bnot</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>           <span class="token comment">-- 非</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"bit.lshift(a, 2) = 0x%X"</span><span class="token punctuation">,</span> bit<span class="token punctuation">.</span><span class="token function">lshift</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- 左移</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"bit.rshift(b, 2) = 0x%X"</span><span class="token punctuation">,</span> bit<span class="token punctuation">.</span><span class="token function">rshift</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- 右移</span>
+
+<span class="token comment">-- 2. 表操作优化</span>
+<span class="token comment">-- jit.on()</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n2. 表操作优化:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> large_table <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">local</span> start_time <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 插入大量数据</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1000000</span> <span class="token keyword">do</span>
+    large_table<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> insert_time <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start_time
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"插入100万条数据耗时: "</span> <span class="token operator">..</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%.3f"</span><span class="token punctuation">,</span> insert_time<span class="token punctuation">)</span> <span class="token operator">..</span> <span class="token string">"秒"</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 访问数据</span>
+start_time <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> sum <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1000000</span> <span class="token keyword">do</span>
+    sum <span class="token operator">=</span> sum <span class="token operator">+</span> large_table<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+<span class="token keyword">end</span>
+<span class="token keyword">local</span> access_time <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start_time
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"访问100万条数据耗时: "</span> <span class="token operator">..</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%.3f"</span><span class="token punctuation">,</span> access_time<span class="token punctuation">)</span> <span class="token operator">..</span> <span class="token string">"秒"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"总和: "</span> <span class="token operator">..</span> sum<span class="token punctuation">)</span>
+
+<span class="token comment">-- 3. 协程优化</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n3. 协程优化:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> sum <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">coroutine_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> co <span class="token operator">=</span> coroutine<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token keyword">do</span>
+            coroutine<span class="token punctuation">.</span><span class="token function">yield</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token keyword">do</span>
+        <span class="token keyword">local</span> success<span class="token punctuation">,</span> value <span class="token operator">=</span> coroutine<span class="token punctuation">.</span><span class="token function">resume</span><span class="token punctuation">(</span>co<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> success <span class="token keyword">then</span>
+            sum <span class="token operator">=</span> sum <span class="token operator">+</span> value
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> start <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10000</span> <span class="token keyword">do</span>
+    <span class="token function">coroutine_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token keyword">local</span> elapsed <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"总和 %s"</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"执行10000次协程测试耗时: %.3f秒"</span><span class="token punctuation">,</span> elapsed<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 4. 垃圾回收优化</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n4. 垃圾回收优化:"</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 显示GC统计</span>
+<span class="token keyword">local</span> gc_stats <span class="token operator">=</span> <span class="token punctuation">{</span>
+    count <span class="token operator">=</span> <span class="token function">collectgarbage</span><span class="token punctuation">(</span><span class="token string">"count"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    step <span class="token operator">=</span> <span class="token function">collectgarbage</span><span class="token punctuation">(</span><span class="token string">"step"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    isrunning <span class="token operator">=</span> <span class="token function">collectgarbage</span><span class="token punctuation">(</span><span class="token string">"isrunning"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"GC统计:"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  内存使用: "</span> <span class="token operator">..</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%.2f"</span><span class="token punctuation">,</span> gc_stats<span class="token punctuation">.</span>count<span class="token punctuation">)</span> <span class="token operator">..</span> <span class="token string">" KB"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  GC是否运行: "</span> <span class="token operator">..</span> <span class="token function">tostring</span><span class="token punctuation">(</span>gc_stats<span class="token punctuation">.</span>isrunning<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 手动触发GC</span>
+<span class="token function">collectgarbage</span><span class="token punctuation">(</span><span class="token string">"collect"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"手动触发GC后内存: "</span> <span class="token operator">..</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%.2f"</span><span class="token punctuation">,</span> <span class="token function">collectgarbage</span><span class="token punctuation">(</span><span class="token string">"count"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">..</span> <span class="token string">" KB"</span><span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+1. bit库 - 位运算:
+a = 0xF (15)
+b = 0xF0 (240)
+bit.band(a, b) = 0x0
+bit.bor(a, b) = 0xFF
+bit.bxor(a, b) = 0xFF
+bit.bnot(a) = 0xFFFFFFFFFFFFFFF0
+bit.lshift(a, 2) = 0x3C
+bit.rshift(b, 2) = 0x3C
+
+2. 表操作优化:
+插入100万条数据耗时: 0.016秒
+访问100万条数据耗时: 0.008秒
+总和: 1000001000000
+
+3. 协程优化:
+总和 150000
+执行10000次协程测试耗时: 0.006秒
+
+4. 垃圾回收优化:
+GC统计:
+  内存使用: 13410.04 KB
+  GC是否运行: true
+手动触发GC后内存: 8252.30 KB
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="14.6 FFI（外部函数接口）" dir="auto" class="heading" id="14.6_FFI（外部函数接口）_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6 FFI（外部函数接口）</h2></div><div class="el-p"><p dir="auto">FFI 是 LuaJIT 最强大的特性之一，允许直接调用 C 函数、使用 C 数据类型和内存操作，无需编写 C 扩展模块。<br>
+FFI 提供了 Lua 与 C 世界之间的桥梁，通过合理使用可以显著提升性能，但需要谨慎处理内存和类型安全问题。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- FFI使用示例</span>
+<span class="token keyword">local</span> ffi <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"ffi"</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 1. 声明C函数和类型</span>
+ffi<span class="token punctuation">.</span>cdef <span class="token string">[[
+    // 标准库函数
+    int strlen(const char *s);
+    void *malloc(size_t size);
+    void free(void *ptr);
+
+    // 数学函数
+    double sin(double x);
+    double cos(double x);
+    double sqrt(double x);
+
+    // 系统调用
+    int system(const char *command);
+
+    // 自定义结构体
+    typedef struct {
+        int x;
+        int y;
+    } Point;
+
+    typedef struct {
+        char name[32];
+        int age;
+        float score;
+    } Student;
+]]</span>
+
+<span class="token comment">-- 2. 调用C函数</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"调用C标准库函数:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> str <span class="token operator">=</span> <span class="token string">"Hello, World!"</span>
+<span class="token keyword">local</span> length <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">strlen</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"字符串长度: "</span> <span class="token operator">..</span> length<span class="token punctuation">)</span>
+
+<span class="token comment">-- 3. 使用数学函数</span>
+<span class="token keyword">local</span> angle <span class="token operator">=</span> <span class="token number">45</span> <span class="token operator">*</span> math<span class="token punctuation">.</span>pi <span class="token operator">/</span> <span class="token number">180</span>
+<span class="token keyword">local</span> sin_value <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>angle<span class="token punctuation">)</span>
+<span class="token keyword">local</span> cos_value <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>angle<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"\n数学函数: sin(45°)=%.3f, cos(45°)=%.3f"</span><span class="token punctuation">,</span> sin_value<span class="token punctuation">,</span> cos_value<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 4. 创建和使用C结构体</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\nC结构体使用:"</span><span class="token punctuation">)</span>
+<span class="token comment">-- 创建Point结构体</span>
+<span class="token keyword">local</span> point <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Point"</span><span class="token punctuation">)</span>
+point<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">10</span>
+point<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token number">20</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Point: x="</span> <span class="token operator">..</span> point<span class="token punctuation">.</span>x <span class="token operator">..</span> <span class="token string">", y="</span> <span class="token operator">..</span> point<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+
+<span class="token comment">-- 创建Student结构体</span>
+<span class="token keyword">local</span> student <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Student"</span><span class="token punctuation">)</span>
+ffi<span class="token punctuation">.</span><span class="token function">copy</span><span class="token punctuation">(</span>student<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"张三"</span><span class="token punctuation">)</span>
+student<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">18</span>
+student<span class="token punctuation">.</span>score <span class="token operator">=</span> <span class="token number">95.5</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"Student: name=%s, age=%d, score=%.1f"</span><span class="token punctuation">,</span>
+    ffi<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span>student<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">,</span> student<span class="token punctuation">.</span>age<span class="token punctuation">,</span> student<span class="token punctuation">.</span>score<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 5. 内存管理</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n内存管理:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> size <span class="token operator">=</span> <span class="token number">100</span> <span class="token operator">*</span> ffi<span class="token punctuation">.</span><span class="token function">sizeof</span><span class="token punctuation">(</span><span class="token string">"int"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> buffer <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"分配内存: "</span> <span class="token operator">..</span> size <span class="token operator">..</span> <span class="token string">" 字节"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> buffer <span class="token operator">~=</span> ffi<span class="token punctuation">.</span>NULL <span class="token keyword">then</span>
+    <span class="token comment">-- 将buffer转换为int数组</span>
+    <span class="token keyword">local</span> int_array <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">cast</span><span class="token punctuation">(</span><span class="token string">"int*"</span><span class="token punctuation">,</span> buffer<span class="token punctuation">)</span>
+
+    <span class="token comment">-- 初始化数组</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">99</span> <span class="token keyword">do</span>
+        int_array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span>
+    <span class="token keyword">end</span>
+
+    <span class="token comment">-- 访问数组元素</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"int_array[50] = "</span> <span class="token operator">..</span> int_array<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token comment">-- 释放内存</span>
+    ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">free</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"内存已释放"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 6. 调用系统命令</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n系统调用:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> result <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"echo 'Hello from system call'"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"系统命令返回值: "</span> <span class="token operator">..</span> result<span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+调用C标准库函数:
+字符串长度: 13
+
+数学函数: sin(45°)=0.707, cos(45°)=0.707
+
+C结构体使用:
+Point: x=10, y=20
+Student: name=张三, age=18, score=95.5
+
+内存管理:
+分配内存: 400 字节
+int_array[50] = 100
+内存已释放
+
+系统调用:
+系统命令返回值: 0
+'Hello from system call'
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="14.6.1 FFI 基础" dir="auto" class="heading" id="14.6.1_FFI_基础_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6.1 FFI 基础</h3></div><div class="el-h4"><h4 data-heading="加载 FFI 模块" dir="auto" class="heading" id="加载_FFI_模块_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>加载 FFI 模块</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> ffi <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"ffi"</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="基本工作流程" dir="auto" class="heading" id="基本工作流程_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>基本工作流程</h4></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">声明 C 类型和函数</li>
+<li data-line="1" dir="auto">调用 C 函数</li>
+<li data-line="2" dir="auto">管理 C 数据</li>
+</ol></div><div class="el-h3"><h3 data-heading="14.6.2 声明 C 类型" dir="auto" class="heading" id="14.6.2_声明_C_类型_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6.2 声明 C 类型</h3></div><div class="el-h4"><h4 data-heading="基本类型声明" dir="auto" class="heading" id="基本类型声明_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>基本类型声明</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">ffi<span class="token punctuation">.</span>cdef <span class="token string">[[
+    // 基础类型
+    typedef int bool;
+    typedef char int8_t;
+    typedef short int16_t;
+    typedef int int32_t;
+    typedef long long int64_t;
+    typedef unsigned char uint8_t;
+    typedef unsigned short uint16_t;
+    typedef unsigned int uint32_t;
+    typedef unsigned long long uint64_t;
+    typedef float float32_t;
+    typedef double float64_t;
+    
+    // 指针类型
+    typedef void* pointer;
+    typedef const char* cstring;
+    
+    // 标准库类型
+    typedef long time_t;
+    typedef struct tm tm_t;
+]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="结构体声明" dir="auto" class="heading" id="结构体声明_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>结构体声明</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">ffi<span class="token punctuation">.</span>cdef <span class="token string">[[
+    // 简单结构体
+    typedef struct {
+        int x;
+        int y;
+    } Point;
+    
+    // 嵌套结构体
+    typedef struct {
+        Point start;
+        Point end;
+    } Line;
+    
+    // 数组作为成员
+    typedef struct {
+        char name[64];
+        int scores[10];
+    } Student;
+    
+    // 位字段
+    typedef struct {
+        unsigned int flag1 : 1;
+        unsigned int flag2 : 1;
+        unsigned int : 6;  // 未使用位
+        unsigned int value : 8;
+    } BitField;
+    
+    // 联合体
+    typedef union {
+        int i;
+        float f;
+        char bytes[4];
+    } DataUnion;
+]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="函数声明" dir="auto" class="heading" id="函数声明_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>函数声明</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">ffi<span class="token punctuation">.</span>cdef <span class="token string">[[
+    // 标准库函数
+    // 字符串操作
+    size_t strlen(const char *s);
+    char *strcpy(char *dest, const char *src);
+    char *strcat(char *dest, const char *src);
+    int strcmp(const char *s1, const char *s2);
+    char *strstr(const char *haystack, const char *needle);
+    
+    // 内存操作
+    void *malloc(size_t size);
+    void *calloc(size_t num, size_t size);
+    void *realloc(void *ptr, size_t size);
+    void free(void *ptr);
+    void *memcpy(void *dest, const void *src, size_t n);
+    void *memset(void *s, int c, size_t n);
+    
+    // 数学函数
+    double sin(double x);
+    double cos(double x);
+    double tan(double x);
+    double sqrt(double x);
+    double pow(double x, double y);
+    double log(double x);
+    double exp(double x);
+    double fabs(double x);
+    
+    // 输入输出
+    int printf(const char *format, ...);
+    int sprintf(char *str, const char *format, ...);
+    int scanf(const char *format, ...);
+    int puts(const char *s);
+    
+    // 系统调用
+    int system(const char *command);
+    time_t time(time_t *t);
+    char *ctime(const time_t *timer);
+    
+    // 自定义函数原型
+    double calculate_average(double *array, int length);
+    void process_data(void *data, size_t size);
+]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="14.6.3 调用 C 函数" dir="auto" class="heading" id="14.6.3_调用_C_函数_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6.3 调用 C 函数</h3></div><div class="el-h4"><h4 data-heading="访问标准库" dir="auto" class="heading" id="访问标准库_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>访问标准库</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 直接调用C标准库函数</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"字符串长度:"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">strlen</span><span class="token punctuation">(</span><span class="token string">"Hello, World!"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"正弦值:"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>math<span class="token punctuation">.</span>pi <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"平方根:"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">sqrt</span><span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="调用系统函数" dir="auto" class="heading" id="调用系统函数_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>调用系统函数</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 调用系统命令</span>
+<span class="token keyword">local</span> result <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"ls -la"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"命令返回值:"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span>
+
+<span class="token comment">-- 获取当前时间</span>
+<span class="token keyword">local</span> time_ptr <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"time_t[1]"</span><span class="token punctuation">)</span>
+ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">time</span><span class="token punctuation">(</span>time_ptr<span class="token punctuation">)</span>
+<span class="token keyword">local</span> time_str <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">ctime</span><span class="token punctuation">(</span>time_ptr<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"当前时间:"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span>time_str<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="14.6.4 创建和操作 C 数据" dir="auto" class="heading" id="14.6.4_创建和操作_C_数据_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6.4 创建和操作 C 数据</h3></div><div class="el-h4"><h4 data-heading="创建结构体实例" dir="auto" class="heading" id="创建结构体实例_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>创建结构体实例</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 创建结构体（自动初始化为0）</span>
+<span class="token keyword">local</span> point <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Point"</span><span class="token punctuation">)</span>
+point<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">10</span>
+point<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token number">20</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Point:"</span><span class="token punctuation">,</span> point<span class="token punctuation">.</span>x<span class="token punctuation">,</span> point<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+
+<span class="token comment">-- 创建并初始化</span>
+<span class="token keyword">local</span> point2 <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Point"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>x <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 创建结构体数组</span>
+<span class="token keyword">local</span> points <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Point[5]"</span><span class="token punctuation">)</span>
+points<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">1</span>
+points<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token number">2</span>
+points<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">}</span>
+
+<span class="token comment">-- 创建包含数组的结构体</span>
+<span class="token keyword">local</span> student <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Student"</span><span class="token punctuation">)</span>
+ffi<span class="token punctuation">.</span><span class="token function">copy</span><span class="token punctuation">(</span>student<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"Alice"</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">9</span> <span class="token keyword">do</span>
+    student<span class="token punctuation">.</span>scores<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="内存分配和管理" dir="auto" class="heading" id="内存分配和管理_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>内存分配和管理</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 动态分配内存</span>
+<span class="token keyword">local</span> size <span class="token operator">=</span> <span class="token number">100</span> <span class="token operator">*</span> ffi<span class="token punctuation">.</span><span class="token function">sizeof</span><span class="token punctuation">(</span><span class="token string">"int"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> buffer <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"分配了"</span><span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token string">"字节内存"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> buffer <span class="token operator">~=</span> ffi<span class="token punctuation">.</span>NULL <span class="token keyword">then</span>
+    <span class="token comment">-- 转换为特定类型指针</span>
+    <span class="token keyword">local</span> int_array <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">cast</span><span class="token punctuation">(</span><span class="token string">"int*"</span><span class="token punctuation">,</span> buffer<span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 初始化数组</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">99</span> <span class="token keyword">do</span>
+        int_array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">*</span> i
+    <span class="token keyword">end</span>
+    
+    <span class="token comment">-- 访问元素</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"int_array[50] ="</span><span class="token punctuation">,</span> int_array<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 重新分配内存</span>
+    <span class="token keyword">local</span> new_size <span class="token operator">=</span> <span class="token number">200</span> <span class="token operator">*</span> ffi<span class="token punctuation">.</span><span class="token function">sizeof</span><span class="token punctuation">(</span><span class="token string">"int"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> new_buffer <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">realloc</span><span class="token punctuation">(</span>buffer<span class="token punctuation">,</span> new_size<span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 释放内存</span>
+    ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">free</span><span class="token punctuation">(</span>new_buffer<span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"内存已释放"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 使用calloc（初始化为0）</span>
+<span class="token keyword">local</span> zero_buffer <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">calloc</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span><span class="token function">sizeof</span><span class="token punctuation">(</span><span class="token string">"double"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="字符串操作" dir="auto" class="heading" id="字符串操作_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>字符串操作</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 创建C字符串</span>
+<span class="token keyword">local</span> cstr <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"char[64]"</span><span class="token punctuation">)</span>
+ffi<span class="token punctuation">.</span><span class="token function">copy</span><span class="token punctuation">(</span>cstr<span class="token punctuation">,</span> <span class="token string">"Hello from C string"</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 转换为Lua字符串</span>
+<span class="token keyword">local</span> lua_str <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span>cstr<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Lua字符串:"</span><span class="token punctuation">,</span> lua_str<span class="token punctuation">)</span>
+
+<span class="token comment">-- 使用sprintf格式化</span>
+<span class="token keyword">local</span> buffer <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"char[256]"</span><span class="token punctuation">)</span>
+ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">sprintf</span><span class="token punctuation">(</span>buffer<span class="token punctuation">,</span> <span class="token string">"格式化输出: %s, 数值: %d, 浮点数: %.2f"</span><span class="token punctuation">,</span> 
+              <span class="token string">"测试"</span><span class="token punctuation">,</span> <span class="token number">123</span><span class="token punctuation">,</span> <span class="token number">45.678</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>ffi<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="14.6.5 回调函数和函数指针" dir="auto" class="heading" id="14.6.5_回调函数和函数指针_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6.5 回调函数和函数指针</h3></div><div class="el-h4"><h4 data-heading="定义回调函数类型" dir="auto" class="heading" id="定义回调函数类型_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>定义回调函数类型</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded">ffi<span class="token punctuation">.</span>cdef <span class="token string">[[
+    // 回调函数类型
+    typedef void (*callback_t)(int status, const char *message);
+    
+    // 接受回调的函数
+    void register_callback(callback_t cb);
+    void trigger_event(int event_id);
+]]</span>
+
+<span class="token comment">-- Lua回调函数</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">lua_callback</span><span class="token punctuation">(</span>status<span class="token punctuation">,</span> message<span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"回调被调用:"</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  状态:"</span><span class="token punctuation">,</span> status<span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  消息:"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 将Lua函数转换为C回调</span>
+<span class="token keyword">local</span> cb <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">cast</span><span class="token punctuation">(</span><span class="token string">"callback_t"</span><span class="token punctuation">,</span> lua_callback<span class="token punctuation">)</span>
+
+<span class="token comment">-- 注意：回调函数会被垃圾回收，需要保持引用</span>
+_G<span class="token punctuation">.</span>keep_alive <span class="token operator">=</span> cb
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="14.6.6 类型检查和转换" dir="auto" class="heading" id="14.6.6_类型检查和转换_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6.6 类型检查和转换</h3></div><div class="el-h4"><h4 data-heading="类型检查" dir="auto" class="heading" id="类型检查_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>类型检查</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> var <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"int"</span><span class="token punctuation">,</span> <span class="token number">42</span><span class="token punctuation">)</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"类型信息:"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  ffi.typeof(var):"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span><span class="token function">typeof</span><span class="token punctuation">(</span>var<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  ffi.istype('int', var):"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span><span class="token function">istype</span><span class="token punctuation">(</span><span class="token string">'int'</span><span class="token punctuation">,</span> var<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  ffi.sizeof(var):"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span><span class="token function">sizeof</span><span class="token punctuation">(</span>var<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  ffi.alignof('int'):"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span><span class="token function">alignof</span><span class="token punctuation">(</span><span class="token string">'int'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  ffi.offsetof('Student', 'name'):"</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span><span class="token function">offsetof</span><span class="token punctuation">(</span><span class="token string">'Student'</span><span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="类型转换" dir="auto" class="heading" id="类型转换_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>类型转换</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 基本类型转换</span>
+<span class="token keyword">local</span> int_val <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"int"</span><span class="token punctuation">,</span> <span class="token number">42</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> ptr <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">cast</span><span class="token punctuation">(</span><span class="token string">"void*"</span><span class="token punctuation">,</span> int_val<span class="token punctuation">)</span>
+<span class="token keyword">local</span> int_ptr <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">cast</span><span class="token punctuation">(</span><span class="token string">"int*"</span><span class="token punctuation">,</span> ptr<span class="token punctuation">)</span>
+
+<span class="token comment">-- 指针算术</span>
+<span class="token keyword">local</span> array <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"int[10]"</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">9</span> <span class="token keyword">do</span>
+    array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">10</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 获取元素指针</span>
+<span class="token keyword">local</span> elem_ptr <span class="token operator">=</span> array <span class="token operator">+</span> <span class="token number">5</span>  <span class="token comment">-- 指向array[5]</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"array[5] ="</span><span class="token punctuation">,</span> elem_ptr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="14.6.7 实用示例" dir="auto" class="heading" id="14.6.7_实用示例_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6.7 实用示例</h3></div><div class="el-h4"><h4 data-heading="示例 1：高性能数学计算" dir="auto" class="heading" id="示例_1：高性能数学计算_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>示例 1：高性能数学计算</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">vector_operations</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    ffi<span class="token punctuation">.</span>cdef <span class="token string">[[
+        typedef struct {
+            double x, y, z;
+        } Vector3;
+        
+        double dot_product(Vector3 a, Vector3 b);
+        Vector3 cross_product(Vector3 a, Vector3 b);
+        double vector_length(Vector3 v);
+    ]]</span>
+    
+    <span class="token keyword">local</span> vec1 <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Vector3"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> z<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> vec2 <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Vector3"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>x<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> z<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 点积（模拟）</span>
+    <span class="token keyword">local</span> dot <span class="token operator">=</span> vec1<span class="token punctuation">.</span>x <span class="token operator">*</span> vec2<span class="token punctuation">.</span>x <span class="token operator">+</span> vec1<span class="token punctuation">.</span>y <span class="token operator">*</span> vec2<span class="token punctuation">.</span>y <span class="token operator">+</span> vec1<span class="token punctuation">.</span>z <span class="token operator">*</span> vec2<span class="token punctuation">.</span>z
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"点积:"</span><span class="token punctuation">,</span> dot<span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 叉积（模拟）</span>
+    <span class="token keyword">local</span> cross <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"Vector3"</span><span class="token punctuation">)</span>
+    cross<span class="token punctuation">.</span>x <span class="token operator">=</span> vec1<span class="token punctuation">.</span>y <span class="token operator">*</span> vec2<span class="token punctuation">.</span>z <span class="token operator">-</span> vec1<span class="token punctuation">.</span>z <span class="token operator">*</span> vec2<span class="token punctuation">.</span>y
+    cross<span class="token punctuation">.</span>y <span class="token operator">=</span> vec1<span class="token punctuation">.</span>z <span class="token operator">*</span> vec2<span class="token punctuation">.</span>x <span class="token operator">-</span> vec1<span class="token punctuation">.</span>x <span class="token operator">*</span> vec2<span class="token punctuation">.</span>z
+    cross<span class="token punctuation">.</span>z <span class="token operator">=</span> vec1<span class="token punctuation">.</span>x <span class="token operator">*</span> vec2<span class="token punctuation">.</span>y <span class="token operator">-</span> vec1<span class="token punctuation">.</span>y <span class="token operator">*</span> vec2<span class="token punctuation">.</span>x
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"叉积:"</span><span class="token punctuation">,</span> cross<span class="token punctuation">.</span>x<span class="token punctuation">,</span> cross<span class="token punctuation">.</span>y<span class="token punctuation">,</span> cross<span class="token punctuation">.</span>z<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例 2：处理二进制数据" dir="auto" class="heading" id="示例_2：处理二进制数据_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>示例 2：处理二进制数据</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">binary_data_processing</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">-- 创建二进制缓冲区</span>
+    <span class="token keyword">local</span> buffer_size <span class="token operator">=</span> <span class="token number">1024</span>
+    <span class="token keyword">local</span> buffer <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"uint8_t[?]"</span><span class="token punctuation">,</span> buffer_size<span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 填充数据</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> buffer_size <span class="token operator">-</span> <span class="token number">1</span> <span class="token keyword">do</span>
+        buffer<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token comment">-- 计算校验和</span>
+    <span class="token keyword">local</span> checksum <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> buffer_size <span class="token operator">-</span> <span class="token number">1</span> <span class="token keyword">do</span>
+        checksum <span class="token operator">=</span> checksum <span class="token operator">+</span> buffer<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    <span class="token keyword">end</span>
+    checksum <span class="token operator">=</span> checksum <span class="token operator">%</span> <span class="token number">256</span>
+    
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"缓冲区大小:"</span><span class="token punctuation">,</span> buffer_size<span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"校验和:"</span><span class="token punctuation">,</span> checksum<span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 查找特定字节</span>
+    <span class="token keyword">local</span> target <span class="token operator">=</span> <span class="token number">0xAA</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> buffer_size <span class="token operator">-</span> <span class="token number">1</span> <span class="token keyword">do</span>
+        <span class="token keyword">if</span> buffer<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> target <span class="token keyword">then</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"找到"</span><span class="token punctuation">,</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"0x%02X"</span><span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"在位置"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="示例 3：与系统 API 交互" dir="auto" class="heading" id="示例_3：与系统_API_交互_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>示例 3：与系统 API 交互</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">system_interaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">-- 注意：这部分代码依赖于操作系统</span>
+    ffi<span class="token punctuation">.</span>cdef <span class="token string">[[
+        // Windows API示例
+        #ifdef _WIN32
+        #include &lt;windows.h&gt;
+        void Sleep(DWORD milliseconds);
+        DWORD GetTickCount();
+        #endif
+        
+        // POSIX示例
+        #ifndef _WIN32
+        #include &lt;unistd.h&gt;
+        unsigned int sleep(unsigned int seconds);
+        #endif
+    ]]</span>
+    
+    <span class="token comment">-- 跨平台休眠</span>
+    <span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">msleep</span><span class="token punctuation">(</span>milliseconds<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> ffi<span class="token punctuation">.</span>os <span class="token operator">==</span> <span class="token string">"Windows"</span> <span class="token keyword">then</span>
+            ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>milliseconds<span class="token punctuation">)</span>
+        <span class="token keyword">else</span>
+            ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">usleep</span><span class="token punctuation">(</span>milliseconds <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"开始休眠..."</span><span class="token punctuation">)</span>
+    <span class="token function">msleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>  <span class="token comment">-- 休眠1秒</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"休眠结束"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="14.6.8 限制和注意事项" dir="auto" class="heading" id="14.6.8_限制和注意事项_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.6.8 限制和注意事项</h3></div><div class="el-h4"><h4 data-heading="FFI 的限制" dir="auto" class="heading" id="FFI_的限制_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>FFI 的限制</h4></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto"><strong>平台依赖性</strong>：FFI 代码可能在不同平台表现不同</li>
+<li data-line="1" dir="auto"><strong>类型安全</strong>：错误的类型使用可能导致崩溃</li>
+<li data-line="2" dir="auto"><strong>内存泄漏</strong>：需要手动管理内存</li>
+<li data-line="3" dir="auto"><strong>回调函数</strong>：Lua 回调可能被垃圾回收</li>
+</ol></div><div class="el-h4"><h4 data-heading="调试技巧" dir="auto" class="heading" id="调试技巧_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>调试技巧</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 启用调试信息</span>
+ffi<span class="token punctuation">.</span>cdef <span class="token string">[[
+    // 添加详细的错误检查
+]]</span>
+
+<span class="token comment">-- 使用assert进行运行时检查</span>
+<span class="token keyword">local</span> ptr <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token function">assert</span><span class="token punctuation">(</span>ptr <span class="token operator">~=</span> ffi<span class="token punctuation">.</span>NULL<span class="token punctuation">,</span> <span class="token string">"内存分配失败"</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 添加日志记录</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">debug_alloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"分配内存:"</span><span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token string">"字节"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> ptr <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"返回指针:"</span><span class="token punctuation">,</span> <span class="token function">tostring</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> ptr
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="14.7 最佳实践建议" dir="auto" class="heading" id="14.7_最佳实践建议_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.7 最佳实践建议</h2></div><div class="el-h4"><h4 data-heading="1. goto 使用场景优先级" dir="auto" class="heading" id="1._goto_使用场景优先级_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1. goto 使用场景优先级</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 优先方案：使用函数和返回值</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">processItem</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token function">isValid</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span> <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token keyword">false</span>  <span class="token comment">-- 代替 goto</span>
+    <span class="token keyword">end</span>
+    <span class="token comment">-- 正常处理</span>
+    <span class="token keyword">return</span> <span class="token keyword">true</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 次选方案：goto 用于简单循环控制</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> <span class="token function">shouldSkip</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">then</span>
+    	<span class="token keyword">goto</span> continue
+    <span class="token keyword">end</span>
+    
+    <span class="token function">process</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    <span class="token punctuation">::</span>continue<span class="token punctuation">::</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="2. 代码可读性维护" dir="auto" class="heading" id="2._代码可读性维护_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>2. 代码可读性维护</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 难以理解：过度使用 goto</span>
+<span class="token keyword">goto</span> step1
+<span class="token punctuation">::</span>step3<span class="token punctuation">::</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"步骤3"</span><span class="token punctuation">)</span>
+<span class="token keyword">goto</span> <span class="token keyword">end</span>
+<span class="token punctuation">::</span>step1<span class="token punctuation">::</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"步骤1"</span><span class="token punctuation">)</span>
+<span class="token keyword">goto</span> step2
+<span class="token punctuation">::</span>step2<span class="token punctuation">::</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"步骤2"</span><span class="token punctuation">)</span>
+<span class="token keyword">goto</span> step3
+<span class="token punctuation">::</span><span class="token keyword">end</span><span class="token punctuation">::</span>
+
+<span class="token comment">-- 清晰明了：限制使用范围</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">3</span> <span class="token keyword">then</span>
+    	<span class="token keyword">goto</span> skip_print
+    <span class="token keyword">end</span>
+    
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"正常: "</span> <span class="token operator">..</span> i<span class="token punctuation">)</span>
+    <span class="token punctuation">::</span>skip_print<span class="token punctuation">::</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="3. 性能优化技巧" dir="auto" class="heading" id="3._性能优化技巧_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>3. 性能优化技巧</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 1. 复用类型对象</span>
+<span class="token keyword">local</span> Point_type <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">typeof</span><span class="token punctuation">(</span><span class="token string">"Point"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> points <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1000</span> <span class="token keyword">do</span>
+    points<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">Point_type</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">-- 比ffi.new更快</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 2. 批量操作</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">process_batch</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> count<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> buffer <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">"double[?]"</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> count <span class="token operator">-</span> <span class="token number">1</span> <span class="token keyword">do</span>
+        buffer<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> data<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">2</span>
+    <span class="token keyword">end</span>
+    <span class="token comment">-- 批量处理buffer</span>
+    <span class="token keyword">return</span> buffer
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 3. 避免频繁的类型转换</span>
+<span class="token keyword">local</span> cached_type <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">typeof</span><span class="token punctuation">(</span><span class="token string">"int[100]"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> array <span class="token operator">=</span> <span class="token function">cached_type</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="4. 内存管理最佳实践" dir="auto" class="heading" id="4._内存管理最佳实践_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4. 内存管理最佳实践</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 1. 使用gc来管理内存</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">create_large_buffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> buf <span class="token operator">=</span> ffi<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span>ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">,</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span>free<span class="token punctuation">)</span>
+    <span class="token comment">-- buf会在垃圾回收时自动释放</span>
+    <span class="token keyword">return</span> buf
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 2. 显式内存管理</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">manual_memory_management</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> buffers <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    
+    <span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">allocate</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> size<span class="token punctuation">)</span>
+        <span class="token keyword">local</span> buf <span class="token operator">=</span> ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> buf <span class="token operator">==</span> ffi<span class="token punctuation">.</span>NULL <span class="token keyword">then</span>
+            <span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"内存分配失败"</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+        buffers<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> buf
+        <span class="token keyword">return</span> buf
+    <span class="token keyword">end</span>
+    
+    <span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">cleanup</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> name<span class="token punctuation">,</span> buf <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>buffers<span class="token punctuation">)</span> <span class="token keyword">do</span>
+            ffi<span class="token punctuation">.</span>C<span class="token punctuation">.</span><span class="token function">free</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span>
+            buffers<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">nil</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token comment">-- 使用...</span>
+    <span class="token keyword">local</span> data <span class="token operator">=</span> <span class="token function">allocate</span><span class="token punctuation">(</span><span class="token string">"data"</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">)</span>
+    
+    <span class="token comment">-- 清理...</span>
+    <span class="token function">cleanup</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="14.8 本章总结" dir="auto" class="heading" id="14.8_本章总结_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14.8 本章总结</h2></div><div class="el-h3"><h3 data-heading="关键知识点回顾" dir="auto" class="heading" id="关键知识点回顾_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>关键知识点回顾</h3></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>
+<p><strong>LuaJIT 核心特性</strong>：</p>
+<ul class="has-list-bullet">
+<li data-line="1" dir="auto"><span class="list-bullet"></span>高性能 JIT 编译器 - 动态编译字节码为机器码</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>FFI（外部函数接口） - 直接调用 C 函数和使用 C 数据结构</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>完全兼容 Lua 5.1 - 无缝迁移现有代码</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>更低的内存占用 - 优化内存管理</li>
+</ul>
+</li>
+<li data-line="6" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>
+<p><strong>JIT 编译器</strong>：</p>
+<ul class="has-list-bullet">
+<li data-line="7" dir="auto"><span class="list-bullet"></span><code>jit.on()</code> - 启用 JIT 编译</li>
+<li data-line="8" dir="auto"><span class="list-bullet"></span><code>jit.off()</code> - 禁用 JIT 编译</li>
+<li data-line="9" dir="auto"><span class="list-bullet"></span>性能提升 2-15 倍 - 特别适合循环和数值计算</li>
+<li data-line="10" dir="auto"><span class="list-bullet"></span>动态编译 - 运行时将热点代码编译为机器码</li>
+</ul>
+</li>
+<li data-line="12" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>
+<p><strong>FFI 外部函数接口</strong>：</p>
+<ul class="has-list-bullet">
+<li data-line="13" dir="auto"><span class="list-bullet"></span><code>ffi.cdef</code> - 声明 C 函数和类型</li>
+<li data-line="14" dir="auto"><span class="list-bullet"></span><code>ffi.C</code> - 调用标准 C 库函数</li>
+<li data-line="15" dir="auto"><span class="list-bullet"></span><code>ffi.new</code> - 创建 C 结构体实例</li>
+<li data-line="16" dir="auto"><span class="list-bullet"></span><code>ffi.cast</code> - 类型转换</li>
+<li data-line="17" dir="auto"><span class="list-bullet"></span><code>ffi.string</code> - 转换 C 字符串为 Lua 字符串</li>
+<li data-line="18" dir="auto"><span class="list-bullet"></span><code>ffi.copy</code> - 复制数据到 C 缓冲区</li>
+<li data-line="19" dir="auto"><span class="list-bullet"></span>直接内存管理 - 使用 malloc/free</li>
+</ul>
+</li>
+<li data-line="21" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>
+<p><strong>goto 语句</strong>：</p>
+<ul class="has-list-bullet">
+<li data-line="22" dir="auto"><span class="list-bullet"></span><code>::label::</code> - 定义标签</li>
+<li data-line="23" dir="auto"><span class="list-bullet"></span><code>goto label</code> - 跳转到标签</li>
+<li data-line="24" dir="auto"><span class="list-bullet"></span>模拟 continue - Lua 原生无 continue</li>
+<li data-line="25" dir="auto"><span class="list-bullet"></span>跳出多重嵌套 - 简化复杂控制流</li>
+<li data-line="26" dir="auto"><span class="list-bullet"></span>卫语句模式 - 提前返回逻辑</li>
+</ul>
+</li>
+<li data-line="28" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>
+<p><strong>其他增强功能</strong>：</p>
+<ul class="has-list-bullet">
+<li data-line="29" dir="auto"><span class="list-bullet"></span>bit 库 - 位运算操作</li>
+<li data-line="30" dir="auto"><span class="list-bullet"></span>表操作优化 - 大规模数据处理</li>
+<li data-line="31" dir="auto"><span class="list-bullet"></span>协程优化 - 轻量级并发</li>
+<li data-line="32" dir="auto"><span class="list-bullet"></span>垃圾回收优化 - 更高效的内存管理</li>
+</ul>
+</li>
+</ol></div><div class="el-h3"><h3 data-heading="检查清单" dir="auto" class="heading" id="检查清单_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>检查清单</h3></div><div class="el-p"><p dir="auto">完成本章后，你应该能够：</p></div><div class="el-ul"><ul class="contains-task-list has-list-bullet">
+<li data-line="0" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="0" type="checkbox" class="task-list-item-checkbox">理解 LuaJIT 的性能优势和应用场景</li>
+<li data-line="1" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="1" type="checkbox" class="task-list-item-checkbox">启用和禁用 JIT 编译器</li>
+<li data-line="2" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="2" type="checkbox" class="task-list-item-checkbox">使用 FFI 调用 C 标准库函数</li>
+<li data-line="3" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="3" type="checkbox" class="task-list-item-checkbox">创建和使用 C 结构体</li>
+<li data-line="4" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="4" type="checkbox" class="task-list-item-checkbox">进行 C 风格的内存分配和管理</li>
+<li data-line="5" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="5" type="checkbox" class="task-list-item-checkbox">正确使用 goto 实现流程控制</li>
+<li data-line="6" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="6" type="checkbox" class="task-list-item-checkbox">理解 goto 的作用域限制</li>
+<li data-line="7" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="7" type="checkbox" class="task-list-item-checkbox">使用 bit 库进行位运算</li>
+<li data-line="8" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="8" type="checkbox" class="task-list-item-checkbox">利用 LuaJIT 优化大规模数据处理</li>
+<li data-line="9" data-task="" class="task-list-item" dir="auto"><span class="list-bullet"></span><input data-line="9" type="checkbox" class="task-list-item-checkbox">手动控制垃圾回收机制</li>
+</ul></div><div class="el-h3"><h3 data-heading="思考题" dir="auto" class="heading" id="思考题_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>思考题</h3></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">JIT 编译器在什么场景下性能提升最明显？什么场景下可能效果有限？</li>
+<li data-line="1" dir="auto">FFI 与传统的 Lua C API 扩展方式相比有什么优势和劣势？</li>
+<li data-line="2" dir="auto">为什么 goto 在大多数编程语言中都不推荐使用？Lua 中的 goto 有哪些特殊限制？</li>
+<li data-line="3" dir="auto">使用 FFI 直接操作内存时需要注意哪些安全问题？</li>
+<li data-line="4" dir="auto">如何平衡代码可读性和使用 goto 带来的便利性？</li>
+</ol></div><div class="el-hr"><hr></div><div class="el-h3"><h3 data-heading="常见问题解答" dir="auto" class="heading" id="常见问题解答_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>常见问题解答</h3></div><div class="el-p"><p dir="auto"><strong>Q: 为什么 goto 有这么多限制？</strong><br>
+A: 为了避免创建"面条代码"，确保程序结构清晰，防止跳过变量初始化等危险操作。</p></div><div class="el-p"><p dir="auto"><strong>Q: 什么时候应该使用 goto？</strong><br>
+A: 仅当：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">需要模拟 <code>continue</code></li>
+<li data-line="1" dir="auto">简单跳出多重循环</li>
+<li data-line="2" dir="auto">没有更清晰的结构化替代方案</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>Q: goto 的性能影响？</strong><br>
+A: Lua 的 <code>goto</code> 是编译期处理，运行时几乎没有性能开销。</p></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14._LuaJIT_0" data-path="#14._LuaJIT_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14. LuaJIT">14. LuaJIT</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#14.1_LuaJIT_简介_0" data-path="#14.1_LuaJIT_简介_0"><div class="tree-item-inner heading-link" heading-name="14.1 LuaJIT 简介">14.1 LuaJIT 简介</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#14.2_使用_LuaJIT_0" data-path="#14.2_使用_LuaJIT_0"><div class="tree-item-inner heading-link" heading-name="14.2 使用 LuaJIT">14.2 使用 LuaJIT</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#14.3_JIT_编译器_0" data-path="#14.3_JIT_编译器_0"><div class="tree-item-inner heading-link" heading-name="14.3 JIT 编译器">14.3 JIT 编译器</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.4_goto_-_代码跳转_0" data-path="#14.4_goto_-_代码跳转_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.4 goto - 代码跳转">14.4 goto - 代码跳转</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#核心用途_0" data-path="#核心用途_0"><div class="tree-item-inner heading-link" heading-name="核心用途">核心用途</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="5"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#1._模拟_`continue`_语句_0" data-path="#1._模拟_`continue`_语句_0"><div class="tree-item-inner heading-link" heading-name="1. 模拟 `continue` 语句">1. 模拟 continue 语句</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="5"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#2._跳出多重嵌套_0" data-path="#2._跳出多重嵌套_0"><div class="tree-item-inner heading-link" heading-name="2. 跳出多重嵌套">2. 跳出多重嵌套</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="5"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#3._卫语句模式（提前返回）_0" data-path="#3._卫语句模式（提前返回）_0"><div class="tree-item-inner heading-link" heading-name="3. 卫语句模式（提前返回）">3. 卫语句模式（提前返回）</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#重要限制与规则_0" data-path="#重要限制与规则_0"><div class="tree-item-inner heading-link" heading-name="重要限制与规则">重要限制与规则</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="5"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#1._作用域限制（最重要！）_0" data-path="#1._作用域限制（最重要！）_0"><div class="tree-item-inner heading-link" heading-name="1. 作用域限制（最重要！）">1. 作用域限制（最重要！）</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="5"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#2._标签定义规则_0" data-path="#2._标签定义规则_0"><div class="tree-item-inner heading-link" heading-name="2. 标签定义规则">2. 标签定义规则</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#14.5_其他功能_0" data-path="#14.5_其他功能_0"><div class="tree-item-inner heading-link" heading-name="14.5 其他功能">14.5 其他功能</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6_FFI（外部函数接口）_0" data-path="#14.6_FFI（外部函数接口）_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6 FFI（外部函数接口）">14.6 FFI（外部函数接口）</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6.1_FFI_基础_0" data-path="#14.6.1_FFI_基础_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6.1 FFI 基础">14.6.1 FFI 基础</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#加载_FFI_模块_0" data-path="#加载_FFI_模块_0"><div class="tree-item-inner heading-link" heading-name="加载 FFI 模块">加载 FFI 模块</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#基本工作流程_0" data-path="#基本工作流程_0"><div class="tree-item-inner heading-link" heading-name="基本工作流程">基本工作流程</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6.2_声明_C_类型_0" data-path="#14.6.2_声明_C_类型_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6.2 声明 C 类型">14.6.2 声明 C 类型</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#基本类型声明_0" data-path="#基本类型声明_0"><div class="tree-item-inner heading-link" heading-name="基本类型声明">基本类型声明</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#结构体声明_0" data-path="#结构体声明_0"><div class="tree-item-inner heading-link" heading-name="结构体声明">结构体声明</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#函数声明_0" data-path="#函数声明_0"><div class="tree-item-inner heading-link" heading-name="函数声明">函数声明</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6.3_调用_C_函数_0" data-path="#14.6.3_调用_C_函数_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6.3 调用 C 函数">14.6.3 调用 C 函数</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#访问标准库_0" data-path="#访问标准库_0"><div class="tree-item-inner heading-link" heading-name="访问标准库">访问标准库</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#调用系统函数_0" data-path="#调用系统函数_0"><div class="tree-item-inner heading-link" heading-name="调用系统函数">调用系统函数</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6.4_创建和操作_C_数据_0" data-path="#14.6.4_创建和操作_C_数据_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6.4 创建和操作 C 数据">14.6.4 创建和操作 C 数据</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#创建结构体实例_0" data-path="#创建结构体实例_0"><div class="tree-item-inner heading-link" heading-name="创建结构体实例">创建结构体实例</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#内存分配和管理_0" data-path="#内存分配和管理_0"><div class="tree-item-inner heading-link" heading-name="内存分配和管理">内存分配和管理</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#字符串操作_0" data-path="#字符串操作_0"><div class="tree-item-inner heading-link" heading-name="字符串操作">字符串操作</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6.5_回调函数和函数指针_0" data-path="#14.6.5_回调函数和函数指针_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6.5 回调函数和函数指针">14.6.5 回调函数和函数指针</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#定义回调函数类型_0" data-path="#定义回调函数类型_0"><div class="tree-item-inner heading-link" heading-name="定义回调函数类型">定义回调函数类型</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6.6_类型检查和转换_0" data-path="#14.6.6_类型检查和转换_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6.6 类型检查和转换">14.6.6 类型检查和转换</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#类型检查_0" data-path="#类型检查_0"><div class="tree-item-inner heading-link" heading-name="类型检查">类型检查</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#类型转换_0" data-path="#类型转换_0"><div class="tree-item-inner heading-link" heading-name="类型转换">类型转换</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6.7_实用示例_0" data-path="#14.6.7_实用示例_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6.7 实用示例">14.6.7 实用示例</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#示例_1：高性能数学计算_0" data-path="#示例_1：高性能数学计算_0"><div class="tree-item-inner heading-link" heading-name="示例 1：高性能数学计算">示例 1：高性能数学计算</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#示例_2：处理二进制数据_0" data-path="#示例_2：处理二进制数据_0"><div class="tree-item-inner heading-link" heading-name="示例 2：处理二进制数据">示例 2：处理二进制数据</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#示例_3：与系统_API_交互_0" data-path="#示例_3：与系统_API_交互_0"><div class="tree-item-inner heading-link" heading-name="示例 3：与系统 API 交互">示例 3：与系统 API 交互</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.6.8_限制和注意事项_0" data-path="#14.6.8_限制和注意事项_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.6.8 限制和注意事项">14.6.8 限制和注意事项</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#FFI_的限制_0" data-path="#FFI_的限制_0"><div class="tree-item-inner heading-link" heading-name="FFI 的限制">FFI 的限制</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#调试技巧_0" data-path="#调试技巧_0"><div class="tree-item-inner heading-link" heading-name="调试技巧">调试技巧</div></a><div class="tree-item-children"></div></div></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.7_最佳实践建议_0" data-path="#14.7_最佳实践建议_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.7 最佳实践建议">14.7 最佳实践建议</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#1._goto_使用场景优先级_0" data-path="#1._goto_使用场景优先级_0"><div class="tree-item-inner heading-link" heading-name="1. goto 使用场景优先级">1. goto 使用场景优先级</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#2._代码可读性维护_0" data-path="#2._代码可读性维护_0"><div class="tree-item-inner heading-link" heading-name="2. 代码可读性维护">2. 代码可读性维护</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#3._性能优化技巧_0" data-path="#3._性能优化技巧_0"><div class="tree-item-inner heading-link" heading-name="3. 性能优化技巧">3. 性能优化技巧</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#4._内存管理最佳实践_0" data-path="#4._内存管理最佳实践_0"><div class="tree-item-inner heading-link" heading-name="4. 内存管理最佳实践">4. 内存管理最佳实践</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/14.-luajit.html#14.8_本章总结_0" data-path="#14.8_本章总结_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="14.8 本章总结">14.8 本章总结</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#关键知识点回顾_0" data-path="#关键知识点回顾_0"><div class="tree-item-inner heading-link" heading-name="关键知识点回顾">关键知识点回顾</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#检查清单_0" data-path="#检查清单_0"><div class="tree-item-inner heading-link" heading-name="检查清单">检查清单</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#思考题_0" data-path="#思考题_0"><div class="tree-item-inner heading-link" heading-name="思考题">思考题</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/14.-luajit.html#常见问题解答_0" data-path="#常见问题解答_0"><div class="tree-item-inner heading-link" heading-name="常见问题解答">常见问题解答</div></a><div class="tree-item-children"></div></div></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>

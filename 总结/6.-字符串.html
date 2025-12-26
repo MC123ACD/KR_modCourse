@@ -1,0 +1,620 @@
+<!DOCTYPE html> <html lang="zh-cn"><head>
+<title>6. 字符串</title>
+<base href="..">
+<meta name="pathname" content="总结/6.-字符串.html">
+<meta name="description" content="王国保卫战修改教程 - 6. 字符串">
+<meta property="og:title" content="6. 字符串">
+<meta property="og:description" content="王国保卫战修改教程 - 6. 字符串">
+<meta property="og:type" content="website">
+<meta property="og:url" content="总结/6.-字符串.html">
+<meta property="og:image" content="undefined">
+<meta charset="UTF-8"><meta property="og:site_name" content="王国保卫战修改教程"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="preload" href="site-lib/styles/snippets.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/snippets.css"></noscript><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/other-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/other-plugins.css"></noscript><link rel="stylesheet" href="site-lib/styles/theme.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/supported-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/supported-plugins.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager mod-windows is-frameless is-hidden-frameless styled-scrollbars show-inline-title show-ribbon background-settings-workplace-theme-dark-in-the-sky background-image-settings-markdown-page-custom notebook-liked-markdown-page-grid-notebook-1 panel-page-bg-theme-light-custom panel-page-bg-theme-dark-plant hide-left-ribbon-retention-drawer toggle-divider-lines toggle-header-bottom-line bt-bubble-layout bt-bubble-layout-hide-borders remove-heading-indicator h1-toggle-underline toggle-left-aligned-content fancy-hr-no-icon custom-unordered-list custom-ordered-list list-no-border folder-icons bt-toggle-colorful-folder folder-style-change-options-colorful-default folder-colorful-one table-width-auto table-style-two link-underline-internal enable-alternative-checkboxes default-loading-page loading-text-typing-style rainbow-tag translucent-setting-panel underline-tab-style canvas-card-text-middle admonition-bg-color-same toggle-calendar-shadow style-options-for-buttons-plugin dataview-list-style-pacman memos-banner-gradient thino-frosted-style thino-background-default quiet-outline-optimize code-theme-sublime is-focused"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event allow-fold-headings show-indentation-guide show-properties is-readable-line-width" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section"><div class="header"><h1 class="page-title heading inline-title" id="6._字符串_0">6. 字符串</h1><div class="data-bar"></div></div><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-h3"><h3 data-heading="转义符" dir="auto" class="heading" id="转义符_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>转义符</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">转义符</th>
+<th dir="ltr">意义</th>
+<th dir="ltr">ASCII码值（十进制）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><code>\n</code></td>
+<td dir="ltr">换行 ，将当前位置移到下一行开头</td>
+<td dir="auto">010</td>
+</tr>
+<tr>
+<td dir="ltr"><code>\t</code></td>
+<td dir="ltr">水平制表（缩进，跳到下一个TAB位置）</td>
+<td dir="auto">009</td>
+</tr>
+<tr>
+<td dir="auto"><code>\\</code></td>
+<td dir="ltr">代表一个反斜线字符</td>
+<td dir="auto">092</td>
+</tr>
+<tr>
+<td dir="auto"><code>\'</code></td>
+<td dir="ltr">代表一个单引号（撇号）字符</td>
+<td dir="auto">039</td>
+</tr>
+<tr>
+<td dir="auto"><code>\"</code></td>
+<td dir="ltr">代表一个双引号字符</td>
+<td dir="auto">034</td>
+</tr>
+<tr>
+<td dir="ltr"><code>\r</code></td>
+<td dir="ltr">回车，将当前位置移到本行开头</td>
+<td dir="auto">013</td>
+</tr>
+<tr>
+<td dir="auto"><code>\0</code></td>
+<td dir="ltr">空字符</td>
+<td dir="auto">000</td>
+</tr>
+<tr>
+<td dir="ltr"><code>\b</code></td>
+<td dir="ltr">退格，将当前位置移到前一列</td>
+<td dir="auto">008</td>
+</tr>
+<tr>
+<td dir="ltr"><code>\a</code></td>
+<td dir="ltr">响铃</td>
+<td dir="auto">007</td>
+</tr>
+<tr>
+<td dir="ltr"><code>\f</code></td>
+<td dir="ltr">换页，将当前位置移到下页开头</td>
+<td dir="auto">012</td>
+</tr>
+<tr>
+<td dir="ltr"><code>\v</code></td>
+<td dir="ltr">垂直制表</td>
+<td dir="auto">011</td>
+</tr>
+<tr>
+<td dir="ltr"><code>\ddd</code></td>
+<td dir="ltr">1到3位八进制数所代表的任意字符</td>
+<td dir="ltr">三位八进制</td>
+</tr>
+<tr>
+<td dir="ltr"><code>\xhh</code></td>
+<td dir="ltr">1到2位十六进制所代表的任意字符</td>
+<td dir="ltr">二位十六进制</td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="模式匹配修饰符" dir="auto" class="heading" id="模式匹配修饰符_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>模式匹配修饰符</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">字符类</th>
+<th dir="ltr">描述</th>
+<th dir="ltr">等效集合</th>
+<th dir="ltr">示例匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="auto"><strong><code>.</code></strong></td>
+<td dir="ltr">匹配<strong>任意单个字符</strong></td>
+<td dir="ltr">除换行符外的所有字符</td>
+<td dir="ltr"><code>"a"</code>, <code>"1"</code>, <code>"@"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%a</code></strong></td>
+<td dir="ltr">匹配<strong>字母</strong>（a-z, A-Z）</td>
+<td dir="ltr"><code>[A-Za-z]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"Z"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%c</code></strong></td>
+<td dir="ltr">匹配<strong>控制字符</strong></td>
+<td dir="auto"><code>[\0-\31\127]</code></td>
+<td dir="ltr"><code>"\n"</code>, <code>"\t"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%d</code></strong></td>
+<td dir="ltr">匹配<strong>数字</strong></td>
+<td dir="auto"><code>[0-9]</code></td>
+<td dir="auto"><code>"0"</code>, <code>"9"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%g</code></strong></td>
+<td dir="ltr">匹配<strong>除空格外的可打印字符</strong></td>
+<td dir="auto"><code>[!-~]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"1"</code>, <code>"!"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%l</code></strong></td>
+<td dir="ltr">匹配<strong>小写字母</strong></td>
+<td dir="ltr"><code>[a-z]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"z"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%p</code></strong></td>
+<td dir="ltr">匹配<strong>标点符号</strong></td>
+<td dir="auto"><code>[!-/:-@[-</code>{-~]`</td>
+<td dir="auto"><code>"!"</code>, <code>"."</code>, <code>"@"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%s</code></strong></td>
+<td dir="ltr">匹配<strong>空白字符</strong></td>
+<td dir="ltr"><code>[ \t\n\r\f\v]</code></td>
+<td dir="ltr">空格, <code>"\t"</code>, <code>"\n"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%u</code></strong></td>
+<td dir="ltr">匹配<strong>大写字母</strong></td>
+<td dir="ltr"><code>[A-Z]</code></td>
+<td dir="ltr"><code>"A"</code>, <code>"Z"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%w</code></strong></td>
+<td dir="ltr">匹配<strong>字母数字</strong></td>
+<td dir="ltr"><code>[A-Za-z0-9]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"A"</code>, <code>"1"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%x</code></strong></td>
+<td dir="ltr">匹配<strong>十六进制数字</strong></td>
+<td dir="ltr"><code>[0-9A-Fa-f]</code></td>
+<td dir="ltr"><code>"0"</code>, <code>"a"</code>, <code>"F"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%z</code></strong></td>
+<td dir="ltr">匹配<strong>零字符</strong>（\0）</td>
+<td dir="auto"><code>\0</code></td>
+<td dir="auto"><code>"\0"</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="大写形式（补集）" dir="auto" class="heading" id="大写形式（补集）_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>大写形式（补集）</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">大写类</th>
+<th dir="ltr">描述</th>
+<th dir="ltr">等效于</th>
+<th dir="ltr">示例匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong><code>%A</code></strong></td>
+<td dir="ltr">匹配<strong>非字母</strong></td>
+<td dir="ltr"><code>[^%a]</code></td>
+<td dir="auto"><code>"1"</code>, <code>"!"</code>, <code>" "</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%C</code></strong></td>
+<td dir="ltr">匹配<strong>非控制字符</strong></td>
+<td dir="ltr"><code>[^%c]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"1"</code>, <code>" "</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%D</code></strong></td>
+<td dir="ltr">匹配<strong>非数字</strong></td>
+<td dir="ltr"><code>[^%d]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"!"</code>, <code>" "</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%G</code></strong></td>
+<td dir="ltr">匹配<strong>空格和不可打印字符</strong></td>
+<td dir="ltr"><code>[^%g]</code></td>
+<td dir="ltr"><code>" "</code>, <code>"\t"</code>, <code>"\0"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%L</code></strong></td>
+<td dir="ltr">匹配<strong>非小写字母</strong></td>
+<td dir="ltr"><code>[^%l]</code></td>
+<td dir="ltr"><code>"A"</code>, <code>"1"</code>, <code>"!"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%P</code></strong></td>
+<td dir="ltr">匹配<strong>非标点符号</strong></td>
+<td dir="ltr"><code>[^%p]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"1"</code>, <code>" "</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%S</code></strong></td>
+<td dir="ltr">匹配<strong>非空白字符</strong></td>
+<td dir="ltr"><code>[^%s]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"1"</code>, <code>"!"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%U</code></strong></td>
+<td dir="ltr">匹配<strong>非大写字母</strong></td>
+<td dir="ltr"><code>[^%u]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"1"</code>, <code>"!"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%W</code></strong></td>
+<td dir="ltr">匹配<strong>非字母数字</strong></td>
+<td dir="ltr"><code>[^%w]</code></td>
+<td dir="auto"><code>"!"</code>, <code>"@"</code>, <code>" "</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%X</code></strong></td>
+<td dir="ltr">匹配<strong>非十六进制数字</strong></td>
+<td dir="ltr"><code>[^%x]</code></td>
+<td dir="ltr"><code>"g"</code>, <code>"z"</code>, <code>"!"</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="特殊字符" dir="auto" class="heading" id="特殊字符_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>特殊字符</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">字符</th>
+<th dir="ltr">描述</th>
+<th dir="ltr">转义写法</th>
+<th dir="ltr">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="auto"><strong><code>^</code></strong></td>
+<td dir="ltr">匹配字符串<strong>开始</strong></td>
+<td dir="auto"><code>%^</code></td>
+<td dir="ltr"><code>"^Hello"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>$</code></strong></td>
+<td dir="ltr">匹配字符串<strong>结束</strong></td>
+<td dir="auto"><code>%$</code></td>
+<td dir="ltr"><code>"end$"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>(</code> <code>)</code></strong></td>
+<td dir="ltr">捕获分组</td>
+<td dir="auto"><code>%(</code> <code>%)</code></td>
+<td dir="ltr"><code>"(abc)"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>.</code></strong></td>
+<td dir="ltr">匹配任意字符</td>
+<td dir="auto"><code>%.</code></td>
+<td dir="ltr"><code>"file.txt"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>%</code></strong></td>
+<td dir="ltr">转义字符</td>
+<td dir="auto"><code>%%</code></td>
+<td dir="auto"><code>"50%"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>+</code></strong></td>
+<td dir="ltr">重复 1 次或多次</td>
+<td dir="auto"><code>%+</code></td>
+<td dir="ltr"><code>"a+b"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>-</code></strong></td>
+<td dir="ltr">重复 0 次或多次（惰性）</td>
+<td dir="auto"><code>%-</code></td>
+<td dir="ltr"><code>"a-b"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>*</code></strong></td>
+<td dir="ltr">重复 0 次或多次</td>
+<td dir="auto"><code>%*</code></td>
+<td dir="ltr"><code>"a*b"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>?</code></strong></td>
+<td dir="ltr">重复 0 次或 1 次</td>
+<td dir="auto"><code>%?</code></td>
+<td dir="ltr"><code>"a?b"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>[</code> <code>]</code></strong></td>
+<td dir="ltr">字符集</td>
+<td dir="auto"><code>%[</code> <code>%]</code></td>
+<td dir="ltr"><code>"[abc]"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>{</code> <code>}</code></strong></td>
+<td dir="ltr">重复次数</td>
+<td dir="auto"><code>%{</code> <code>%}</code></td>
+<td dir="ltr"><code>"a{3}"</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="重复修饰符" dir="auto" class="heading" id="重复修饰符_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>重复修饰符</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">限定符</th>
+<th dir="ltr">描述</th>
+<th dir="ltr">示例</th>
+<th dir="ltr">匹配结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="auto"><strong><code>*</code></strong></td>
+<td dir="ltr">0 次或多次（贪婪）</td>
+<td dir="ltr"><code>%d*</code></td>
+<td dir="auto"><code>""</code>, <code>"1"</code>, <code>"123"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>+</code></strong></td>
+<td dir="ltr">1 次或多次（贪婪）</td>
+<td dir="ltr"><code>%d+</code></td>
+<td dir="auto"><code>"1"</code>, <code>"123"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>-</code></strong></td>
+<td dir="ltr">0 次或多次（惰性）</td>
+<td dir="ltr"><code>%d-</code></td>
+<td dir="ltr">最短匹配</td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>?</code></strong></td>
+<td dir="ltr">0 次或 1 次</td>
+<td dir="ltr"><code>%d?</code></td>
+<td dir="auto"><code>""</code>, <code>"1"</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="字符集语法" dir="auto" class="heading" id="字符集语法_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>字符集语法</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">语法</th>
+<th dir="ltr">描述</th>
+<th dir="ltr">示例</th>
+<th dir="ltr">匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="auto"><strong><code>[...]</code></strong></td>
+<td dir="ltr">匹配字符集中的<strong>任意一个</strong></td>
+<td dir="ltr"><code>[aeiou]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"e"</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>[^...]</code></strong></td>
+<td dir="ltr">匹配<strong>不在</strong>字符集中的字符</td>
+<td dir="auto"><code>[^0-9]</code></td>
+<td dir="ltr"><code>"a"</code>, <code>"!"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>x-y</code></strong></td>
+<td dir="ltr">字符范围</td>
+<td dir="ltr"><code>[a-z]</code></td>
+<td dir="ltr">所有小写字母</td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%x</code></strong></td>
+<td dir="ltr">在字符集中表示普通字符</td>
+<td dir="auto"><code>[%%%+]</code></td>
+<td dir="ltr"><code>"%"</code> 或 <code>"+"</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="特殊模式项" dir="auto" class="heading" id="特殊模式项_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>特殊模式项</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">模式项</th>
+<th dir="ltr">描述</th>
+<th dir="ltr">示例</th>
+<th dir="ltr">等价写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong><code>%bxy</code></strong></td>
+<td dir="ltr">平衡匹配</td>
+<td dir="ltr"><code>%b()</code></td>
+<td dir="auto"><code>(.*)</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%f[...]</code></strong></td>
+<td dir="ltr">前置边界</td>
+<td dir="ltr"><code>%f[%a]</code></td>
+<td dir="ltr">匹配单词边界</td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%n</code></strong></td>
+<td dir="ltr">捕获引用（n=1-9）</td>
+<td dir="auto"><code>%1</code></td>
+<td dir="ltr">引用第 n 个捕获组</td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="格式化修饰符" dir="auto" class="heading" id="格式化修饰符_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>格式化修饰符</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">修饰符</th>
+<th dir="ltr">说明</th>
+<th dir="ltr">示例代码（f = string.format）</th>
+<th dir="ltr">输出结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong><code>%d</code> / <code>%i</code></strong></td>
+<td dir="ltr">十进制整数</td>
+<td dir="ltr"><code>f("%d", 456)</code></td>
+<td dir="auto"><code>"456"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%o</code></strong></td>
+<td dir="ltr">八进制整数</td>
+<td dir="ltr"><code>f("%o", 64)</code></td>
+<td dir="auto"><code>"100"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%x</code></strong></td>
+<td dir="ltr">小写十六进制整数</td>
+<td dir="ltr"><code>f("%x", 255)</code></td>
+<td dir="ltr"><code>"ff"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%X</code></strong></td>
+<td dir="ltr">大写十六进制整数</td>
+<td dir="ltr"><code>f("%X", 255)</code></td>
+<td dir="ltr"><code>"FF"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%u</code></strong></td>
+<td dir="ltr">无符号十进制整数</td>
+<td dir="ltr"><code>f("%u", 100)</code></td>
+<td dir="auto"><code>"100"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%f</code></strong></td>
+<td dir="ltr">浮点数（默认小数精度 6 位）</td>
+<td dir="ltr"><code>f("%f", 3.14)</code></td>
+<td dir="auto"><code>"3.140000"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>%.nf</code></td>
+<td dir="ltr">小数精度</td>
+<td dir="ltr"><code>f("%.2f", 3.14159)</code></td>
+<td dir="auto"><code>"3.14"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>%0nd</code></td>
+<td dir="ltr">前导零</td>
+<td dir="ltr"><code>f("%05d", 12)</code></td>
+<td dir="auto"><code>"00012"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>%+d</code></td>
+<td dir="ltr">正负号（总是显示符号）</td>
+<td dir="ltr"><code>f("%+d", 25)</code></td>
+<td dir="auto"><code>"+25"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%e</code></strong></td>
+<td dir="ltr">科学计数法（小写 e）</td>
+<td dir="ltr"><code>f("%e", 1000)</code></td>
+<td dir="ltr"><code>"1.000000e+03"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%E</code></strong></td>
+<td dir="ltr">科学计数法（大写 E）</td>
+<td dir="ltr"><code>f("%E", 1000)</code></td>
+<td dir="ltr"><code>"1.000000E+03"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%g</code></strong></td>
+<td dir="ltr">智能选择 <code>%f</code> 或 <code>%e</code>（较短的格式）</td>
+<td dir="ltr"><code>f("%g", 1000000)</code></td>
+<td dir="ltr"><code>"1e+06"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%G</code></strong></td>
+<td dir="ltr">智能选择 <code>%f</code> 或 <code>%E</code>（较短的格式）</td>
+<td dir="ltr"><code>f("%G", 1000000)</code></td>
+<td dir="ltr"><code>"1E+06"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%s</code></strong></td>
+<td dir="ltr">字符串</td>
+<td dir="ltr"><code>f("%s", "hello")</code></td>
+<td dir="ltr"><code>"hello"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><strong><code>%q</code></strong></td>
+<td dir="ltr">带引号和转义的字符串（安全格式）</td>
+<td dir="ltr"><code>f("%q", 'say "hi"')</code></td>
+<td dir="ltr"><code>'"say \"hi\""'</code></td>
+</tr>
+<tr>
+<td dir="auto"><strong><code>%%</code></strong></td>
+<td dir="ltr">百分号本身</td>
+<td dir="ltr"><code>f("%d%%", 50)</code></td>
+<td dir="auto"><code>"50%"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>%nd</code></td>
+<td dir="ltr">右对齐（宽度）</td>
+<td dir="ltr"><code>f("%5d", 12)</code></td>
+<td dir="auto"><code>"   12"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>%-nd</code></td>
+<td dir="ltr">左对齐</td>
+<td dir="ltr"><code>f("%-5d", 12)</code></td>
+<td dir="auto"><code>"12   "</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>%n.nf</code></td>
+<td dir="ltr">组合使用宽度+精度</td>
+<td dir="ltr"><code>f("%8.2f", 3.14159)</code></td>
+<td dir="auto"><code>"    3.14"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>% d</code></td>
+<td dir="ltr">空格填充</td>
+<td dir="ltr"><code>f("% d", 25)</code></td>
+<td dir="auto"><code>" 25"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>%#x</code></td>
+<td dir="ltr">十六进制前缀（添加 0x 前缀）</td>
+<td dir="ltr"><code>f("%#x", 255)</code></td>
+<td dir="ltr"><code>"0xff"</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>%#o</code></td>
+<td dir="ltr">八进制前缀（添加 0 前缀）</td>
+<td dir="ltr"><code>f("%#o", 64)</code></td>
+<td dir="auto"><code>"0100"</code></td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="操作函数" dir="auto" class="heading" id="操作函数_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>操作函数</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">函数</th>
+<th dir="ltr">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><code>string.upper(字符串: str) -&gt; 字符串: str</code></td>
+<td dir="ltr">将字符串全部转为大写字母</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.lower(字符串: str) -&gt; 字符串: str</code></td>
+<td dir="ltr">将字符串全部转为小写字母</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.find(字符串: str, 查找的字符串: str, 搜索位置?: int, 是否不使用正则模式?: bool) -&gt; 起始索引: int, 结束索引: int \| nil</code></td>
+<td dir="ltr">在目标字符串中搜索指定内容。若找到则返回其起始和结束索引，否则返回 nil</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.gsub(字符串: str, 匹配模式: str, 替换为: str, 替换次数?: int) -&gt; 替换后的字符串: str, 替换次数: int</code></td>
+<td dir="ltr">在字符串中执行查找与替换操作</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.sub(字符串: str, 截取起始位置: int, 截取结束位置?: int) -&gt; 字符串: str</code></td>
+<td dir="ltr">从字符串中截取指定起始和结束位置之间的子串。若结束位置省略，则截取到字符串末尾</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.reverse(字符串: str) -&gt; 反转后的字符串: str</code></td>
+<td dir="ltr">将字符串反转并返回</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.format(被格式化的字符串: str, 替换值: str, ...) -&gt; 格式化后的字符串: str</code></td>
+<td dir="ltr">返回一个类似 printf 的格式化字符串，支持 %d、%s 等占位符</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.char(整数: int, ...) -&gt; 字符串: str</code></td>
+<td dir="ltr">将一系列整型数字（字符码）转换为对应的字符并连接为字符串</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.byte(字符串: str, 位置?: int) -&gt; 整数值: int</code></td>
+<td dir="ltr">将字符串中指定位置的字符转换为对应的整数值（ASCII 码）</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.len(字符串: str) -&gt; 长度: int</code></td>
+<td dir="ltr">计算并返回字符串的长度</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.rep(重复的字符串: str, 重复次数: int) -&gt; 字符串结果: str</code></td>
+<td dir="ltr">返回字符串重复 n 次后的拷贝</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.gmatch(字符串: str, 匹配模式: str) -&gt; 迭代器函数: func</code></td>
+<td dir="ltr">返回一个迭代器函数，每次调用返回下一个符合模式匹配的子串。常用于 for 循环中遍历所有匹配项</td>
+</tr>
+<tr>
+<td dir="ltr"><code>string.match(字符串: str, 匹配模式: pattern, 起始位置?: init) -&gt; 匹配结果: str</code></td>
+<td dir="ltr">在目标字符串中寻找第一个符合模式的匹配。若匹配成功，返回捕获组内容或整个匹配字符串；否则返回 nil</td>
+</tr>
+</tbody>
+</table></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="总结/6.-字符串.html#6._字符串_0" data-path="#6._字符串_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="6. 字符串">6. 字符串</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="总结/6.-字符串.html#转义符_0" data-path="#转义符_0"><div class="tree-item-inner heading-link" heading-name="转义符">转义符</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="总结/6.-字符串.html#模式匹配修饰符_0" data-path="#模式匹配修饰符_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="模式匹配修饰符">模式匹配修饰符</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="总结/6.-字符串.html#大写形式（补集）_0" data-path="#大写形式（补集）_0"><div class="tree-item-inner heading-link" heading-name="大写形式（补集）">大写形式（补集）</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="总结/6.-字符串.html#特殊字符_0" data-path="#特殊字符_0"><div class="tree-item-inner heading-link" heading-name="特殊字符">特殊字符</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="总结/6.-字符串.html#重复修饰符_0" data-path="#重复修饰符_0"><div class="tree-item-inner heading-link" heading-name="重复修饰符">重复修饰符</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="总结/6.-字符串.html#字符集语法_0" data-path="#字符集语法_0"><div class="tree-item-inner heading-link" heading-name="字符集语法">字符集语法</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="总结/6.-字符串.html#特殊模式项_0" data-path="#特殊模式项_0"><div class="tree-item-inner heading-link" heading-name="特殊模式项">特殊模式项</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="总结/6.-字符串.html#格式化修饰符_0" data-path="#格式化修饰符_0"><div class="tree-item-inner heading-link" heading-name="格式化修饰符">格式化修饰符</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="总结/6.-字符串.html#操作函数_0" data-path="#操作函数_0"><div class="tree-item-inner heading-link" heading-name="操作函数">操作函数</div></a><div class="tree-item-children"></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>
