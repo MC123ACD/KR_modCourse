@@ -14,7 +14,8 @@
             ],
             "scriptRoots": [
                 "./src"
-            ]
+            ],
+            "breakInCoroutines": true
         },
         {
             "type": "lua-local",
