@@ -4,67 +4,82 @@
     "type": "split",
     "children": [
       {
-        "id": "b2c9a19e57538d9b",
+        "id": "cdffd1bd02519ea3",
         "type": "tabs",
         "children": [
           {
-            "id": "3b6875bf0e5cd290",
+            "id": "e9295bad74454eeb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 1 节 - 语法/13. 元表.md",
+                "file": "总结/7. 科技树与能力.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "13. 元表"
+              "title": "7. 科技树与能力"
             }
           },
           {
-            "id": "95c04cfae862aa74",
+            "id": "8d152776cd602e1e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 1 节 - 语法/5. 控制结构.md",
+                "file": "第 2 节 - 修改基础/4. 关卡.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "5. 控制结构"
+              "title": "4. 关卡"
             }
           },
           {
-            "id": "d46a6db8859ae9cb",
+            "id": "510423f3c0b0ec7d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 1 节 - 语法/14. LuaJIT.md",
+                "file": "第 2 节 - 修改基础/8. 系统.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "14. LuaJIT"
+              "title": "8. 系统"
             }
           },
           {
-            "id": "aff464f2d44e5974",
+            "id": "b35b7ab6ad05a13f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 1 节 - 语法/2. 基础语法规则.md",
+                "file": "总结/4. 关卡.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "2. 基础语法规则"
+              "title": "4. 关卡"
+            }
+          },
+          {
+            "id": "91307d7ca8245af1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "第 2 节 - 修改基础/10. 创建新关卡.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "10. 创建新关卡"
             }
           }
         ],
@@ -87,7 +102,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "攻击优先级",
+                "query": "读取",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -116,7 +131,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 301.5011098384857
+    "width": 260.5011098384857
   },
   "right": {
     "id": "b3a58f8c143e4ce0",
@@ -132,13 +147,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "第 1 节 - 语法/14. LuaJIT.md",
+                "file": "第 2 节 - 修改基础/8. 系统.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "14. LuaJIT 的大纲"
+              "title": "8. 系统 的大纲"
             }
           },
           {
@@ -180,7 +195,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 221.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -194,61 +209,60 @@
   },
   "active": "ada1704951e09b08",
   "lastOpenFiles": [
-    "第 2 节 - 修改基础/1. 介绍.md",
-    "第 1 节 - 语法/13. 元表.md",
-    "第 1 节 - 语法/14. LuaJIT.md",
-    "第 1 节 - 语法/5. 控制结构.md",
-    "第 1 节 - 语法/2. 基础语法规则.md",
-    "第 1 节 - 语法/1. Lua 介绍.md",
-    "第 1 节 - 语法/10. 调试与错误处理.md",
-    "index.md",
-    "第 2 节 - 修改基础/5. 科技树与难度设定.md",
-    "site-lib/media/Pasted image 20251226133851.png",
-    "site-lib/media/Pasted image 20251225203906.png",
-    "site-lib/media/Pasted image 20251225202221.png",
-    "site-lib/media/Pasted image 20251225201739.png",
-    "site-lib/media/Pasted image 20251225195034.png",
-    "site-lib/media/Pasted image 20251225194600.png",
-    "site-lib/media/Pasted image 20251225194347.png",
-    "site-lib/media/Pasted image 20251225194118.png",
-    "site-lib/media/Pasted image 20251225191640.png",
-    "site-lib/media/Pasted image 20251225190451.png",
-    "第 1 节 - 语法/参考答案.md",
-    "其他/Local Lua Debugger 说明翻译.md",
-    "其他",
-    "第 1 节 - 语法/4. 运算符.md",
-    "未命名 2.md",
-    "未命名 1.md",
-    "未命名.md",
-    "第 1 节 - 语法/8. 字符串.md",
-    "第 1 节 - 语法/9. 模块.md",
-    "第 1 节 - 语法/0. 配置环境.md",
-    "总结/逻辑/7. 近战攻击逻辑.canvas",
-    "第 2 节 - 修改基础/11. 工具使用方法.md",
-    "第 2 节 - 修改基础/3. 实体函数.md",
-    "第 1 节 - 语法/7. 表.md",
+    "总结/7. 科技树与能力.md",
     "总结/1. 模板名.md",
-    "第 2 节 - 修改基础/7. 界面.md",
+    "第 2 节 - 修改基础/8. 系统.md",
+    "第 2 节 - 修改基础/6. 精灵与资源.md",
     "第 2 节 - 修改基础/4. 关卡.md",
-    "第 2 节 - 修改基础/9. 系统.md",
-    "第 2 节 - 修改基础/8. 存档.md",
+    "Pasted image 20260105103018.png",
+    "第 2 节 - 修改基础/10. 创建新关卡.md",
+    "第 2 节 - 修改基础/9. 界面与类.md",
+    "第 2 节 - 修改基础/3. 实体函数.md",
+    "第 2 节 - 修改基础/5. 科技树与难度设定.md",
+    "第 2 节 - 修改基础/7. 存档与信息.md",
+    "第 1 节 - 语法/8. 字符串.md",
+    "Drawing 2026-01-04 18.46.26.excalidraw.md",
+    "site-lib/media/Pasted image 20260104163440.png",
+    "site-lib/media/Pasted image 20260104162903.png",
+    "site-lib/media/Pasted image 20260104162248.png",
+    "site-lib/media/Pasted image 20260104155126.png",
+    "site-lib/media/Pasted image 20260104154827.png",
+    "site-lib/media/Pasted image 20260104103221.png",
+    "site-lib/media/Pasted image 20260104094917.png",
+    "site-lib/media/Pasted image 20260103144631.png",
+    "site-lib/media/Pasted image 20260103142802.png",
+    "总结/13. 库.md",
+    "总结/16. 成就.md",
+    "总结/4. 关卡.md",
+    "第 2 节 - 修改基础/1. 介绍.md",
+    "第 2 节 - 修改基础/2. 实体与模板.md",
+    "总结/6. 网格.md",
+    "总结/5. 路径.md",
+    "总结/9. 表.md",
+    "总结/2. 模板函数.md",
+    "总结/14. 其他函数.md",
+    "总结/15. 类.md",
+    "总结/类的续承关系.canvas",
+    "index.md",
+    "QQ录屏20260102195432.mp4",
+    "1767354719062.mp4",
+    "第 2 节 - 修改基础/10 类.md",
+    "总结/逻辑/4. 补间动画更新逻辑.canvas",
+    "总结/逻辑/1. 精灵插入逻辑.canvas",
+    "总结/逻辑/5. 造成伤害逻辑.canvas",
+    "总结/逻辑/3. 实体移除逻辑.canvas",
+    "总结/逻辑/4. 实体更新逻辑.canvas",
+    "总结/逻辑/8. 远程攻击逻辑.canvas",
     "总结/逻辑/2. 实体创建逻辑.canvas",
-    "总结/逻辑/1. 更新逻辑.canvas",
-    "总结/5 - 关卡/逻辑/3. 生成怪物逻辑.canvas",
-    "总结/5 - 关卡/逻辑/2. 关卡更新逻辑.canvas",
-    "总结/5 - 关卡/逻辑/1. 关卡加载逻辑.canvas",
-    "总结/逻辑/9. 闪避逻辑.canvas",
-    "site-lib/media/Pasted image 20251215100819.canvas",
-    "site-lib/media/Pasted image 20251208134125.canvas",
-    "site-lib/media/Pasted image 20251209094358.canvas",
+    "总结/逻辑/特殊出怪逻辑.canvas",
+    "总结/逻辑/2. 精灵移除逻辑.canvas",
+    "其他",
     "总结/1 - 语法",
     "第 1 节 - 语法",
     "第 1 节 - 语法",
     "总结/5 - 关卡/逻辑",
     "总结/6 - 动画/逻辑",
     "第 1 章 - 模板/总结",
-    "第 1 章 - 模板",
-    "总结/逻辑",
-    "总结/7 - 界面"
+    "第 1 章 - 模板"
   ]
 }

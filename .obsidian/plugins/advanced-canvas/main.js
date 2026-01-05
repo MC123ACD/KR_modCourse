@@ -5600,6 +5600,7 @@ var CollapsibleGroupsCanvasExtension = class extends CanvasExtension {
     canvas.setData(canvas.getData());
     canvas.history.current--;
     canvas.pushHistory(canvas.getData());
+    canvas.requestSave();
   }
   onNodeBBoxRequested(canvas, node, bbox) {
     var _a, _b;
@@ -5632,6 +5633,7 @@ var CollapsibleGroupsCanvasExtension = class extends CanvasExtension {
   }
   collapseNodes(data) {
     data.nodes.forEach((groupNodeData) => {
+      var _a, _b, _c, _d;
       if (!groupNodeData.collapsed) return;
       const groupNodeBBox = CanvasHelper.getBBox([groupNodeData]);
       const containedNodesData = data.nodes.filter(
@@ -5642,14 +5644,28 @@ var CollapsibleGroupsCanvasExtension = class extends CanvasExtension {
       });
       data.nodes = data.nodes.filter((nodeData) => !containedNodesData.includes(nodeData));
       data.edges = data.edges.filter((edgeData) => !containedEdgesData.includes(edgeData));
+      const newContainedNodesData = containedNodesData.filter((nodeData) => {
+        var _a2, _b2, _c2;
+        return !((_c2 = (_b2 = (_a2 = groupNodeData.collapsedData) == null ? void 0 : _a2.nodes) == null ? void 0 : _b2.some((e) => e.id === nodeData.id)) != null ? _c2 : false);
+      });
+      const newContainedEdgesData = containedEdgesData.filter((edgeData) => {
+        var _a2, _b2, _c2;
+        return !((_c2 = (_b2 = (_a2 = groupNodeData.collapsedData) == null ? void 0 : _a2.edges) == null ? void 0 : _b2.some((n) => n.id === edgeData.id)) != null ? _c2 : false);
+      });
       groupNodeData.collapsedData = {
-        nodes: containedNodesData.map((nodeData) => ({
-          ...nodeData,
-          // Store the relative position of the node to the group
-          x: nodeData.x - groupNodeData.x,
-          y: nodeData.y - groupNodeData.y
-        })),
-        edges: containedEdgesData
+        nodes: [
+          ...(_b = (_a = groupNodeData.collapsedData) == null ? void 0 : _a.nodes) != null ? _b : [],
+          ...newContainedNodesData.map((nodeData) => ({
+            ...nodeData,
+            // Store the relative position of the node to the group
+            x: nodeData.x - groupNodeData.x,
+            y: nodeData.y - groupNodeData.y
+          }))
+        ],
+        edges: [
+          ...(_d = (_c = groupNodeData.collapsedData) == null ? void 0 : _c.edges) != null ? _d : [],
+          ...newContainedEdgesData
+        ]
       };
     });
   }
@@ -6854,7 +6870,14 @@ var ExportCanvasExtension = class extends CanvasExtension {
           filter
         };
         if (noFontExport) options.fontEmbedCSS = "";
-        const imageDataUri = svg ? await toSvg(canvas.canvasEl, options) : await toPng(canvas.canvasEl, options);
+        let imageDataUri = svg ? await toSvg(canvas.canvasEl, options) : await toPng(canvas.canvasEl, options);
+        if (svg) {
+          const header = `<?xml version="1.0" encoding="UTF-8"?>`;
+          imageDataUri = imageDataUri.replace(
+            encodeURIComponent("<svg "),
+            encodeURIComponent(`${header}<svg `)
+          );
+        }
         let baseFilename = `${((_c = canvas.view.file) == null ? void 0 : _c.basename) || "Untitled"}`;
         if (!isWholeCanvas) baseFilename += ` - Selection of ${nodesToExport.length}`;
         const filename = `${baseFilename}.${svg ? "svg" : "png"}`;
@@ -7095,6 +7118,7 @@ var CanvasMetadataExposerExtension = class extends CanvasExtension {
 };
 
 // src/canvas-extensions/dataset-exposers/node-exposer.ts
+var CANVAS_NODE_IFRAME_BODY_CLASS = "canvas-node-iframe-body";
 function getExposedNodeData(settings) {
   const exposedData = [];
   if (settings.getSetting("nodeStylingFeatureEnabled")) exposedData.push("styleAttributes");
@@ -7127,7 +7151,8 @@ var NodeExposerExtension = class extends CanvasExtension {
         if (!nodeData) return;
         const iframe = (_b = (_a = node.nodeEl.querySelector("iframe")) == null ? void 0 : _a.contentDocument) == null ? void 0 : _b.body;
         if (!iframe) return;
-        iframe.classList.add("canvas-node-iframe-body");
+        iframe.classList.add(CANVAS_NODE_IFRAME_BODY_CLASS);
+        new MutationObserver(() => iframe.classList.toggle(CANVAS_NODE_IFRAME_BODY_CLASS, true)).observe(iframe, { attributes: true, attributeFilter: ["class"] });
         this.setDataAttributes(iframe, nodeData);
       }
     ));

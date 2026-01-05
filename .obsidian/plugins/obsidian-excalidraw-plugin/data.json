@@ -1,4 +1,6 @@
 {
+  "copyLinkToElemenetAnchorTo100": false,
+  "copyFrameLinkByName": false,
   "disableDoubleClickTextEditing": false,
   "folder": "Excalidraw",
   "cropFolder": "",
@@ -109,7 +111,7 @@
   "library2": {
     "type": "excalidrawlib",
     "version": 2,
-    "source": "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.17.1",
+    "source": "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.18.3",
     "libraryItems": [
       {
         "id": "zoW2nOotWP0YALnpCqsNH",
@@ -603,7 +605,7 @@
   "mdBorderColor": "Black",
   "mdCSS": "",
   "scriptEngineSettings": {},
-  "previousRelease": "2.17.1",
+  "previousRelease": "2.18.3",
   "showReleaseNotes": true,
   "compareManifestToPluginVersion": true,
   "showNewVersionNotification": true,
@@ -962,6 +964,7 @@
   "aiEnabled": true,
   "openAIAPIToken": "",
   "openAIDefaultTextModel": "gpt-3.5-turbo-1106",
+  "openAIDefaultTextModelMaxTokens": 4096,
   "openAIDefaultVisionModel": "gpt-4o",
   "openAIDefaultImageGenerationModel": "dall-e-3",
   "openAIURL": "https://api.openai.com/v1/chat/completions",
