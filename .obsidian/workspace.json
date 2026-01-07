@@ -8,18 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e9295bad74454eeb",
+            "id": "4d094f613e7be855",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "总结/7. 科技树与能力.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "7. 科技树与能力"
+              "title": "index"
             }
           },
           {
@@ -28,7 +28,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 2 节 - 修改基础/4. 关卡.md",
+                "file": "总结/4. 关卡.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
@@ -38,18 +38,18 @@
             }
           },
           {
-            "id": "510423f3c0b0ec7d",
+            "id": "d52c4c68e0463041",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 2 节 - 修改基础/8. 系统.md",
+                "file": "总结/4. 关卡.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "8. 系统"
+              "title": "4. 关卡"
             }
           },
           {
@@ -82,8 +82,7 @@
               "title": "10. 创建新关卡"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -102,7 +101,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "读取",
+                "query": "关卡界面",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -131,7 +130,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 260.5011098384857
+    "width": 248.50110983848572
   },
   "right": {
     "id": "b3a58f8c143e4ce0",
@@ -147,13 +146,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "第 2 节 - 修改基础/8. 系统.md",
+                "file": "index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "8. 系统 的大纲"
+              "title": "index 的大纲"
             }
           },
           {
@@ -209,60 +208,61 @@
   },
   "active": "ada1704951e09b08",
   "lastOpenFiles": [
-    "总结/7. 科技树与能力.md",
-    "总结/1. 模板名.md",
-    "第 2 节 - 修改基础/8. 系统.md",
-    "第 2 节 - 修改基础/6. 精灵与资源.md",
-    "第 2 节 - 修改基础/4. 关卡.md",
-    "Pasted image 20260105103018.png",
-    "第 2 节 - 修改基础/10. 创建新关卡.md",
     "第 2 节 - 修改基础/9. 界面与类.md",
-    "第 2 节 - 修改基础/3. 实体函数.md",
-    "第 2 节 - 修改基础/5. 科技树与难度设定.md",
-    "第 2 节 - 修改基础/7. 存档与信息.md",
-    "第 1 节 - 语法/8. 字符串.md",
-    "Drawing 2026-01-04 18.46.26.excalidraw.md",
-    "site-lib/media/Pasted image 20260104163440.png",
-    "site-lib/media/Pasted image 20260104162903.png",
-    "site-lib/media/Pasted image 20260104162248.png",
-    "site-lib/media/Pasted image 20260104155126.png",
-    "site-lib/media/Pasted image 20260104154827.png",
-    "site-lib/media/Pasted image 20260104103221.png",
-    "site-lib/media/Pasted image 20260104094917.png",
-    "site-lib/media/Pasted image 20260103144631.png",
-    "site-lib/media/Pasted image 20260103142802.png",
-    "总结/13. 库.md",
-    "总结/16. 成就.md",
+    "第 2 节 - 修改基础/8. 系统.md",
+    "第 1 节 - 语法/12. 协程.md",
+    "第 1 节 - 语法/11. 迭代器与泛型for.md",
+    "总结/逻辑/1. 更新逻辑.canvas",
+    "总结/逻辑/1. 精灵插入逻辑.canvas",
+    "site-lib/media/Pasted image 20260106151123.png",
+    "site-lib/media/Pasted image 20260106151123.canvas",
+    "site-lib/media/Pasted image 20260106143849.excalidraw.md",
+    "site-lib/media/Pasted image 20260106162906.png",
+    "site-lib/media/Pasted image 20260106143849.png",
+    "site-lib/media/Pasted image 20260105194135.png",
+    "site-lib/media/Pasted image 20260105103018.png",
     "总结/4. 关卡.md",
-    "第 2 节 - 修改基础/1. 介绍.md",
-    "第 2 节 - 修改基础/2. 实体与模板.md",
-    "总结/6. 网格.md",
-    "总结/5. 路径.md",
-    "总结/9. 表.md",
-    "总结/2. 模板函数.md",
-    "总结/14. 其他函数.md",
-    "总结/15. 类.md",
-    "总结/类的续承关系.canvas",
+    "总结/1. 模板名.md",
+    "第 1 节 - 语法/1. Lua 介绍.md",
+    "第 1 节 - 语法/0. 配置环境.md",
+    "总结/9. 键.md",
+    "第 2 节 - 修改基础/3. 实体函数.md",
+    "第 2 节 - 修改基础/4. 关卡.md",
+    "第 2 节 - 修改基础/5. 科技树与难度设定.md",
+    "第 2 节 - 修改基础/6. 精灵与资源.md",
+    "第 2 节 - 修改基础/7. 存档与信息.md",
+    "第 2 节 - 修改基础/11. 移植.md",
+    "第 2 节 - 修改基础/10. 创建新关卡.md",
+    "Pasted image 20260106162906.png",
     "index.md",
+    "Pasted image 20260106151123.png",
+    "site-lib/media/Pasted image 20260102145432.png",
+    "site-lib/media/Pasted image 20260102101529.png",
+    "site-lib/media/Pasted image 20260101141903.png",
+    "site-lib/media/Pasted image 20251229202055.excalidraw.md",
+    "总结/14. 类.md",
+    "总结/逻辑/12. 关卡逻辑.md",
+    "总结/12. 库.md",
+    "总结/13. 其他函数.md",
+    "总结/11. 脚本函数.md",
+    "总结/10. 工具函数.md",
+    "总结/6. 字符串.md",
+    "其他",
     "QQ录屏20260102195432.mp4",
     "1767354719062.mp4",
-    "第 2 节 - 修改基础/10 类.md",
     "总结/逻辑/4. 补间动画更新逻辑.canvas",
-    "总结/逻辑/1. 精灵插入逻辑.canvas",
     "总结/逻辑/5. 造成伤害逻辑.canvas",
     "总结/逻辑/3. 实体移除逻辑.canvas",
     "总结/逻辑/4. 实体更新逻辑.canvas",
     "总结/逻辑/8. 远程攻击逻辑.canvas",
     "总结/逻辑/2. 实体创建逻辑.canvas",
     "总结/逻辑/特殊出怪逻辑.canvas",
-    "总结/逻辑/2. 精灵移除逻辑.canvas",
     "其他",
     "总结/1 - 语法",
     "第 1 节 - 语法",
     "第 1 节 - 语法",
     "总结/5 - 关卡/逻辑",
     "总结/6 - 动画/逻辑",
-    "第 1 章 - 模板/总结",
-    "第 1 章 - 模板"
+    "第 1 章 - 模板/总结"
   ]
 }
