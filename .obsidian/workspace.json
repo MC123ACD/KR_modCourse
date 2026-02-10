@@ -4,71 +4,28 @@
     "type": "split",
     "children": [
       {
-        "id": "cdffd1bd02519ea3",
+        "id": "414f019ba5c10609",
         "type": "tabs",
         "children": [
           {
-            "id": "4d094f613e7be855",
+            "id": "6ef6763f229a2f98",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "index.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
+                "file": "未命名.canvas",
+                "viewState": {
+                  "x": 90,
+                  "y": 80,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "index"
+              "icon": "lucide-layout-dashboard",
+              "title": "未命名"
             }
           },
           {
-            "id": "8d152776cd602e1e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "总结/4. 关卡.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "4. 关卡"
-            }
-          },
-          {
-            "id": "d52c4c68e0463041",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "总结/4. 关卡.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "4. 关卡"
-            }
-          },
-          {
-            "id": "b35b7ab6ad05a13f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "总结/4. 关卡.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "4. 关卡"
-            }
-          },
-          {
-            "id": "91307d7ca8245af1",
+            "id": "d831acc4432af29a",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -82,7 +39,8 @@
               "title": "10. 创建新关卡"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -101,7 +59,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "关卡界面",
+                "query": "排序",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -146,13 +104,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "第 2 节 - 修改基础/10. 创建新关卡.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "index 的大纲"
+              "title": "10. 创建新关卡 的大纲"
             }
           },
           {
@@ -178,19 +136,8 @@
               "icon": "links-going-out",
               "title": "1. 配置环境 的出链列表"
             }
-          },
-          {
-            "id": "f09741afd692b948",
-            "type": "leaf",
-            "state": {
-              "type": "mermaid-toolbar-view",
-              "state": {},
-              "icon": "trident-custom",
-              "title": "Mermaid Toolbar"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -198,7 +145,6 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "mermaid-tools:Open Mermaid Toolbar": false,
       "obsidian-excalidraw-plugin:新建绘图文件": false,
       "webpage-html-export:导出为HTML": false,
       "command-palette:打开命令面板": false,
@@ -206,57 +152,57 @@
       "canvas:新建白板": false
     }
   },
-  "active": "ada1704951e09b08",
+  "active": "d831acc4432af29a",
   "lastOpenFiles": [
-    "第 2 节 - 修改基础/9. 界面与类.md",
-    "第 2 节 - 修改基础/8. 系统.md",
-    "第 1 节 - 语法/12. 协程.md",
-    "第 1 节 - 语法/11. 迭代器与泛型for.md",
-    "总结/逻辑/1. 更新逻辑.canvas",
+    "总结/逻辑/3. 实体移除逻辑.canvas",
+    "总结/逻辑/4. 实体更新逻辑.canvas",
+    "总结/逻辑/5. 造成伤害逻辑.canvas",
+    "总结/逻辑/8. 远程攻击逻辑.canvas",
+    "总结/逻辑/2. 实体创建逻辑.canvas",
+    "README.md",
     "总结/逻辑/1. 精灵插入逻辑.canvas",
+    "总结/逻辑/特殊出怪逻辑.canvas",
+    "总结/逻辑/4. 补间动画更新逻辑.canvas",
+    "总结/逻辑/2. 精灵移除逻辑.canvas",
+    "总结/逻辑/3. 精灵更新逻辑.canvas",
+    "总结/逻辑/3. 生成怪物逻辑.canvas",
+    "第 1 节 - 语法/6. 函数.md",
+    "第 1 节 - 语法/11. 迭代器与泛型for.md",
+    "第 2 节 - 修改基础/参考答案.md",
+    "第 1 节 - 语法/15. Love 2D.md",
+    "第 1 节 - 语法/12. 协程.md",
+    "第 1 节 - 语法/9. 模块.md",
+    "其他/Local Lua Debugger 说明翻译.md",
+    "第 1 节 - 语法/参考答案.md",
+    "第 1 节 - 语法/14. LuaJIT.md",
+    "第 1 节 - 语法/1. Lua 介绍.md",
+    "第 1 节 - 语法/4. 运算符.md",
+    "第 1 节 - 语法/3. 变量与数据类型.md",
+    "第 1 节 - 语法/10. 调试与错误处理.md",
+    "第 1 节 - 语法/2. 基础语法规则.md",
+    "第 1 节 - 语法/5. 控制结构.md",
+    "第 1 节 - 语法/0. 配置环境.md",
+    "第 1 节 - 语法/7. 表.md",
+    "总结/4. 科技树与能力.md",
+    "总结/12. 其他函数.md",
+    "总结/7. 成就.md",
+    "第 2 节 - 修改基础/10. 创建新关卡.md",
+    "其他/Find and Transform 说明翻译.md",
+    "总结/2. 常量.md",
+    "总结/5. 字符串.md",
     "site-lib/media/Pasted image 20260106151123.png",
-    "site-lib/media/Pasted image 20260106151123.canvas",
-    "site-lib/media/Pasted image 20260106143849.excalidraw.md",
     "site-lib/media/Pasted image 20260106162906.png",
     "site-lib/media/Pasted image 20260106143849.png",
     "site-lib/media/Pasted image 20260105194135.png",
     "site-lib/media/Pasted image 20260105103018.png",
-    "总结/4. 关卡.md",
-    "总结/1. 模板名.md",
-    "第 1 节 - 语法/1. Lua 介绍.md",
-    "第 1 节 - 语法/0. 配置环境.md",
-    "总结/9. 键.md",
-    "第 2 节 - 修改基础/3. 实体函数.md",
-    "第 2 节 - 修改基础/4. 关卡.md",
-    "第 2 节 - 修改基础/5. 科技树与难度设定.md",
-    "第 2 节 - 修改基础/6. 精灵与资源.md",
-    "第 2 节 - 修改基础/7. 存档与信息.md",
-    "第 2 节 - 修改基础/11. 移植.md",
-    "第 2 节 - 修改基础/10. 创建新关卡.md",
     "Pasted image 20260106162906.png",
-    "index.md",
     "Pasted image 20260106151123.png",
     "site-lib/media/Pasted image 20260102145432.png",
     "site-lib/media/Pasted image 20260102101529.png",
     "site-lib/media/Pasted image 20260101141903.png",
-    "site-lib/media/Pasted image 20251229202055.excalidraw.md",
-    "总结/14. 类.md",
-    "总结/逻辑/12. 关卡逻辑.md",
-    "总结/12. 库.md",
-    "总结/13. 其他函数.md",
-    "总结/11. 脚本函数.md",
-    "总结/10. 工具函数.md",
-    "总结/6. 字符串.md",
     "其他",
     "QQ录屏20260102195432.mp4",
     "1767354719062.mp4",
-    "总结/逻辑/4. 补间动画更新逻辑.canvas",
-    "总结/逻辑/5. 造成伤害逻辑.canvas",
-    "总结/逻辑/3. 实体移除逻辑.canvas",
-    "总结/逻辑/4. 实体更新逻辑.canvas",
-    "总结/逻辑/8. 远程攻击逻辑.canvas",
-    "总结/逻辑/2. 实体创建逻辑.canvas",
-    "总结/逻辑/特殊出怪逻辑.canvas",
     "其他",
     "总结/1 - 语法",
     "第 1 节 - 语法",

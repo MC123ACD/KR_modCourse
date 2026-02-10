@@ -14,10 +14,10 @@
     "filesToExport": [
       "第 1 节 - 语法",
       "第 2 节 - 修改基础",
-      "第 3 节 - 进阶",
       "其他",
       "总结",
       "index.md",
+      "LICENSE.md",
       "README.md"
     ],
     "useFallbackRenderer": false,
