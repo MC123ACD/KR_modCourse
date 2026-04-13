@@ -28,7 +28,10 @@ def reset_file(file_path, func):
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(file)
 
-def reset_files(src):
+def main():
+    run_decompiler("src")
+    src = Path("src")
+
     def reset_version(file):
         return file.replace("RELEASE", "DEBUG", 1)
     
@@ -59,23 +62,11 @@ def reset_files(src):
     print("🔧 开启报错自动断点")
 
     def reset_sys(file):
-        new_text = """\t\t\t\tif coroutine.status(s.co) == "dead" or (not success and error ~= nil) then
-                    if not success and error ~= nil then"""
-
-        return file.replace("""\t\t\t\tif coroutine.status(s.co) == "dead" or error ~= nil then
-                    if error ~= nil then""", new_text)
-
+        return file.replace("error ~= nil", "not success")
+    
     reset_file(src / "all" / "systems.lua", reset_sys)
 
     print("🔧 修复调试 Bug")
-
-
-def main():
-    run_decompiler("src")
-
-    src = Path("src")
-
-    reset_files(src)
 
 if __name__ == "__main__":
     try:
