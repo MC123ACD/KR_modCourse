@@ -1,0 +1,960 @@
+<!DOCTYPE html> <html lang="zh-cn"><head>
+<title>7. 调试与错误处理</title>
+<base href="..">
+<meta name="pathname" content="第-1-节-语法/7.-调试与错误处理.html">
+<meta name="description" content="王国保卫战修改教程 - 7. 调试与错误处理">
+<meta property="og:title" content="7. 调试与错误处理">
+<meta property="og:description" content="王国保卫战修改教程 - 7. 调试与错误处理">
+<meta property="og:type" content="website">
+<meta property="og:url" content="第-1-节-语法/7.-调试与错误处理.html">
+<meta property="og:image" content="site-lib/media/pasted-image-20251225185539.png">
+<meta charset="UTF-8"><meta property="og:site_name" content="王国保卫战修改教程"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="preload" href="site-lib/styles/snippets.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/snippets.css"></noscript><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/other-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/other-plugins.css"></noscript><link rel="stylesheet" href="site-lib/styles/theme.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/supported-plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/supported-plugins.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager mod-windows is-frameless is-hidden-frameless styled-scrollbars show-inline-title show-ribbon background-settings-workplace-theme-dark-in-the-sky background-image-settings-markdown-page-custom notebook-liked-markdown-page-grid-notebook-1 panel-page-bg-theme-light-custom panel-page-bg-theme-dark-plant hide-left-ribbon-retention-drawer toggle-divider-lines toggle-header-bottom-line bt-bubble-layout bt-bubble-layout-hide-borders remove-heading-indicator h1-toggle-underline toggle-left-aligned-content fancy-hr-no-icon custom-unordered-list custom-ordered-list list-no-border folder-icons bt-toggle-colorful-folder folder-style-change-options-colorful-default folder-colorful-one table-width-auto table-style-two link-underline-internal enable-alternative-checkboxes unmute-checkbox-animation default-loading-page loading-text-typing-style rainbow-tag translucent-setting-panel underline-tab-style canvas-card-text-middle admonition-bg-color-same toggle-calendar-shadow style-options-for-buttons-plugin dataview-list-style-pacman memos-banner-gradient thino-frosted-style thino-background-default quiet-outline-optimize code-theme-sublime is-focused"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event allow-fold-headings show-indentation-guide show-properties is-readable-line-width" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer"><div class="header"><h1 class="page-title heading inline-title" id="7._调试与错误处理_0">7. 调试与错误处理</h1><div class="data-bar"></div></div><div class="markdown-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-h2"><h2 data-heading="7.1 断点" dir="auto" class="heading" id="7.1_断点_0">7.1 断点</h2></div><div class="el-p"><p dir="auto">在开发程序时，调试（<strong>Debug</strong>）是找出问题、理解代码行为的必备技能。之前我们常用&nbsp;<code>print</code>&nbsp;来输出变量值，但随着程序变复杂，<code>print</code>&nbsp;的缺点越来越明显：</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr"><code>print</code> 调试的痛点</th>
+<th dir="ltr">断点调试的优势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">手动加打印、改完还要删，效率低</td>
+<td dir="ltr">点一下就能设断点，多次运行都生效</td>
+</tr>
+<tr>
+<td dir="ltr">只能看到你打印的变量，看不到其他信息</td>
+<td dir="ltr">所有局部变量、调用栈一目了然</td>
+</tr>
+<tr>
+<td dir="ltr">嵌套表要自己写循环遍历</td>
+<td dir="ltr">调试器自动展开，点击就能看</td>
+</tr>
+<tr>
+<td dir="ltr">程序无法暂停，只能看最终输出</td>
+<td dir="ltr">可以单步执行、暂停、继续，完全掌控</td>
+</tr>
+</tbody>
+</table></div><div class="el-p"><p dir="auto"><strong>断点调试就像给程序装了一个“暂停按钮”</strong>：你可以在代码的某一行设一个“暂停点”，程序运行到那里就会停下来，这时你可以仔细查看当前的变量、调用栈，甚至临时修改变量值，然后决定是继续运行还是一步一步走。</p></div><div class="el-h3"><h3 data-heading="7.1.1 断点基础使用" dir="auto" class="heading" id="7.1.1_断点基础使用_0">7.1.1 断点基础使用</h3></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">
+<p><strong>设置断点</strong>：在代码行号左侧单击，会出现一个红点。<br>
+<span alt="Pasted image 20251225185539.png" src="site-lib/media/pasted-image-20251225185539.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 227px; max-width: 100%;"><img alt="Pasted image 20251225185539.png" src="site-lib/media/pasted-image-20251225185539.png" target="_self" style="width: 227px; max-width: 100%;"></span></p>
+</li>
+<li data-line="3" dir="auto">
+<p><strong>启动调试</strong>：使用 DEBUG 模式运行<br>
+<span alt="Pasted image 20251225185723.png" src="site-lib/media/pasted-image-20251225185723.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 375px; max-width: 100%;"><img alt="Pasted image 20251225185723.png" src="site-lib/media/pasted-image-20251225185723.png" target="_self" style="width: 375px; max-width: 100%;"></span></p>
+</li>
+<li data-line="6" dir="auto">
+<p><strong>程序自动在第一个可执行行暂停</strong>（调试模式默认会在第一行中断）。<br>
+<span alt="Pasted image 20251225185853.png" src="site-lib/media/pasted-image-20251225185853.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 294px; max-width: 100%;"><img alt="Pasted image 20251225185853.png" src="site-lib/media/pasted-image-20251225185853.png" target="_self" style="width: 294px; max-width: 100%;"></span></p>
+</li>
+<li data-line="9" dir="auto">
+<p><strong>查看变量</strong>：在“变量”面板中可以看到所有局部变量，或者直接把鼠标悬停在代码中的变量上。<br>
+<span alt="Pasted image 20251225190451.png" src="site-lib/media/pasted-image-20251225190451.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 475px; max-width: 100%;"><img alt="Pasted image 20251225190451.png" src="site-lib/media/pasted-image-20251225190451.png" target="_self" style="width: 475px; max-width: 100%;"></span></p>
+</li>
+<li data-line="12" dir="auto">
+<p><strong>单步执行</strong>：点击“逐过程”按钮（或按 <code>F10</code>），程序会执行下一行代码。你可以看到变量的变化。<br>
+<span alt="Pasted image 20251225191640.png" src="site-lib/media/pasted-image-20251225191640.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 500px; max-width: 100%;"><img alt="Pasted image 20251225191640.png" src="site-lib/media/pasted-image-20251225191640.png" target="_self" style="width: 500px; max-width: 100%;"></span></p>
+</li>
+</ol></div><div class="el-h3"><h3 data-heading="7.1.2 控制栏说明" dir="auto" class="heading" id="7.1.2_控制栏说明_0">7.1.2 控制栏说明</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">按钮/快捷键</th>
+<th dir="ltr">作用</th>
+<th dir="ltr">比喻</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr"><strong>继续</strong> (<code>F5</code>)</td>
+<td dir="ltr">运行到下一个断点</td>
+<td dir="ltr">从暂停状态“一键恢复”</td>
+</tr>
+<tr>
+<td dir="ltr"><strong>逐过程</strong> (<code>F10</code>)</td>
+<td dir="ltr">执行下一行。如果这一行是函数调用，不进入函数内部，直接运行完整个函数</td>
+<td dir="ltr">像站在门外，看别人把事做完</td>
+</tr>
+<tr>
+<td dir="ltr"><strong>单步调试</strong> (<code>F11</code>)</td>
+<td dir="ltr">执行下一行。如果这一行是函数调用，就跳进函数内部，逐行执行</td>
+<td dir="ltr">跟着函数一起进去，看它每一步怎么走</td>
+</tr>
+<tr>
+<td dir="ltr"><strong>单步跳出</strong> (<code>Shift+F11</code>)</td>
+<td dir="ltr">跳出当前函数，回到调用它的地方</td>
+<td dir="ltr">不想看了，直接退出来</td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="7.1.3 调用堆栈 —— 记录“谁叫了谁”" dir="auto" class="heading" id="7.1.3_调用堆栈_——_记录“谁叫了谁”_0">7.1.3 调用堆栈 —— 记录“谁叫了谁”</h3></div><div class="el-p"><p dir="auto">当程序在一个函数里暂停时，调用堆栈会显示<strong>这个函数是被谁调用的</strong>，再上一层又是谁……就像一串“回放”。<br>
+可以在调用堆栈查看调用堆栈，点击 second 可以跳转到调用 third 的代码行查看其作用域内的变量。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> current_num <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">third</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    current_num <span class="token operator">=</span> <span class="token number">3</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"执行 third 函数"</span><span class="token punctuation">)</span>   <span class="token comment">-- 断点打在这里</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">second</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    current_num <span class="token operator">=</span> <span class="token number">2</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"执行 second 函数"</span><span class="token punctuation">)</span>
+    <span class="token function">third</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">first</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    current_num <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"执行 first 函数"</span><span class="token punctuation">)</span>
+    <span class="token function">second</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token function">first</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">运行调试，程序在 <code>third</code> 函数内暂停。打开“调用堆栈”面板，你会看到：<br>
+<span alt="Pasted image 20251225195034.png" src="site-lib/media/pasted-image-20251225195034.png" class="internal-embed media-embed image-embed is-loaded" target="_self"><img alt="Pasted image 20251225195034.png" src="site-lib/media/pasted-image-20251225195034.png" target="_self"></span></p></div><div class="el-ul"><ul>
+<li data-line="0" dir="auto"><strong>最上面</strong>：当前正在执行的位置（<code>third</code> 函数）</li>
+<li data-line="1" dir="auto"><strong>往下</strong>：调用顺序 —— <code>first</code> → <code>second</code> → <code>third</code></li>
+<li data-line="2" dir="auto">点击堆栈中的任意一行，可以跳转到对应的代码，查看那一层的变量值。</li>
+</ul></div><div class="el-div"><div data-callout-metadata="" data-callout-fold="+" data-callout="tip" class="callout is-collapsible"><div class="callout-title" dir="auto"><div class="callout-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-flame"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg></div><div class="callout-title-inner">提示</div><div class="callout-fold"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg></div></div><div class="callout-content">
+<p dir="auto">当你在一个深嵌套的函数中，想知道它是怎么被调用过来的，调用堆栈是最快的答案。</p>
+</div></div></div><div class="el-h3"><h3 data-heading="7.1.4 特殊断点 —— 更精细的控制" dir="auto" class="heading" id="7.1.4_特殊断点_——_更精细的控制_0">7.1.4 特殊断点 —— 更精细的控制</h3></div><div class="el-p"><p dir="auto">右键单击断点（红点），可以设置更高级的触发条件。</p></div><div class="el-p"><p dir="auto"><span alt="Pasted image 20251225202221.png" src="site-lib/media/pasted-image-20251225202221.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 725px; max-width: 100%;"><img alt="Pasted image 20251225202221.png" src="site-lib/media/pasted-image-20251225202221.png" target="_self" style="width: 725px; max-width: 100%;"></span></p></div><div class="el-h4"><h4 data-heading="1. 条件断点（表达式）" dir="auto" class="heading" id="1._条件断点（表达式）_0">1. 条件断点（表达式）</h4></div><div class="el-p"><p dir="auto">只有满足某个条件时，断点才会生效。非常适合过滤掉大量不感兴趣的触发。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例：想当 i == 99 时暂停，观察循环的最后一步</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">100</span> <span class="token keyword">do</span>
+    <span class="token keyword">local</span> current <span class="token operator">=</span> i   <span class="token comment">-- 在这里设置条件断点：i == 99</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>current<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="2. 命中断点（命中次数）" dir="auto" class="heading" id="2._命中断点（命中次数）_0">2. 命中断点（命中次数）</h4></div><div class="el-p"><p dir="auto">断点被触发 N 次后才真正暂停。常用于调试循环中的某一次迭代。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> items <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"苹果"</span><span class="token punctuation">,</span> <span class="token string">"香蕉"</span><span class="token punctuation">,</span> <span class="token string">"橙子"</span><span class="token punctuation">,</span> <span class="token string">"葡萄"</span><span class="token punctuation">,</span> <span class="token string">"西瓜"</span><span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">#</span>items <span class="token keyword">do</span>
+    <span class="token comment">-- 在这里设置“命中次数”为 3，那么循环到第 3 个元素时才暂停</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"处理:"</span><span class="token punctuation">,</span> items<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="3. 日志断点（记录点）" dir="auto" class="heading" id="3._日志断点（记录点）_0">3. 日志断点（记录点）</h4></div><div class="el-p"><p dir="auto"><strong>不会暂停程序</strong>，只在触发时输出一段信息到控制台。相当于一个“临时的、可随时移除的 <code>print</code>”。</p></div><div class="el-ul"><ul>
+<li data-line="0" dir="auto">日志信息中可以用 <code>{变量名}</code> 来输出变量值。</li>
+</ul></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> a <span class="token operator">=</span> <span class="token number">1</span>
+
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span> <span class="token keyword">do</span>
+    a <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">1</span>
+    <span class="token comment">-- 添加日志断点：输出 "i = {i}"</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">--[[ 输出
+i = 1.0
+i = 2.0
+...
+]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="4. 等待断点（触发的断点）" dir="auto" class="heading" id="4._等待断点（触发的断点）_0">4. 等待断点（触发的断点）</h4></div><div class="el-p"><p dir="auto">让当前断点依赖另一个断点：只有当另一个断点先被触发后，当前断点才会生效。这样可以避免重复设置复杂的条件。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">100</span> <span class="token keyword">do</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>   <span class="token comment">-- 断点A：条件 i == 50</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">-</span>a<span class="token punctuation">)</span>  <span class="token comment">-- 断点B：等待断点A触发</span>
+    a <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token keyword">end</span>
+<span class="token comment">-- 当 i == 50 时，断点A触发；紧接着断点B也会触发（因为A已触发）</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="7.2 其他调试工具" dir="auto" class="heading" id="7.2_其他调试工具_0">7.2 其他调试工具</h2></div><div class="el-h3"><h3 data-heading="7.2.1 调试控制台" dir="auto" class="heading" id="7.2.1_调试控制台_0">7.2.1 调试控制台</h3></div><div class="el-p"><p dir="auto">当程序在断点处暂停时，你可以打开“调试控制台”，直接执行 Lua 代码，实时查看或修改变量。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> inventory <span class="token operator">=</span> <span class="token punctuation">{</span>
+    items <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>id<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"药水"</span><span class="token punctuation">,</span> count<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    gold <span class="token operator">=</span> <span class="token number">1000</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">find_item_by_name</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> _<span class="token punctuation">,</span> item <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>inventory<span class="token punctuation">.</span>items<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">if</span> item<span class="token punctuation">.</span>name <span class="token operator">==</span> name <span class="token keyword">then</span> <span class="token keyword">return</span> item <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token keyword">return</span> <span class="token keyword">nil</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"断点打在这里"</span><span class="token punctuation">)</span>   <span class="token comment">-- 暂停后，在控制台输入：</span>
+<span class="token comment">-- &gt; inventory.gold			-&gt; 查看 gold</span>
+<span class="token comment">-- &gt; inventory.gold = 2000	-&gt; 修改 gold</span>
+<span class="token comment">-- &gt; find_item("药水")		-&gt; 调用函数</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto"><span alt="Pasted image 20251225203906.png" src="site-lib/media/pasted-image-20251225203906.png" class="internal-embed media-embed image-embed is-loaded" target="_self"><img alt="Pasted image 20251225203906.png" src="site-lib/media/pasted-image-20251225203906.png" target="_self"></span></p></div><div class="el-h3"><h3 data-heading="7.2.2 监视变量" dir="auto" class="heading" id="7.2.2_监视变量_0">7.2.2 监视变量</h3></div><div class="el-p"><p dir="auto">当你有大量变量，或者想看一个复杂表达式的实时变化时，可以把它们添加到“监视”窗口。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> complex_data <span class="token operator">=</span> <span class="token punctuation">{</span>
+    users <span class="token operator">=</span> <span class="token punctuation">{</span>
+    	<span class="token punctuation">{</span>
+    		name<span class="token operator">=</span><span class="token string">"Alice"</span><span class="token punctuation">,</span> scores<span class="token operator">=</span><span class="token punctuation">{</span><span class="token number">85</span><span class="token punctuation">,</span> <span class="token number">92</span> <span class="token punctuation">,</span><span class="token number">78</span><span class="token punctuation">}</span>
+    	<span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    config <span class="token operator">=</span> <span class="token punctuation">{</span>
+    	weights<span class="token operator">=</span><span class="token punctuation">{</span><span class="token number">0.3</span> <span class="token punctuation">,</span><span class="token number">0.4</span> <span class="token punctuation">,</span><span class="token number">0.3</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> i<span class="token punctuation">,</span> user <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>complex_data<span class="token punctuation">.</span>users<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token comment">-- 在“监视”中添加：</span>
+    <span class="token comment">--   user.name</span>
+    <span class="token comment">--   #user.scores</span>
+    <span class="token comment">--   complex_data.config.weights[1]</span>
+    <span class="token keyword">local</span> sum <span class="token operator">=</span> <span class="token number">0</span>   <span class="token comment">-- 断点打在这里</span>
+    
+    <span class="token keyword">for</span> j<span class="token punctuation">,</span> score <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>scores<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        sum <span class="token operator">=</span> sum <span class="token operator">+</span> score <span class="token operator">*</span> complex_data<span class="token punctuation">.</span>config<span class="token punctuation">.</span>weights<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto"><span alt="Pasted image 20251225201739.png" src="site-lib/media/pasted-image-20251225201739.png" class="internal-embed media-embed image-embed is-loaded" target="_self" style="width: 343px; max-width: 100%;"><img alt="Pasted image 20251225201739.png" src="site-lib/media/pasted-image-20251225201739.png" target="_self" style="width: 343px; max-width: 100%;"></span></p></div><div class="el-h2"><h2 data-heading="7.3 错误处理" dir="auto" class="heading" id="7.3_错误处理_0">7.3 错误处理</h2></div><div class="el-p"><p dir="auto">即使代码写得很小心，运行时仍然可能出错（比如文件不存在、网络断开、用户输入非法）。Lua 提供了几种机制来捕获和处理这些错误。</p></div><div class="el-h3"><h3 data-heading="7.3.1 错误信息" dir="auto" class="heading" id="7.3.1_错误信息_0">7.3.1 错误信息</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">test_fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    a<span class="token punctuation">.</span>b<span class="token punctuation">.</span>c <span class="token operator">=</span> <span class="token number">123</span>		<span class="token comment">-- a 是 nil，不能索引</span>
+<span class="token keyword">end</span>
+
+<span class="token function">test_fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+lua: test.lua:2: attempt to index global 'a' (a nil value)
+stack traceback:
+	test.lua:2: in function 'test_fn'
+	test.lua:5: in main chunk
+	[C]: ?
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-ul"><ul>
+<li data-line="0" dir="auto"><code>test.lua:2</code> 错误的路径与行数。</li>
+<li data-line="1" dir="auto"><code>attempt to index global 'a' (a nil value)</code> 错误信息：尝试索引 nil 值。</li>
+<li data-line="2" dir="auto"><code>stack traceback</code> 调用堆栈：从下往上看，可以追踪到错误是怎么一步步发生的。</li>
+<li data-line="3" dir="auto"><code>test.lua:5: in main chunk</code> 在主代码块先执行了第 5 行代码。</li>
+<li data-line="4" dir="auto"><code>test.lua:2: in function 'test_fn'</code> 最后执行了 <code>test_fn</code> 函数中的第 2 行。</li>
+</ul></div><div class="el-h3"><h3 data-heading="7.3.2 错误类型" dir="auto" class="heading" id="7.3.2_错误类型_0">7.3.2 错误类型</h3></div><div class="el-h4"><h4 data-heading="1. 语法错误" dir="auto" class="heading" id="1._语法错误_0">1. 语法错误</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 1. 忘记写值</span>
+<span class="token keyword">local</span> x <span class="token operator">=</span>
+<span class="token comment">-- 错误: unexpected symbol near '&lt;eof&gt;'</span>
+
+<span class="token comment">-- 2. 代码块没有闭合</span>
+<span class="token keyword">local</span> t <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token number">3</span>
+<span class="token comment">-- 错误: '}' expected (to close '{' at line 1)</span>
+
+<span class="token keyword">if</span> a <span class="token keyword">then</span>
+<span class="token comment">-- 错误: 'end' expected (to close 'if' at line 1) near '&lt;eof&gt;'</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="2. 运行时错误" dir="auto" class="heading" id="2._运行时错误_0">2. 运行时错误</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 索引 nil 值</span>
+<span class="token function">print</span><span class="token punctuation">(</span>undefined_table<span class="token punctuation">.</span>v<span class="token punctuation">)</span>
+<span class="token comment">-- 错误: attempt to index global 'undefined_table' (a nil value)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="3. 逻辑错误" dir="auto" class="heading" id="3._逻辑错误_0">3. 逻辑错误</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 程序能运行，结果不对</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">calculate_average</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> sum <span class="token operator">=</span> <span class="token number">0</span>
+    
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">#</span>numbers <span class="token keyword">do</span>
+        sum <span class="token operator">=</span> sum <span class="token operator">+</span> numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token keyword">return</span> sum <span class="token operator">/</span> <span class="token operator">#</span>numbers  <span class="token comment">-- 如果numbers为空表，会除以0，返回 1.#INF</span>
+<span class="token keyword">end</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="4. 资源错误" dir="auto" class="heading" id="4._资源错误_0">4. 资源错误</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 1. 文件不存在</span>
+<span class="token keyword">local</span> file<span class="token punctuation">,</span> err <span class="token operator">=</span> io<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token string">"nonexistent.txt"</span><span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token keyword">not</span> file <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>  <span class="token comment">-- 输出: nonexistent.txt: No such file or directory</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 2. 内存不足</span>
+<span class="token keyword">local</span> huge_table <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> math<span class="token punctuation">.</span>huge <span class="token keyword">do</span>
+	huge_table<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">rep</span><span class="token punctuation">(</span><span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token number">1000000</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment">-- 报错: not enough memory</span>
+
+<span class="token comment">-- 3. 栈溢出</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">err_fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">err_fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token function">err_fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">-- 报错: stack overflow</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="7.3.3 错误处理函数" dir="auto" class="heading" id="7.3.3_错误处理函数_0">7.3.3 错误处理函数</h3></div><div class="el-h4"><h4 data-heading="1. error - 主动抛出错误" dir="auto" class="heading" id="1._error_-_主动抛出错误_0">1. error - 主动抛出错误</h4></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token function">error</span><span class="token punctuation">(</span>信息<span class="token punctuation">:</span> str<span class="token punctuation">,</span> 错误级别?<span class="token punctuation">:</span> int<span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-ul"><ul>
+<li data-line="0" dir="auto">错误级别默认为 1。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>示例 1</strong>：基本错误抛出</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">validate_age</span><span class="token punctuation">(</span>age<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token function">type</span><span class="token punctuation">(</span>age<span class="token punctuation">)</span> <span class="token operator">~=</span> <span class="token string">"number"</span> <span class="token keyword">then</span>
+        <span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"年龄必须是数字"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>  <span class="token comment">-- 错误级别 2 表示错误在调用者的位置</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token keyword">if</span> age <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">then</span>
+        <span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"年龄不能为负数"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token keyword">if</span> age <span class="token operator">&gt;</span> <span class="token number">150</span> <span class="token keyword">or</span> age <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">then</span>
+        <span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"年龄不合理"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+    
+    <span class="token keyword">return</span> <span class="token keyword">true</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"年龄验证测试:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> test_ages <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">25</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">"二十"</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> i<span class="token punctuation">,</span> age <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>test_ages<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token keyword">local</span> success<span class="token punctuation">,</span> result <span class="token operator">=</span> <span class="token function">pcall</span><span class="token punctuation">(</span>validate_age<span class="token punctuation">,</span> age<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> success <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  年龄 "</span> <span class="token operator">..</span> age <span class="token operator">..</span> <span class="token string">": 有效"</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  年龄 "</span> <span class="token operator">..</span> age <span class="token operator">..</span> <span class="token string">": "</span> <span class="token operator">..</span> result<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">--[[ 输出
+年龄 25: 有效
+年龄 -5: 年龄不能为负数
+年龄 二十: 年龄必须是数字
+年龄 200: 年龄不合理
+年龄 0: 有效
+]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="2. assert - 断言" dir="auto" class="heading" id="2._assert_-_断言_0">2. assert - 断言</h4></div><div class="el-p"><p dir="auto"><code>assert</code> 检查条件是否为真，如果为假，就抛出错误（可以自定义错误信息）。常用于参数校验。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token function">assert</span><span class="token punctuation">(</span>条件<span class="token punctuation">:</span> bool<span class="token punctuation">,</span> 错误信息?<span class="token punctuation">:</span> str<span class="token punctuation">,</span> 参数?<span class="token punctuation">:</span> any<span class="token punctuation">...</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> 参数<span class="token punctuation">:</span> any<span class="token punctuation">...</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-ul"><ul>
+<li data-line="0" dir="auto">错误信息默认为 <code>"assertion failed!"</code>。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>示例</strong>：</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 示例1：基本断言</span>
+<span class="token keyword">function</span> <span class="token function">calculate_bmi</span><span class="token punctuation">(</span>weight<span class="token punctuation">,</span> height<span class="token punctuation">)</span>
+    <span class="token comment">-- 参数验证</span>
+    <span class="token function">assert</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span>weight<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"number"</span><span class="token punctuation">,</span> <span class="token string">"体重必须是数字"</span><span class="token punctuation">)</span>
+    <span class="token function">assert</span><span class="token punctuation">(</span><span class="token function">type</span><span class="token punctuation">(</span>height<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"number"</span><span class="token punctuation">,</span> <span class="token string">"身高必须是数字"</span><span class="token punctuation">)</span>
+    <span class="token function">assert</span><span class="token punctuation">(</span>weight <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"体重必须大于0"</span><span class="token punctuation">)</span>
+    <span class="token function">assert</span><span class="token punctuation">(</span>height <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"身高必须大于0"</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">return</span> weight <span class="token operator">/</span> <span class="token punctuation">(</span>height <span class="token operator">*</span> height<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"BMI计算测试:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> test_cases <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">{</span><span class="token number">70</span><span class="token punctuation">,</span> <span class="token number">1.75</span><span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">-- 有效</span>
+    <span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">70</span><span class="token punctuation">,</span> <span class="token number">1.75</span><span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token comment">-- 无效体重</span>
+    <span class="token punctuation">{</span><span class="token number">70</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1.75</span><span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token comment">-- 无效身高</span>
+    <span class="token punctuation">{</span><span class="token string">"70"</span><span class="token punctuation">,</span> <span class="token number">1.75</span><span class="token punctuation">}</span><span class="token punctuation">,</span>   <span class="token comment">-- 字符串体重</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> i<span class="token punctuation">,</span> case <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>test_cases<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token keyword">local</span> success<span class="token punctuation">,</span> result <span class="token operator">=</span> <span class="token function">pcall</span><span class="token punctuation">(</span>calculate_bmi<span class="token punctuation">,</span> case<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> case<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> success <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"  体重%.1fkg, 身高%.2fm -&gt; BMI: %.1f"</span><span class="token punctuation">,</span> 
+              case<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> case<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  错误: "</span> <span class="token operator">..</span> result<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">--[[ 输出
+BMI计算测试:
+  体重70.0kg, 身高1.75m -&gt; BMI: 22.9
+  错误: test.lua:6: 体重必须大于 0
+  错误: test.lua:7: 身高必须大于 0
+  错误: test.lua:4: 体重必须是数字
+]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="3. pcall - 保护模式调用" dir="auto" class="heading" id="3._pcall_-_保护模式调用_0">3. pcall - 保护模式调用</h4></div><div class="el-p"><p dir="auto"><code>pcall</code> 在“保护模式”下执行一个函数。如果函数内部出错，不会崩溃，而是返回 <code>false</code> 和错误信息。</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token function">pcall</span><span class="token punctuation">(</span>保护函数<span class="token punctuation">:</span> func<span class="token punctuation">,</span> 函数参数<span class="token punctuation">:</span> any<span class="token punctuation">...</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> 是否有错误<span class="token punctuation">:</span> bool<span class="token punctuation">,</span> 返回值<span class="token operator">|</span>错误信息<span class="token punctuation">:</span> any<span class="token operator">|</span>str<span class="token punctuation">...</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto"><strong>示例</strong>：</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- pcall处理多个返回值</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">multiple_returns</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">failing_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"出错了！"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n多返回值处理:"</span><span class="token punctuation">)</span>
+success<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> e <span class="token operator">=</span> <span class="token function">pcall</span><span class="token punctuation">(</span>multiple_returns<span class="token punctuation">)</span>
+<span class="token keyword">if</span> success <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  成功返回: "</span> <span class="token operator">..</span> a <span class="token operator">..</span> <span class="token string">", "</span> <span class="token operator">..</span> b <span class="token operator">..</span> <span class="token string">", "</span> <span class="token operator">..</span> c <span class="token operator">..</span> <span class="token string">", "</span> <span class="token operator">..</span> d <span class="token operator">..</span> <span class="token string">", "</span> <span class="token operator">..</span> e<span class="token punctuation">)</span>
+<span class="token keyword">else</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  错误: "</span> <span class="token operator">..</span> a<span class="token punctuation">)</span>  <span class="token comment">-- 注意：错误信息在第一个返回值</span>
+<span class="token keyword">end</span>
+
+success<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">pcall</span><span class="token punctuation">(</span>failing_function<span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token keyword">not</span> success <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  捕获错误: "</span> <span class="token operator">..</span> err<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">--[[ 输出
+成功返回: 1, 2, 3, 4, 5
+捕获错误: 出错了！
+]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="4. xpcall - 带错误处理器的保护调用" dir="auto" class="heading" id="4._xpcall_-_带错误处理器的保护调用_0">4. xpcall - 带错误处理器的保护调用</h4></div><div class="el-p"><p dir="auto"><code>xpcall</code> 比 <code>pcall</code> 多了一个参数：<strong>错误处理器</strong>。当函数出错时，会先调用这个处理器，你可以在这里记录日志、获取完整堆栈等。带错误处理的保护调用</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token function">xpcall</span><span class="token punctuation">(</span>保护函数<span class="token punctuation">:</span> func<span class="token punctuation">,</span> 信息处理函数<span class="token punctuation">:</span> func<span class="token punctuation">,</span> 函数参数<span class="token punctuation">:</span> any<span class="token punctuation">...</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> 是否有错误<span class="token punctuation">:</span> bool<span class="token punctuation">,</span> 返回值<span class="token operator">|</span>处理后的信息<span class="token punctuation">:</span> any<span class="token operator">|</span>str<span class="token punctuation">...</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto"><strong>示例</strong>：</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 错误处理函数</span>
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">error_handler</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token comment">-- err 参数是错误信息</span>
+    <span class="token keyword">local</span> debug_info <span class="token operator">=</span> debug<span class="token punctuation">.</span><span class="token function">traceback</span><span class="token punctuation">(</span><span class="token string">"错误追踪:"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"发生错误: %s\n%s"</span><span class="token punctuation">,</span> err<span class="token punctuation">,</span> debug_info<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">risky_operation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> t <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span>
+    <span class="token keyword">return</span> t<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">2</span>  <span class="token comment">-- t[10] 是 nil，nil * 2 会出错</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> success<span class="token punctuation">,</span> result <span class="token operator">=</span> <span class="token function">xpcall</span><span class="token punctuation">(</span>risky_operation<span class="token punctuation">,</span> error_handler<span class="token punctuation">)</span>
+<span class="token keyword">if</span> success <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  结果: "</span> <span class="token operator">..</span> result<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">--[[ 输出
+发生错误: test.lua:10: attempt to perform arithmetic on field '?' (a nil value)
+错误追踪:
+stack traceback:
+	test.lua:10: in function &lt;test.lua:8&gt;
+	[C]: in function 'xpcall'
+	test.lua:14: in main chunk
+	[C]: ?
+]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="7.4 练习" dir="auto" class="heading" id="7.4_练习_0">7.4 练习</h2></div><div class="el-h3"><h3 data-heading="练习 1：使用断点阅读代码" dir="auto" class="heading" id="练习_1：使用断点阅读代码_0">练习 1：使用断点阅读代码</h3></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token keyword">local</span> GradeSystem <span class="token operator">=</span> <span class="token punctuation">{</span>
+    students <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    courses <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    grades <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    statistics <span class="token operator">=</span> <span class="token punctuation">{</span>
+        total_students <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        total_courses <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        average_scores <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">generate_id</span><span class="token punctuation">(</span>prefix<span class="token punctuation">,</span> existing_ids<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> max_id <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> id<span class="token punctuation">,</span> _ <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>existing_ids<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">local</span> num <span class="token operator">=</span> <span class="token function">tonumber</span><span class="token punctuation">(</span>id<span class="token punctuation">:</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token string">"%d+$"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> num <span class="token keyword">and</span> num <span class="token operator">&gt;</span> max_id <span class="token keyword">then</span>
+            max_id <span class="token operator">=</span> num
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+    <span class="token keyword">return</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%s%04d"</span><span class="token punctuation">,</span> prefix<span class="token punctuation">,</span> max_id <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">calculate_weighted_average</span><span class="token punctuation">(</span>scores<span class="token punctuation">,</span> credits<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> total_score <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">local</span> total_credit <span class="token operator">=</span> <span class="token number">0</span>
+
+    <span class="token keyword">for</span> course_id<span class="token punctuation">,</span> score <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>scores<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">local</span> credit <span class="token operator">=</span> credits<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token keyword">or</span> <span class="token number">1</span>
+        total_score <span class="token operator">=</span> total_score <span class="token operator">+</span> score <span class="token operator">*</span> credit
+        total_credit <span class="token operator">=</span> total_credit <span class="token operator">+</span> credit
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">return</span> total_credit <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">and</span> total_score <span class="token operator">/</span> total_credit <span class="token keyword">or</span> <span class="token number">0</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> GradeSystem<span class="token punctuation">:</span><span class="token function">add_student</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> major<span class="token punctuation">,</span> class<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> student_id <span class="token operator">=</span> <span class="token function">generate_id</span><span class="token punctuation">(</span><span class="token string">"STU"</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>students<span class="token punctuation">)</span>
+
+    self<span class="token punctuation">.</span>students<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        id <span class="token operator">=</span> student_id<span class="token punctuation">,</span>
+        name <span class="token operator">=</span> name<span class="token punctuation">,</span>
+        major <span class="token operator">=</span> major <span class="token keyword">or</span> <span class="token string">"未分配"</span><span class="token punctuation">,</span>
+        class <span class="token operator">=</span> class <span class="token keyword">or</span> <span class="token string">"未知班级"</span><span class="token punctuation">,</span>
+        enrolled_courses <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        enroll_date <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">date</span><span class="token punctuation">(</span><span class="token string">"%Y-%m-%d"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    self<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>total_students <span class="token operator">=</span> self<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>total_students <span class="token operator">+</span> <span class="token number">1</span>
+
+    <span class="token keyword">return</span> student_id
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> GradeSystem<span class="token punctuation">:</span><span class="token function">add_course</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> credit<span class="token punctuation">,</span> teacher<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> course_id <span class="token operator">=</span> <span class="token function">generate_id</span><span class="token punctuation">(</span><span class="token string">"COU"</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>courses<span class="token punctuation">)</span>
+
+    self<span class="token punctuation">.</span>courses<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        id <span class="token operator">=</span> course_id<span class="token punctuation">,</span>
+        name <span class="token operator">=</span> name<span class="token punctuation">,</span>
+        credit <span class="token operator">=</span> credit <span class="token keyword">or</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        teacher <span class="token operator">=</span> teacher <span class="token keyword">or</span> <span class="token string">"待分配"</span><span class="token punctuation">,</span>
+        enrolled_students <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    self<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>total_courses <span class="token operator">=</span> self<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>total_courses <span class="token operator">+</span> <span class="token number">1</span>
+
+    <span class="token keyword">return</span> course_id
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> GradeSystem<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>student_id<span class="token punctuation">,</span> course_id<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> student <span class="token operator">=</span> self<span class="token punctuation">.</span>students<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span>
+    <span class="token keyword">local</span> course <span class="token operator">=</span> self<span class="token punctuation">.</span>courses<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span>
+
+    <span class="token keyword">if</span> <span class="token keyword">not</span> student <span class="token keyword">or</span> <span class="token keyword">not</span> course <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token keyword">false</span><span class="token punctuation">,</span> <span class="token string">"学生或课程不存在"</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">if</span> student<span class="token punctuation">.</span>enrolled_courses<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token keyword">false</span><span class="token punctuation">,</span> <span class="token string">"该课程已选"</span>
+    <span class="token keyword">end</span>
+
+    student<span class="token punctuation">.</span>enrolled_courses<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">true</span>
+    student<span class="token punctuation">.</span>enrolled_courses<span class="token punctuation">[</span>course<span class="token punctuation">.</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> course_id
+
+    course<span class="token punctuation">.</span>enrolled_students<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">true</span>
+
+    self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token keyword">or</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span><span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">nil</span>
+
+    <span class="token keyword">return</span> <span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token string">"选课成功"</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> GradeSystem<span class="token punctuation">:</span><span class="token function">record_grade</span><span class="token punctuation">(</span>student_id<span class="token punctuation">,</span> course_id<span class="token punctuation">,</span> score<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> student <span class="token operator">=</span> self<span class="token punctuation">.</span>students<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">not</span> self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token keyword">or</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span><span class="token punctuation">[</span>course_id<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token keyword">not</span> student <span class="token keyword">or</span> <span class="token keyword">not</span> student<span class="token punctuation">.</span>enrolled_courses<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token keyword">false</span><span class="token punctuation">,</span> <span class="token string">"学生未选此课程"</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">if</span> score <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token keyword">or</span> score <span class="token operator">&gt;</span> <span class="token number">100</span> <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token keyword">false</span><span class="token punctuation">,</span> <span class="token string">"分数必须在0-100之间"</span>
+    <span class="token keyword">end</span>
+
+    self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token keyword">or</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span><span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> score
+
+    self<span class="token punctuation">:</span><span class="token function">update_statistics</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> <span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token string">"成绩录入成功"</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> GradeSystem<span class="token punctuation">:</span><span class="token function">update_statistics</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> course_scores <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">local</span> course_counts <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> student_id<span class="token punctuation">,</span> courses <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>grades<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">for</span> course_id<span class="token punctuation">,</span> score <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>courses<span class="token punctuation">)</span> <span class="token keyword">do</span>
+            <span class="token keyword">if</span> score <span class="token keyword">then</span>
+                course_scores<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>course_scores<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token keyword">or</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> score
+                course_counts<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>course_counts<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token keyword">or</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">end</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">for</span> course_id<span class="token punctuation">,</span> total_score <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>course_scores<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">local</span> count <span class="token operator">=</span> course_counts<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token keyword">or</span> <span class="token number">1</span>
+        self<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>average_scores<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> total_score <span class="token operator">/</span> count
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> GradeSystem<span class="token punctuation">:</span><span class="token function">get_student_report</span><span class="token punctuation">(</span>student_id<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> student <span class="token operator">=</span> self<span class="token punctuation">.</span>students<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> student <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token keyword">nil</span><span class="token punctuation">,</span> <span class="token string">"学生不存在"</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">local</span> report <span class="token operator">=</span> <span class="token punctuation">{</span>
+        student_id <span class="token operator">=</span> student_id<span class="token punctuation">,</span>
+        name <span class="token operator">=</span> student<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+        major <span class="token operator">=</span> student<span class="token punctuation">.</span>major<span class="token punctuation">,</span>
+        class <span class="token operator">=</span> student<span class="token punctuation">.</span>class<span class="token punctuation">,</span>
+        courses <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        total_average <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        weighted_average <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">local</span> total_score <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">local</span> total_courses <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">local</span> scores_with_credits <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">local</span> credits <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> course_id<span class="token punctuation">,</span> _ <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>student<span class="token punctuation">.</span>enrolled_courses<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">if</span> <span class="token function">type</span><span class="token punctuation">(</span>course_id<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"string"</span> <span class="token keyword">and</span> course_id<span class="token punctuation">:</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token string">"^COU"</span><span class="token punctuation">)</span> <span class="token keyword">then</span>
+            <span class="token keyword">local</span> course <span class="token operator">=</span> self<span class="token punctuation">.</span>courses<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span>
+            <span class="token keyword">local</span> score <span class="token operator">=</span> self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token keyword">and</span> self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span><span class="token punctuation">[</span>course_id<span class="token punctuation">]</span>
+
+            <span class="token keyword">if</span> course <span class="token keyword">then</span>
+                <span class="token keyword">local</span> course_info <span class="token operator">=</span> <span class="token punctuation">{</span>
+                    id <span class="token operator">=</span> course_id<span class="token punctuation">,</span>
+                    name <span class="token operator">=</span> course<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                    credit <span class="token operator">=</span> course<span class="token punctuation">.</span>credit<span class="token punctuation">,</span>
+                    teacher <span class="token operator">=</span> course<span class="token punctuation">.</span>teacher<span class="token punctuation">,</span>
+                    score <span class="token operator">=</span> score <span class="token keyword">or</span> <span class="token string">"未录入"</span>
+                <span class="token punctuation">}</span>
+
+                table<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>courses<span class="token punctuation">,</span> course_info<span class="token punctuation">)</span>
+
+                <span class="token keyword">if</span> score <span class="token keyword">then</span>
+                    total_score <span class="token operator">=</span> total_score <span class="token operator">+</span> score
+                    total_courses <span class="token operator">=</span> total_courses <span class="token operator">+</span> <span class="token number">1</span>
+                    scores_with_credits<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> score
+                    credits<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span> <span class="token operator">=</span> course<span class="token punctuation">.</span>credit
+                <span class="token keyword">end</span>
+            <span class="token keyword">end</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">if</span> total_courses <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">then</span>
+        report<span class="token punctuation">.</span>total_average <span class="token operator">=</span> total_score <span class="token operator">/</span> total_courses
+
+        report<span class="token punctuation">.</span>weighted_average <span class="token operator">=</span> <span class="token function">calculate_weighted_average</span><span class="token punctuation">(</span>scores_with_credits<span class="token punctuation">,</span> credits<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+
+    table<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>courses<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+        <span class="token keyword">local</span> score_a <span class="token operator">=</span> a<span class="token punctuation">.</span>score <span class="token keyword">or</span> <span class="token number">0</span>
+        <span class="token keyword">local</span> score_b <span class="token operator">=</span> b<span class="token punctuation">.</span>score <span class="token keyword">or</span> <span class="token number">0</span>
+        <span class="token keyword">return</span> score_a <span class="token operator">&gt;</span> score_b
+    <span class="token keyword">end</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> report
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> GradeSystem<span class="token punctuation">:</span><span class="token function">get_course_report</span><span class="token punctuation">(</span>course_id<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> course <span class="token operator">=</span> self<span class="token punctuation">.</span>courses<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> course <span class="token keyword">then</span>
+        <span class="token keyword">return</span> <span class="token keyword">nil</span><span class="token punctuation">,</span> <span class="token string">"课程不存在"</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">local</span> report <span class="token operator">=</span> <span class="token punctuation">{</span>
+        course_id <span class="token operator">=</span> course_id<span class="token punctuation">,</span>
+        name <span class="token operator">=</span> course<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+        credit <span class="token operator">=</span> course<span class="token punctuation">.</span>credit<span class="token punctuation">,</span>
+        teacher <span class="token operator">=</span> course<span class="token punctuation">.</span>teacher<span class="token punctuation">,</span>
+        enrolled_count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        graded_count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        average_score <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        score_distribution <span class="token operator">=</span> <span class="token punctuation">{</span>
+            excellent <span class="token operator">=</span> <span class="token punctuation">{</span> name <span class="token operator">=</span> <span class="token string">"优秀"</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            good <span class="token operator">=</span> <span class="token punctuation">{</span> name <span class="token operator">=</span> <span class="token string">"良好"</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            medium <span class="token operator">=</span> <span class="token punctuation">{</span> name <span class="token operator">=</span> <span class="token string">"中等"</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            pass <span class="token operator">=</span> <span class="token punctuation">{</span> name <span class="token operator">=</span> <span class="token string">"及格"</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            fail <span class="token operator">=</span> <span class="token punctuation">{</span> name <span class="token operator">=</span> <span class="token string">"不及格"</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        student_list <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">local</span> total_score <span class="token operator">=</span> <span class="token number">0</span>
+
+    <span class="token keyword">for</span> student_id<span class="token punctuation">,</span> _ <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>course<span class="token punctuation">.</span>enrolled_students<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        report<span class="token punctuation">.</span>enrolled_count <span class="token operator">=</span> report<span class="token punctuation">.</span>enrolled_count <span class="token operator">+</span> <span class="token number">1</span>
+
+        <span class="token keyword">local</span> score <span class="token operator">=</span> self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span> <span class="token keyword">and</span> self<span class="token punctuation">.</span>grades<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span><span class="token punctuation">[</span>course_id<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> score <span class="token keyword">then</span>
+            report<span class="token punctuation">.</span>graded_count <span class="token operator">=</span> report<span class="token punctuation">.</span>graded_count <span class="token operator">+</span> <span class="token number">1</span>
+            total_score <span class="token operator">=</span> total_score <span class="token operator">+</span> score
+            score_dis <span class="token operator">=</span> report<span class="token punctuation">.</span>score_distribution
+
+            <span class="token keyword">if</span> score <span class="token operator">&gt;=</span> <span class="token number">90</span> <span class="token keyword">then</span>
+                score_dis<span class="token punctuation">.</span>excellent<span class="token punctuation">.</span>count <span class="token operator">=</span> score_dis<span class="token punctuation">.</span>excellent<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">elseif</span> score <span class="token operator">&gt;=</span> <span class="token number">80</span> <span class="token keyword">then</span>
+                score_dis<span class="token punctuation">.</span>good<span class="token punctuation">.</span>count <span class="token operator">=</span> score_dis<span class="token punctuation">.</span>good<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">elseif</span> score <span class="token operator">&gt;=</span> <span class="token number">70</span> <span class="token keyword">then</span>
+                score_dis<span class="token punctuation">.</span>medium<span class="token punctuation">.</span>count <span class="token operator">=</span> score_dis<span class="token punctuation">.</span>medium<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">elseif</span> score <span class="token operator">&gt;=</span> <span class="token number">60</span> <span class="token keyword">then</span>
+                score_dis<span class="token punctuation">.</span>pass<span class="token punctuation">.</span>count <span class="token operator">=</span> score_dis<span class="token punctuation">.</span>pass<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">else</span>
+                score_dis<span class="token punctuation">.</span>fail<span class="token punctuation">.</span>count <span class="token operator">=</span> score_dis<span class="token punctuation">.</span>fail<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">end</span>
+
+            <span class="token keyword">local</span> student <span class="token operator">=</span> self<span class="token punctuation">.</span>students<span class="token punctuation">[</span>student_id<span class="token punctuation">]</span>
+            <span class="token keyword">if</span> student <span class="token keyword">then</span>
+                table<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>student_list<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                    student_id <span class="token operator">=</span> student_id<span class="token punctuation">,</span>
+                    name <span class="token operator">=</span> student<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                    score <span class="token operator">=</span> score<span class="token punctuation">,</span>
+                    grade <span class="token operator">=</span> score <span class="token operator">&gt;=</span> <span class="token number">90</span> <span class="token keyword">and</span> <span class="token string">"优秀"</span> <span class="token keyword">or</span>
+                        score <span class="token operator">&gt;=</span> <span class="token number">80</span> <span class="token keyword">and</span> <span class="token string">"良好"</span> <span class="token keyword">or</span>
+                        score <span class="token operator">&gt;=</span> <span class="token number">70</span> <span class="token keyword">and</span> <span class="token string">"中等"</span> <span class="token keyword">or</span>
+                        score <span class="token operator">&gt;=</span> <span class="token number">60</span> <span class="token keyword">and</span> <span class="token string">"及格"</span> <span class="token keyword">or</span> <span class="token string">"不及格"</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token keyword">end</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">if</span> report<span class="token punctuation">.</span>graded_count <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">then</span>
+        report<span class="token punctuation">.</span>average_score <span class="token operator">=</span> total_score <span class="token operator">/</span> report<span class="token punctuation">.</span>graded_count
+    <span class="token keyword">end</span>
+
+    table<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>student_list<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> a<span class="token punctuation">.</span>score <span class="token operator">&gt;</span> b<span class="token punctuation">.</span>score
+    <span class="token keyword">end</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> report
+<span class="token keyword">end</span>
+
+<span class="token keyword">function</span> GradeSystem<span class="token punctuation">:</span><span class="token function">find_top_students</span><span class="token punctuation">(</span>min_average<span class="token punctuation">,</span> limit<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> qualified_students <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> student_id<span class="token punctuation">,</span> student <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>students<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">local</span> report <span class="token operator">=</span> self<span class="token punctuation">:</span><span class="token function">get_student_report</span><span class="token punctuation">(</span>student_id<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> report <span class="token keyword">and</span> report<span class="token punctuation">.</span>weighted_average <span class="token operator">&gt;=</span> <span class="token punctuation">(</span>min_average <span class="token keyword">or</span> <span class="token number">85</span><span class="token punctuation">)</span> <span class="token keyword">then</span>
+            table<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>qualified_students<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                student_id <span class="token operator">=</span> student_id<span class="token punctuation">,</span>
+                name <span class="token operator">=</span> student<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                major <span class="token operator">=</span> student<span class="token punctuation">.</span>major<span class="token punctuation">,</span>
+                class <span class="token operator">=</span> student<span class="token punctuation">.</span>class<span class="token punctuation">,</span>
+                weighted_average <span class="token operator">=</span> report<span class="token punctuation">.</span>weighted_average<span class="token punctuation">,</span>
+                course_count <span class="token operator">=</span> <span class="token operator">#</span>report<span class="token punctuation">.</span>courses
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+
+    table<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>qualified_students<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> a<span class="token punctuation">.</span>weighted_average <span class="token operator">&gt;</span> b<span class="token punctuation">.</span>weighted_average
+    <span class="token keyword">end</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> limit <span class="token keyword">and</span> limit <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">then</span>
+        qualified_students <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token function">unpack</span><span class="token punctuation">(</span>qualified_students<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> limit<span class="token punctuation">)</span> <span class="token punctuation">}</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">return</span> qualified_students
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">initialize_test_data</span><span class="token punctuation">(</span>system<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> math_id <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_course</span><span class="token punctuation">(</span><span class="token string">"高等数学"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"张教授"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> english_id <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_course</span><span class="token punctuation">(</span><span class="token string">"大学英语"</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"王老师"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> programming_id <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_course</span><span class="token punctuation">(</span><span class="token string">"程序设计"</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"李教授"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> physics_id <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_course</span><span class="token punctuation">(</span><span class="token string">"大学物理"</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"赵教授"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> history_id <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_course</span><span class="token punctuation">(</span><span class="token string">"中国近代史"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"刘老师"</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">local</span> stu1 <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_student</span><span class="token punctuation">(</span><span class="token string">"张三"</span><span class="token punctuation">,</span> <span class="token string">"计算机科学"</span><span class="token punctuation">,</span> <span class="token string">"计科2001"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> stu2 <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_student</span><span class="token punctuation">(</span><span class="token string">"李四"</span><span class="token punctuation">,</span> <span class="token string">"软件工程"</span><span class="token punctuation">,</span> <span class="token string">"软工2001"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> stu3 <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_student</span><span class="token punctuation">(</span><span class="token string">"王五"</span><span class="token punctuation">,</span> <span class="token string">"信息安全"</span><span class="token punctuation">,</span> <span class="token string">"信安2001"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> stu4 <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_student</span><span class="token punctuation">(</span><span class="token string">"赵六"</span><span class="token punctuation">,</span> <span class="token string">"计算机科学"</span><span class="token punctuation">,</span> <span class="token string">"计科2001"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> stu5 <span class="token operator">=</span> system<span class="token punctuation">:</span><span class="token function">add_student</span><span class="token punctuation">(</span><span class="token string">"钱七"</span><span class="token punctuation">,</span> <span class="token string">"软件工程"</span><span class="token punctuation">,</span> <span class="token string">"软工2001"</span><span class="token punctuation">)</span>
+
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu1<span class="token punctuation">,</span> math_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu1<span class="token punctuation">,</span> english_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu1<span class="token punctuation">,</span> programming_id<span class="token punctuation">)</span>
+
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu2<span class="token punctuation">,</span> math_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu2<span class="token punctuation">,</span> english_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu2<span class="token punctuation">,</span> physics_id<span class="token punctuation">)</span>
+
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu3<span class="token punctuation">,</span> programming_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu3<span class="token punctuation">,</span> physics_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu3<span class="token punctuation">,</span> history_id<span class="token punctuation">)</span>
+
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu4<span class="token punctuation">,</span> math_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu4<span class="token punctuation">,</span> programming_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu4<span class="token punctuation">,</span> physics_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu4<span class="token punctuation">,</span> history_id<span class="token punctuation">)</span>
+
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu5<span class="token punctuation">,</span> english_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu5<span class="token punctuation">,</span> programming_id<span class="token punctuation">)</span>
+    system<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>stu5<span class="token punctuation">,</span> history_id<span class="token punctuation">)</span>
+
+    <span class="token keyword">local</span> scores <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">[</span>stu1<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>math_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">88</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>english_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">92</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>programming_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">95</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>stu2<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>math_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">76</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>english_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">85</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>physics_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">82</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>stu3<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>programming_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">91</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>physics_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">78</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>history_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">88</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>stu4<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>math_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">94</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>programming_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">89</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>physics_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">86</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>history_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">92</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>stu5<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>english_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">79</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>programming_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">83</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>history_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">85</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> student_id<span class="token punctuation">,</span> course_scores <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>scores<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">for</span> course_id<span class="token punctuation">,</span> score <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>course_scores<span class="token punctuation">)</span> <span class="token keyword">do</span>
+            system<span class="token punctuation">:</span><span class="token function">record_grade</span><span class="token punctuation">(</span>student_id<span class="token punctuation">,</span> course_id<span class="token punctuation">,</span> score<span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"已添加 %d 名学生，%d 门课程"</span><span class="token punctuation">,</span>
+        system<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>total_students<span class="token punctuation">,</span>
+        system<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>total_courses<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">demonstrate_system_workflow</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">initialize_test_data</span><span class="token punctuation">(</span>GradeSystem<span class="token punctuation">)</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n查询学生成绩单"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> report<span class="token punctuation">,</span> err <span class="token operator">=</span> GradeSystem<span class="token punctuation">:</span><span class="token function">get_student_report</span><span class="token punctuation">(</span><span class="token string">"STU0004"</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> report <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"学生: %s (%s - %s)"</span><span class="token punctuation">,</span>
+            report<span class="token punctuation">.</span>name<span class="token punctuation">,</span> report<span class="token punctuation">.</span>major<span class="token punctuation">,</span> report<span class="token punctuation">.</span>class<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"加权平均分: %.2f, 简单平均分: %.2f"</span><span class="token punctuation">,</span>
+            report<span class="token punctuation">.</span>weighted_average<span class="token punctuation">,</span> report<span class="token punctuation">.</span>total_average<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"各科成绩:"</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">for</span> i<span class="token punctuation">,</span> course <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>courses<span class="token punctuation">)</span> <span class="token keyword">do</span>
+            <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"  %s (%s): %s (学分: %d)"</span><span class="token punctuation">,</span>
+                course<span class="token punctuation">.</span>name<span class="token punctuation">,</span> course<span class="token punctuation">.</span>teacher<span class="token punctuation">,</span>
+                course<span class="token punctuation">.</span>score<span class="token punctuation">,</span> course<span class="token punctuation">.</span>credit<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">else</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"错误:"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n查询课程统计"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> course_report<span class="token punctuation">,</span> course_err <span class="token operator">=</span> GradeSystem<span class="token punctuation">:</span><span class="token function">get_course_report</span><span class="token punctuation">(</span><span class="token string">"COU0003"</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> course_report <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"课程: %s (%s)"</span><span class="token punctuation">,</span>
+            course_report<span class="token punctuation">.</span>name<span class="token punctuation">,</span> course_report<span class="token punctuation">.</span>teacher<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"选课人数: %d, 已录入成绩: %d"</span><span class="token punctuation">,</span>
+            course_report<span class="token punctuation">.</span>enrolled_count<span class="token punctuation">,</span> course_report<span class="token punctuation">.</span>graded_count<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"平均分: %.2f"</span><span class="token punctuation">,</span> course_report<span class="token punctuation">.</span>average_score<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"成绩分布:"</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">local</span> distribution <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span> _<span class="token punctuation">,</span> dis <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>course_report<span class="token punctuation">.</span>score_distribution<span class="token punctuation">)</span> <span class="token keyword">do</span>
+            <span class="token keyword">if</span> dis<span class="token punctuation">.</span>count <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">then</span>
+                <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"  %s: %d人"</span><span class="token punctuation">,</span> dis<span class="token punctuation">.</span>name<span class="token punctuation">,</span> dis<span class="token punctuation">.</span>count<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">end</span>
+        <span class="token keyword">end</span>
+
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"成绩前3名:"</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token operator">#</span>course_report<span class="token punctuation">.</span>student_list<span class="token punctuation">)</span> <span class="token keyword">do</span>
+            <span class="token keyword">local</span> student <span class="token operator">=</span> course_report<span class="token punctuation">.</span>student_list<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+            <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"  %d. %s: %.1f (%s)"</span><span class="token punctuation">,</span>
+                i<span class="token punctuation">,</span> student<span class="token punctuation">.</span>name<span class="token punctuation">,</span> student<span class="token punctuation">.</span>score<span class="token punctuation">,</span> student<span class="token punctuation">.</span>grade<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">else</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"错误:"</span><span class="token punctuation">,</span> course_err<span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n查找成绩优异学生(平均分≥85)"</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> top_students <span class="token operator">=</span> GradeSystem<span class="token punctuation">:</span><span class="token function">find_top_students</span><span class="token punctuation">(</span><span class="token number">85</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"找到 %d 名符合条件的学生:"</span><span class="token punctuation">,</span> <span class="token operator">#</span>top_students<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> student <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>top_students<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"  %d. %s (%s) - 平均分: %.2f, 已修课程: %d门"</span><span class="token punctuation">,</span>
+            i<span class="token punctuation">,</span> student<span class="token punctuation">.</span>name<span class="token punctuation">,</span> student<span class="token punctuation">.</span>major<span class="token punctuation">,</span>
+            student<span class="token punctuation">.</span>weighted_average<span class="token punctuation">,</span> student<span class="token punctuation">.</span>course_count<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n模拟新操作流程"</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">local</span> new_student_id <span class="token operator">=</span> GradeSystem<span class="token punctuation">:</span><span class="token function">add_student</span><span class="token punctuation">(</span><span class="token string">"孙八"</span><span class="token punctuation">,</span> <span class="token string">"人工智能"</span><span class="token punctuation">,</span> <span class="token string">"智能2001"</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"添加新学生: %s"</span><span class="token punctuation">,</span> new_student_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">local</span> success<span class="token punctuation">,</span> msg <span class="token operator">=</span> GradeSystem<span class="token punctuation">:</span><span class="token function">enroll_course</span><span class="token punctuation">(</span>new_student_id<span class="token punctuation">,</span> <span class="token string">"COU0001"</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"选课结果: %s - %s"</span><span class="token punctuation">,</span> success <span class="token keyword">and</span> <span class="token string">"成功"</span> <span class="token keyword">or</span> <span class="token string">"失败"</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    success<span class="token punctuation">,</span> msg <span class="token operator">=</span> GradeSystem<span class="token punctuation">:</span><span class="token function">record_grade</span><span class="token punctuation">(</span>new_student_id<span class="token punctuation">,</span> <span class="token string">"COU0001"</span><span class="token punctuation">,</span> <span class="token number">96</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"成绩录入: %s - %s"</span><span class="token punctuation">,</span> success <span class="token keyword">and</span> <span class="token string">"成功"</span> <span class="token keyword">or</span> <span class="token string">"失败"</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">local</span> new_report<span class="token punctuation">,</span> new_err <span class="token operator">=</span> GradeSystem<span class="token punctuation">:</span><span class="token function">get_student_report</span><span class="token punctuation">(</span>new_student_id<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> new_report <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"新学生成绩单: 平均分 %.2f, 已修 %d 门课"</span><span class="token punctuation">,</span>
+            new_report<span class="token punctuation">.</span>weighted_average<span class="token punctuation">,</span> <span class="token operator">#</span>new_report<span class="token punctuation">.</span>courses<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n系统统计信息"</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"系统概况: %d 名学生, %d 门课程"</span><span class="token punctuation">,</span>
+        GradeSystem<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>total_students<span class="token punctuation">,</span>
+        GradeSystem<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>total_courses<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"各课程平均分:"</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> course_id<span class="token punctuation">,</span> avg_score <span class="token keyword">in</span> <span class="token function">pairs</span><span class="token punctuation">(</span>GradeSystem<span class="token punctuation">.</span>statistics<span class="token punctuation">.</span>average_scores<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">local</span> course <span class="token operator">=</span> GradeSystem<span class="token punctuation">.</span>courses<span class="token punctuation">[</span>course_id<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> course <span class="token keyword">then</span>
+            <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"  %s: %.2f"</span><span class="token punctuation">,</span> course<span class="token punctuation">.</span>name<span class="token punctuation">,</span> avg_score<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">local</span> <span class="token keyword">function</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> start_time <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">demonstrate_system_workflow</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> end_time <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token function">print</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"\n程序执行时间: %.3f 秒"</span><span class="token punctuation">,</span> end_time <span class="token operator">-</span> start_time<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 运行主程序</span>
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="练习 2：模拟数据库操作错误处理" dir="auto" class="heading" id="练习_2：模拟数据库操作错误处理_0">练习 2：模拟数据库操作错误处理</h3></div><div class="el-p"><p dir="auto">（答案见<a data-href="第 1 节 - 语法/参考答案#练习 10.2：模拟数据库操作错误处理" href="第-1-节-语法/参考答案.html#练习 10.2：模拟数据库操作错误处理" class="internal-link" target="_self" rel="noopener nofollow">第 1 节 - 语法/参考答案 &gt; 练习 10.2：模拟数据库操作错误处理</a>）</p></div><div class="el-pre"><pre class="language-lua"><code data-line="0" class="language-lua is-loaded"><span class="token comment">-- 模拟数据库操作的错误处理</span>
+<span class="token comment">-- 使用示例：</span>
+<span class="token comment">-- 使用数据库</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"数据库操作测试:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> db <span class="token operator">=</span> data_base<span class="token punctuation">.</span><span class="token function">new</span> <span class="token punctuation">{</span>
+    host <span class="token operator">=</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
+    database <span class="token operator">=</span> <span class="token string">"mydb"</span><span class="token punctuation">,</span>
+    username <span class="token operator">=</span> <span class="token string">"admin"</span><span class="token punctuation">,</span>
+    password <span class="token operator">=</span> <span class="token string">"secret"</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">-- 包装数据库操作为安全操作</span>
+<span class="token keyword">function</span> <span class="token function">safe_database_operation</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span> operation_name<span class="token punctuation">,</span> operation<span class="token punctuation">,</span> <span class="token punctuation">...</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n操作: "</span> <span class="token operator">..</span> operation_name<span class="token punctuation">)</span>
+
+    <span class="token keyword">local</span> result<span class="token punctuation">,</span> err <span class="token operator">=</span> db<span class="token punctuation">:</span><span class="token function">safe_execute</span><span class="token punctuation">(</span>operation<span class="token punctuation">,</span> <span class="token punctuation">...</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> result <span class="token keyword">then</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  成功"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
+    <span class="token keyword">else</span>
+        <span class="token keyword">local</span> _<span class="token punctuation">,</span> user_msg <span class="token operator">=</span> <span class="token function">handle_error</span><span class="token punctuation">(</span>err<span class="token punctuation">,</span> operation_name<span class="token punctuation">)</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  失败: "</span> <span class="token operator">..</span> user_msg<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token keyword">nil</span><span class="token punctuation">,</span> err
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 测试各种操作</span>
+<span class="token comment">-- 连接数据库</span>
+<span class="token function">safe_database_operation</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span> <span class="token string">"连接数据库"</span><span class="token punctuation">,</span> db<span class="token punctuation">.</span>connect<span class="token punctuation">)</span>
+
+<span class="token comment">-- 查询数据</span>
+<span class="token keyword">local</span> users<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">safe_database_operation</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span> <span class="token string">"查询用户"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> self<span class="token punctuation">:</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"SELECT * FROM users WHERE status = 'active'"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> users <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  查询到 "</span> <span class="token operator">..</span> <span class="token operator">#</span>users <span class="token operator">..</span> <span class="token string">" 个用户"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 测试插入重复数据</span>
+<span class="token keyword">local</span> insert_result<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">safe_database_operation</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span> <span class="token string">"插入用户"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> self<span class="token punctuation">:</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"INSERT INTO users (name, email) VALUES (?, ?)"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> <span class="token string">"测试用户"</span><span class="token punctuation">,</span> <span class="token string">"duplicate@example.com"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- 测试事务</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"\n测试事务操作:"</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> transaction_success<span class="token punctuation">,</span> transaction_err <span class="token operator">=</span> <span class="token function">pcall</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    db<span class="token punctuation">:</span><span class="token function">begin_transaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">-- 多个操作</span>
+    db<span class="token punctuation">:</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"UPDATE accounts SET balance = balance - 100 WHERE id = 1"</span><span class="token punctuation">)</span>
+    db<span class="token punctuation">:</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"UPDATE accounts SET balance = balance + 100 WHERE id = 2"</span><span class="token punctuation">)</span>
+
+    db<span class="token punctuation">:</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  事务执行成功"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> <span class="token keyword">not</span> transaction_success <span class="token keyword">then</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"  事务失败: "</span> <span class="token operator">..</span> <span class="token function">tostring</span><span class="token punctuation">(</span>transaction_err<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> db<span class="token punctuation">.</span>transaction_active <span class="token keyword">then</span>
+        db<span class="token punctuation">:</span><span class="token function">rollback</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">-- 断开连接</span>
+<span class="token function">safe_database_operation</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span> <span class="token string">"断开连接"</span><span class="token punctuation">,</span> db<span class="token punctuation">.</span>disconnect<span class="token punctuation">)</span>
+<span class="token comment">--[[ 输出
+操作: 连接数据库
+  连接数据库 localhost:3306...
+[错误处理] 类型: NETWORK_ERROR (300)
+          消息: 数据库连接失败
+          详情: table: 00E5CEA0
+          上下文: 连接数据库
+          调用栈:
+
+stack traceback:
+	test.lua:51: in function 'throw_error'
+	test.lua:114: in function &lt;test.lua:104&gt;
+	[C]: in function 'pcall'
+	test.lua:213: in function 'safe_execute'
+	test.lua:253: in function 'safe_database_operation'
+	test.lua:267: in main chunk
+	[C]: ?
+  失败: 网络错误，请稍后重试
+
+操作: 查询用户
+  检测到连接问题，尝试重连...
+  连接数据库 localhost:3306...
+[错误处理] 类型: DATABASE_ERROR (200)
+          消息: 数据库未连接
+          上下文: 查询用户
+          调用栈:
+
+stack traceback:
+	test.lua:51: in function 'throw_error'
+	test.lua:126: in function &lt;test.lua:124&gt;
+	(tail call): ?
+	[C]: in function 'pcall'
+	test.lua:213: in function 'safe_execute'
+	test.lua:253: in function 'safe_database_operation'
+	test.lua:270: in main chunk
+	[C]: ?
+  失败: 系统错误，请联系技术支持
+
+操作: 插入用户
+  检测到连接问题，尝试重连...
+  连接数据库 localhost:3306...
+[错误处理] 类型: DATABASE_ERROR (200)
+          消息: 数据库未连接
+          上下文: 插入用户
+          调用栈:
+
+stack traceback:
+	test.lua:51: in function 'throw_error'
+	test.lua:126: in function &lt;test.lua:124&gt;
+	(tail call): ?
+	[C]: in function 'pcall'
+	test.lua:213: in function 'safe_execute'
+	test.lua:253: in function 'safe_database_operation'
+	test.lua:279: in main chunk
+	[C]: ?
+  失败: 系统错误，请联系技术支持
+
+测试事务操作:
+  开始事务
+  事务失败: table: 00E5CF68
+  回滚事务
+
+操作: 断开连接
+  断开数据库连接
+  成功
+--]]</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/7.-调试与错误处理.html#7._调试与错误处理_0" data-path="#7._调试与错误处理_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="7. 调试与错误处理">7. 调试与错误处理</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/7.-调试与错误处理.html#7.1_断点_0" data-path="#7.1_断点_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="7.1 断点">7.1 断点</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#7.1.1_断点基础使用_0" data-path="#7.1.1_断点基础使用_0"><div class="tree-item-inner heading-link" heading-name="7.1.1 断点基础使用">7.1.1 断点基础使用</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#7.1.2_控制栏说明_0" data-path="#7.1.2_控制栏说明_0"><div class="tree-item-inner heading-link" heading-name="7.1.2 控制栏说明">7.1.2 控制栏说明</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#7.1.3_调用堆栈_——_记录“谁叫了谁”_0" data-path="#7.1.3_调用堆栈_——_记录“谁叫了谁”_0"><div class="tree-item-inner heading-link" heading-name="7.1.3 调用堆栈 —— 记录“谁叫了谁”">7.1.3 调用堆栈 —— 记录“谁叫了谁”</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/7.-调试与错误处理.html#7.1.4_特殊断点_——_更精细的控制_0" data-path="#7.1.4_特殊断点_——_更精细的控制_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="7.1.4 特殊断点 —— 更精细的控制">7.1.4 特殊断点 —— 更精细的控制</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#1._条件断点（表达式）_0" data-path="#1._条件断点（表达式）_0"><div class="tree-item-inner heading-link" heading-name="1. 条件断点（表达式）">1. 条件断点（表达式）</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#2._命中断点（命中次数）_0" data-path="#2._命中断点（命中次数）_0"><div class="tree-item-inner heading-link" heading-name="2. 命中断点（命中次数）">2. 命中断点（命中次数）</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#3._日志断点（记录点）_0" data-path="#3._日志断点（记录点）_0"><div class="tree-item-inner heading-link" heading-name="3. 日志断点（记录点）">3. 日志断点（记录点）</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#4._等待断点（触发的断点）_0" data-path="#4._等待断点（触发的断点）_0"><div class="tree-item-inner heading-link" heading-name="4. 等待断点（触发的断点）">4. 等待断点（触发的断点）</div></a><div class="tree-item-children"></div></div></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/7.-调试与错误处理.html#7.2_其他调试工具_0" data-path="#7.2_其他调试工具_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="7.2 其他调试工具">7.2 其他调试工具</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#7.2.1_调试控制台_0" data-path="#7.2.1_调试控制台_0"><div class="tree-item-inner heading-link" heading-name="7.2.1 调试控制台">7.2.1 调试控制台</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#7.2.2_监视变量_0" data-path="#7.2.2_监视变量_0"><div class="tree-item-inner heading-link" heading-name="7.2.2 监视变量">7.2.2 监视变量</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/7.-调试与错误处理.html#7.3_错误处理_0" data-path="#7.3_错误处理_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="7.3 错误处理">7.3 错误处理</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#7.3.1_错误信息_0" data-path="#7.3.1_错误信息_0"><div class="tree-item-inner heading-link" heading-name="7.3.1 错误信息">7.3.1 错误信息</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/7.-调试与错误处理.html#7.3.2_错误类型_0" data-path="#7.3.2_错误类型_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="7.3.2 错误类型">7.3.2 错误类型</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#1._语法错误_0" data-path="#1._语法错误_0"><div class="tree-item-inner heading-link" heading-name="1. 语法错误">1. 语法错误</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#2._运行时错误_0" data-path="#2._运行时错误_0"><div class="tree-item-inner heading-link" heading-name="2. 运行时错误">2. 运行时错误</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#3._逻辑错误_0" data-path="#3._逻辑错误_0"><div class="tree-item-inner heading-link" heading-name="3. 逻辑错误">3. 逻辑错误</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#4._资源错误_0" data-path="#4._资源错误_0"><div class="tree-item-inner heading-link" heading-name="4. 资源错误">4. 资源错误</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/7.-调试与错误处理.html#7.3.3_错误处理函数_0" data-path="#7.3.3_错误处理函数_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="7.3.3 错误处理函数">7.3.3 错误处理函数</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#1._error_-_主动抛出错误_0" data-path="#1._error_-_主动抛出错误_0"><div class="tree-item-inner heading-link" heading-name="1. error - 主动抛出错误">1. error - 主动抛出错误</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#2._assert_-_断言_0" data-path="#2._assert_-_断言_0"><div class="tree-item-inner heading-link" heading-name="2. assert - 断言">2. assert - 断言</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#3._pcall_-_保护模式调用_0" data-path="#3._pcall_-_保护模式调用_0"><div class="tree-item-inner heading-link" heading-name="3. pcall - 保护模式调用">3. pcall - 保护模式调用</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#4._xpcall_-_带错误处理器的保护调用_0" data-path="#4._xpcall_-_带错误处理器的保护调用_0"><div class="tree-item-inner heading-link" heading-name="4. xpcall - 带错误处理器的保护调用">4. xpcall - 带错误处理器的保护调用</div></a><div class="tree-item-children"></div></div></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="第-1-节-语法/7.-调试与错误处理.html#7.4_练习_0" data-path="#7.4_练习_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="7.4 练习">7.4 练习</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#练习_1：使用断点阅读代码_0" data-path="#练习_1：使用断点阅读代码_0"><div class="tree-item-inner heading-link" heading-name="练习 1：使用断点阅读代码">练习 1：使用断点阅读代码</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="第-1-节-语法/7.-调试与错误处理.html#练习_2：模拟数据库操作错误处理_0" data-path="#练习_2：模拟数据库操作错误处理_0"><div class="tree-item-inner heading-link" heading-name="练习 2：模拟数据库操作错误处理">练习 2：模拟数据库操作错误处理</div></a><div class="tree-item-children"></div></div></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>
