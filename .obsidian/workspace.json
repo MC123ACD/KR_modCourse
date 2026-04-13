@@ -8,48 +8,33 @@
         "type": "tabs",
         "children": [
           {
-            "id": "6ef6763f229a2f98",
+            "id": "223ba75aa1c04148",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 2 节 - 修改基础/2. 实体与模板.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "2. 实体与模板"
+              "title": "index"
             }
           },
           {
-            "id": "53fc18ae00515252",
+            "id": "726cbc8750138d21",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第 1 节 - 语法/7. 调试与错误处理.md",
+                "file": "第 2 节 - 修改基础/1. 介绍.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "7. 调试与错误处理"
-            }
-          },
-          {
-            "id": "0caa88d2923fe206",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "第 1 节 - 语法/7. 调试与错误处理.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
-              },
-              "icon": "lucide-file",
-              "title": "7. 调试与错误处理"
+              "title": "1. 介绍"
             }
           }
         ]
@@ -71,7 +56,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "使用示例",
+                "query": "20250707144234",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -116,13 +101,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "第 2 节 - 修改基础/2. 实体与模板.md",
+                "file": "index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "2. 实体与模板 的大纲"
+              "title": "index 的大纲"
             }
           },
           {
@@ -153,7 +138,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 236.5
+    "width": 225.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -164,54 +149,55 @@
       "canvas:新建白板": false
     }
   },
-  "active": "6ef6763f229a2f98",
+  "active": "223ba75aa1c04148",
   "lastOpenFiles": [
-    "第 2 节 - 修改基础/3. 实体函数.md",
-    "第 2 节 - 修改基础/2. 实体与模板.md",
-    "第 1 节 - 语法/7. 调试与错误处理.md",
-    "第 1 节 - 语法/6. 模块.md",
-    "第 1 节 - 语法/5. 字符串.md",
-    "第 1 节 - 语法/4. 表.md",
-    "第 1 节 - 语法/3. 函数.md",
-    "第 1 节 - 语法/2. 控制结构.md",
-    "第 1 节 - 语法/1. 入门基础.md",
-    "未命名.md",
     "第 2 节 - 修改基础/1. 介绍.md",
-    "第 1 节 - 语法/9. LuaJIT.md",
-    "总结/5. 表.md",
-    "总结/7. 键.md",
-    "总结/6. 成就.md",
+    "未命名.md",
+    "未命名 1.md",
+    "第 1 节 - 语法/0. 配置环境.md",
+    "site-lib/media/Pasted image 20260413162718.png",
+    "site-lib/media/Pasted image 20260413153552.png",
+    "site-lib/media/Pasted image 20260413141135.png",
+    "site-lib/media/Pasted image 20260413141043.png",
+    "Pasted image 20260413162718.png",
+    "第 1 节 - 语法/3. 函数.md",
+    "第 1 节 - 语法/4. 表.md",
+    "Pasted image 20260413153552.png",
+    "Pasted image 20260413141135.png",
+    "Pasted image 20260413141043.png",
+    "PixPin_2026-04-13_15-35-15 1.png",
+    "PixPin_2026-04-13_15-35-15.png",
+    "Pasted image 20251206202705.md",
+    "site-lib/media/site-lib.lnk",
+    "图片链接.md",
+    "第 1 节 - 语法/1. 入门基础.md",
+    "第 2 节 - 修改基础/2. 实体与模板.md",
+    "总结/1. 模板.md",
+    "index.md",
+    "第 1 节 - 语法/2. 控制结构.md",
+    "第 1 节 - 语法/7. 调试与错误处理.md",
+    "未命名/PROJECT_STRUCTURE.md",
+    "未命名/TODO.md",
+    "未命名/CODE_ORGANIZATION.md",
+    "未命名/ARCHITECTURE.md",
+    "未命名",
     "第 1 节 - 语法/参考答案.md",
-    "总结/6. 表.md",
-    "总结/12. 类.md",
-    "总结/11. 其他函数.md",
-    "总结/10. 库.md",
-    "总结/9. 脚本函数.md",
-    "总结/8. 工具函数.md",
-    "总结/13. 类.md",
-    "总结/12. 其他函数.md",
-    "总结/11. 库.md",
-    "总结/10. 脚本函数.md",
-    "总结/逻辑/4. 实体更新逻辑.canvas",
-    "Pasted image 20260317150157.png",
-    "Pasted image 20260317145928.png",
-    "未命名.canvas",
     "总结/逻辑/3. 实体移除逻辑.canvas",
+    "总结/逻辑/4. 实体更新逻辑.canvas",
     "总结/逻辑/5. 造成伤害逻辑.canvas",
     "总结/逻辑/8. 远程攻击逻辑.canvas",
     "总结/逻辑/2. 实体创建逻辑.canvas",
+    "README.md",
     "总结/逻辑/1. 精灵插入逻辑.canvas",
     "总结/逻辑/特殊出怪逻辑.canvas",
     "总结/逻辑/4. 补间动画更新逻辑.canvas",
     "总结/逻辑/2. 精灵移除逻辑.canvas",
-    "site-lib/media/Pasted image 20260106151123.png",
-    "site-lib/media/Pasted image 20260106162906.png",
-    "site-lib/media/Pasted image 20260106143849.png",
-    "site-lib/media/Pasted image 20260105194135.png",
-    "site-lib/media/Pasted image 20260105103018.png",
-    "Pasted image 20260106162906.png",
-    "Pasted image 20260106151123.png",
-    "site-lib/media/Pasted image 20260102145432.png",
+    "总结/逻辑/3. 精灵更新逻辑.canvas",
+    "第 2 节 - 修改基础/参考答案.md",
+    "总结/4. 科技树与能力.md",
+    "总结/11. 其他函数.md",
+    "总结/6. 成就.md",
+    "总结/5. 表.md",
     "其他",
     "QQ录屏20260102195432.mp4",
     "1767354719062.mp4",
@@ -219,8 +205,6 @@
     "总结/1 - 语法",
     "第 1 节 - 语法",
     "第 1 节 - 语法",
-    "总结/5 - 关卡/逻辑",
-    "总结/6 - 动画/逻辑",
-    "第 1 章 - 模板/总结"
+    "总结/5 - 关卡/逻辑"
   ]
 }

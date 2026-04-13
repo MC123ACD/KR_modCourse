@@ -79,8 +79,7 @@
   "blue-topaz-theme@@remove-cloze-style": false,
   "blue-topaz-theme@@enable-alternative-checkboxes": true,
   "blue-topaz-theme@@circular-checkbox": false,
-  "blue-topaz-theme@@unmute-checkbox-animation": false,
-  "blue-topaz-theme@@checklist-done-color@@light": "#FFFFFF00",
+  "blue-topaz-theme@@unmute-checkbox-animation": true,
   "blue-topaz-theme@@bt-bubble-layout-hide-borders": true,
   "blue-topaz-theme@@bt-bubble-layout-padding": "3px",
   "blue-topaz-theme@@background-notebook-liked-switch": false,
@@ -142,5 +141,7 @@
   "blue-topaz-theme@@list-ul-marker-4": "\"\\25AB\"",
   "blue-topaz-theme@@h2-font": "Microsoft YaHei",
   "blue-topaz-theme@@h1-font": "Microsoft YaHei",
-  "blue-topaz-theme@@paragraph-spacing": 1.1
+  "blue-topaz-theme@@paragraph-spacing": 1.1,
+  "blue-topaz-theme@@checklist-done-color@@light": "#000000",
+  "blue-topaz-theme@@checklist-done-color@@dark": "#FFFFFF"
 }
